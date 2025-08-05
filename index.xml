@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>My Affiliate Site1</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on My Affiliate Site1</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Tue, 05 Aug 2025 12:00:00 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sample Post</title>
+      <link>http://localhost:1313/posts/sample-post/</link>
+      <pubDate>Tue, 05 Aug 2025 12:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/posts/sample-post/</guid>
+      <description>&lt;p&gt;ここに本文を書きます。これはテスト投稿です。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
