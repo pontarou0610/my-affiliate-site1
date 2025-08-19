@@ -1,0 +1,49 @@
+# 基本設定
+baseURL = "https://pontarou0610.github.io/my-affiliate-site1/"
+languageCode = "ja"
+title = "あなたのブログ名"
+theme = "PaperMod"
+pagesize = 10
+
+# SEO最適化用
+enableRobotsTXT = true
+canonifyURLs = true
+googleAnalytics = "G-XXXXXXXXXX" # Google Analytics 4 のID（任意）
+
+# メタデータ（OGP, SNS共有）
+[params]
+  defaultTheme = "auto" # "dark", "light", "auto"
+  ShowShareButtons = true
+  ShowReadingTime = true
+  ShowBreadCrumbs = true
+  ShowPostNavLinks = true
+  ShowCodeCopyButtons = true
+  ShowRssButtonInSectionTermList = true
+  ShowWordCount = true
+  UseHugoToc = true
+  description = "ここにサイトの説明文を入れる"
+  images = ["/images/ogp-default.jpg"] # OGP用のデフォルト画像
+
+# SNSリンク（使わない場合は削除可）
+[params.social]
+  twitter = "your_twitter_id"
+  github = "your_github_id"
+  instagram = "your_instagram_id"
+
+# メニュー設定（必要に応じて）
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "ホーム"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    identifier = "posts"
+    name = "記事一覧"
+    url = "/posts/"
+    weight = 2
+  [[menu.main]]
+    identifier = "about"
+    name = "このサイトについて"
+    url = "/about/"
+    weight = 3
