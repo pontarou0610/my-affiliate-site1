@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://pontarou0610.github.io/my-affiliate-site1/sitemap.xml
