@@ -103,3 +103,11 @@ KindleとKoboはどちらも優秀な電子書籍リーダーですが、**「�
 
 もし「漫画を安くまとめ読みしたい」ならKobo、  
 「Prime Readingや英語学習に活用したい」ならKindleを選ぶと間違いありません。  
+
+
+---
+
+## 関連記事
+- [Kindle Paperwhite レビュー]({{< relref "posts/kindle-paperwhite-review.md" >}})
+- [Kobo Clara レビュー]({{< relref "posts/kobo-clara-review.md" >}})
+
