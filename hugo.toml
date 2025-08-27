@@ -47,3 +47,7 @@ googleAnalytics = "G-XXXXXXXXXX" # Google Analytics 4 のID（任意）
     name = "このサイトについて"
     url = "/about/"
     weight = 3
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
