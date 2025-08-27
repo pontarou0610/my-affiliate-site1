@@ -40,28 +40,23 @@ googleAnalytics = "G-XXXXXXXXXX" # Google Analytics 4 のID（任意）
   [[menu.main]]
     identifier = "posts"
     name = "記事一覧"
-    url = "/posts/"
+    url = "posts/"
     weight = 2
   [[menu.main]]
-    identifier = "about"
-    name = "このサイトについて"
-    url = "/about/"
-    weight = 3
-  [[menu.main]]
     name = "運営者情報"
-    url = "/about/"
+    url = "about/"
     weight = 90
 
   [[menu.main]]
     name = "広告ポリシー"
-    url = "/legal/disclosure/"
+    url = "legal/disclosure/"
     weight = 95
 
   [[menu.main]]
     name = "お問い合わせ"
-    url = "/contact/"
+    url = "contact/"
     weight = 99
-    
+
 [markup]
   [markup.goldmark.renderer]
     unsafe = true
