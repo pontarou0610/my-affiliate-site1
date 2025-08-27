@@ -33,11 +33,6 @@ googleAnalytics = "G-XXXXXXXXXX" # Google Analytics 4 のID（任意）
 # メニュー設定（必要に応じて）
 [menu]
   [[menu.main]]
-    identifier = "home"
-    name = "ホーム"
-    url = "/"
-    weight = 1
-  [[menu.main]]
     identifier = "posts"
     name = "記事一覧"
     url = "posts/"
