@@ -1,0 +1,16 @@
+{{ if .IsPage }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ .Title | jsonify }},
+  "datePublished": "{{ .PublishDate }}",
+  "dateModified": "{{ .Lastmod }}",
+  "inLanguage": "ja",
+  "mainEntityOfPage": "{{ .Permalink }}",
+  "author": { "@type": "Person", "name": "運営者" },
+  "publisher": { "@type": "Organization", "name": "ぽんたろう" },
+  "description": {{ with .Params.description }}{{ . | jsonify }}{{ else }}{{ .Summary | plainify | truncate 160 | jsonify }}{{ end }}
+}
+</script>
+{{ end }}
