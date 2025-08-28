@@ -3,7 +3,7 @@
 # =========================
 baseURL = "https://pontarou0610.github.io/my-affiliate-site1/"
 languageCode = "ja"
-title = "my-affiliate-site1"           # 任意のサイト名に変更OK
+title = "AIShopSite"           # 任意のサイト名に変更OK
 theme = "PaperMod"
 pagesize = 10                          # v0.128以降は 'pagination.pagerSize' でも可
 enableRobotsTXT = true
@@ -43,6 +43,21 @@ googleAnalytics = "G-XXXXXXXXXX"
 #  twitter = "your_twitter_id"
 #  github  = "your_github_id"
 #  instagram = "your_instagram_id"
+
+[params.homeInfoParams]
+  Title = "電子書籍リーダーの比較・レビュー"
+  Content = "Kindle と Kobo を中心に、選び方・セール情報・使い方をわかりやすく解説。"
+
+  [[params.homeInfoParams.buttons]]
+    name = "比較記事：Kindle vs Kobo"
+    url = "posts/kindle-vs-kobo/"
+  [[params.homeInfoParams.buttons]]
+    name = "Kindle Paperwhite レビュー"
+    url = "posts/kindle-paperwhite-review/"
+  [[params.homeInfoParams.buttons]]
+    name = "Kobo Clara レビュー"
+    url = "posts/kobo-clara-review/"
+
 
 # =========================
 # メニュー
