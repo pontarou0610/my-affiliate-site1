@@ -10,7 +10,7 @@ enableRobotsTXT = true
 canonifyURLs = true                    # 生成URLを baseURL で正規化（GitHub Pages で安定）
 
 # Google Analytics（任意：使う時は測定IDに差し替え）
-googleAnalytics = "G-XXXXXXXXXX"
+googleAnalytics = "G-55FMB35LN0"
 
 # =========================
 # ページリンク形式（任意）
