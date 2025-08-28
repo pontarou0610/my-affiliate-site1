@@ -1,0 +1,36 @@
+/* コンテナ */
+.cta3{border:1px solid #e5e7eb;border-radius:.9rem;padding:1rem;margin:1.25rem 0;background:#fff}
+.cta3-title{margin:0 0 .5rem 0;font-weight:600}
+.cta3-row{display:flex;gap:.6rem;flex-wrap:wrap}
+
+/* 共通ボタン */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:.45rem; padding:.7rem 1rem; min-width:180px;
+  border-radius:.7rem; text-decoration:none; font-weight:600;
+  border:1px solid transparent; transition:transform .06s ease, filter .06s ease, box-shadow .06s ease;
+}
+.btn:focus-visible{outline:2px solid #4f46e5; outline-offset:2px}
+.btn:hover{filter:brightness(.97)}
+.btn:active{transform:translateY(1px)}
+.brand-bullet{
+  display:inline-grid;place-items:center;
+  width:1.4rem;height:1.4rem;border-radius:.35rem;
+  font-size:.9rem;font-weight:800;background:rgba(255,255,255,.18);
+  padding:.05rem .1rem;
+}
+
+/* ブランド配色 */
+.brand-amazon{background:#000; color:#fff; border-color:#111}
+.brand-amazon .brand-bullet{background:#ff9900;color:#111}
+
+.brand-rakuten{background:#bf0000; color:#fff; border-color:#a40000}
+.brand-rakuten .brand-bullet{background:#fff;color:#bf0000}
+
+.brand-yahoo{background:#ff0033; color:#fff; border-color:#d9002a}
+.brand-yahoo .brand-bullet{background:#fff;color:#ff0033}
+
+/* ダークモード調整 */
+@media (prefers-color-scheme: dark){
+  .cta3{background:#0f1115;border-color:#1f2430}
+}

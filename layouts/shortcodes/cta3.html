@@ -5,11 +5,31 @@
        yahoo  = "https://ck.jp.ap.valuecommerce.com/..."
 */ -}}
 <div class="cta3">
-  <p>最安で購入する：</p>
-  <div class="row">
-    <a href="{{ .Get "amz" }}" target="_blank" rel="nofollow sponsored noopener">Amazon</a>
-    <a href="{{ .Get "rakuten" }}" target="_blank" rel="nofollow sponsored noopener">楽天市場</a>
-    <a href="{{ .Get "yahoo" }}" target="_blank" rel="nofollow sponsored noopener">Yahoo!ショッピング</a>
+  <p class="cta3-title">最安で購入する</p>
+  <div class="cta3-row">
+    {{ with .Get "amz" }}
+      <a class="btn brand-amazon"
+         href="{{ . }}" target="_blank"
+         rel="nofollow sponsored noopener"
+         aria-label="Amazonで購入">
+        <span class="brand-bullet">a</span> Amazon
+      </a>
+    {{ end }}
+    {{ with .Get "rakuten" }}
+      <a class="btn brand-rakuten"
+         href="{{ . }}" target="_blank"
+         rel="nofollow sponsored noopener"
+         aria-label="楽天市場で購入">
+        <span class="brand-bullet">R</span> 楽天市場
+      </a>
+    {{ end }}
+    {{ with .Get "yahoo" }}
+      <a class="btn brand-yahoo"
+         href="{{ . }}" target="_blank"
+         rel="nofollow sponsored noopener"
+         aria-label="Yahoo!ショッピングで購入">
+        <span class="brand-bullet">Y!</span> Yahoo!ショッピング
+      </a>
+    {{ end }}
   </div>
 </div>
-<style>.cta3{border:1px solid #e5e7eb;border-radius:.8rem;padding:1rem;margin:1rem 0;background:#fff}.cta3 .row{display:flex;gap:.5rem;flex-wrap:wrap}.cta3 .row a{flex:1 1 150px;text-align:center;border:1px solid #d1d5db;border-radius:.6rem;padding:.6rem .8rem;text-decoration:none}.cta3 .row a:hover{filter:brightness(.95)}</style>

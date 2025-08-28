@@ -1,9 +1,12 @@
 {{- /* Shortcode: affbtn
      Params:
-       url  = "https://..."
-       text = "ボタンラベル"（省略時は「購入する」）
+       url   = "https://..."
+       text  = "ボタン文言"（任意）
+       store = "amazon|rakuten|yahoo"（任意：色が変わる）
 */ -}}
 {{- $url := .Get "url" -}}
 {{- $text := .Get "text" | default "購入する" -}}
-<a href="{{ $url }}" target="_blank" rel="nofollow sponsored noopener" class="affbtn">{{ $text }}</a>
-<style>.affbtn{display:inline-block;padding:.6rem 1rem;border:1px solid #e5e7eb;border-radius:.6rem;text-decoration:none}.affbtn:hover{filter:brightness(.95)}</style>
+{{- $store := (lower (.Get "store")) -}}
+{{- $class := cond (eq $store "amazon") "brand-amazon" (cond (eq $store "rakuten") "brand-rakuten" (cond (eq $store "yahoo") "brand-yahoo" "")) -}}
+<a class="btn {{ $class }}" href="{{ $url }}"
+   target="_blank" rel="nofollow sponsored noopener">{{ $text }}</a>
