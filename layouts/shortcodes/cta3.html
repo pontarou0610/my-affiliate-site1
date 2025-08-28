@@ -1,0 +1,10 @@
+<!-- {{< cta3 amz="https://amzn.to/xxx" rakuten="https://hb.afl.rakuten.co.jp/xxx" yahoo="https://ck.jp.ap.valuecommerce.com/xxx" >}} -->
+<div class="cta3">
+  <p>最安で購入する：</p>
+  <div class="row">
+    <a href="{{ .Get "amz" }}" target="_blank" rel="nofollow sponsored noopener">Amazon</a>
+    <a href="{{ .Get "rakuten" }}" target="_blank" rel="nofollow sponsored noopener">楽天市場</a>
+    <a href="{{ .Get "yahoo" }}" target="_blank" rel="nofollow sponsored noopener">Yahoo!ショッピング</a>
+  </div>
+</div>
+<style>.cta3{border:1px solid #e5e7eb;border-radius:.8rem;padding:1rem;margin:1rem 0;background:#fff}.cta3 .row{display:flex;gap:.5rem;flex-wrap:wrap}.cta3 .row a{flex:1 1 150px;text-align:center;border:1px solid #d1d5db;border-radius:.6rem;padding:.6rem .8rem;text-decoration:none}.cta3 .row a:hover{filter:brightness(.95)}</style>

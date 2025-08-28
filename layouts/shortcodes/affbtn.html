@@ -1,0 +1,5 @@
+<!-- {{< affbtn store="amazon" url="https://amzn.to/xxx" text="Amazonで見る" >}} -->
+{{- $url := .Get "url" -}}
+{{- $text := .Get "text" | default "購入する" -}}
+<a href="{{ $url }}" target="_blank" rel="nofollow sponsored noopener" class="affbtn">{{ $text }}</a>
+<style>.affbtn{display:inline-block;padding:.6rem 1rem;border:1px solid #e5e7eb;border-radius:.6rem;text-decoration:none}.affbtn:hover{filter:brightness(.95)}</style>
