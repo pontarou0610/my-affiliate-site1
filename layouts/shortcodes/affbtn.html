@@ -1,4 +1,8 @@
-<!-- {{< affbtn store="amazon" url="https://amzn.to/xxx" text="Amazonで見る" >}} -->
+{{- /* Shortcode: affbtn
+     Params:
+       url  = "https://..."
+       text = "ボタンラベル"（省略時は「購入する」）
+*/ -}}
 {{- $url := .Get "url" -}}
 {{- $text := .Get "text" | default "購入する" -}}
 <a href="{{ $url }}" target="_blank" rel="nofollow sponsored noopener" class="affbtn">{{ $text }}</a>
