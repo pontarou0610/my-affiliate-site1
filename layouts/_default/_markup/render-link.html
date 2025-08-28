@@ -1,0 +1,7 @@
+{{- $href := .Destination -}}
+{{- $isAff := or (in $href "amzn.to") (in $href "amazon.co.jp")
+                 (in $href "rakuten") (in $href "valuecommerce.com")
+                 (in $href "ck.jp.ap.valuecommerce.com") -}}
+<a href="{{ .Destination }}"
+   {{ with .Title }}title="{{ . }}"{{ end }}
+   {{ if $isAff }}rel="nofollow sponsored noopener" target="_blank"{{ end }}>{{ .Text }}</a>
