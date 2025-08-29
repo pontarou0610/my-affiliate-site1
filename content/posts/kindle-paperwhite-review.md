@@ -122,11 +122,13 @@ IPX8対応なので浴槽に落としても問題なし。シャンプーの泡�
 
 ## 購入リンクまとめ
 
-{{< cta3  
-amz="https://amzn.to/3UPaDHO"  
-rakuten="https://a.r10.to/hNVWAX"  
-yahoo="https://ck.jp.ap.valuecommerce.com/XXXX"  
+{{< cta3
+  amz="https://amzn.to/3UPaDHO"
+  rakuten="https://a.r10.to/hNVWAX"
+  yahoo="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3752747&pid=892020854"
+  yahoo_px="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3752747&pid=892020854"
 >}}
+
 
 ---
 
