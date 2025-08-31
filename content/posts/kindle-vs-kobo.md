@@ -90,7 +90,7 @@ tags: ["Kindle", "Kobo", "電子書籍リーダー", "Amazon", "楽天"]
 
 - [AmazonでKindleを探す](https://amzn.to/4g8i9Yl)  
 - [楽天市場でKoboを探す](https://a.r10.to/h5ijA6)  
-- [Yahoo!ショッピングでKoboを探す](YAHOOアフィリエイトリンク)  
+- {{< yahoo >}}  
 
 ---
 
