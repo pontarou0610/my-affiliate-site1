@@ -16,7 +16,7 @@ googleAnalytics = "G-55FMB35LN0"
 # ページリンク形式（任意）
 # =========================
 [permalinks]
-  posts = "/posts/:slug/"
+  posts = "/posts/:filename/"
 
 # =========================
 # SEO / 表示設定（PaperMod）
