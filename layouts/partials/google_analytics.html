@@ -1,4 +1,11 @@
-{{/* Google Analytics partial (fallback) */}}
-{{- with .Site.GoogleAnalytics -}}
-  {{ template "_internal/google_analytics.html" . }}
+{{/* GA4 Snippet (Hugo internal に依存しない版) */}}
+{{- $id := or .Site.GoogleAnalytics .Site.Params.googleAnalytics .Site.Params.google_analytics -}}
+{{- if $id -}}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ $id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ $id }}', { 'anonymize_ip': true });
+</script>
 {{- end -}}
