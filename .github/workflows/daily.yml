@@ -4,7 +4,6 @@ on:
     - cron: '30 0 * * *'   # UTC 00:30 = JST 09:30
   workflow_dispatch:
 
-# ← これが大事（GITHUB_TOKENに書き込み付与）
 permissions:
   contents: write
 
@@ -14,8 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: true     # ← これを追加（PaperMod を取得）
-          fetch-depth: 0       # （任意）テーマの履歴が必要な場合の保険
+          submodules: true        # ★ PaperModを取得
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -30,7 +29,6 @@ jobs:
         run: |
           echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> .env
           echo "::add-mask::${{ secrets.OPENAI_API_KEY }}"
-        shell: bash
 
       - name: Install Hugo
         uses: peaceiris/actions-hugo@v3
@@ -39,18 +37,21 @@ jobs:
           extended: true
 
       - name: Clean old build
-        run: rm -rf public resources
+        run: rm -rf public resources   # ★ 残骸を掃除
 
       - name: Generate post
         run: python scripts/generate_post.py
 
       - name: Build
-        run: hugo --minify
+        run: |
+          hugo --minify
+          touch public/.nojekyll       # ★ Jekyll無効化（安全のため）
+          ls -la public | head -n 50   # ★ デバッグ：index.htmlの有無をログに出す
 
       - name: Deploy to Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          publish_branch: gh-pages     # ← 明示
-          force_orphan: true           # ← 初回用（ブランチが無くても作る）
+          publish_branch: gh-pages
+          force_orphan: true
