@@ -44,9 +44,6 @@ jobs:
       - name: Generate post
         run: python scripts/generate_post.py
 
-      - name: Clean old build
-        run: rm -rf public resources
-
       - name: Build
         run: hugo --minify
 
