@@ -1,1 +1,18 @@
-{{/* temporarily disabled to fix build */}}
+{{/* GA4 snippet — receives measurement ID as string; no .Site access */}}
+{{- $ga := "" -}}
+{{- if (isString .) -}}
+  {{- $ga = . -}}
+{{- else -}}
+  {{- with site.Params.googleAnalytics }}{{ $ga = . }}{{ end -}}
+  {{- with site.Params.google_analytics }}{{ $ga = . }}{{ end -}}
+{{- end -}}
+
+{{- if $ga -}}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ $ga }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ $ga }}', { 'anonymize_ip': true });
+</script>
+{{- end -}}
