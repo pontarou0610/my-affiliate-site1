@@ -43,7 +43,7 @@ def build_prompt(t):
     angle = t.get("angle","").strip()
     cta = t.get("target_url","").strip()
     return f"""
-あなたは日本語のSEOライター。Hugoブログ用のMarkdown記事を作成します。出力は本文のみ。
+あなたは日本語のSEOライターで読者がワクワクする記事を書くのが得意。Hugoブログ用のMarkdown記事を作成します。出力は本文のみ。
 
 要件:
 - タイトル（32文字前後でクリックされやすく）
@@ -53,7 +53,7 @@ def build_prompt(t):
 - FAQを3つ以上
 - 結論と行動（{cta} へ自然に誘導）
 - 参考リンク3つ（一次情報URL。本文は自分の言葉で書く）
-- 1200〜1800字目安
+- 2000〜3000字目安
 
 前提:
 - 主キーワード: {kw}
