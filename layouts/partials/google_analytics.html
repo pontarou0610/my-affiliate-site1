@@ -1,6 +1,10 @@
-{{/* GA4 Snippet (Hugo internal に依存しない版) */}}
-{{- $id := or .Site.GoogleAnalytics .Site.Params.googleAnalytics .Site.Params.google_analytics -}}
-{{- if $id -}}
+{{/* GA4 snippet — read only from params to avoid .Site.GoogleAnalytics */}}
+{{- $id := "" -}}
+{{- with site.Params.googleAnalytics }}{{ $id = . }}{{ end -}}
+{{- with site.Params.google_analytics }}{{ $id = . }}{{ end -}}
+{{- with site.Params.ga_measurement_id }}{{ $id = . }}{{ end -}}
+
+{{- if $id }}
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ $id }}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -8,4 +12,4 @@
   gtag('js', new Date());
   gtag('config', '{{ $id }}', { 'anonymize_ip': true });
 </script>
-{{- end -}}
+{{- end }}
