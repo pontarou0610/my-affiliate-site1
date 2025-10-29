@@ -1,27 +1,13 @@
-{{/* GA4 snippet — tolerant to call with string or dict; never touches .Site */}}
+{{/* GA4 snippet — receives measurement ID as string */}}
 {{- $ga := "" -}}
-
-{{/* 1) まず、渡された . が文字列（= 測定ID）ならそれを使う */}}
-{{- if . -}}
-  {{- if (isString .) -}}
-    {{- $ga = . -}}
-  {{- else -}}
-    {{/* 2) オブジェクトであれば、よく使われるキー名を探す */}}
-    {{- with .googleAnalytics }}{{ $ga = . }}{{ end -}}
-    {{- with .google_analytics }}{{ $ga = . }}{{ end -}}
-    {{- with .ga_measurement_id }}{{ $ga = . }}{{ end -}}
-    {{- with .GA }}{{ $ga = . }}{{ end -}}
-  {{- end -}}
-{{- end -}}
-
-{{/* 3) まだ空なら site.Params から補完 */}}
-{{- if not $ga -}}
+{{- if (isString .) -}}
+  {{- $ga = . -}}
+{{- else -}}
+  {{/* 念のため params からも拾う */}}
   {{- with site.Params.googleAnalytics }}{{ $ga = . }}{{ end -}}
   {{- with site.Params.google_analytics }}{{ $ga = . }}{{ end -}}
-  {{- with site.Params.ga_measurement_id }}{{ $ga = . }}{{ end -}}
 {{- end -}}
 
-{{/* 4) 出力 */}}
 {{- if $ga -}}
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ $ga }}"></script>
 <script>
