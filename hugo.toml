@@ -9,6 +9,9 @@ pagesize = 10                          # v0.128以降は 'pagination.pagerSize' 
 enableRobotsTXT = true
 canonifyURLs = true                    # 生成URLを baseURL で正規化（GitHub Pages で安定）
 
+# Google Analytics（任意：使う時は測定IDに差し替え）
+  googleAnalytics = "G-55FMB35LN0"
+  
 # =========================
 # ページリンク形式（任意）
 # =========================
@@ -19,8 +22,6 @@ canonifyURLs = true                    # 生成URLを baseURL で正規化（Git
 # SEO / 表示設定（PaperMod）
 # =========================
 [params]
-# Google Analytics（任意：使う時は測定IDに差し替え）
-  googleAnalytics = "G-55FMB35LN0"
   env = "production"                   # 本番フラグ（メタ等の最適化ON）
   defaultTheme = "auto"                # "dark" | "light" | "auto"
   description = "電子書籍リーダーを中心に役立つ情報を発信するブログ。Kindle と Kobo の比較・レビュー・お得情報など。"
