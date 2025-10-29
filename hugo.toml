@@ -89,6 +89,15 @@ googleAnalytics = "G-55FMB35LN0"
   [markup.goldmark.renderer]
     unsafe = true                      # 楽天などの生HTMLを許可
 
+# ---- 出力形式を明示（HomeでHTMLを必ず出す）----
+[outputs]
+home    = ["HTML","RSS","JSON"]
+section = ["HTML","RSS"]
+page    = ["HTML"]
+taxonomy= ["HTML","RSS"]
+term    = ["HTML","RSS"]
+
+
 # （任意）サイトマップの出力チューニング
 #[sitemap]
 #  changefreq = "daily"
