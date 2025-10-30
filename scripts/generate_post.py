@@ -1,6 +1,7 @@
 import os, re, datetime, pathlib, random
 from textwrap import dedent
 from dotenv import load_dotenv
+from slugify import slugify
 
 # --- env ---
 load_dotenv()
@@ -74,12 +75,6 @@ def pick_trending():
         seed = datetime.date.today().toordinal() % len(FALLBACK_TOPICS)
         return FALLBACK_TOPICS[seed], ["fallback"]
 
-def slugify(s: str) -> str:
-    s = s.lower()
-    s = re.sub(r"[^\w\-一-龠ぁ-んァ-ヴー]", "-", s)
-    s = re.sub(r"-{2,}", "-", s).strip("-")
-    return s[:80]
-
 topic, trend_tag = pick_trending()
 
 # --- OpenAI 呼び出し ---
@@ -152,7 +147,10 @@ body = draft
 
 # 保存
 today = datetime.date.today()
-slug = slugify(topic)
+
+# ★ 英語スラッグを python-slugify で生成（ASCII/小文字/ハイフン統一）
+slug = slugify(topic, lowercase=True, max_length=60, separator='-')
+
 filename = f"{today:%Y-%m-%d}-{slug}.md"
 tags = ["電子書籍","Kindle","Kobo","読書術"] + trend_tag
 tags = list(dict.fromkeys(tags))
