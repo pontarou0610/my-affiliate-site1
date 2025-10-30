@@ -42,9 +42,13 @@ jobs:
           hugo-version: '0.149.0'   # 0.146 以上ならOK（例では 0.149.0）
           extended: true
 
-
       - name: Clean old build
         run: rm -rf public resources   # ★ 残骸を掃除
+      
+      - name: Sanity check script revision
+        run: |
+          git rev-parse HEAD
+          sha1sum scripts/generate_post.py
 
       - name: Generate post
         run: |
