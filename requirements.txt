@@ -1,4 +1,5 @@
 python-dotenv
 openai
 feedparser
-python-slugify
+python-slugify==8.*
+Unidecode==1.3.*
