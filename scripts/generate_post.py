@@ -34,12 +34,13 @@ FALLBACK_TOPICS = [
 ]
 
 def pick_trending():
-    import datetime, random, re  # ← 成功/失敗どちらの分岐でも使うので最初に読み込む
-
+    import datetime, random, re
     try:
+        import importlib.util
+        if importlib.util.find_spec("feedparser") is None:
+            raise ImportError
         import feedparser
     except ImportError:
-        # 依存が無くても投稿は継続（フォールバック）
         seed = datetime.date.today().toordinal() % len(FALLBACK_TOPICS)
         return FALLBACK_TOPICS[seed], ["fallback"]
 
@@ -54,7 +55,6 @@ def pick_trending():
                 if any(w in text for w in WHITELIST):
                     items.append(title)
         except Exception:
-            # 1フィード失敗は無視して続行
             pass
 
     uniq, seen = [], set()
@@ -69,7 +69,7 @@ def pick_trending():
         picked = uniq[0]
         topic = re.sub(r"【.*?】|\[.*?\]|（.*?）|\(.*?\)", "", picked).strip()
         topic = re.sub(r"。+$", "", topic)
-        return topic, ["trend", "hot"]
+        return topic, ["trend","hot"]
     else:
         seed = datetime.date.today().toordinal() % len(FALLBACK_TOPICS)
         return FALLBACK_TOPICS[seed], ["fallback"]
