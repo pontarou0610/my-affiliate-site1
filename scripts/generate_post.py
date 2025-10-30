@@ -34,7 +34,15 @@ FALLBACK_TOPICS = [
 ]
 
 def pick_trending():
-    import feedparser
+    import datetime, random, re  # ← 成功/失敗どちらの分岐でも使うので最初に読み込む
+
+    try:
+        import feedparser
+    except ImportError:
+        # 依存が無くても投稿は継続（フォールバック）
+        seed = datetime.date.today().toordinal() % len(FALLBACK_TOPICS)
+        return FALLBACK_TOPICS[seed], ["fallback"]
+
     items = []
     for url in RSS_SOURCES:
         try:
@@ -46,19 +54,22 @@ def pick_trending():
                 if any(w in text for w in WHITELIST):
                     items.append(title)
         except Exception:
+            # 1フィード失敗は無視して続行
             pass
+
     uniq, seen = [], set()
     for t in items:
         t = re.sub(r"\s+", " ", t).strip()
         if t and t not in seen:
             uniq.append(t); seen.add(t)
+
     if uniq:
         seed = datetime.date.today().toordinal()
         random.Random(seed).shuffle(uniq)
         picked = uniq[0]
         topic = re.sub(r"【.*?】|\[.*?\]|（.*?）|\(.*?\)", "", picked).strip()
         topic = re.sub(r"。+$", "", topic)
-        return topic, ["trend","hot"]
+        return topic, ["trend", "hot"]
     else:
         seed = datetime.date.today().toordinal() % len(FALLBACK_TOPICS)
         return FALLBACK_TOPICS[seed], ["fallback"]
