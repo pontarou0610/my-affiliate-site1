@@ -10,6 +10,7 @@ if not OPENAI_API_KEY:
     raise SystemExit("OPENAI_API_KEY not set")
 
 # --- RSS sources (無料) ---
+
 RSS_SOURCES = [
     "https://b.hatena.ne.jp/hotentry/it.rss",
     "https://rss.itmedia.co.jp/rss/2.0/topstory.xml",
@@ -163,6 +164,7 @@ draft: false
 tags: {tags}
 categories: ["ガイド"]
 description: "{topic}の要点と実用ヒントをやさしく解説。"
+slug: "{slug}"
 ---
 """)
 
