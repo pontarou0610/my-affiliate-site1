@@ -47,7 +47,11 @@ jobs:
         run: rm -rf public resources   # ★ 残骸を掃除
 
       - name: Generate post
-        run: python scripts/generate_post.py
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -c "import importlib.util; print('feedparser installed:', importlib.util.find_spec('feedparser') is not None)"
+          python scripts/generate_post.py
 
       - name: Build
         run: |
