@@ -16,7 +16,7 @@ canonifyURLs = true                    # 生成URLを baseURL で正規化（Git
 # ページリンク形式（任意）
 # =========================
 [permalinks]
-  posts = "/posts/:year/:month/:contentbasename/"
+  posts = "/posts/:year/:month/:slug/"
 
 # =========================
 # SEO / 表示設定（PaperMod）
