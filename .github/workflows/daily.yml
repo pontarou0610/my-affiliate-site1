@@ -26,6 +26,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Verify deps
+        run: |
+          python -c "import importlib.util; print('feedparser installed:', importlib.util.find_spec('feedparser') is not None)"
+          pip show feedparser || true
 
       - name: Create .env from Secrets (runtime only)
         run: |
