@@ -146,5 +146,6 @@ IPX8対応なので浴槽に落としても問題なし。シャンプーの泡�
 ---
 
 ## 関連記事
-- [KindleとKoboを徹底比較！]({{< relref "posts/kindle-vs-kobo" >}})
-- [Kobo Claraレビュー]({{< relref "posts/kobo-clara-review" >}})
+- [KindleとKoboを徹底比較！]({{< relref "posts/kindle-vs-kobo.md" >}})
+- Kobo Claraレビュー（準備中）
+

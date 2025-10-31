@@ -108,6 +108,6 @@ KindleとKoboはどちらも優秀な電子書籍リーダーですが、**「�
 ---
 
 ## 関連記事
-- [Kindle Paperwhite レビュー]({{< relref "posts/kindle-paperwhite-review" >}})
-- [Kobo Clara レビュー]({{< relref "posts/kobo-clara-review" >}})
+- [Kindle Paperwhite レビュー]({{< relref "posts/kindle-paperwhite-review.md" >}})
+- Kobo Clara レビュー（準備中）
 
