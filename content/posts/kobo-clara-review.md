@@ -79,6 +79,7 @@ Kobo Claraは、楽天経済圏ユーザーにとって非常にコストパフ�
 ---
 
 ## 関連記事
-- [Kindle Paperwhite レビュー]({{< relref "posts/kindle-paperwhite-review.md" >}})
-- [KindleとKoboを徹底比較！]({{< relref "posts/kindle-vs-kobo.md" >}})
+- [Kindle Paperwhite レビュー]({{< relref "posts/kindle-paperwhite-review" >}})
+- [KindleとKoboを徹底比較！]({{< relref "posts/kindle-vs-kobo" >}})
+
 
