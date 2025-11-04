@@ -1,10 +1,12 @@
 ---
-title: "エンジニアリングリーダー ― 技術組織を育てるリーダーシップとセルフマネジメント"
-date: 2025-10-30
-slug: "engineering-leader-team-leadership-and-self-management"  # 英語スラッグ
+title = "エンジニアリングリーダー ― 技術組織を育てるリーダーシップとセルフマネジメント"
+date = 2025-10-01T09:00:00+09:00
+slug = "engineering-leader-team-leadership-and-self-management"
+tags = ["マネジメント", "リーダーシップ"]
+categories = ["ビジネス"]
 
 draft: false
-tags: ["電子書籍","Kindle","Kobo","読書術"]   # 適宜
+tags: ["電子書籍","Kindle","Kobo","読書術"]   
 categories: ["ガイド"]
 description: "技術組織を伸ばすためのリーダーシップとセルフマネジメントの要点をやさしく解説。"
 ---
