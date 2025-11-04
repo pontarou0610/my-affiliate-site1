@@ -57,6 +57,21 @@ jobs:
           python -c "import importlib.util; print('feedparser installed:', importlib.util.find_spec('feedparser') is not None)"
           python scripts/generate_post.py
 
+      - name: Commit generated post back to main
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 生成物をステージ
+          git add content/posts/*.md || true
+          # 変更がある時だけコミット
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore(daily): add generated post [skip ci]"
+            git push origin HEAD:main
+          fi
+
       - name: Build
         run: |
           hugo --minify
