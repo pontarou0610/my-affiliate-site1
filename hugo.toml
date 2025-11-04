@@ -98,6 +98,9 @@ taxonomy= ["HTML","RSS"]
 term    = ["HTML","RSS"]
 
 
+[pagination]
+  pagerSize = 30
+
 # （任意）サイトマップの出力チューニング
 #[sitemap]
 #  changefreq = "daily"
