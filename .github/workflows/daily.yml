@@ -62,13 +62,18 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # 生成物をステージ
-          git add content/posts/*.md || true
+
+          # 最新を取り込んでローカル差分を再適用（競合が出たら失敗してくれる）
+          git pull --rebase origin main
+
+          # 生成物をステージ（A/U/D すべて）
+          git add -A content/posts
+
           # 変更がある時だけコミット
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore(daily): add generated post [skip ci]"
+            git commit -m "chore(daily): add/update posts [skip ci]"
             git push origin HEAD:main
           fi
 
