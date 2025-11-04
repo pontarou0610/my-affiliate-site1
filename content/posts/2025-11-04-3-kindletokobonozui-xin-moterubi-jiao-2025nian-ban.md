@@ -90,6 +90,6 @@ KindleとKoboの最新モデルを比較し、それぞれの特長や注意点�
 ## 関連記事
 
 - [Kobo Clara レビュー（準備中）](/posts/2024/10/kobo-clara-review/)
-- [エンジニアリングリーダー ― 技術組織を育てるリーダーシップとセルフマネジメント](/posts/2025/10/"engineering-leader-team-leadership-and-self-management"  # 英語スラッグ/)
+- [エンジニアリングリーダー ― 技術組織を育てるリーダーシップとセルフマネジメント](/posts/2025/10/engineering-leader-team-leadership-and-self-management  # 英語スラッグ/)
 - [記事一覧](/posts/)
 
