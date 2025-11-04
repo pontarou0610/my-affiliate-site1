@@ -92,6 +92,6 @@ slug: "matsuha-tsu-ru-deng-lu-bu-yao-nowu-liao-onrainxiao-lu-hua-ts"
 ## 関連記事
 
 - [Kobo Clara レビュー（準備中）](/posts/2024/10/kobo-clara-review/)
-- [エンジニアリングリーダー ― 技術組織を育てるリーダーシップとセルフマネジメント](/posts/2025/10/engineering-leader-team-leadership-and-self-management  # 英語スラッグ/)
+- [エンジニアリングリーダー ― 技術組織を育てるリーダーシップとセルフマネジメント](/posts/2025/10/engineering-leader-team-leadership-and-self-management/)
 - [記事一覧](/posts/)
 
