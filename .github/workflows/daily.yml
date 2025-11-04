@@ -1,7 +1,7 @@
 name: Daily Post
 on:
   schedule:
-    - cron: '30 0 * * *'   # UTC 00:30 = JST 09:30
+    - cron: '11 0 * * *'   # UTC 00:30 = JST 09:30
   workflow_dispatch:
 
 permissions:
