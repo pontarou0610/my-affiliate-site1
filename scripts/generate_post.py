@@ -1,5 +1,5 @@
 # scripts/generate_post.py
-import os, re, datetime, pathlib, random, argparse
+import os, re, datetime, pathlib, random, argparse, json
 from textwrap import dedent
 from dotenv import load_dotenv
 from slugify import slugify as slugify_lib
@@ -113,6 +113,8 @@ CHECKLIST = """\
 6) 冗長な表現や重複を削って読みやすいか？
 """
 
+TAG_SYSTEM = "あなたはSEOに強い日本語編集者です。記事内容から検索意図に合う短いタグを抽出し、JSON配列で返してください。"
+
 # ---------- 既存記事のパース & パーマリンク構築 ----------
 def parse_frontmatter(md_text: str):
     m = re.search(r'^---\s*(.*?)\s*---', md_text, re.S | re.M)
@@ -174,6 +176,47 @@ def pick_related_urls(out_dir: pathlib.Path, today_iso: str, k: int = 3):
         picked.append({"title": "記事一覧", "url": "/posts/", "date": "1900-01-01"})
     return [(p["title"], p["url"]) for p in picked[:k]]
 
+def generate_tags(topic: str, draft: str, max_tags: int = 5):
+    fallback = ["電子書籍リーダー", "Kindle", "Kobo", "読書術"]
+    preview = re.sub(r"\s+", " ", draft.strip())
+    preview = preview[:1200]
+    prompt = f"""記事テーマ: {topic}
+
+本文冒頭プレビュー: {preview}
+
+上記をもとに、検索意図に沿う日本語タグを最大{max_tags}個、JSON配列のみで出力してください。タグは10文字以内・名詞中心・重複なしで。"""
+    try:
+        resp = openai.chat.completions.create(
+            model="gpt-4o-mini",
+            temperature=0.2,
+            messages=[
+                {"role": "system", "content": TAG_SYSTEM},
+                {"role": "user", "content": prompt},
+            ],
+        )
+        text = resp.choices[0].message.content.strip()
+        tags = json.loads(text)
+        cleaned = []
+        seen = set()
+        for tag in tags:
+            if not isinstance(tag, str):
+                continue
+            t = tag.strip()
+            if not t or len(t) > 12:
+                continue
+            key = t.lower()
+            if key in seen:
+                continue
+            cleaned.append(t)
+            seen.add(key)
+            if len(cleaned) >= max_tags:
+                break
+        if cleaned:
+            return cleaned
+    except Exception:
+        pass
+    return fallback[:max_tags]
+
 # ---------- 1本生成 ----------
 def make_post(topic: str, slug: str):
     user = USER_TMPL.format(topic=topic)
@@ -215,6 +258,7 @@ def make_post(topic: str, slug: str):
     related_block = "\n".join(related_block_lines) + "\n"
 
     draft = draft.rstrip() + "\n\n" + related_block
+    tags = generate_tags(topic, draft)
 
     fm = dedent(f"""\
     ---

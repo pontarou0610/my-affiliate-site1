@@ -1,0 +1,38 @@
+{{- $current := . -}}
+{{- $posts := where site.RegularPages "Section" "posts" -}}
+{{- $others := where $posts "Permalink" "ne" $current.Permalink -}}
+{{- $seen := dict -}}
+{{- $candidates := slice -}}
+
+{{- range sort $others "Params.pageviews" "desc" -}}
+  {{- $perma := .Permalink -}}
+  {{- if not (index $seen $perma) -}}
+    {{- $candidates = append $candidates . -}}
+    {{- $seen = merge $seen (dict $perma true) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if lt (len $candidates) 3 -}}
+  {{- range sort $others "Date" "desc" -}}
+    {{- if ge (len $candidates) 3 -}}{{ break }}{{- end -}}
+    {{- $perma := .Permalink -}}
+    {{- if not (index $seen $perma) -}}
+      {{- $candidates = append $candidates . -}}
+      {{- $seen = merge $seen (dict $perma true) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $top := first 3 $candidates -}}
+{{- if gt (len $top) 0 -}}
+<section class="popular-posts" aria-labelledby="popular-posts-title">
+  <h2 id="popular-posts-title" class="popular-posts__title">人気記事ランキング TOP3</h2>
+  <ol class="popular-posts__list">
+    {{- range $top }}
+    <li class="popular-posts__item">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </li>
+    {{- end }}
+  </ol>
+</section>
+{{- end -}}
