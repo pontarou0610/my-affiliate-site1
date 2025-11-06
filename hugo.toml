@@ -3,29 +3,33 @@
 # =========================
 baseURL = "https://pontarou0610.github.io/my-affiliate-site1/"
 languageCode = "ja"
-title = "AIShopSite"           # 任意のサイト名に変更OK
+title = "電子書籍の未来研究所 - KindleとKoboの比較・出版・AI活用"
 theme = "PaperMod"
-pagesize = 10                          # v0.128以降は 'pagination.pagerSize' でも可
+pagesize = 10                          # v0.128以降は [pagination].pagerSize でも可
 enableRobotsTXT = true
-canonifyURLs = true                    # 生成URLを baseURL で正規化（GitHub Pages で安定）
+canonifyURLs = true                    # 生URLを baseURL で正規化 (GitHub Pages 用)
 
-# Google Analytics（任意：使う時は測定IDに差し替え）
-  googleAnalytics = "G-55FMB35LN0"
-  
 # =========================
-# ページリンク形式（任意）
+# パーマリンク
 # =========================
 [permalinks]
   posts = "/posts/:year/:month/:slug/"
 
 # =========================
-# SEO / 表示設定（PaperMod）
+# タクソノミー
+# =========================
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+# =========================
+# SEO / 表示設定 (PaperMod)
 # =========================
 [params]
-  env = "production"                   # 本番フラグ（メタ等の最適化ON）
-  defaultTheme = "auto"                # "dark" | "light" | "auto"
-  description = "電子書籍リーダーを中心に役立つ情報を発信するブログ。Kindle と Kobo の比較・レビュー・お得情報など。"
-  images = ["/images/ogp-default.jpg"] # static/images/ogp-default.jpg を参照
+  env = "production"
+  defaultTheme = "auto"                 # "dark" | "light" | "auto"
+  description = "Kindle・Koboなど電子書籍リーダーの比較から、出版・AIライティング・自動化までを解説するブログ"
+  images = ["/images/ogp-default.jpg"]  # static/images/ogp-default.jpg を参照
 
   # UI/UX
   ShowShareButtons = true
@@ -35,18 +39,15 @@ canonifyURLs = true                    # 生成URLを baseURL で正規化（Git
   ShowCodeCopyButtons = true
   ShowRssButtonInSectionTermList = true
   ShowWordCount = true
-  ShowToc = true                       # 目次を表示
-  TocOpen = true                       # 目次をデフォルト展開
+  ShowToc = true                        # 目次を表示
+  TocOpen = true                        # 目次をデフォルト展開
 
-# （任意）SNSリンクを使う場合だけ残す。不要なら丸ごと削除OK
-#[params.social]
-#  twitter = "your_twitter_id"
-#  github  = "your_github_id"
-#  instagram = "your_instagram_id"
+  # Google Analytics (パーシャルは site.Params を参照)
+  googleAnalytics = "G-55FMB35LN0"
 
 [params.homeInfoParams]
   Title = "電子書籍リーダーの比較・レビュー"
-  Content = "Kindle と Kobo を中心に、選び方・セール情報・使い方をわかりやすく解説。"
+  Content = "Kindle と Kobo を中心に、選び方・セール情報・使い方をわかりやすく解説"
 
   [[params.homeInfoParams.buttons]]
     name = "比較記事：Kindle vs Kobo"
@@ -58,10 +59,9 @@ canonifyURLs = true                    # 生成URLを baseURL で正規化（Git
     name = "Kobo Clara レビュー"
     url = "posts/kobo-clara-review/"
 
-
 # =========================
 # メニュー
-# 先頭スラ無し（GitHub Pages のベースパスに対応）
+# 先頭スラ無し (GitHub Pages のベースパスに対応)
 # =========================
 [menu]
   [[menu.main]]
@@ -70,11 +70,11 @@ canonifyURLs = true                    # 生成URLを baseURL で正規化（Git
     url = "posts/"
     weight = 2
   [[menu.main]]
-    name = "運営者情報"
+    name = "運営情報"
     url = "about/"
     weight = 90
   [[menu.main]]
-    name = "広告ポリシー"
+    name = "免責ポリシー"
     url = "legal/disclosure/"
     weight = 95
   [[menu.main]]
@@ -87,9 +87,9 @@ canonifyURLs = true                    # 生成URLを baseURL で正規化（Git
 # =========================
 [markup]
   [markup.goldmark.renderer]
-    unsafe = true                      # 楽天などの生HTMLを許可
+    unsafe = true                       # 楽天などの生HTMLを許可
 
-# ---- 出力形式を明示（HomeでHTMLを必ず出す）----
+# 出力形式を明示 (home で JSON を出力)
 [outputs]
 home    = ["HTML","RSS","JSON"]
 section = ["HTML","RSS"]
@@ -97,11 +97,10 @@ page    = ["HTML"]
 taxonomy= ["HTML","RSS"]
 term    = ["HTML","RSS"]
 
-
 [pagination]
   pagerSize = 30
 
-# （任意）サイトマップの出力チューニング
+# (任意) サイトマップの出力チューニング
 #[sitemap]
 #  changefreq = "daily"
 #  priority = 0.5

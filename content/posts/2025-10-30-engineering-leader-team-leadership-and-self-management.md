@@ -1,15 +1,16 @@
 ---
-title: "エンジニアリングリーダー ― 技術組織を育てるリーダーシップとセルフマネジメント"
+title: "エンジニアリングリーダーが技術組織を育てるリーダーシップとセルフマネジメント"
 date: 2025-10-01T09:00:00+09:00
 slug: "engineering-leader-team-leadership-and-self-management"
-tags:
-  - "マネジメント"
-  - "リーダーシップ"
-categories:
-  - "ビジネス"
 draft: false
-description: "技術組織を伸ばすためのリーダーシップとセルフマネジメントの要点をやさしく解説。"
+description: "技術組織を伸ばすためのリーダーシップとセルフマネジメントの要点をわかりやすく解説します。"
+categories:
+  - "コラム・考察"
+tags:
+  - "コラム"
+  - "マネジメント"
 ---
+
 
 
 

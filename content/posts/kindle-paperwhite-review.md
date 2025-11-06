@@ -1,10 +1,18 @@
-﻿---
-title: "【2025年最新】Kindle Paperwhite レビュー｜使ってわかった本当のメリット・デメリット"
+---
+title: "【2025年】Kindle Paperwhiteレビュー｜読書体験とライバル比較"
 date: 2025-08-28T10:00:00+09:00
 draft: false
-description: "Kindle Paperwhiteの実機レビュー。使って感じたメリット・デメリット、ケースの必要性、防水性能、漫画の読みやすさ、セールの買い時まで3000文字以上で徹底解説。"
-tags: ["Kindle", "電子書籍リーダー", "レビュー", "Amazon", "漫画", "防水", "ケース"]
+description: "Kindle Paperwhiteの読書体験や機能、他モデルとの違い、セール情報まで詳しくレビューします。"
+categories:
+  - "電子書籍リーダー"
+tags:
+  - "Kindle"
+  - "レビュー"
+  - "電子書籍"
+  - "Kindle Paperwhite"
+  - "Amazon"
 ---
+
 
 # 【2025年最新】Kindle Paperwhite レビュー｜使ってわかった本当のメリット・デメリット
 

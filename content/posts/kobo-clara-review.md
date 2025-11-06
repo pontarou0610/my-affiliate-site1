@@ -1,13 +1,19 @@
 ---
-title: "Kobo Clara レビュー（準備中）"
+title: "【2025年最新】Kobo Claraレビュー｜Kindle派が気になるポイント"
 date: 2024-10-01T00:00:00+09:00
+slug: "kobo-clara-review"
 publishDate: 2024-10-01T00:00:00+09:00
 draft: false
-tags: ["電子書籍", "Kobo", "レビュー"]
-categories: ["レビュー"]
-description: "Kobo Clara のレビュー記事は現在作成中です。近日公開予定。"
-slug: "kobo-clara-review"
+description: "Kobo Clara BWの画質やライト機能、楽天サービスとの連携をレビューし、Kindleとの違いを紹介します。"
+categories:
+  - "電子書籍リーダー"
+tags:
+  - "Kobo"
+  - "レビュー"
+  - "電子書籍"
+  - "楽天"
 ---
+
 
 この記事は準備中です。まもなく公開します。
 
@@ -95,4 +101,3 @@ Kobo Claraは、楽天経済圏ユーザーにとって非常にコストパフ�
 ## 関連記事
 - [Kindle Paperwhite レビュー]({{< relref "posts/kindle-paperwhite-review" >}})
 - [KindleとKoboを徹底比較！]({{< relref "posts/kindle-vs-kobo" >}})
-

@@ -1,10 +1,19 @@
 ---
-title: "【2025年最新】KindleとKoboを徹底比較！電子書籍リーダーはどっちを買うべき？"
+title: "【2025年最新】KindleとKoboを徹底比較｜電子書籍リーダーはどっちを選ぶ？"
 date: 2025-08-22T10:00:00+09:00
 draft: false
-description: "Amazon Kindleと楽天Koboを徹底比較。価格・機能・キャンペーンをまとめ、どちらを買うべきか解説します。楽天・Amazon・Yahoo!ショッピングの購入リンクも掲載。"
-tags: ["Kindle", "Kobo", "電子書籍リーダー", "Amazon", "楽天"]
+description: "Amazon Kindleと楽天Koboを価格・機能・キャンペーンで比較し、どちらを選ぶべきか解説します。"
+categories:
+  - "電子書籍リーダー"
+tags:
+  - "Kindle"
+  - "Kobo"
+  - "電子書籍"
+  - "比較レビュー"
+  - "Amazon"
+  - "楽天"
 ---
+
 
 # 【2025年最新】KindleとKoboを徹底比較！電子書籍リーダーはどっちを買うべき？
 
@@ -109,4 +118,3 @@ KindleとKoboはどちらも優秀な電子書籍リーダーですが、**「�
 
 ## 関連記事
 - [Kindle Paperwhite レビュー]({{< relref "posts/kindle-paperwhite-review.md" >}})
-
