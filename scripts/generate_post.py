@@ -155,7 +155,7 @@ def list_existing_posts(out_dir: pathlib.Path):
         if not date or not slug:
             continue
         url = permalink_from(date, slug)
-        posts.append({"url": url, "title": title or slug, "date": date})
+        posts.append({"url": url, "title": title or slug, "date": date, "slug": slug})
     return posts
 
 def pick_related_urls(out_dir: pathlib.Path, today_iso: str, k: int = 3):
@@ -175,7 +175,7 @@ def pick_related_urls(out_dir: pathlib.Path, today_iso: str, k: int = 3):
     return [(p["title"], p["url"]) for p in picked[:k]]
 
 # ---------- 1本生成 ----------
-def make_post(topic: str):
+def make_post(topic: str, slug: str):
     user = USER_TMPL.format(topic=topic)
     resp = openai.chat.completions.create(
         model="gpt-4o-mini",
@@ -202,7 +202,6 @@ def make_post(topic: str):
         draft = r.choices[0].message.content.strip()
 
     today = datetime.date.today()
-    slug = slugify_lib(topic, lowercase=True, max_length=60, separator='-')
     tags = ["電子書籍","Kindle","Kobo","読書術"]
 
     # 既存の [関連記事](/posts/) を除去 → 実URL3本に置換
@@ -259,15 +258,48 @@ def main():
         print(f"Already have {already} posts for {today}. Nothing to do.")
         return
 
-    topics = collect_candidates(need)
-    start_index = already + 1
+    existing_posts = list_existing_posts(out_dir)
+    used_titles = { (p.get("title") or "").strip().lower() for p in existing_posts if p.get("title") }
+    used_slugs = { p.get("slug") for p in existing_posts if p.get("slug") }
 
-    for i, topic in enumerate(topics, start=start_index):
-        slug, content = make_post(topic)
-        prefix = f"{today}-{i}"  # 例: 2025-11-03-1, -2, -3
+    topics = collect_candidates(max(need * 3, need))
+    start_index = already + 1
+    generated = 0
+    index = start_index
+
+    for topic in topics:
+        topic_clean = re.sub(r"\s+", " ", topic).strip()
+        if not topic_clean:
+            continue
+        lowered = topic_clean.lower()
+        if lowered in used_titles:
+            continue
+
+        slug_base = slugify_lib(topic_clean, lowercase=True, max_length=60, separator='-')
+        if not slug_base:
+            continue
+        slug_candidate = slug_base
+        suffix = 2
+        while slug_candidate in used_slugs:
+            slug_candidate = f"{slug_base}-{suffix}"
+            suffix += 1
+
+        slug, content = make_post(topic_clean, slug_candidate)
+        prefix = f"{today}-{index}"  # 例: 2025-11-03-1, -2, -3
         path = ensure_unique_path(out_dir, prefix, slug)
         path.write_text(content, encoding="utf-8")
         print(f"generated: {path}")
+
+        used_titles.add(lowered)
+        used_slugs.add(slug)
+        generated += 1
+        index += 1
+
+        if generated >= need:
+            break
+
+    if generated < need:
+        raise SystemExit(f"Unable to generate {need} unique posts (created {generated}).")
 
 if __name__ == "__main__":
     main()

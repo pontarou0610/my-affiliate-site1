@@ -5,7 +5,7 @@ draft: false
 tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
 categories: ["ガイド"]
 description: "電子書籍の返金・キャンセルの基礎知識の要点と実用ヒントをやさしく解説。"
-slug: "dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi"
+slug: "dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2"
 ---
 
 # 電子書籍の返金・キャンセルの基礎知識

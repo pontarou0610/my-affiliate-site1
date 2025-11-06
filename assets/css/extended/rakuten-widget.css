@@ -1,0 +1,53 @@
+.rakuten-widget {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.rakuten-widget__variant {
+  position: relative;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+}
+
+.rakuten-widget__variant--pc {
+  display: block;
+  max-width: 600px;
+  padding-top: 33.333%; /* 200 / 600 */
+  aspect-ratio: 600 / 200;
+}
+
+.rakuten-widget__variant--sp {
+  display: none;
+  max-width: 300px;
+  padding-top: 53.333%; /* 160 / 300 */
+  aspect-ratio: 300 / 160;
+}
+
+.rakuten-widget__variant > *:not(script) {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.rakuten-widget__variant > script {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .rakuten-widget {
+    margin: 1.25rem 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .rakuten-widget__variant--pc {
+    display: none;
+  }
+
+  .rakuten-widget__variant--sp {
+    display: block;
+  }
+}
