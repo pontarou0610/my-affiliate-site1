@@ -7,7 +7,7 @@
 {{- range sort $others "Params.pageviews" "desc" -}}
   {{- $perma := .Permalink -}}
   {{- if not (index $seen $perma) -}}
-    {{- $candidates = append $candidates . -}}
+    {{- $candidates = $candidates | append . -}}
     {{- $seen = merge $seen (dict $perma true) -}}
   {{- end -}}
 {{- end -}}
@@ -17,7 +17,7 @@
     {{- if ge (len $candidates) 3 -}}{{ break }}{{- end -}}
     {{- $perma := .Permalink -}}
     {{- if not (index $seen $perma) -}}
-      {{- $candidates = append $candidates . -}}
+      {{- $candidates = $candidates | append . -}}
       {{- $seen = merge $seen (dict $perma true) -}}
     {{- end -}}
   {{- end -}}
