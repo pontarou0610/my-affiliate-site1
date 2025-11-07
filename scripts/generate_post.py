@@ -389,7 +389,13 @@ def make_post(topic: str, slug: str):
             except (TypeError, ValueError):
                 pass
             rakuten_lines.append(f"- [{item['title']}]({item['url']}){price_text}")
-        draft = draft.rstrip() + "\n\n" + "\n".join(rakuten_lines) + "\n"
+        rakuten_block = "\n".join(rakuten_lines) + "\n"
+        summary_match = re.search(r"(\n## まとめ[\s\S]*?)(?=\n## |\Z)", draft)
+        if summary_match:
+            insert_pos = summary_match.end()
+            draft = draft[:insert_pos] + "\n\n" + rakuten_block + draft[insert_pos:]
+        else:
+            draft = draft.rstrip() + "\n\n" + rakuten_block
 
     out_dir = pathlib.Path("content/posts")
     related = pick_related_urls(out_dir, today.isoformat(), k=3)
