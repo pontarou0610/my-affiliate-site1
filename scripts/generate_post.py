@@ -1,5 +1,8 @@
 # scripts/generate_post.py
 import os, re, datetime, pathlib, random, argparse, json
+from typing import List, Dict
+
+import requests
 from textwrap import dedent
 from dotenv import load_dotenv
 from slugify import slugify as slugify_lib
@@ -9,6 +12,9 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     raise SystemExit("OPENAI_API_KEY not set")
+
+RAKUTEN_APP_ID = os.getenv("RAKUTEN_APP_ID")
+RAKUTEN_AFFILIATE_ID = os.getenv("RAKUTEN_AFFILIATE_ID")
 
 # ---------- sources ----------
 RSS_SOURCES = [
@@ -114,6 +120,7 @@ CHECKLIST = """\
 """
 
 TAG_SYSTEM = "あなたはSEOに強い日本語編集者です。記事内容から検索意図に合う短いタグを抽出し、JSON配列で返してください。"
+RAKUTEN_API_ENDPOINT = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601"
 
 # ---------- 既存記事のパース & パーマリンク構築 ----------
 def parse_frontmatter(md_text: str):
@@ -217,6 +224,46 @@ def generate_tags(topic: str, draft: str, max_tags: int = 5):
         pass
     return fallback[:max_tags]
 
+
+def fetch_rakuten_items(topic: str, hits: int = 3) -> List[Dict[str, str]]:
+    if not (RAKUTEN_APP_ID and RAKUTEN_AFFILIATE_ID):
+        return []
+
+    keyword = re.sub(r"\s+", " ", topic).strip()[:120]
+    params = {
+        "applicationId": RAKUTEN_APP_ID,
+        "affiliateId": RAKUTEN_AFFILIATE_ID,
+        "keyword": keyword,
+        "hits": hits,
+        "imageFlag": 1,
+        "sort": "-reviewAverage",
+    }
+    try:
+        resp = requests.get(RAKUTEN_API_ENDPOINT, params=params, timeout=10)
+        resp.raise_for_status()
+        data = resp.json()
+    except Exception:
+        return []
+
+    items: List[Dict[str, str]] = []
+    for entry in data.get("Items", []):
+        item = entry.get("Item", {})
+        title = item.get("itemName")
+        url = item.get("affiliateUrl") or item.get("itemUrl")
+        price = item.get("itemPrice")
+        if not title or not url:
+            continue
+        items.append(
+            {
+                "title": title,
+                "url": url,
+                "price": price,
+            }
+        )
+        if len(items) >= hits:
+            break
+    return items
+
 # ---------- 1本生成 ----------
 def make_post(topic: str, slug: str):
     user = USER_TMPL.format(topic=topic)
@@ -245,33 +292,70 @@ def make_post(topic: str, slug: str):
         draft = r.choices[0].message.content.strip()
 
     today = datetime.date.today()
-    tags = ["電子書籍","Kindle","Kobo","読書術"]
 
-    # 既存の [関連記事](/posts/) を除去 → 実URL3本に置換
-    draft = re.sub(r"\n?\[関連記事\]\(/posts/?\)\s*", "\n", draft)
+    # 既存の [関連記事](/posts/) を削除して内部リンクを再挿入
+    draft = re.sub(r"
+?\[関連記事\]\(/posts/?\)\s*", "
+", draft)
     out_dir = pathlib.Path("content/posts")
     related = pick_related_urls(out_dir, today.isoformat(), k=3)
 
-    related_block_lines = ["\n## 関連記事", ""]
+    related_block_lines = ["
+## 関連記事", ""]
     for title, url in related:
         related_block_lines.append(f"- [{title}]({url})")
-    related_block = "\n".join(related_block_lines) + "\n"
+    related_block = "
+".join(related_block_lines) + "
+"
 
     draft = draft.rstrip() + "\n\n" + related_block
+
+    rakuten_items = fetch_rakuten_items(topic)
+    if rakuten_items:
+        rakuten_lines = ["\n## 関連アイテム（楽天）", ""]
+        for item in rakuten_items:
+            price_text = ""
+            try:
+                price_int = int(item.get("price"))
+                price_text = f" — ¥{price_int:,}"
+            except (TypeError, ValueError):
+                pass
+            rakuten_lines.append(f"- [{item['title']}]({item['url']}){price_text}")
+        draft = draft.rstrip() + "\n\n" + "\n".join(rakuten_lines) + "\n"
+
+    rakuten_items = fetch_rakuten_items(topic)
+    if rakuten_items:
+        rakuten_lines = ["
+## 関連アイテム（楽天）", ""]
+        for item in rakuten_items:
+            price_text = ""
+            try:
+                price_int = int(item.get("price"))
+                price_text = f" — ¥{price_int:,}"
+            except (TypeError, ValueError):
+                pass
+            rakuten_lines.append(f"- [{item['title']}]({item['url']}){price_text}")
+        draft = draft.rstrip() + "
+
+" + "
+".join(rakuten_lines) + "
+"
+
     tags = generate_tags(topic, draft)
 
-    fm = dedent(f"""\
-    ---
+    fm = dedent(f"""    ---
     title: "{topic}"
     date: {today.isoformat()}
     draft: false
     tags: {tags}
     categories: ["ガイド"]
-    description: "{topic}の要点と実用ヒントをやさしく解説。"
+    description: "{topic}の要点と実用ヒントをわかりやすく解説。"
     slug: "{slug}"
     ---
     """)
-    return slug, fm + "\n" + draft + "\n"
+    return slug, fm + "
+" + draft + "
+"
 
 def ensure_unique_path(basedir: pathlib.Path, prefix: str, slug: str):
     """{date}-{seq}-{slug}.md を基本に、衝突時は -2, -3… を付与"""
