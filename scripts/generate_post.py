@@ -377,15 +377,6 @@ def make_post(topic: str, slug: str):
     today = datetime.date.today()
 
     draft = re.sub(r"\n?\[関連記事\]\(/posts/?\)\s*", "\n", draft)
-    out_dir = pathlib.Path("content/posts")
-    related = pick_related_urls(out_dir, today.isoformat(), k=3)
-
-    related_block_lines = ["\n## 関連記事", ""]
-    for title, url in related:
-        related_block_lines.append(f"- [{title}]({url})")
-    related_block = "\n".join(related_block_lines) + "\n"
-
-    draft = draft.rstrip() + "\n\n" + related_block
 
     rakuten_items = fetch_rakuten_items(topic)
     if rakuten_items:
@@ -399,6 +390,16 @@ def make_post(topic: str, slug: str):
                 pass
             rakuten_lines.append(f"- [{item['title']}]({item['url']}){price_text}")
         draft = draft.rstrip() + "\n\n" + "\n".join(rakuten_lines) + "\n"
+
+    out_dir = pathlib.Path("content/posts")
+    related = pick_related_urls(out_dir, today.isoformat(), k=3)
+
+    related_block_lines = ["\n## 関連記事", ""]
+    for title, url in related:
+        related_block_lines.append(f"- [{title}]({url})")
+    related_block = "\n".join(related_block_lines) + "\n"
+
+    draft = draft.rstrip() + "\n\n" + related_block
 
     tags = generate_tags(topic, draft)
 
