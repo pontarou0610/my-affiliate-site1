@@ -22,23 +22,59 @@ RSS_SOURCES = [
     "https://b.hatena.ne.jp/hotentry/it.rss",
     "https://rss.itmedia.co.jp/rss/2.0/topstory.xml",
     "https://www.watch.impress.co.jp/data/rss/1.0/ipw/feed.rdf",
+    "https://gigazine.net/news/rss_2.0/",
+    "https://rss.itmedia.co.jp/rss/2.0/mobile.xml",
+    "https://www.watch.impress.co.jp/data/rss/1.0/avw/feed.rdf",
+    "https://www.engadget.com/rss.xml",
+    "https://forest.watch.impress.co.jp/data/rss/1.0/wf/feed.rdf",
 ]
 
 WHITELIST = [
-    "kindle","kobo","電子書籍","電子書籍リーダー","e-ink","e ink","epub","電子インク",
-    "リーダー","pdf","青空文庫","読書","ブック","drm","ハイライト","辞書","縦書き",
-    "フォント","フロントライト","防水","解像度","ppi","ページ送り","広告つき","広告なし",
+    # コアワード（電子書籍まわり）
+    "kindle", "kobo", "電子書籍", "電子書籍リーダー",
+    "ebook", "e-book", "e-ink", "e ink", "電子インク", "電子ペーパー",
+
+    # Kindle / Kobo の具体的モデルや機能
+    "paperwhite", "scribe", "oasis", "clara", "libra", "sage", "forma",
+    "フロントライト", "バックライト", "防水", "解像度", "ppi", "ページ送り",
+    "広告つき", "広告なし",
+
+    # 読書機能・フォーマット
+    "epub", "pdf", "azw", "mobi", "ドキュメント",
+    "辞書", "ハイライト", "メモ", "しおり", "縦書き", "横書き", "フォント",
+
+    # サービス名・使い方系
+    "kindle unlimited", "kindle unlimited 読み放題",
+    "楽天kobo", "kobo plus",
+    "青空文庫",
+
+    # 周辺用途
+    "読書", "ブック", "本の管理", "ライブラリ", "クラウド",
+    "drm", "drm解除",  # 触れるならフィルタ対象にしておく
 ]
 
+
 FALLBACK_TOPICS = [
+    # 比較・定番系
     "KindleとKoboの最新モデル比較（2025年版）",
-    "電子書籍の返金・キャンセルの基礎知識",
+    "2025年に買うべき電子書籍リーダー3選",
+    "Kindle UnlimitedとKobo Plusの読み放題を徹底比較",
+
+    # 使い方・ノウハウ
     "EPUBとPDFの使い分け：学習・技術書・漫画でどう違う？",
-    "E-Inkリーダーの目の疲れ対策と設定おすすめ",
-    "読書ハイライト活用術：メモ整理と検索を最短で",
-    "防水モデルは本当に必要か？通勤・お風呂・旅行で検証",
+    "読書ハイライト活用術：メモ・引用を最短で整理する方法",
     "電子書籍のセール攻略：失敗しない買い方の順序",
+
+    # 設定・快適さ
+    "E-Inkリーダーの目の疲れを減らす設定おすすめ",
+    "防水モデルは本当に必要か？通勤・お風呂・旅行で検証",
+    "電子インク端末で日本語縦書きをきれいに表示するコツ",
+
+    # トラブル・豆知識
+    "電子書籍の返金・キャンセルの基礎知識",
+    "PCやスマホ・Kindle間での読みかけ同期を確実にする方法",
 ]
+
 
 def collect_candidates(max_needed: int):
     """RSSから候補収集→ユニーク化。足りなければFALLBACK補完。"""
@@ -105,6 +141,7 @@ USER_TMPL = """\
 
 # スタイルと配慮（重要）
 - 文章は「です・ます調」で、やさしくカジュアルに書く
+- 中学生が読んでも理解できるように書く
 - 専門用語は初出でかんたんな一言解説を入れる（例：「EPUB（電子書籍のファイル形式）」）
 - 生成したら自己レビューして必要な改訂を行う（合計2回繰り返す想定）
 """
