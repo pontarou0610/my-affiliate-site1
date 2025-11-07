@@ -15,6 +15,7 @@ if not OPENAI_API_KEY:
 
 RAKUTEN_APP_ID = os.getenv("RAKUTEN_APP_ID")
 RAKUTEN_AFFILIATE_ID = os.getenv("RAKUTEN_AFFILIATE_ID")
+PEXELS_API_KEY = os.getenv("PEXELS_API_KEY")
 
 # ---------- sources ----------
 RSS_SOURCES = [
@@ -121,6 +122,7 @@ CHECKLIST = """\
 
 TAG_SYSTEM = "あなたはSEOに強い日本語編集者です。記事内容から検索意図に合う短いタグを抽出し、JSON配列で返してください。"
 RAKUTEN_API_ENDPOINT = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601"
+PEXELS_API_ENDPOINT = "https://api.pexels.com/v1/search"
 
 # ---------- 既存記事のパース & パーマリンク構築 ----------
 def parse_frontmatter(md_text: str):
@@ -264,6 +266,38 @@ def fetch_rakuten_items(topic: str, hits: int = 3) -> List[Dict[str, str]]:
             break
     return items
 
+
+def fetch_pexels_image(topic: str) -> Dict[str, str] | None:
+    if not PEXELS_API_KEY:
+        return None
+    headers = {"Authorization": PEXELS_API_KEY}
+    params = {
+        "query": re.sub(r"\s+", " ", topic).strip()[:80],
+        "per_page": 1,
+        "orientation": "landscape",
+    }
+    try:
+        resp = requests.get(PEXELS_API_ENDPOINT, headers=headers, params=params, timeout=10)
+        resp.raise_for_status()
+        data = resp.json()
+    except Exception:
+        return None
+
+    photos = data.get("photos") or []
+    if not photos:
+        return None
+    photo = photos[0]
+    src = photo.get("src") or {}
+    image_url = src.get("large") or src.get("medium")
+    if not image_url:
+        return None
+    return {
+        "image_url": image_url,
+        "photographer": photo.get("photographer") or "Pexels",
+        "photographer_url": photo.get("photographer_url") or photo.get("url"),
+        "pexels_url": photo.get("url"),
+    }
+
 # ---------- 1本生成 ----------
 def make_post(topic: str, slug: str):
     user = USER_TMPL.format(topic=topic)
@@ -273,7 +307,6 @@ def make_post(topic: str, slug: str):
         messages=[{"role":"system","content":SYSTEM},{"role":"user","content":user}]
     )
     draft = resp.choices[0].message.content.strip()
-    # 自己レビュー 2回
     for _ in range(2):
         review_prompt = f"""以下の原稿をチェックリストに沿って自己レビューし、必要な改訂を反映した最終版のみ返してください。
 
@@ -291,22 +324,29 @@ def make_post(topic: str, slug: str):
         )
         draft = r.choices[0].message.content.strip()
 
+    hero = fetch_pexels_image(topic)
+    if hero:
+        credit_url = hero.get("photographer_url") or hero.get("pexels_url")
+        image_block = (
+            f"![{topic}のイメージ]({hero['image_url']})"
+            f"\n<small>Photo by [{hero['photographer']}]({credit_url}) on [Pexels]({hero['pexels_url']})</small>"
+        )
+        parts = draft.split("\n\n", 1)
+        if len(parts) == 2:
+            draft = parts[0].strip() + "\n\n" + image_block + "\n\n" + parts[1].strip()
+        else:
+            draft = image_block + "\n\n" + draft
+
     today = datetime.date.today()
 
-    # 既存の [関連記事](/posts/) を削除して内部リンクを再挿入
-    draft = re.sub(r"
-?\[関連記事\]\(/posts/?\)\s*", "
-", draft)
+    draft = re.sub(r"\n?\[関連記事\]\(/posts/?\)\s*", "\n", draft)
     out_dir = pathlib.Path("content/posts")
     related = pick_related_urls(out_dir, today.isoformat(), k=3)
 
-    related_block_lines = ["
-## 関連記事", ""]
+    related_block_lines = ["\n## 関連記事", ""]
     for title, url in related:
         related_block_lines.append(f"- [{title}]({url})")
-    related_block = "
-".join(related_block_lines) + "
-"
+    related_block = "\n".join(related_block_lines) + "\n"
 
     draft = draft.rstrip() + "\n\n" + related_block
 
@@ -323,27 +363,10 @@ def make_post(topic: str, slug: str):
             rakuten_lines.append(f"- [{item['title']}]({item['url']}){price_text}")
         draft = draft.rstrip() + "\n\n" + "\n".join(rakuten_lines) + "\n"
 
-    rakuten_items = fetch_rakuten_items(topic)
-    if rakuten_items:
-        rakuten_lines = ["
-## 関連アイテム（楽天）", ""]
-        for item in rakuten_items:
-            price_text = ""
-            try:
-                price_int = int(item.get("price"))
-                price_text = f" — ¥{price_int:,}"
-            except (TypeError, ValueError):
-                pass
-            rakuten_lines.append(f"- [{item['title']}]({item['url']}){price_text}")
-        draft = draft.rstrip() + "
-
-" + "
-".join(rakuten_lines) + "
-"
-
     tags = generate_tags(topic, draft)
 
-    fm = dedent(f"""    ---
+    fm = dedent(f"""\
+    ---
     title: "{topic}"
     date: {today.isoformat()}
     draft: false
@@ -353,9 +376,8 @@ def make_post(topic: str, slug: str):
     slug: "{slug}"
     ---
     """)
-    return slug, fm + "
-" + draft + "
-"
+    return slug, fm + "\n" + draft + "\n"
+
 
 def ensure_unique_path(basedir: pathlib.Path, prefix: str, slug: str):
     """{date}-{seq}-{slug}.md を基本に、衝突時は -2, -3… を付与"""
