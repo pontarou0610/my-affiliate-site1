@@ -264,8 +264,40 @@ def generate_tags(topic: str, draft: str, max_tags: int = 5):
     return fallback[:max_tags]
 
 
+def generate_seo_title(topic: str, draft: str) -> str:
+    preview = re.sub(r"\s+", " ", draft.strip())[:800]
+    prompt = f"""元タイトル: {topic}
+本文抜粋: {preview}
+
+上記をもとに、検索ユーザーがクリックしたくなるSEOタイトルを1つだけ出力してください。
+条件:
+- 32〜60文字程度
+- 主要キーワード（Kindle/Kobo/電子書籍など）を自然に含める
+- 「完全版」「徹底解説」などの強調語を必要に応じて使う
+- 既存タイトルと重複しないよう、オリジナルの構成にする
+- 出力はタイトルのみ
+"""
+    try:
+        resp = openai.chat.completions.create(
+            model="gpt-4o-mini",
+            temperature=0.4,
+            messages=[
+                {"role": "system", "content": "あなたはSEOに強い日本語コピーライターです。"},
+                {"role": "user", "content": prompt},
+            ],
+        )
+        title = resp.choices[0].message.content.strip()
+        title = re.sub(r'["“”]', "", title)
+        if 10 <= len(title) <= 80:
+            return title
+    except Exception:
+        pass
+    return f"{topic} 徹底ガイド"
+
+
 def fetch_rakuten_items(topic: str, hits: int = 3) -> List[Dict[str, str]]:
     if not (RAKUTEN_APP_ID and RAKUTEN_AFFILIATE_ID):
+        print("[Rakuten] Missing app or affiliate ID. Skipping.")
         return []
 
     keyword = re.sub(r"\s+", " ", topic).strip()[:120]
@@ -277,11 +309,13 @@ def fetch_rakuten_items(topic: str, hits: int = 3) -> List[Dict[str, str]]:
         "imageFlag": 1,
         "sort": "-reviewAverage",
     }
+    print(f"[Rakuten] Searching items for topic: {keyword}")
     try:
         resp = requests.get(RAKUTEN_API_ENDPOINT, params=params, timeout=10)
         resp.raise_for_status()
         data = resp.json()
-    except Exception:
+    except Exception as exc:
+        print(f"[Rakuten] Request failed: {exc}")
         return []
 
     items: List[Dict[str, str]] = []
@@ -301,11 +335,16 @@ def fetch_rakuten_items(topic: str, hits: int = 3) -> List[Dict[str, str]]:
         )
         if len(items) >= hits:
             break
+    if not items:
+        print(f"[Rakuten] No affiliate items found for {keyword}.")
+    else:
+        print(f"[Rakuten] Selected {len(items)} items for {keyword}.")
     return items
 
 
 def fetch_pexels_image(topic: str) -> Dict[str, str] | None:
     if not PEXELS_API_KEY:
+        print("[Pexels] API key missing. Skipping image fetch.")
         return None
     headers = {"Authorization": PEXELS_API_KEY}
     params = {
@@ -313,21 +352,26 @@ def fetch_pexels_image(topic: str) -> Dict[str, str] | None:
         "per_page": 1,
         "orientation": "landscape",
     }
+    print(f"[Pexels] Searching image for topic: {topic}")
     try:
         resp = requests.get(PEXELS_API_ENDPOINT, headers=headers, params=params, timeout=10)
         resp.raise_for_status()
         data = resp.json()
-    except Exception:
+    except Exception as exc:
+        print(f"[Pexels] Request failed: {exc}")
         return None
 
     photos = data.get("photos") or []
     if not photos:
+        print(f"[Pexels] No photos found for {topic}.")
         return None
     photo = photos[0]
     src = photo.get("src") or {}
     image_url = src.get("large") or src.get("medium")
     if not image_url:
+        print(f"[Pexels] Photo found but missing usable URL for {topic}.")
         return None
+    print(f"[Pexels] Using photo id={photo.get('id')} url={image_url}")
     return {
         "image_url": image_url,
         "photographer": photo.get("photographer") or "Pexels",
@@ -407,11 +451,12 @@ def make_post(topic: str, slug: str):
 
     draft = draft.rstrip() + "\n\n" + related_block
 
+    seo_title = generate_seo_title(topic, draft)
     tags = generate_tags(topic, draft)
 
     fm = dedent(f"""\
     ---
-    title: "{topic}"
+    title: "{seo_title}"
     date: {today.isoformat()}
     draft: false
     tags: {tags}
@@ -420,7 +465,7 @@ def make_post(topic: str, slug: str):
     slug: "{slug}"
     ---
     """)
-    return slug, fm + "\n" + draft + "\n"
+    return slug, seo_title, fm + "\n" + draft + "\n"
 
 
 def ensure_unique_path(basedir: pathlib.Path, prefix: str, slug: str):
@@ -478,13 +523,13 @@ def main():
             slug_candidate = f"{slug_base}-{suffix}"
             suffix += 1
 
-        slug, content = make_post(topic_clean, slug_candidate)
+        slug, seo_title, content = make_post(topic_clean, slug_candidate)
         prefix = f"{today}-{index}"  # 例: 2025-11-03-1, -2, -3
         path = ensure_unique_path(out_dir, prefix, slug)
         path.write_text(content, encoding="utf-8")
         print(f"generated: {path}")
 
-        used_titles.add(lowered)
+        used_titles.add(seo_title.strip().lower())
         used_slugs.add(slug)
         generated += 1
         index += 1
