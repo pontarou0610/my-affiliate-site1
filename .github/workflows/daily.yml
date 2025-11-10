@@ -36,8 +36,16 @@ jobs:
 
       - name: Create .env from Secrets (runtime only)
         run: |
-          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> .env
+          {
+            echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}"
+            echo "PEXELS_API_KEY=${{ secrets.PEXELS_API_KEY }}"
+            echo "RAKUTEN_APP_ID=${{ secrets.RAKUTEN_APP_ID }}"
+            echo "RAKUTEN_AFFILIATE_ID=${{ secrets.RAKUTEN_AFFILIATE_ID }}"
+          } >> .env
           echo "::add-mask::${{ secrets.OPENAI_API_KEY }}"
+          echo "::add-mask::${{ secrets.PEXELS_API_KEY }}"
+          echo "::add-mask::${{ secrets.RAKUTEN_APP_ID }}"
+          echo "::add-mask::${{ secrets.RAKUTEN_AFFILIATE_ID }}"
 
       - name: Install Hugo
         uses: peaceiris/actions-hugo@v3
