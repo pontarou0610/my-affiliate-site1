@@ -1,0 +1,24 @@
+{{- if (.Param "ShowBreadCrumbs") -}}
+  {{- $homeName := site.Params.breadcrumbHome | default (i18n "home" | default "Home") -}}
+  {{- $crumbs := slice (dict "title" $homeName "url" ("" | absLangURL)) -}}
+  {{- range .Ancestors.Reverse }}
+    {{- if not .IsHome }}
+      {{- $crumbs = $crumbs | append (dict "title" .LinkTitle "url" .Permalink) -}}
+    {{- end }}
+  {{- end }}
+  {{- $crumbs = $crumbs | append (dict "title" .Title "url" .Permalink) -}}
+  <nav class="breadcrumbs" aria-label="パンくずリスト">
+    <ol>
+      {{- $lastIndex := sub (len $crumbs) 1 -}}
+      {{- range $i, $crumb := $crumbs }}
+        <li>
+          {{- if lt $i $lastIndex -}}
+            <a href="{{ $crumb.url }}">{{ $crumb.title }}</a>
+          {{- else -}}
+            <span aria-current="page">{{ $crumb.title }}</span>
+          {{- end -}}
+        </li>
+      {{- end }}
+    </ol>
+  </nav>
+{{- end -}}

@@ -1,4 +1,5 @@
 {{- if .IsPage -}}
+  {{- $page := . -}}
   {{- $author := site.Params.authorName | default "ぽんたろう" -}}
   {{- $publisher := site.Title | default $author -}}
   {{- $logo := site.Params.publisherLogo | default (index (site.Params.images | default (slice "/images/ogp-default.jpg")) 0) -}}
@@ -34,4 +35,113 @@
     "description": {{ with .Params.description }}{{ . | jsonify }}{{ else }}{{ .Summary | plainify | truncate 160 | jsonify }}{{ end }}
   }
   </script>
+
+  {{- $breadcrumbItems := slice (dict "name" (site.Params.breadcrumbHome | default (i18n "home" | default "Home")) "item" ("" | absLangURL)) -}}
+  {{- range .Ancestors.Reverse }}
+    {{- if not .IsHome }}
+      {{- $breadcrumbItems = $breadcrumbItems | append (dict "name" .LinkTitle "item" .Permalink) -}}
+    {{- end }}
+  {{- end }}
+  {{- $breadcrumbItems = $breadcrumbItems | append (dict "name" .Title "item" .Permalink) -}}
+  {{- if gt (len $breadcrumbItems) 1 }}
+    <script type="application/ld+json">
+    {{- $breadcrumbData := dict
+        "@context" "https://schema.org"
+        "@type" "BreadcrumbList"
+        "itemListElement" (slice)
+    -}}
+    {{- $items := slice -}}
+    {{- range $index, $crumb := $breadcrumbItems }}
+      {{- $items = $items | append (dict
+          "@type" "ListItem"
+          "position" (add $index 1)
+          "name" $crumb.name
+          "item" $crumb.item
+        ) -}}
+    {{- end }}
+    {{- $breadcrumbData = merge $breadcrumbData (dict "itemListElement" $items) -}}
+    {{ $breadcrumbData | jsonify | safeHTML }}
+    </script>
+  {{- end }}
+
+  {{- with .Params.schema }}
+    {{- with .products }}
+      {{- $listItems := slice -}}
+      {{- range $index, $product := . }}
+        {{- $position := add $index 1 -}}
+        {{- $productURL := $product.url -}}
+        {{- if and $productURL (not (hasPrefix $productURL "http")) }}
+          {{- $productURL = $productURL | absURL -}}
+        {{- end -}}
+        {{- $productImage := $product.image -}}
+        {{- if and $productImage (not (hasPrefix $productImage "http")) }}
+          {{- $productImage = $productImage | absURL -}}
+        {{- end -}}
+        {{- $prodDict := dict "@type" "Product" "name" $product.name -}}
+        {{- if $productURL }}
+          {{- $prodDict = merge $prodDict (dict "url" $productURL) -}}
+        {{- end }}
+        {{- if $productImage }}
+          {{- $prodDict = merge $prodDict (dict "image" $productImage) -}}
+        {{- end }}
+        {{- with $product.brand }}
+          {{- $prodDict = merge $prodDict (dict "brand" (dict "@type" "Brand" "name" .)) -}}
+        {{- end }}
+        {{- if or $product.price $product.priceCurrency $product.availability }}
+          {{- $offer := dict "@type" "Offer" -}}
+          {{- with $product.price }}
+            {{- $offer = merge $offer (dict "price" (printf "%v" .)) -}}
+          {{- end }}
+          {{- with $product.priceCurrency }}
+            {{- $offer = merge $offer (dict "priceCurrency" .) -}}
+          {{- end }}
+          {{- with $product.availability }}
+            {{- $offer = merge $offer (dict "availability" .) -}}
+          {{- end }}
+          {{- if $productURL }}
+            {{- $offer = merge $offer (dict "url" $productURL) -}}
+          {{- end }}
+          {{- $prodDict = merge $prodDict (dict "offers" $offer) -}}
+        {{- end }}
+        {{- if and $product.ratingValue $product.reviewCount }}
+          {{- $rating := dict "@type" "AggregateRating" "ratingValue" (printf "%v" $product.ratingValue) "reviewCount" (printf "%v" $product.reviewCount) -}}
+          {{- $prodDict = merge $prodDict (dict "aggregateRating" $rating) -}}
+        {{- end }}
+        {{- $listItem := dict "@type" "ListItem" "position" $position "item" $prodDict -}}
+        {{- $listItems = $listItems | append $listItem -}}
+      {{- end }}
+      {{- if gt (len $listItems) 0 }}
+        <script type="application/ld+json">
+        {{- $itemList := dict
+            "@context" "https://schema.org"
+            "@type" "ItemList"
+            "name" $page.Title
+            "itemListElement" $listItems
+        -}}
+        {{ $itemList | jsonify | safeHTML }}
+        </script>
+      {{- end }}
+    {{- end }}
+
+    {{- with .faq }}
+      {{- $faqItems := slice -}}
+      {{- range . }}
+        {{- $faqItems = $faqItems | append (dict
+            "@type" "Question"
+            "name" .question
+            "acceptedAnswer" (dict "@type" "Answer" "text" (.answer | plainify))
+        ) -}}
+      {{- end }}
+      {{- if gt (len $faqItems) 0 }}
+        <script type="application/ld+json">
+        {{- $faq := dict
+            "@context" "https://schema.org"
+            "@type" "FAQPage"
+            "mainEntity" $faqItems
+        -}}
+        {{ $faq | jsonify | safeHTML }}
+        </script>
+      {{- end }}
+    {{- end }}
+  {{- end }}
 {{- end -}}

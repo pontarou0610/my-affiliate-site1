@@ -90,6 +90,14 @@ RELEVANCE_KEYWORDS = [kw.lower() for kw in [
     "楽天kobo",
 ]]
 
+QUALITY_MIN_WORDS = 700
+
+PILLAR_LINKS = [
+    ("KindleとKoboを徹底比較", "/posts/kindle-vs-kobo/"),
+    ("Kindle Paperwhiteレビュー", "/posts/kindle-paperwhite-review/"),
+    ("Kobo Claraレビュー", "/posts/kobo-clara-review/"),
+]
+
 
 def collect_candidates(max_needed: int):
     """RSSから候補収集→ユニーク化。足りなければFALLBACK補完。"""
@@ -135,6 +143,22 @@ def collect_candidates(max_needed: int):
 def contains_relevant_keyword(text: str) -> bool:
     lowered = text.lower()
     return any(keyword in lowered for keyword in RELEVANCE_KEYWORDS)
+
+
+def ensure_pillar_links(text: str) -> str:
+    heading = "## 電子書籍リーダーの定番ガイド"
+    lower_text = text.lower()
+    missing = [(title, url) for title, url in PILLAR_LINKS if url.lower() not in lower_text]
+    if not missing or heading in text:
+        return text
+    lines = ["", heading, ""]
+    for title, url in missing:
+        lines.append(f"- [{title}]({url})")
+    return text.rstrip() + "\n" + "\n".join(lines) + "\n"
+
+
+def count_words(text: str) -> int:
+    return len(re.findall(r"\S+", text))
 
 
 # ---------- OpenAI ----------
@@ -472,10 +496,12 @@ def make_post(topic: str, slug: str):
         related_block_lines.append(f"- [{title}]({url})")
     related_block = "\n".join(related_block_lines) + "\n"
 
+    draft = ensure_pillar_links(draft)
     draft = draft.rstrip() + "\n\n" + related_block
 
     seo_title = generate_seo_title(topic, draft)
     tags = generate_tags(topic, draft)
+    word_count = count_words(draft)
 
     fm = dedent(f"""\
     ---
@@ -489,7 +515,7 @@ def make_post(topic: str, slug: str):
     hasRelatedProducts: {"true" if has_related_products else "false"}
     ---
     """)
-    return slug, seo_title, fm + "\n" + draft + "\n"
+    return slug, seo_title, fm + "\n" + draft + "\n", word_count
 
 
 def ensure_unique_path(basedir: pathlib.Path, prefix: str, slug: str):
@@ -547,9 +573,12 @@ def main():
             slug_candidate = f"{slug_base}-{suffix}"
             suffix += 1
 
-        slug, seo_title, content = make_post(topic_clean, slug_candidate)
+        slug, seo_title, content, word_count = make_post(topic_clean, slug_candidate)
         if not contains_relevant_keyword(content):
             print(f"[skip] Irrelevant draft '{seo_title}' filtered out (missing ebook keywords).")
+            continue
+        if word_count < QUALITY_MIN_WORDS:
+            print(f"[skip] Draft '{seo_title}' too short ({word_count} words).")
             continue
         prefix = f"{today}-{index}"  # 例: 2025-11-03-1, -2, -3
         path = ensure_unique_path(out_dir, prefix, slug)

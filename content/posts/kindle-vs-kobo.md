@@ -14,6 +14,33 @@ tags:
   - "比較レビュー"
   - "Amazon"
   - "楽天"
+schema:
+  products:
+    - name: "Kindle Paperwhite (第11世代)"
+      brand: "Amazon"
+      url: "https://amzn.to/3UPaDHO"
+      image: "/images/ogp-default.jpg"
+      price: "16480"
+      priceCurrency: "JPY"
+      availability: "https://schema.org/InStock"
+      ratingValue: "4.8"
+      reviewCount: "1250"
+    - name: "Kobo Clara BW"
+      brand: "Rakuten"
+      url: "https://a.r10.to/h5ijA6"
+      image: "/images/ogp-default.jpg"
+      price: "15800"
+      priceCurrency: "JPY"
+      availability: "https://schema.org/InStock"
+      ratingValue: "4.6"
+      reviewCount: "830"
+  faq:
+    - question: "KindleとKoboではどちらが安く購入できますか？"
+      answer: "端末価格はほぼ横並びですが、Amazonはプライムデーやブラックフライデーで、楽天はお買い物マラソンやスーパーSALEで大きく値引きされます。自分がよく参加するキャンペーンに合わせて待つと実質価格を下げられます。"
+    - question: "紙の本から乗り換えるならどちらが操作しやすいですか？"
+      answer: "UIのシンプルさはKindle、細かい設定とカスタマイズはKoboが有利です。初めてならKindle、文字サイズや余白を細かく変えたいならKoboが向いています。"
+    - question: "英語学習や漫画メインなど複数用途に対応できますか？"
+      answer: "Kindleは単語帳や辞書連携が強く英語学習向き、Koboはページめくりの速さと大容量モデルがあり漫画向きです。どちらもEPUBやPDFをPC経由で入れられるので、最低限の用途なら共通してこなせます。"
 ---
 
 
@@ -40,6 +67,21 @@ tags:
 
 どちらも「目に優しいE-Inkディスプレイ」「防水性能」「軽量設計」といった基本性能は共通しています。  
 違いは **サービス連携とコンテンツの品揃え** にあります。  
+
+---
+
+## 2025年モデルラインナップ早見表
+
+| ブランド | モデル | 画面 | 特徴 | 詳細レビュー |
+| --- | --- | --- | --- | --- |
+| Kindle | Kindle（ベーシック） | 6.0インチ | 最軽量・リーズナブル | - |
+| Kindle | **Paperwhite** | 6.8インチ | 防水・色調調整・USB-C | [実機レビューを読む]({{< relref "posts/kindle-paperwhite-review.md" >}}) |
+| Kindle | Scribe | 10.2インチ | 手書きができる大型E-Ink | - |
+| Kobo | Clara BW | 6.0インチ | 新世代E-Ink・軽量 | [Kobo Claraレビュー]({{< relref "posts/kobo-clara-review.md" >}}) |
+| Kobo | Libra Colour | 7.0インチ | カラーE-Ink＋物理ボタン | - |
+| Kobo | Elipsa 2E | 10.3インチ | ノート機能・大型PDF向き | - |
+
+※ Kindleの詳細モデル別レビューは順次追加予定。最新のPaperwhiteレビューは上記リンクから確認できます。
 
 ---
 
@@ -81,6 +123,52 @@ tags:
 
 ---
 
+## 価格・サブスク・ポイント還元の違い
+
+### Kindle側の費用感
+- 端末価格はベーシックで¥12,980〜、Paperwhiteで¥16,480〜。  
+- Prime Readingで数百冊、Kindle Unlimitedで和書2万冊超を定額利用可。  
+- Audibleなど他サービスと併用すると読書＋耳学習のセット割も狙える。
+
+### Kobo側の費用感
+- Kobo Clara BWは¥15,800前後、上位のLibra/Elipsaは2〜4万円台。  
+- 楽天ポイント還元（最大+15倍）とSPUで実質価格を下げやすい。  
+- 読み放題「Kobo Plus」は小説・ライトノベル中心で、30日間無料トライアルあり。
+
+### 意外と差が出るポイント
+- **サブスク重視ならKindle**：Unlimitedの蔵書数とPrime Readingの組み合わせが強み。  
+- **現金を使わず買いたいならKobo**：ポイント・ラクマ売上など楽天内の残高をフル活用できる。
+
+---
+
+## セール時期と買い方のコツ
+
+| タイミング | Kindle | Kobo |
+| --- | --- | --- |
+| 1月 | 初売りセール（端末最大 ¥3,000引き） | お買い物マラソン開始。書籍クーポン配布 |
+| 6〜7月 | **Amazonプライムデー**：Paperwhite・Unlimitedが同時値引き | スーパーSALEでポイント最大44倍 |
+| 11月 | ブラックフライデー＋サイバーマンデー | 楽天ブラックフライデー |
+
+- 端末値引きは年3回以上。焦って定価購入するより、2〜3週間待つ方がトクなことが多い。  
+- Koboはクーポン＋ポイント還元で「即日20%OFF」も狙えるため、キャンペーンページを必ずチェック。  
+- Kindle Unlimitedはセール時に「3カ月99円」になるので、端末と同時に申し込むとアップセル効果が高い。
+
+---
+
+## 実際の使用シナリオで比較
+
+1. **通勤30分 × 毎日読む会社員**  
+   - Kindle：WhisperSyncでスマホと同期、Prime Readingで雑誌を流し読み。  
+   - Kobo：Rakutenポイントで毎月の新刊を購入。Koboアプリでも続きを読める。
+2. **漫画・ラノベを月20冊読む学生**  
+   - Kindle：まとめ買いセール＋Kindle Unlimitedの漫画枠を組み合わせ。  
+   - Kobo：Koboクーポン＋ポイント消化で1冊あたり実質¥300台まで下げられる。  
+3. **技術書＋英語学習が中心のエンジニア**  
+   - Kindle：辞書機能と単語帳が強力。`{{< relref "posts/kindle-paperwhite-review.md" >}}` で触れているように、Paperwhiteの色調調整で目の負担を抑えられる。  
+   - Kobo：EPUB/PDFをPCからドラッグ＆ドロップできるので、社内ドキュメントをまとめて持ち歩きたい人に向く。`{{< relref "posts/kobo-clara-review.md" >}}` も参考にどうぞ。
+
+---
+
 ## どちらを選ぶべき？ユーザータイプ別おすすめ
 
 - **Amazon経済圏ユーザー**  
@@ -94,6 +182,19 @@ tags:
 
 - **英語学習や専門書を探している人**  
   → Kindleが有利。洋書ラインナップが圧倒的。  
+
+---
+
+## よくある質問（FAQ）
+
+**Q. KindleとKoboではどちらが安く買えますか？**  
+A. 端末価格はほぼ同じです。Amazonならプライムデー、楽天ならお買い物マラソンやスーパーSALEのときに購入すると実質1〜3割引になります。
+
+**Q. 紙の本から初めて移行する場合、どちらが操作しやすいですか？**  
+A. シンプルなUIで迷いにくいのはKindleです。フォントや余白を細かく変えたい人や、EPUBを自在に入れたい人はKoboが向いています。
+
+**Q. 漫画と英語学習を両立させたいときは？**  
+A. 漫画の快適さはKobo（ページ送り・容量）、英語学習はKindle（辞書・単語帳）が強み。両方やりたい人はKoboを漫画用、Kindleアプリをスマホで学習用といった併用もおすすめです。
 
 ---
 
@@ -114,6 +215,10 @@ KindleとKoboはどちらも優秀な電子書籍リーダーですが、**「�
 
 もし「漫画を安くまとめ読みしたい」ならKobo、  
 「Prime Readingや英語学習に活用したい」ならKindleを選ぶと間違いありません。  
+
+より詳しい端末レビューは以下からどうぞ。  
+- [Kindle Paperwhite レビュー]({{< relref "posts/kindle-paperwhite-review.md" >}})  
+- [Kobo Clara レビュー]({{< relref "posts/kobo-clara-review.md" >}})
 
 
 ---
