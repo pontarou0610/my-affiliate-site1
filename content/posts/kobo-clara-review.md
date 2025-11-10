@@ -1,30 +1,20 @@
 ---
-title: "【2025年最新】Kobo Claraレビュー｜Kindle派が気になるポイント"
-date: 2024-10-01T00:00:00+09:00
+title: "【2025年最新】Kobo Claraレビュー｜Kindle派でも気になるポイントを徹底検証"
+date: 2024-10-01T09:00:00+09:00
 slug: "kobo-clara-review"
-publishDate: 2024-10-01T00:00:00+09:00
+publishDate: 2024-10-01T09:00:00+09:00
 draft: false
-description: "Kobo Clara BWの画質やライト機能、楽天サービスとの連携をレビューし、Kindleとの違いを紹介します。"
+pageviews: 1800
+showRakutenWidget: true
+description: "Kobo Clara BWの実機レビュー。画面の見やすさやライト機能、楽天サービスとの連携、漫画や雑誌の読み心地、Kindleとの違いまで詳しく紹介。"
 categories:
   - "電子書籍リーダー"
 tags:
   - "Kobo"
+  - "電子書籍リーダー"
   - "レビュー"
-  - "電子書籍"
   - "楽天"
----
-
-
-この記事は準備中です。まもなく公開します。
-
-他の関連記事は [こちら](/posts/)
-=======
-title: "【2025年最新】Kobo Claraレビュー｜Kindle派でも気になるポイントを徹底検証"
-date: 2024-10-01T09:00:00+09:00
-publishDate: 2024-10-01T09:00:00+09:00
-draft: false
-description: "Kobo Clara BWの実機レビュー。画面の見やすさやライト機能、楽天サービスとの連携、漫画や雑誌の読み心地、Kindleとの違いまで詳しく紹介。"
-tags: ["Kobo", "電子書籍リーダー", "レビュー", "楽天", "Kindle"]
+  - "Kindle"
 ---
 
 # 【2025年最新】Kobo Claraレビュー｜Kindle派でも気になるポイントを徹底検証

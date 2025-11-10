@@ -76,6 +76,21 @@ FALLBACK_TOPICS = [
 ]
 
 
+RELEVANCE_KEYWORDS = [kw.lower() for kw in [
+    "kindle",
+    "kobo",
+    "電子書籍",
+    "電子書籍リーダー",
+    "ebook",
+    "e-ink",
+    "epub",
+    "prime reading",
+    "kindle unlimited",
+    "kobo plus",
+    "楽天kobo",
+]]
+
+
 def collect_candidates(max_needed: int):
     """RSSから候補収集→ユニーク化。足りなければFALLBACK補完。"""
     items = []
@@ -115,6 +130,12 @@ def collect_candidates(max_needed: int):
             uniq.append(fb); seen.add(fb)
 
     return uniq[:max_needed]
+
+
+def contains_relevant_keyword(text: str) -> bool:
+    lowered = text.lower()
+    return any(keyword in lowered for keyword in RELEVANCE_KEYWORDS)
+
 
 # ---------- OpenAI ----------
 import openai
@@ -422,6 +443,7 @@ def make_post(topic: str, slug: str):
 
     draft = re.sub(r"\n?\[関連記事\]\(/posts/?\)\s*", "\n", draft)
 
+    has_related_products = False
     rakuten_items = fetch_rakuten_items(topic)
     if rakuten_items:
         rakuten_lines = ["\n## 関連アイテム（楽天）", ""]
@@ -434,6 +456,7 @@ def make_post(topic: str, slug: str):
                 pass
             rakuten_lines.append(f"- [{item['title']}]({item['url']}){price_text}")
         rakuten_block = "\n".join(rakuten_lines) + "\n"
+        has_related_products = True
         summary_match = re.search(r"(\n## まとめ[\s\S]*?)(?=\n## |\Z)", draft)
         if summary_match:
             insert_pos = summary_match.end()
@@ -463,6 +486,7 @@ def make_post(topic: str, slug: str):
     categories: ["ガイド"]
     description: "{topic}の要点と実用ヒントをわかりやすく解説。"
     slug: "{slug}"
+    hasRelatedProducts: {"true" if has_related_products else "false"}
     ---
     """)
     return slug, seo_title, fm + "\n" + draft + "\n"
@@ -524,6 +548,9 @@ def main():
             suffix += 1
 
         slug, seo_title, content = make_post(topic_clean, slug_candidate)
+        if not contains_relevant_keyword(content):
+            print(f"[skip] Irrelevant draft '{seo_title}' filtered out (missing ebook keywords).")
+            continue
         prefix = f"{today}-{index}"  # 例: 2025-11-03-1, -2, -3
         path = ensure_unique_path(out_dir, prefix, slug)
         path.write_text(content, encoding="utf-8")

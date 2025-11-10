@@ -1,16 +1,37 @@
-{{ if .IsPage }}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": {{ .Title | jsonify }},
-  "datePublished": "{{ .PublishDate }}",
-  "dateModified": "{{ .Lastmod }}",
-  "inLanguage": "ja",
-  "mainEntityOfPage": "{{ .Permalink }}",
-  "author": { "@type": "Person", "name": "運営者" },
-  "publisher": { "@type": "Organization", "name": "ぽんたろう" },
-  "description": {{ with .Params.description }}{{ . | jsonify }}{{ else }}{{ .Summary | plainify | truncate 160 | jsonify }}{{ end }}
-}
-</script>
-{{ end }}
+{{- if .IsPage -}}
+  {{- $author := site.Params.authorName | default "ぽんたろう" -}}
+  {{- $publisher := site.Title | default $author -}}
+  {{- $logo := site.Params.publisherLogo | default (index (site.Params.images | default (slice "/images/ogp-default.jpg")) 0) -}}
+  {{- $image := "" -}}
+  {{- if .Params.images }}
+    {{- $image = (index .Params.images 0) | absURL -}}
+  {{- else if .Params.cover }}
+    {{- with .Params.cover.image }}
+      {{- $image = . | absURL -}}
+    {{- end -}}
+  {{- else if site.Params.images }}
+    {{- $image = (index site.Params.images 0) | absURL -}}
+  {{- end -}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": {{ .Title | jsonify }},
+    "datePublished": "{{ time.Format "2006-01-02T15:04:05Z07:00" .PublishDate }}",
+    "dateModified": "{{ time.Format "2006-01-02T15:04:05Z07:00" .Lastmod }}",
+    "inLanguage": "{{ .Site.Language.Lang | default "ja" }}",
+    "mainEntityOfPage": "{{ .Permalink }}",
+    "author": { "@type": "Person", "name": {{ $author | jsonify }} },
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ $publisher | jsonify }},
+      "logo": {
+        "@type": "ImageObject",
+        "url": {{ $logo | absURL | jsonify }}
+      }
+    },
+    {{- if $image }}"image": {{ $image | jsonify }},{{ end }}
+    "description": {{ with .Params.description }}{{ . | jsonify }}{{ else }}{{ .Summary | plainify | truncate 160 | jsonify }}{{ end }}
+  }
+  </script>
+{{- end -}}

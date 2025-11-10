@@ -2,6 +2,8 @@
 title: "【2025年最新】KindleとKoboを徹底比較｜電子書籍リーダーはどっちを選ぶ？"
 date: 2025-08-22T10:00:00+09:00
 draft: false
+pageviews: 3200
+showRakutenWidget: true
 description: "Amazon Kindleと楽天Koboを価格・機能・キャンペーンで比較し、どちらを選ぶべきか解説します。"
 categories:
   - "電子書籍リーダー"

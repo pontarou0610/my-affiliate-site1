@@ -43,9 +43,17 @@
   </div>
   {{- end }}
 
-
-  {{- partial "rakuten-widget.html" . }}
-
+  {{- $showRakuten := site.Params.defaultRakutenWidget | default false -}}
+  {{- $hasRelated := .Params.hasRelatedProducts | default false -}}
+  {{- $explicit := .Param "showRakutenWidget" -}}
+  {{- if ne $explicit nil }}
+    {{- $showRakuten = $explicit -}}
+  {{- else if not $hasRelated }}
+    {{- $showRakuten = true -}}
+  {{- end -}}
+  {{- if $showRakuten }}
+    {{- partial "rakuten-widget.html" . }}
+  {{- end }}
   
   <footer class="post-footer">
     {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}

@@ -2,6 +2,8 @@
 title: "【2025年】Kindle Paperwhiteレビュー｜読書体験とライバル比較"
 date: 2025-08-28T10:00:00+09:00
 draft: false
+pageviews: 2600
+showRakutenWidget: true
 description: "Kindle Paperwhiteの読書体験や機能、他モデルとの違い、セール情報まで詳しくレビューします。"
 categories:
   - "電子書籍リーダー"

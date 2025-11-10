@@ -30,6 +30,9 @@ canonifyURLs = true                    # 生URLを baseURL で正規化 (GitHub 
   defaultTheme = "auto"                 # "dark" | "light" | "auto"
   description = "Kindle・Koboなど電子書籍リーダーの比較から、出版・AIライティング・自動化までを解説するブログ"
   images = ["/images/ogp-default.jpg"]  # static/images/ogp-default.jpg を参照
+  authorName = "ぽんたろう"
+  publisherLogo = "/images/ogp-default.jpg"
+  defaultRakutenWidget = false
 
   # UI/UX
   ShowShareButtons = true

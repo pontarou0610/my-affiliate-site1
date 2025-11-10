@@ -2,7 +2,7 @@
 title: "マッハツール | 登録不要の無料オンライン効率化ツール活用ガイド"
 date: 2025-11-04T00:00:00+09:00
 slug: "matsuha-tsu-ru-deng-lu-bu-yao-nowu-liao-onrainxiao-lu-hua-ts"
-draft: false
+draft: true
 description: "登録不要で使えるマッハツールの特徴と活用方法、注意点をまとめました。"
 categories:
   - "自動化とAI活用"
@@ -11,7 +11,7 @@ tags:
   - "効率化"
   - "ツール紹介"
 ---
-
+> ※ この原稿はテーマ外の内容のため、公開を保留しています。調整後に再公開予定です。
 
 # マッハーツール | 登録不要の無料オンライン効率化ツール
 
