@@ -758,6 +758,12 @@ def main():
         if not fb_topic or not generate_for_topic(fb_topic):
             break
 
+    if generated == 0:
+        print("[info] No articles generated from RSS; forcing ebook fallback.")
+        for fb_topic in FALLBACK_TOPICS:
+            if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True):
+                break
+
     if generated < need:
         raise SystemExit(f"Unable to generate {need} unique posts (created {generated}).")
 
