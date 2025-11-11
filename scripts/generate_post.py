@@ -607,8 +607,12 @@ def ensure_unique_path(basedir: pathlib.Path, prefix: str, slug: str):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--count", type=int, default=1, help="本日の生成本数")
+    parser.add_argument("--count", type=int, default=1, help="本日の生成本数（1〜3）")
     args = parser.parse_args()
+
+    requested_count = max(1, min(3, args.count))
+    if requested_count != args.count:
+        print(f"[info] Adjusted count from {args.count} to {requested_count} (allowed range: 1-3).")
 
     out_dir = pathlib.Path("content/posts")
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -617,7 +621,7 @@ def main():
     existing_today = sorted(out_dir.glob(f"{today}-*.md"))
     already = len(existing_today)
 
-    need = max(0, args.count - already)
+    need = max(0, requested_count - already)
     if need == 0:
         print(f"Already have {already} posts for {today}. Nothing to do.")
         return
