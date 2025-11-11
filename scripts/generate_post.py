@@ -78,8 +78,10 @@ FALLBACK_TOPICS = [
 
 QUALITY_MIN_WORDS = 200          # primary語数（≒1000文字を想定）
 MIN_CHAR_COUNT = 1500            # primary文字数
-RELAXED_MIN_WORDS = 150          # fallback語数
-RELAXED_MIN_CHAR_COUNT = 1000    # fallback文字数
+RELAXED_MIN_WORDS = 150              # 第1緩和語数
+RELAXED_MIN_CHAR_COUNT = 1000        # 第1緩和文字数
+RELAXED_MIN_WORD_COUNT_LOWER = 120   # 最終フォールバック語数
+RELAXED_MIN_CHAR_COUNT_LOWER = 800   # 最終フォールバック文字数
 MAX_PRIMARY_EXPAND_ATTEMPTS = 1  # 追リライト回数（コスト節約のため最小限）
 MAX_RELAXED_EXPAND_ATTEMPTS = 1
 MAX_CONSECUTIVE_FAILS = 3        # 通常トピックでの連続失敗閾値
@@ -658,7 +660,8 @@ def main():
             slug, seo_title, content, word_count = make_post(topic_clean, slug_candidate, template=tmpl)
             char_count = count_chars(content)
             meets_relaxed = word_count >= RELAXED_MIN_WORDS and char_count >= RELAXED_MIN_CHAR_COUNT
-            if meets_relaxed:
+            meets_lower = word_count >= RELAXED_MIN_WORD_COUNT_LOWER and char_count >= RELAXED_MIN_CHAR_COUNT_LOWER
+            if meets_relaxed or meets_lower:
                 prefix = f"{today}-{index}"
                 path = ensure_unique_path(out_dir, prefix, slug)
                 path.write_text(content, encoding="utf-8")
@@ -667,6 +670,8 @@ def main():
                 used_slugs.add(slug)
                 generated += 1
                 index += 1
+                if not meets_relaxed:
+                    print(f"[info] Draft '{seo_title}' accepted under relaxed lower threshold ({word_count} words / {char_count} chars).")
                 return True
             else:
                 label = "trend" if tmpl == TREND_USER_TMPL else "default"
