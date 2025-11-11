@@ -649,7 +649,7 @@ def main():
     fallback_queue = list(FALLBACK_TOPICS)
     consecutive_fails = 0
 
-    def generate_for_topic(raw_topic: str, allow_lower_threshold=False) -> bool:
+    def generate_for_topic(raw_topic: str, allow_lower_threshold=False, allow_fallback=True) -> bool:
         nonlocal generated, index
         topic_clean = re.sub(r"\s+", " ", raw_topic).strip()
         if not topic_clean:
@@ -692,10 +692,11 @@ def main():
             else:
                 label = "trend" if tmpl == TREND_USER_TMPL else "default"
                 print(f"[skip] Draft '{seo_title}' too short with {label} template ({word_count} words / {char_count} chars).")
-        fb_topic = next_fallback_topic()
-        if fb_topic:
-            print(f"[info] Trying fallback topic '{fb_topic}'.")
-            return generate_for_topic(fb_topic, allow_lower_threshold=True)
+        if allow_fallback:
+            fb_topic = next_fallback_topic()
+            if fb_topic:
+                print(f"[info] Trying fallback topic '{fb_topic}'.")
+                return generate_for_topic(fb_topic, allow_lower_threshold=True, allow_fallback=False)
         return False
 
     def next_fallback_topic() -> str | None:
