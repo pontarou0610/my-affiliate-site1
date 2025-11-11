@@ -76,8 +76,24 @@ FALLBACK_TOPICS = [
 ]
 
 
-QUALITY_MIN_WORDS = 400
-MIN_CHAR_COUNT = 2500
+QUALITY_MIN_WORDS = 400          # primary語数
+MIN_CHAR_COUNT = 2500            # primary文字数
+RELAXED_MIN_WORDS = 250          # fallback語数
+RELAXED_MIN_CHAR_COUNT = 1800    # fallback文字数
+
+RELEVANCE_KEYWORDS = [kw.lower() for kw in [
+    "kindle",
+    "kobo",
+    "電子書籍",
+    "電子書籍リーダー",
+    "ebook",
+    "e-ink",
+    "epub",
+    "prime reading",
+    "kindle unlimited",
+    "kobo plus",
+    "楽天kobo",
+]]
 
 PILLAR_LINKS = [
     ("KindleとKoboを徹底比較", "/posts/kindle-vs-kobo/"),
@@ -145,6 +161,11 @@ def count_words(text: str) -> int:
 
 def count_chars(text: str) -> int:
     return len(text.replace("\n", ""))
+
+
+def contains_relevant_keyword(text: str) -> bool:
+    lowered = text.lower()
+    return any(keyword in lowered for keyword in RELEVANCE_KEYWORDS)
 
 
 def expand_to_min_words(topic: str, draft: str, min_words: int, min_chars: int) -> str:
@@ -469,6 +490,8 @@ def make_post(topic: str, slug: str):
         draft = r.choices[0].message.content.strip()
 
     draft = expand_to_min_words(topic, draft, QUALITY_MIN_WORDS, MIN_CHAR_COUNT)
+    if count_chars(draft) < MIN_CHAR_COUNT:
+        draft = expand_to_min_words(topic, draft, RELAXED_MIN_WORDS, RELAXED_MIN_CHAR_COUNT)
 
     hero = fetch_pexels_image(topic)
     if hero:
@@ -594,8 +617,13 @@ def main():
             suffix += 1
 
         slug, seo_title, content, word_count = make_post(topic_clean, slug_candidate)
-        if word_count < QUALITY_MIN_WORDS or count_chars(content) < MIN_CHAR_COUNT:
-            print(f"[skip] Draft '{seo_title}' too short ({word_count} words / {count_chars(content)} chars).")
+        char_count = count_chars(content)
+        meets_relaxed = word_count >= RELAXED_MIN_WORDS and char_count >= RELAXED_MIN_CHAR_COUNT
+        if not meets_relaxed:
+            if not contains_relevant_keyword(topic_clean):
+                print(f"[skip] Draft '{seo_title}' short ({word_count} words / {char_count} chars) and topic '{topic_clean}' deemed irrelevant.")
+            else:
+                print(f"[skip] Draft '{seo_title}' still too short after fallback ({word_count} words / {char_count} chars).")
             continue
         prefix = f"{today}-{index}"  # 例: 2025-11-03-1, -2, -3
         path = ensure_unique_path(out_dir, prefix, slug)
