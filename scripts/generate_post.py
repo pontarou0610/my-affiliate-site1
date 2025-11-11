@@ -161,6 +161,36 @@ def count_words(text: str) -> int:
     return len(re.findall(r"\S+", text))
 
 
+def expand_to_min_words(topic: str, draft: str, min_words: int) -> str:
+    """If the draft is too short, ask the model to enrich it up to min_words."""
+    attempts = 0
+    while count_words(draft) < min_words and attempts < 3:
+        attempts += 1
+        expand_prompt = dedent(f"""\
+        以下の原稿は約{count_words(draft)}語で分量が不足しています。テーマ「{topic}」に沿って、
+        - 少なくとも{min_words}語（目安: 日本語でおよそ{min_words * 2}文字）になるまで詳しくする
+        - 導入→要点まとめ→詳細セクション→まとめ→今日できる小さな一歩、の構成を維持
+        - 外部リンク・価格断定・未検証情報は書かない
+        - です・ます調、専門用語は初出でかんたんな説明を入れる
+
+        原稿を改善した完全版のみ返してください。
+
+        --- 原稿ここから ---
+        {draft}
+        --- 原稿ここまで ---
+        """)
+        resp = openai.chat.completions.create(
+            model="gpt-4o-mini",
+            temperature=0.5,
+            messages=[
+                {"role": "system", "content": REWRITER_SYSTEM},
+                {"role": "user", "content": expand_prompt},
+            ],
+        )
+        draft = resp.choices[0].message.content.strip()
+    return draft
+
+
 # ---------- OpenAI ----------
 import openai
 openai.api_key = OPENAI_API_KEY
@@ -192,6 +222,7 @@ USER_TMPL = """\
 """
 
 REVIEWER_SYSTEM = "あなたは厳格な日本語編集者。論理・構成・可読性・初学者配慮を点検し、必要な修正を加えて完全原稿として返す。"
+REWRITER_SYSTEM = "あなたはSEOに強い日本語ライター。与えられた原稿を構成を保ったまま情報量を増やし、指定文字数まで肉付けする。"
 CHECKLIST = """\
 【必ず満たすチェックリスト】
 1) です・ます調で自然か？口調がぶれていないか？
@@ -449,6 +480,8 @@ def make_post(topic: str, slug: str):
                       {"role":"user","content":review_prompt}]
         )
         draft = r.choices[0].message.content.strip()
+
+    draft = expand_to_min_words(topic, draft, QUALITY_MIN_WORDS)
 
     hero = fetch_pexels_image(topic)
     if hero:
