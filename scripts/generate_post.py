@@ -80,6 +80,8 @@ QUALITY_MIN_WORDS = 400          # primary語数
 MIN_CHAR_COUNT = 2500            # primary文字数
 RELAXED_MIN_WORDS = 250          # fallback語数
 RELAXED_MIN_CHAR_COUNT = 1800    # fallback文字数
+MAX_PRIMARY_EXPAND_ATTEMPTS = 1  # 追リライト回数（コスト節約のため最小限）
+MAX_RELAXED_EXPAND_ATTEMPTS = 1
 
 RELEVANCE_KEYWORDS = [kw.lower() for kw in [
     "kindle",
@@ -168,10 +170,10 @@ def contains_relevant_keyword(text: str) -> bool:
     return any(keyword in lowered for keyword in RELEVANCE_KEYWORDS)
 
 
-def expand_to_min_words(topic: str, draft: str, min_words: int, min_chars: int) -> str:
+def expand_to_min_words(topic: str, draft: str, min_words: int, min_chars: int, max_attempts: int) -> str:
     """If the draft is too short, ask the model to enrich it up to min_words."""
     attempts = 0
-    while (count_words(draft) < min_words or count_chars(draft) < min_chars) and attempts < 3:
+    while (count_words(draft) < min_words or count_chars(draft) < min_chars) and attempts < max_attempts:
         attempts += 1
         expand_prompt = dedent(f"""\
         以下の原稿は約{count_words(draft)}語（{count_chars(draft)}文字）で分量が不足しています。テーマ「{topic}」に沿って、
@@ -514,9 +516,9 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
         )
         draft = r.choices[0].message.content.strip()
 
-    draft = expand_to_min_words(topic, draft, QUALITY_MIN_WORDS, MIN_CHAR_COUNT)
+    draft = expand_to_min_words(topic, draft, QUALITY_MIN_WORDS, MIN_CHAR_COUNT, MAX_PRIMARY_EXPAND_ATTEMPTS)
     if count_chars(draft) < MIN_CHAR_COUNT:
-        draft = expand_to_min_words(topic, draft, RELAXED_MIN_WORDS, RELAXED_MIN_CHAR_COUNT)
+        draft = expand_to_min_words(topic, draft, RELAXED_MIN_WORDS, RELAXED_MIN_CHAR_COUNT, MAX_RELAXED_EXPAND_ATTEMPTS)
 
     hero = fetch_pexels_image(topic)
     if hero:
@@ -624,17 +626,18 @@ def main():
     generated = 0
     index = start_index
 
-    for topic in topics:
-        topic_clean = re.sub(r"\s+", " ", topic).strip()
+    def generate_for_topic(raw_topic: str) -> bool:
+        nonlocal generated, index
+        topic_clean = re.sub(r"\s+", " ", raw_topic).strip()
         if not topic_clean:
-            continue
+            return False
         lowered = topic_clean.lower()
         if lowered in used_titles:
-            continue
+            return False
 
         slug_base = slugify_lib(topic_clean, lowercase=True, max_length=60, separator='-')
         if not slug_base:
-            continue
+            return False
         slug_candidate = slug_base
         suffix = 2
         while slug_candidate in used_slugs:
@@ -645,32 +648,35 @@ def main():
         if not contains_relevant_keyword(topic_clean):
             templates.append(TREND_USER_TMPL)
 
-        accepted = False
         for tmpl in templates:
             slug, seo_title, content, word_count = make_post(topic_clean, slug_candidate, template=tmpl)
             char_count = count_chars(content)
             meets_relaxed = word_count >= RELAXED_MIN_WORDS and char_count >= RELAXED_MIN_CHAR_COUNT
             if meets_relaxed:
-                accepted = True
-                break
+                prefix = f"{today}-{index}"
+                path = ensure_unique_path(out_dir, prefix, slug)
+                path.write_text(content, encoding="utf-8")
+                print(f"generated: {path}")
+                used_titles.add(seo_title.strip().lower())
+                used_slugs.add(slug)
+                generated += 1
+                index += 1
+                return True
             else:
                 label = "trend" if tmpl == TREND_USER_TMPL else "default"
                 print(f"[skip] Draft '{seo_title}' too short with {label} template ({word_count} words / {char_count} chars).")
+        return False
 
-        if not accepted:
-            continue
-        prefix = f"{today}-{index}"  # 例: 2025-11-03-1, -2, -3
-        path = ensure_unique_path(out_dir, prefix, slug)
-        path.write_text(content, encoding="utf-8")
-        print(f"generated: {path}")
+    for topic in topics:
+        if generate_for_topic(topic):
+            if generated >= need:
+                break
 
-        used_titles.add(seo_title.strip().lower())
-        used_slugs.add(slug)
-        generated += 1
-        index += 1
-
-        if generated >= need:
-            break
+    if generated < need:
+        for fb_topic in FALLBACK_TOPICS:
+            if generate_for_topic(fb_topic):
+                if generated >= need:
+                    break
 
     if generated < need:
         raise SystemExit(f"Unable to generate {need} unique posts (created {generated}).")
