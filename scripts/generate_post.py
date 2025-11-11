@@ -90,7 +90,8 @@ RELEVANCE_KEYWORDS = [kw.lower() for kw in [
     "楽天kobo",
 ]]
 
-QUALITY_MIN_WORDS = 700
+QUALITY_MIN_WORDS = 400
+MIN_CHAR_COUNT = 2500
 
 PILLAR_LINKS = [
     ("KindleとKoboを徹底比較", "/posts/kindle-vs-kobo/"),
@@ -161,14 +162,18 @@ def count_words(text: str) -> int:
     return len(re.findall(r"\S+", text))
 
 
-def expand_to_min_words(topic: str, draft: str, min_words: int) -> str:
+def count_chars(text: str) -> int:
+    return len(text.replace("\n", ""))
+
+
+def expand_to_min_words(topic: str, draft: str, min_words: int, min_chars: int) -> str:
     """If the draft is too short, ask the model to enrich it up to min_words."""
     attempts = 0
-    while count_words(draft) < min_words and attempts < 3:
+    while (count_words(draft) < min_words or count_chars(draft) < min_chars) and attempts < 3:
         attempts += 1
         expand_prompt = dedent(f"""\
-        以下の原稿は約{count_words(draft)}語で分量が不足しています。テーマ「{topic}」に沿って、
-        - 少なくとも{min_words}語（目安: 日本語でおよそ{min_words * 2}文字）になるまで詳しくする
+        以下の原稿は約{count_words(draft)}語（{count_chars(draft)}文字）で分量が不足しています。テーマ「{topic}」に沿って、
+        - 少なくとも{min_words}語、かつ{min_chars}文字以上になるまで詳しくする
         - 導入→要点まとめ→詳細セクション→まとめ→今日できる小さな一歩、の構成を維持
         - 外部リンク・価格断定・未検証情報は書かない
         - です・ます調、専門用語は初出でかんたんな説明を入れる
@@ -207,7 +212,7 @@ USER_TMPL = """\
 初めての読者が「何を選び、どう設定し、どんな落とし穴を避けるか」を5分で掴める。
 
 # 出力ルール
-- 文字数: 2500〜3000字
+- 文字数: 「必ず」2500字以上。できれば3000字前後まで書き切る
 - 構成: 冒頭に「要点まとめ」箇条書き3〜5行 → H2中心（必要に応じてH3）
 - 方針: 手順・チェックリスト・判断基準を具体化。曖昧な主張・過度な煽りはNG
 - 禁止: 外部リンク・価格断定・未検証の噂
@@ -481,7 +486,7 @@ def make_post(topic: str, slug: str):
         )
         draft = r.choices[0].message.content.strip()
 
-    draft = expand_to_min_words(topic, draft, QUALITY_MIN_WORDS)
+    draft = expand_to_min_words(topic, draft, QUALITY_MIN_WORDS, MIN_CHAR_COUNT)
 
     hero = fetch_pexels_image(topic)
     if hero:
@@ -610,8 +615,8 @@ def main():
         if not contains_relevant_keyword(content):
             print(f"[skip] Irrelevant draft '{seo_title}' filtered out (missing ebook keywords).")
             continue
-        if word_count < QUALITY_MIN_WORDS:
-            print(f"[skip] Draft '{seo_title}' too short ({word_count} words).")
+        if word_count < QUALITY_MIN_WORDS or count_chars(content) < MIN_CHAR_COUNT:
+            print(f"[skip] Draft '{seo_title}' too short ({word_count} words / {count_chars(content)} chars).")
             continue
         prefix = f"{today}-{index}"  # 例: 2025-11-03-1, -2, -3
         path = ensure_unique_path(out_dir, prefix, slug)
