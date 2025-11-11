@@ -76,20 +76,6 @@ FALLBACK_TOPICS = [
 ]
 
 
-RELEVANCE_KEYWORDS = [kw.lower() for kw in [
-    "kindle",
-    "kobo",
-    "電子書籍",
-    "電子書籍リーダー",
-    "ebook",
-    "e-ink",
-    "epub",
-    "prime reading",
-    "kindle unlimited",
-    "kobo plus",
-    "楽天kobo",
-]]
-
 QUALITY_MIN_WORDS = 400
 MIN_CHAR_COUNT = 2500
 
@@ -139,11 +125,6 @@ def collect_candidates(max_needed: int):
             uniq.append(fb); seen.add(fb)
 
     return uniq[:max_needed]
-
-
-def contains_relevant_keyword(text: str) -> bool:
-    lowered = text.lower()
-    return any(keyword in lowered for keyword in RELEVANCE_KEYWORDS)
 
 
 def ensure_pillar_links(text: str) -> str:
@@ -209,12 +190,13 @@ USER_TMPL = """\
 {topic}
 
 # 目的
-初めての読者が「何を選び、どう設定し、どんな落とし穴を避けるか」を5分で掴める。
+初めての読者が「何を選び、どう設定し、どんな落とし穴を避けるか」を5分で掴める。電子書籍テーマが難しい場合は、トレンドになっている話題を背景→要点→活用法で整理し、行動につながる形で解説する。
 
 # 出力ルール
 - 文字数: 「必ず」2500字以上。できれば3000字前後まで書き切る
 - 構成: 冒頭に「要点まとめ」箇条書き3〜5行 → H2中心（必要に応じてH3）
 - 方針: 手順・チェックリスト・判断基準を具体化。曖昧な主張・過度な煽りはNG
+- テーマが電子書籍以外でも、最新トレンド解説として「背景→何が起きているか→ユーザーができること」を明確に書く
 - 禁止: 外部リンク・価格断定・未検証の噂
 - 内部リンク: 文末に [関連記事](/posts/) を1つだけ（※後で実URLに置換）
 - 仕上げ: 最後に「今日できる小さな一歩」を短く
@@ -612,9 +594,6 @@ def main():
             suffix += 1
 
         slug, seo_title, content, word_count = make_post(topic_clean, slug_candidate)
-        if not contains_relevant_keyword(content):
-            print(f"[skip] Irrelevant draft '{seo_title}' filtered out (missing ebook keywords).")
-            continue
         if word_count < QUALITY_MIN_WORDS or count_chars(content) < MIN_CHAR_COUNT:
             print(f"[skip] Draft '{seo_title}' too short ({word_count} words / {count_chars(content)} chars).")
             continue
