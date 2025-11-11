@@ -80,8 +80,10 @@ QUALITY_MIN_WORDS = 200          # primary語数（≒1000文字を想定）
 MIN_CHAR_COUNT = 1500            # primary文字数
 RELAXED_MIN_WORDS = 150          # 第1緩和語数
 RELAXED_MIN_CHAR_COUNT = 1000    # 第1緩和文字数
-RELAXED_MIN_WORD_COUNT_LOWER = 120   # 最終フォールバック語数
-RELAXED_MIN_CHAR_COUNT_LOWER = 800   # 最終フォールバック文字数
+RELAXED_MIN_WORD_COUNT_LOWER = 120   # 第2緩和語数
+RELAXED_MIN_CHAR_COUNT_LOWER = 800   # 第2緩和文字数
+FINAL_MIN_WORDS = 100                # フォールバック採用時の最終語数
+FINAL_MIN_CHAR_COUNT = 600           # フォールバック採用時の最終文字数
 MAX_PRIMARY_EXPAND_ATTEMPTS = 1  # 追リライト回数（コスト節約のため最小限）
 MAX_RELAXED_EXPAND_ATTEMPTS = 1
 MAX_CONSECUTIVE_FAILS = 3        # 通常トピックでの連続失敗閾値
@@ -605,7 +607,7 @@ def ensure_unique_path(basedir: pathlib.Path, prefix: str, slug: str):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--count", type=int, default=3, help="本日の生成本数")
+    parser.add_argument("--count", type=int, default=1, help="本日の生成本数")
     args = parser.parse_args()
 
     out_dir = pathlib.Path("content/posts")
@@ -640,14 +642,28 @@ def main():
         return [t for _, t in scored]
 
     raw_topics = collect_candidates(max(need * 3, need))
-    topics = prioritize_topics(raw_topics)
+    scored = []
+    for t in raw_topics:
+        score = 0
+        lowered = t.lower()
+        for kw in ["kindle", "kobo", "電子書籍", "ebook", "reader", "epub", "セール", "設定", "ガイド"]:
+            if kw in lowered:
+                score += 2
+        for kw in ["レビュー", "比較", "選び方", "チェックリスト", "使い方", "設定", "アップデート"]:
+            if kw in lowered:
+                score += 1
+        scored.append((score, t))
+    scored.sort(key=lambda x: x[0], reverse=True)
+    filtered_topics = [t for s, t in scored if s > 0]
+    fallback_pool = [t for s, t in scored if s <= 0]
+    topics = filtered_topics + fallback_pool
     start_index = already + 1
     generated = 0
     index = start_index
     fallback_queue = list(FALLBACK_TOPICS)
     consecutive_fails = 0
 
-    def generate_for_topic(raw_topic: str, allow_fallback=True) -> bool:
+    def generate_for_topic(raw_topic: str, allow_fallback=True, allow_final=False) -> bool:
         nonlocal generated, index
         topic_clean = re.sub(r"\s+", " ", raw_topic).strip()
         if not topic_clean:
@@ -674,7 +690,8 @@ def main():
             char_count = count_chars(content)
             meets_relaxed = word_count >= RELAXED_MIN_WORDS and char_count >= RELAXED_MIN_CHAR_COUNT
             meets_lower = word_count >= RELAXED_MIN_WORD_COUNT_LOWER and char_count >= RELAXED_MIN_CHAR_COUNT_LOWER
-            if meets_relaxed or meets_lower:
+            meets_final = allow_final and word_count >= FINAL_MIN_WORDS and char_count >= FINAL_MIN_CHAR_COUNT
+            if meets_relaxed or meets_lower or meets_final:
                 prefix = f"{today}-{index}"
                 path = ensure_unique_path(out_dir, prefix, slug)
                 path.write_text(content, encoding="utf-8")
@@ -683,7 +700,9 @@ def main():
                 used_slugs.add(slug)
                 generated += 1
                 index += 1
-                if meets_lower and not meets_relaxed:
+                if meets_final and not (meets_relaxed or meets_lower):
+                    print(f"[info] Draft '{seo_title}' accepted under final fallback threshold ({word_count} words / {char_count} chars).")
+                elif meets_lower and not meets_relaxed:
                     print(f"[info] Draft '{seo_title}' accepted under relaxed lower threshold ({word_count} words / {char_count} chars).")
                 return True
             else:
@@ -693,12 +712,18 @@ def main():
             fb_topic = next_fallback_topic()
             if fb_topic:
                 print(f"[info] Trying fallback topic '{fb_topic}'.")
-                return generate_for_topic(fb_topic, allow_fallback=False)
+                return generate_for_topic(fb_topic, allow_fallback=False, allow_final=True)
         return False
+
+    extra_fallbacks = list(FALLBACK_TOPICS)
 
     def next_fallback_topic() -> str | None:
         while fallback_queue:
             candidate = fallback_queue.pop(0)
+            if candidate.lower() not in used_titles:
+                return candidate
+        while extra_fallbacks:
+            candidate = extra_fallbacks.pop(0)
             if candidate.lower() not in used_titles:
                 return candidate
         return None
