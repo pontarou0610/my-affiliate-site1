@@ -78,10 +78,10 @@ FALLBACK_TOPICS = [
 
 QUALITY_MIN_WORDS = 200          # primary語数（≒1000文字を想定）
 MIN_CHAR_COUNT = 1500            # primary文字数
-RELAXED_MIN_WORDS = 150              # 第1緩和語数
-RELAXED_MIN_CHAR_COUNT = 1000        # 第1緩和文字数
-RELAXED_MIN_WORD_COUNT_LOWER = 120   # 最終フォールバック語数
-RELAXED_MIN_CHAR_COUNT_LOWER = 800   # 最終フォールバック文字数
+RELAXED_MIN_WORDS = 150          # 第1緩和語数
+RELAXED_MIN_CHAR_COUNT = 1000    # 第1緩和文字数
+RELAXED_MIN_WORD_COUNT_LOWER = 100   # 最終フォールバック語数
+RELAXED_MIN_CHAR_COUNT_LOWER = 600   # 最終フォールバック文字数
 MAX_PRIMARY_EXPAND_ATTEMPTS = 1  # 追リライト回数（コスト節約のため最小限）
 MAX_RELAXED_EXPAND_ATTEMPTS = 1
 MAX_CONSECUTIVE_FAILS = 3        # 通常トピックでの連続失敗閾値
@@ -624,10 +624,23 @@ def main():
     used_titles = { (p.get("title") or "").strip().lower() for p in existing_posts if p.get("title") }
     used_slugs = { p.get("slug") for p in existing_posts if p.get("slug") }
 
+    def prioritize_topics(candidates):
+        scored = []
+        for t in candidates:
+            score = 0
+            lowered = t.lower()
+            for kw in ["kindle", "kobo", "電子書籍", "ebook", "reader", "epub", "セール", "設定", "ガイド"]:
+                if kw in lowered:
+                    score += 2
+            for kw in ["レビュー", "比較", "選び方", "チェックリスト", "使い方", "設定", "アップデート"]:
+                if kw in lowered:
+                    score += 1
+            scored.append((score, t))
+        scored.sort(key=lambda x: x[0], reverse=True)
+        return [t for _, t in scored]
+
     raw_topics = collect_candidates(max(need * 3, need))
-    preferred_topics = [t for t in raw_topics if contains_relevant_keyword(t)]
-    other_topics = [t for t in raw_topics if t not in preferred_topics]
-    topics = preferred_topics + other_topics
+    topics = prioritize_topics(raw_topics)
     start_index = already + 1
     generated = 0
     index = start_index
