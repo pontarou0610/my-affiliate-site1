@@ -230,6 +230,30 @@ USER_TMPL = """\
 - 生成後はチェックリストに沿って自己レビューし、漏れがあれば加筆してから返す（2回繰り返す前提）
 """
 
+TREND_USER_TMPL = """\
+以下の最新トレンドテーマについて、背景から実践ステップまでを体系的にまとめた長文記事を書いてください。
+
+# テーマ
+{topic}
+
+# 目的
+ニュースを見たばかりの読者が「影響範囲」「具体的な対策」「活用アイデア」を一気に把握できるようにする。
+
+# 出力ルール
+- 文字数: 2000〜2800字を必須（できれば3000字に近づける）
+- 冒頭に3〜5行の「要点まとめ」を置く
+- 構成: H2で「背景と何が起きているか」「影響とリスク」「活用シナリオ」「チェックリスト」「今後の見通し」などを配置し、H3で具体例・数値・手順を補う
+- 各H2の下には必ず「実例」か「数字入りのアクション」「チェックリスト」を入れる。箇条書きや表も活用する
+- 禁止: 外部リンク・価格断定・未検証の噂
+- まとめ前に「応用アイデア／他分野への波及」を1セクション挟む
+- 最後は2〜3文の「今日できる小さな一歩」で締める
+
+# スタイル
+- です・ます調、専門用語は初出で短く説明
+- 抽象論に終わらず、誰でも実践できるステップ・例・注意点を添える
+- 生成後はチェックリストに沿って自己レビューし、必要なら加筆してから返す（2回繰り返す前提）
+"""
+
 REVIEWER_SYSTEM = "あなたは厳格な日本語編集者。論理・構成・可読性・初学者配慮を点検し、必要な修正を加えて完全原稿として返す。"
 REWRITER_SYSTEM = "あなたはSEOに強い日本語ライター。与えられた原稿を構成を保ったまま情報量を増やし、指定文字数まで肉付けする。"
 CHECKLIST = """\
@@ -465,8 +489,8 @@ def fetch_pexels_image(topic: str) -> Dict[str, str] | None:
     }
 
 # ---------- 1本生成 ----------
-def make_post(topic: str, slug: str):
-    user = USER_TMPL.format(topic=topic)
+def make_post(topic: str, slug: str, template: str = USER_TMPL):
+    user = template.format(topic=topic)
     resp = openai.chat.completions.create(
         model="gpt-4o-mini",
         temperature=0.7,
@@ -617,14 +641,23 @@ def main():
             slug_candidate = f"{slug_base}-{suffix}"
             suffix += 1
 
-        slug, seo_title, content, word_count = make_post(topic_clean, slug_candidate)
-        char_count = count_chars(content)
-        meets_relaxed = word_count >= RELAXED_MIN_WORDS and char_count >= RELAXED_MIN_CHAR_COUNT
-        if not meets_relaxed:
-            if not contains_relevant_keyword(topic_clean):
-                print(f"[skip] Draft '{seo_title}' short ({word_count} words / {char_count} chars) and topic '{topic_clean}' deemed irrelevant.")
+        templates = [USER_TMPL]
+        if not contains_relevant_keyword(topic_clean):
+            templates.append(TREND_USER_TMPL)
+
+        accepted = False
+        for tmpl in templates:
+            slug, seo_title, content, word_count = make_post(topic_clean, slug_candidate, template=tmpl)
+            char_count = count_chars(content)
+            meets_relaxed = word_count >= RELAXED_MIN_WORDS and char_count >= RELAXED_MIN_CHAR_COUNT
+            if meets_relaxed:
+                accepted = True
+                break
             else:
-                print(f"[skip] Draft '{seo_title}' still too short after fallback ({word_count} words / {char_count} chars).")
+                label = "trend" if tmpl == TREND_USER_TMPL else "default"
+                print(f"[skip] Draft '{seo_title}' too short with {label} template ({word_count} words / {char_count} chars).")
+
+        if not accepted:
             continue
         prefix = f"{today}-{index}"  # 例: 2025-11-03-1, -2, -3
         path = ensure_unique_path(out_dir, prefix, slug)
