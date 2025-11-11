@@ -76,12 +76,13 @@ FALLBACK_TOPICS = [
 ]
 
 
-QUALITY_MIN_WORDS = 400          # primary語数
-MIN_CHAR_COUNT = 2500            # primary文字数
+QUALITY_MIN_WORDS = 300          # primary語数（≒1500文字を想定）
+MIN_CHAR_COUNT = 2000            # primary文字数
 RELAXED_MIN_WORDS = 250          # fallback語数
 RELAXED_MIN_CHAR_COUNT = 1800    # fallback文字数
 MAX_PRIMARY_EXPAND_ATTEMPTS = 1  # 追リライト回数（コスト節約のため最小限）
 MAX_RELAXED_EXPAND_ATTEMPTS = 1
+MAX_CONSECUTIVE_FAILS = 3        # 通常トピックでの連続失敗閾値
 
 RELEVANCE_KEYWORDS = [kw.lower() for kw in [
     "kindle",
@@ -625,6 +626,8 @@ def main():
     start_index = already + 1
     generated = 0
     index = start_index
+    fallback_queue = list(FALLBACK_TOPICS)
+    consecutive_fails = 0
 
     def generate_for_topic(raw_topic: str) -> bool:
         nonlocal generated, index
@@ -667,16 +670,33 @@ def main():
                 print(f"[skip] Draft '{seo_title}' too short with {label} template ({word_count} words / {char_count} chars).")
         return False
 
+    def next_fallback_topic() -> str | None:
+        while fallback_queue:
+            candidate = fallback_queue.pop(0)
+            if candidate.lower() not in used_titles:
+                return candidate
+        return None
+
     for topic in topics:
         if generate_for_topic(topic):
+            consecutive_fails = 0
             if generated >= need:
                 break
+        else:
+            consecutive_fails += 1
+            if consecutive_fails >= MAX_CONSECUTIVE_FAILS:
+                fb_topic = next_fallback_topic()
+                if fb_topic and generate_for_topic(fb_topic):
+                    consecutive_fails = 0
+                    if generated >= need:
+                        break
+                else:
+                    consecutive_fails = 0  # リセットして次へ
 
-    if generated < need:
-        for fb_topic in FALLBACK_TOPICS:
-            if generate_for_topic(fb_topic):
-                if generated >= need:
-                    break
+    while generated < need:
+        fb_topic = next_fallback_topic()
+        if not fb_topic or not generate_for_topic(fb_topic):
+            break
 
     if generated < need:
         raise SystemExit(f"Unable to generate {need} unique posts (created {generated}).")
