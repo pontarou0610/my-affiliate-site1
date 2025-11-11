@@ -82,8 +82,6 @@ RELAXED_MIN_WORDS = 150          # 第1緩和語数
 RELAXED_MIN_CHAR_COUNT = 1000    # 第1緩和文字数
 RELAXED_MIN_WORD_COUNT_LOWER = 120   # 最終フォールバック語数
 RELAXED_MIN_CHAR_COUNT_LOWER = 800   # 最終フォールバック文字数
-LOWER_THRESHOLD_AFTER_FALLBACK = 80  # fallback後最終閾値
-LOWER_CHAR_AFTER_FALLBACK = 500      # fallback後最終文字数
 MAX_PRIMARY_EXPAND_ATTEMPTS = 1  # 追リライト回数（コスト節約のため最小限）
 MAX_RELAXED_EXPAND_ATTEMPTS = 1
 MAX_CONSECUTIVE_FAILS = 3        # 通常トピックでの連続失敗閾値
@@ -649,7 +647,7 @@ def main():
     fallback_queue = list(FALLBACK_TOPICS)
     consecutive_fails = 0
 
-    def generate_for_topic(raw_topic: str, allow_lower_threshold=False, allow_fallback=True) -> bool:
+    def generate_for_topic(raw_topic: str, allow_fallback=True) -> bool:
         nonlocal generated, index
         topic_clean = re.sub(r"\s+", " ", raw_topic).strip()
         if not topic_clean:
@@ -676,8 +674,7 @@ def main():
             char_count = count_chars(content)
             meets_relaxed = word_count >= RELAXED_MIN_WORDS and char_count >= RELAXED_MIN_CHAR_COUNT
             meets_lower = word_count >= RELAXED_MIN_WORD_COUNT_LOWER and char_count >= RELAXED_MIN_CHAR_COUNT_LOWER
-            meets_final = allow_lower_threshold and word_count >= LOWER_THRESHOLD_AFTER_FALLBACK and char_count >= LOWER_CHAR_AFTER_FALLBACK
-            if meets_relaxed or meets_lower or meets_final:
+            if meets_relaxed or meets_lower:
                 prefix = f"{today}-{index}"
                 path = ensure_unique_path(out_dir, prefix, slug)
                 path.write_text(content, encoding="utf-8")
@@ -686,8 +683,8 @@ def main():
                 used_slugs.add(slug)
                 generated += 1
                 index += 1
-                if meets_final and not meets_relaxed:
-                    print(f"[info] Draft '{seo_title}' accepted under fallback threshold ({word_count} words / {char_count} chars).")
+                if meets_lower and not meets_relaxed:
+                    print(f"[info] Draft '{seo_title}' accepted under relaxed lower threshold ({word_count} words / {char_count} chars).")
                 return True
             else:
                 label = "trend" if tmpl == TREND_USER_TMPL else "default"
@@ -696,7 +693,7 @@ def main():
             fb_topic = next_fallback_topic()
             if fb_topic:
                 print(f"[info] Trying fallback topic '{fb_topic}'.")
-                return generate_for_topic(fb_topic, allow_lower_threshold=True, allow_fallback=False)
+                return generate_for_topic(fb_topic, allow_fallback=False)
         return False
 
     def next_fallback_topic() -> str | None:
