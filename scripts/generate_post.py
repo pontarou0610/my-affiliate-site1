@@ -29,29 +29,41 @@ RSS_SOURCES = [
     "https://forest.watch.impress.co.jp/data/rss/1.0/wf/feed.rdf",
 ]
 
-WHITELIST = [
-    # コアワード（電子書籍まわり）
-    "kindle", "kobo", "電子書籍", "電子書籍リーダー",
-    "ebook", "e-book", "e-ink", "e ink", "電子インク", "電子ペーパー",
-
-    # Kindle / Kobo の具体的モデルや機能
-    "paperwhite", "scribe", "oasis", "clara", "libra", "sage", "forma",
-    "フロントライト", "バックライト", "防水", "解像度", "ppi", "ページ送り",
-    "広告つき", "広告なし",
-
-    # 読書機能・フォーマット
-    "epub", "pdf", "azw", "mobi", "ドキュメント",
-    "辞書", "ハイライト", "メモ", "しおり", "縦書き", "横書き", "フォント",
-
-    # サービス名・使い方系
-    "kindle unlimited", "kindle unlimited 読み放題",
-    "楽天kobo", "kobo plus",
-    "青空文庫",
-
-    # 周辺用途
-    "読書", "ブック", "本の管理", "ライブラリ", "クラウド",
-    "drm", "drm解除",  # 触れるならフィルタ対象にしておく
+CORE_KEYWORDS = [
+    "kindle",
+    "kobo",
+    "paperwhite",
+    "scribe",
+    "oasis",
+    "voyage",
+    "clara",
+    "libra",
+    "sage",
+    "forma",
+    "ebook",
+    "e-book",
+    "e ink",
+    "e-ink",
+    "eink",
+    "epub",
+    "pdf",
+    "azw",
+    "mobi",
+    "prime reading",
+    "kindle unlimited",
+    "kobo plus",
+    "rakuten kobo",
+    "楽天kobo",
+    "電子書籍",
+    "電子書籍リーダー",
+    "電子リーダー",
+    "電子インク",
+    "電子ペーパー",
+    "電子ブック",
+    "読書端末",
 ]
+
+WHITELIST = list(CORE_KEYWORDS)
 
 
 FALLBACK_TOPICS = [
@@ -82,31 +94,39 @@ RELAXED_MIN_WORDS = 150          # 第1緩和語数
 RELAXED_MIN_CHAR_COUNT = 1000    # 第1緩和文字数
 RELAXED_MIN_WORD_COUNT_LOWER = 120   # 第2緩和語数
 RELAXED_MIN_CHAR_COUNT_LOWER = 800   # 第2緩和文字数
+TREND_QUALITY_MIN_WORDS = 450
+TREND_MIN_CHAR_COUNT = 2200
+TREND_RELAXED_MIN_WORDS = 320
+TREND_RELAXED_MIN_CHAR_COUNT = 1600
+TREND_RELAXED_MIN_WORD_COUNT_LOWER = 220
+TREND_RELAXED_MIN_CHAR_COUNT_LOWER = 1100
 FINAL_MIN_WORDS = 100                # フォールバック採用時の最終語数
 FINAL_MIN_CHAR_COUNT = 600           # フォールバック採用時の最終文字数
+FAILSAFE_MIN_WORDS = 80              # 追加救済語数
+FAILSAFE_MIN_CHAR_COUNT = 500        # 追加救済文字数
 MAX_PRIMARY_EXPAND_ATTEMPTS = 1  # 追リライト回数（コスト節約のため最小限）
+MAX_PRIMARY_EXPAND_ATTEMPTS_TREND = 3
+MAX_RELAXED_EXPAND_ATTEMPTS_TREND = 2
 MAX_RELAXED_EXPAND_ATTEMPTS = 1
 MAX_CONSECUTIVE_FAILS = 3        # 通常トピックでの連続失敗閾値
 
-RELEVANCE_KEYWORDS = [kw.lower() for kw in [
-    "kindle",
-    "kobo",
-    "電子書籍",
-    "電子書籍リーダー",
-    "ebook",
-    "e-ink",
-    "epub",
-    "prime reading",
-    "kindle unlimited",
-    "kobo plus",
-    "楽天kobo",
-]]
+RELEVANCE_KEYWORDS = [kw.lower() for kw in CORE_KEYWORDS] + [
+    "reader",
+    "e-reader",
+    "ereader",
+    "reading device",
+]
 
 PILLAR_LINKS = [
     ("KindleとKoboを徹底比較", "/posts/kindle-vs-kobo/"),
     ("Kindle Paperwhiteレビュー", "/posts/kindle-paperwhite-review/"),
     ("Kobo Claraレビュー", "/posts/kobo-clara-review/"),
 ]
+
+def has_core_keyword(text: str) -> bool:
+    normalized = (text or "").lower()
+    return any(keyword in normalized for keyword in RELEVANCE_KEYWORDS)
+
 
 
 def collect_candidates(max_needed: int):
@@ -123,8 +143,8 @@ def collect_candidates(max_needed: int):
                 for e in feed.entries[:30]:
                     title = (getattr(e, "title", "") or "").strip()
                     summary = (getattr(e, "summary", "") or "").strip()
-                    text = f"{title} {summary}".lower()
-                    if any(w in text for w in WHITELIST):
+                    combined = f"{title} {summary}"
+                    if has_core_keyword(combined):
                         items.append(title)
             except Exception:
                 pass
@@ -171,8 +191,7 @@ def count_chars(text: str) -> int:
 
 
 def contains_relevant_keyword(text: str) -> bool:
-    lowered = text.lower()
-    return any(keyword in lowered for keyword in RELEVANCE_KEYWORDS)
+    return has_core_keyword(text)
 
 
 def expand_to_min_words(topic: str, draft: str, min_words: int, min_chars: int, max_attempts: int) -> str:
@@ -510,6 +529,7 @@ def fetch_pexels_image(topic: str) -> Dict[str, str] | None:
 
 # ---------- 1本生成 ----------
 def make_post(topic: str, slug: str, template: str = USER_TMPL):
+    is_trend_template = template == TREND_USER_TMPL
     user = template.format(topic=topic)
     resp = openai.chat.completions.create(
         model="gpt-4o-mini",
@@ -534,9 +554,31 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
         )
         draft = r.choices[0].message.content.strip()
 
-    draft = expand_to_min_words(topic, draft, QUALITY_MIN_WORDS, MIN_CHAR_COUNT, MAX_PRIMARY_EXPAND_ATTEMPTS)
-    if count_chars(draft) < MIN_CHAR_COUNT:
-        draft = expand_to_min_words(topic, draft, RELAXED_MIN_WORDS, RELAXED_MIN_CHAR_COUNT, MAX_RELAXED_EXPAND_ATTEMPTS)
+    def ensure_min_length(current: str, min_words: int, min_chars: int, attempts: int) -> str:
+        if attempts <= 0:
+            return current
+        if min_words <= 0 and min_chars <= 0:
+            return current
+        if count_words(current) >= min_words and count_chars(current) >= min_chars:
+            return current
+        return expand_to_min_words(topic, current, min_words, min_chars, attempts)
+
+    primary_words = TREND_QUALITY_MIN_WORDS if is_trend_template else QUALITY_MIN_WORDS
+    primary_chars = TREND_MIN_CHAR_COUNT if is_trend_template else MIN_CHAR_COUNT
+    primary_attempts = MAX_PRIMARY_EXPAND_ATTEMPTS_TREND if is_trend_template else MAX_PRIMARY_EXPAND_ATTEMPTS
+    draft = ensure_min_length(draft, primary_words, primary_chars, primary_attempts)
+
+    relaxed_words = TREND_RELAXED_MIN_WORDS if is_trend_template else RELAXED_MIN_WORDS
+    relaxed_chars = TREND_RELAXED_MIN_CHAR_COUNT if is_trend_template else RELAXED_MIN_CHAR_COUNT
+    relaxed_attempts = MAX_RELAXED_EXPAND_ATTEMPTS_TREND if is_trend_template else MAX_RELAXED_EXPAND_ATTEMPTS
+    if count_words(draft) < relaxed_words or count_chars(draft) < relaxed_chars:
+        draft = ensure_min_length(draft, relaxed_words, relaxed_chars, relaxed_attempts)
+
+    lower_words = TREND_RELAXED_MIN_WORD_COUNT_LOWER if is_trend_template else RELAXED_MIN_WORD_COUNT_LOWER
+    lower_chars = TREND_RELAXED_MIN_CHAR_COUNT_LOWER if is_trend_template else RELAXED_MIN_CHAR_COUNT_LOWER
+    lower_attempts = 1 if is_trend_template else 0
+    if lower_attempts and (count_words(draft) < lower_words or count_chars(draft) < lower_chars):
+        draft = ensure_min_length(draft, lower_words, lower_chars, lower_attempts)
 
     hero = fetch_pexels_image(topic)
     if hero:
@@ -672,8 +714,7 @@ def main():
         scored.append((score, t))
     scored.sort(key=lambda x: x[0], reverse=True)
     filtered_topics = [t for s, t in scored if s > 0]
-    fallback_pool = [t for s, t in scored if s <= 0]
-    topics = filtered_topics + fallback_pool
+    topics = filtered_topics
     start_index = already + 1
     generated = 0
     index = start_index
@@ -700,7 +741,7 @@ def main():
 
         templates = [USER_TMPL]
         if not contains_relevant_keyword(topic_clean):
-            templates.append(TREND_USER_TMPL)
+            templates = [TREND_USER_TMPL, USER_TMPL]
 
         for tmpl in templates:
             slug, seo_title, content, word_count = make_post(topic_clean, slug_candidate, template=tmpl)
