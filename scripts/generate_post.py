@@ -680,7 +680,7 @@ def main():
     fallback_queue = list(FALLBACK_TOPICS)
     consecutive_fails = 0
 
-    def generate_for_topic(raw_topic: str, allow_fallback=True, allow_final=False) -> bool:
+    def generate_for_topic(raw_topic: str, allow_fallback=True, allow_final=False, use_failsafe=False) -> bool:
         nonlocal generated, index
         topic_clean = re.sub(r"\s+", " ", raw_topic).strip()
         if not topic_clean:
@@ -707,7 +707,11 @@ def main():
             char_count = count_chars(content)
             meets_relaxed = word_count >= RELAXED_MIN_WORDS and char_count >= RELAXED_MIN_CHAR_COUNT
             meets_lower = word_count >= RELAXED_MIN_WORD_COUNT_LOWER and char_count >= RELAXED_MIN_CHAR_COUNT_LOWER
-            meets_final = allow_final and word_count >= FINAL_MIN_WORDS and char_count >= FINAL_MIN_CHAR_COUNT
+            meets_final = False
+            if allow_final:
+                final_words = FAILSAFE_MIN_WORDS if use_failsafe else FINAL_MIN_WORDS
+                final_chars = FAILSAFE_MIN_CHAR_COUNT if use_failsafe else FINAL_MIN_CHAR_COUNT
+                meets_final = word_count >= final_words and char_count >= final_chars
             if meets_relaxed or meets_lower or meets_final:
                 prefix = f"{today}-{index}"
                 path = ensure_unique_path(out_dir, prefix, slug)
@@ -729,7 +733,7 @@ def main():
             fb_topic = next_fallback_topic()
             if fb_topic:
                 print(f"[info] Trying fallback topic '{fb_topic}'.")
-                return generate_for_topic(fb_topic, allow_fallback=False, allow_final=True)
+                return generate_for_topic(fb_topic, allow_fallback=False, allow_final=True, use_failsafe=use_failsafe)
         return False
 
     extra_fallbacks = list(FALLBACK_TOPICS)
@@ -771,6 +775,28 @@ def main():
         for fb_topic in FALLBACK_TOPICS:
             if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True):
                 break
+
+    if generated < need:
+        print("[warn] Still insufficient articles. Applying failsafe ebook-only generation with relaxed thresholds.")
+        for fb_topic in FALLBACK_TOPICS:
+            if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True, use_failsafe=True):
+                if generated >= need:
+                    break
+
+    if generated < need:
+        print("[warn] Trying remaining fallback pool with failsafe thresholds.")
+        remaining_fb = [t for t in fallback_queue + extra_fallbacks if t.lower() not in used_titles]
+        for fb_topic in remaining_fb:
+            if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True, use_failsafe=True):
+                if generated >= need:
+                    break
+
+    if generated < need:
+        print("[warn] As a last resort, reusing fallback topics even if duplicates.")
+        for fb_topic in FALLBACK_TOPICS:
+            if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True, use_failsafe=True):
+                if generated >= need:
+                    break
 
     if generated < need:
         raise SystemExit(f"Unable to generate {need} unique posts (created {generated}).")
