@@ -256,6 +256,7 @@ TREND_USER_TMPL = """\
   5. 具体的な活用シナリオ or 対策チェックリスト
   6. 応用アイデア・他分野への波及
   7. まとめと「今日できる小さな一歩」（2〜3文）
+- Q&A/FAQセクション（H2）を最後に必ず入れ、3問以上の「Q&A」を書く（各Qは悩みや誤解、Aは具体的なアドバイス）
 - 各H2の下には最低1つH3を置き、そこに数値付きの例・手順・QA・FAQなど具体情報を入れる
 - 文章中で「背景」「現状」「アクション」「注意点」を明示し、抽象論で終わらせない
 - 禁止: 外部リンク、確定していない価格・噂話、主語の曖昧な断定表現
@@ -416,12 +417,19 @@ def generate_seo_title(topic: str, draft: str) -> str:
     return f"{topic} 徹底ガイド"
 
 
+def build_search_keyword(topic: str, max_words: int = 6, max_chars: int = 60) -> str:
+    cleaned = re.sub(r"[「」『』【】\[\]\(\)（）]", " ", topic)
+    words = [w for w in re.split(r"\s+", cleaned) if w]
+    keyword = " ".join(words[:max_words]) or topic
+    return keyword[:max_chars]
+
+
 def fetch_rakuten_items(topic: str, hits: int = 3) -> List[Dict[str, str]]:
     if not (RAKUTEN_APP_ID and RAKUTEN_AFFILIATE_ID):
         print("[Rakuten] Missing app or affiliate ID. Skipping.")
         return []
 
-    keyword = re.sub(r"\s+", " ", topic).strip()[:120]
+    keyword = build_search_keyword(topic)
     params = {
         "applicationId": RAKUTEN_APP_ID,
         "affiliateId": RAKUTEN_AFFILIATE_ID,
