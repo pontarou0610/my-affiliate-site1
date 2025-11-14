@@ -745,6 +745,10 @@ def main():
 
         for tmpl in templates:
             slug, seo_title, content, word_count = make_post(topic_clean, slug_candidate, template=tmpl)
+            title_key = seo_title.strip().lower()
+            if title_key in used_titles:
+                print(f"[skip] Draft '{seo_title}' skipped because title already exists.")
+                continue
             char_count = count_chars(content)
             meets_relaxed = word_count >= RELAXED_MIN_WORDS and char_count >= RELAXED_MIN_CHAR_COUNT
             meets_lower = word_count >= RELAXED_MIN_WORD_COUNT_LOWER and char_count >= RELAXED_MIN_CHAR_COUNT_LOWER
