@@ -1,29 +1,70 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7953303438736598"
      crossorigin="anonymous"></script>
 
-{{- if .IsPage -}}
-  {{- $page := . -}}
-  {{- $author := site.Params.authorName | default "ぽんたろう" -}}
-  {{- $publisher := site.Title | default $author -}}
-  {{- $logo := site.Params.publisherLogo | default (index (site.Params.images | default (slice "/images/ogp-default.jpg")) 0) -}}
-  {{- $image := "" -}}
-  {{- if .Params.images }}
-    {{- $image = (index .Params.images 0) | absURL -}}
-  {{- else if .Params.cover }}
-    {{- with .Params.cover.image }}
-      {{- $image = . | absURL -}}
-    {{- end -}}
-  {{- else if site.Params.images }}
-    {{- $image = (index site.Params.images 0) | absURL -}}
+{{- $page := . -}}
+{{- $title := cond .IsHome (site.Title | default .Title) .Title -}}
+{{- $description := "" -}}
+{{- if .Params.description -}}
+  {{- $description = .Params.description -}}
+{{- else -}}
+  {{- if .IsHome -}}
+    {{- $description = site.Params.description | default site.Title -}}
+  {{- else if .Description -}}
+    {{- $description = .Description -}}
+  {{- else -}}
+    {{- $description = .Summary | default .Title -}}
   {{- end -}}
+{{- end -}}
+{{- $description = $description | plainify | truncate 180 -}}
+{{- $lang := .Site.Language.Lang | default "ja" -}}
+{{- $author := site.Params.authorName | default "ぽんたろう" -}}
+{{- $publisher := site.Title | default $author -}}
+{{- $logo := site.Params.publisherLogo | default (index (site.Params.images | default (slice "/images/ogp-default.jpg")) 0) -}}
+{{- $image := "" -}}
+{{- if .Params.images }}
+  {{- $image = (index .Params.images 0) | absURL -}}
+{{- else if .Params.cover }}
+  {{- with .Params.cover.image }}
+    {{- $image = . | absURL -}}
+  {{- end -}}
+{{- else if site.Params.images }}
+  {{- $image = (index site.Params.images 0) | absURL -}}
+{{- end -}}
+{{- $twitterCard := cond $image "summary_large_image" "summary" -}}
+{{- $ogType := cond .IsPage "article" "website" -}}
+
+<link rel="canonical" href="{{ .Permalink }}">
+<meta name="description" content="{{ $description }}">
+<meta property="og:type" content="{{ $ogType }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{- if $image }}<meta property="og:image" content="{{ $image }}">{{ end }}
+<meta name="twitter:card" content="{{ $twitterCard }}">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $description }}">
+{{- if $image }}<meta name="twitter:image" content="{{ $image }}">{{ end }}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "{{ "/" | absLangURL }}#website",
+  "url": "{{ "/" | absLangURL }}",
+  "name": {{ site.Title | jsonify }},
+  "inLanguage": "{{ $lang }}"
+}
+</script>
+
+{{- if .IsPage -}}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": {{ .Title | jsonify }},
+    "headline": {{ $title | jsonify }},
     "datePublished": "{{ time.Format "2006-01-02T15:04:05Z07:00" .PublishDate }}",
     "dateModified": "{{ time.Format "2006-01-02T15:04:05Z07:00" .Lastmod }}",
-    "inLanguage": "{{ .Site.Language.Lang | default "ja" }}",
+    "inLanguage": "{{ $lang }}",
     "mainEntityOfPage": "{{ .Permalink }}",
     "author": { "@type": "Person", "name": {{ $author | jsonify }} },
     "publisher": {
@@ -35,7 +76,7 @@
       }
     },
     {{- if $image }}"image": {{ $image | jsonify }},{{ end }}
-    "description": {{ with .Params.description }}{{ . | jsonify }}{{ else }}{{ .Summary | plainify | truncate 160 | jsonify }}{{ end }}
+    "description": {{ $description | jsonify }}
   }
   </script>
 

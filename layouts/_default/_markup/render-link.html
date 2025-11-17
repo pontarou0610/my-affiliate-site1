@@ -1,8 +1,8 @@
 {{- $href := .Destination -}}
-{{- $isAff := or (in $href "amzn.to") (in $href "amazon.co.jp")
-                 (in $href "rakuten") (in $href "valuecommerce.com")
-                 (in $href "ck.jp.ap.valuecommerce.com") -}}
 {{- $isExternal := or (hasPrefix $href "http://") (hasPrefix $href "https://") (hasPrefix $href "//") -}}
+{{- $isAff := and $isExternal (or (in $href "amzn.to") (in $href "amazon.co.jp")
+                 (in $href "rakuten") (in $href "valuecommerce.com")
+                 (in $href "ck.jp.ap.valuecommerce.com")) -}}
 {{- $rel := slice -}}
 {{- if $isExternal }}
   {{- $rel = $rel | append "noopener" | append "noreferrer" -}}

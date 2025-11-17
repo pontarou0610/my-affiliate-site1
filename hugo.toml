@@ -3,11 +3,11 @@
 # =========================
 baseURL = "https://pontarou0610.github.io/my-affiliate-site1/"
 languageCode = "ja"
-title = "電子書籍の未来研究所 - KindleとKoboの比較・出版・AI活用"
+title = "電子書籍・未来研究所 - KindleとKoboの比較・出版・AI活用"
 theme = "PaperMod"
-pagesize = 10                          # v0.128以降は [pagination].pagerSize でも可
+pagesize = 10
 enableRobotsTXT = true
-canonifyURLs = true                    # 生URLを baseURL で正規化 (GitHub Pages 用)
+canonifyURLs = true
 
 # =========================
 # パーマリンク
@@ -28,10 +28,11 @@ canonifyURLs = true                    # 生URLを baseURL で正規化 (GitHub 
 [params]
   env = "production"
   defaultTheme = "auto"                 # "dark" | "light" | "auto"
-  description = "Kindle・Koboなど電子書籍リーダーの比較から、出版・AIライティング・自動化までを解説するブログ"
+  description = "Kindle・Koboなど電子書籍リーダーの比較から、自費出版・AIライティング・自動化までを解説するブログ"
   images = ["/images/ogp-default.jpg"]  # static/images/ogp-default.jpg を参照
   authorName = "ぽんたろう"
   publisherLogo = "/images/ogp-default.jpg"
+  breadcrumbHome = "ホーム"
   defaultRakutenWidget = false
 
   # UI/UX
@@ -45,7 +46,7 @@ canonifyURLs = true                    # 生URLを baseURL で正規化 (GitHub 
   ShowToc = true                        # 目次を表示
   TocOpen = true                        # 目次をデフォルト展開
 
-  # Google Analytics (パーシャルは site.Params を参照)
+  # Google Analytics
   googleAnalytics = "G-55FMB35LN0"
 
 [params.homeInfoParams]
@@ -64,7 +65,6 @@ canonifyURLs = true                    # 生URLを baseURL で正規化 (GitHub 
 
 # =========================
 # メニュー
-# 先頭スラ無し (GitHub Pages のベースパスに対応)
 # =========================
 [menu]
   [[menu.main]]
@@ -73,7 +73,7 @@ canonifyURLs = true                    # 生URLを baseURL で正規化 (GitHub 
     url = "posts/"
     weight = 2
   [[menu.main]]
-    name = "運営情報"
+    name = "運営者"
     url = "about/"
     weight = 90
   [[menu.main]]
@@ -92,7 +92,7 @@ canonifyURLs = true                    # 生URLを baseURL で正規化 (GitHub 
   [markup.goldmark.renderer]
     unsafe = true                       # 楽天などの生HTMLを許可
 
-# 出力形式を明示 (home で JSON を出力)
+# 出力形式を明示
 [outputs]
 home    = ["HTML","RSS","JSON"]
 section = ["HTML","RSS"]
@@ -103,7 +103,7 @@ term    = ["HTML","RSS"]
 [pagination]
   pagerSize = 30
 
-# (任意) サイトマップの出力チューニング
+# サイトマップ (必要に応じて有効化)
 #[sitemap]
 #  changefreq = "daily"
 #  priority = 0.5
