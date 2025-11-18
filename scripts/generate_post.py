@@ -676,7 +676,9 @@ def main():
     existing_today = sorted(out_dir.glob(f"{today}-*.md"))
     already = len(existing_today)
 
-    need = max(0, requested_count - already)
+    # Ensure at least 1 article is generated (if possible) and cap at 3 per run
+    need = max(1, requested_count - already)
+    need = min(need, 3)
     if need == 0:
         print(f"Already have {already} posts for {today}. Nothing to do.")
         return
