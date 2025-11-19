@@ -1,4 +1,4 @@
----
+﻿---
 title: "「Metaが変えるFacebook Marketplaceの電子書籍ソーシャルショッピング完全ガイド」"
 date: 2025-11-14
 draft: false
@@ -20,7 +20,7 @@ hasRelatedProducts: false
 
 ---
 
-## H2: Metaの取り組みと背景
+## Metaの取り組みと背景
 
 ### 背景
 
@@ -55,7 +55,7 @@ Meta（旧Facebook）は、ソーシャルメディアの枠を超えてショ�
 
 ---
 
-## H2: Facebook Marketplaceの設定方法
+## Facebook Marketplaceの設定方法
 
 ### 背景
 
@@ -83,7 +83,7 @@ Facebook Marketplaceを利用するには、まず基本的な設定が必要で
 
 ---
 
-## H2: ソーシャルショッピングの活用法
+## ソーシャルショッピングの活用法
 
 ### 背景
 
@@ -111,7 +111,7 @@ Facebook Marketplaceを利用するには、まず基本的な設定が必要で
 
 ---
 
-## H2: より良いショッピング体験のためのヒント
+## より良いショッピング体験のためのヒント
 
 ### 背景
 
@@ -155,4 +155,6 @@ Facebook Marketplaceを利用するには、まず基本的な設定が必要で
 - [EPUBとPDFの使い分け：学習・技術書・漫画でどちらを選ぶ？](/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u/)
 - [Engadget Podcast: Our favorite gadgets of 2025](/posts/2025/11/engadget-podcast-our-favorite-gadgets-of-2025/)
 - [「Valetudo完全ガイド：ロボット掃除機をローカルで自由に操作する方法」](/posts/2025/11/rohotsutosao-chu-ji-wokurautonashi-sa-ha-nashinoro-karunomit/)
+
+
 

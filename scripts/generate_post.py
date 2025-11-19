@@ -595,6 +595,9 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
 
     today = datetime.date.today()
 
+    # remove accidental heading labels like "H2:" / "H3:" that sometimes appear in generations
+    draft = re.sub(r"(?m)^##\s*H2:\s*", "## ", draft)
+    draft = re.sub(r"(?m)^###\s*H3:\s*", "### ", draft)
     draft = re.sub(r"\n?\[関連記事\]\(/posts/?\)\s*", "\n", draft)
 
     has_related_products = False
