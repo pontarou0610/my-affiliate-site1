@@ -1,17 +1,34 @@
 # scripts/generate_post.py
-import os, re, datetime, pathlib, random, argparse, json
-from typing import List, Dict
+"""
+Article generator for the ebook-focused blog.
+- Collects topics from RSS or fallback list
+- Generates 1?3 posts/day via OpenAI
+- Skips duplicate titles/slugs and similar H2 structures
+- Skips fallback topics used in the last 7 days
+- Inserts pillar links, related articles, and Rakuten affiliate items
+"""
+
+import os
+import re
+import datetime
+import pathlib
+import random
+import argparse
+import json
+from typing import List, Dict, Tuple, Set
 
 import requests
 from textwrap import dedent
 from dotenv import load_dotenv
 from slugify import slugify as slugify_lib
+import openai
 
 # ---------- env ----------
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     raise SystemExit("OPENAI_API_KEY not set")
+openai.api_key = OPENAI_API_KEY
 
 RAKUTEN_APP_ID = os.getenv("RAKUTEN_APP_ID")
 RAKUTEN_AFFILIATE_ID = os.getenv("RAKUTEN_AFFILIATE_ID")
@@ -53,62 +70,65 @@ CORE_KEYWORDS = [
     "kindle unlimited",
     "kobo plus",
     "rakuten kobo",
-    "楽天kobo",
-    "電子書籍",
-    "電子書籍リーダー",
-    "電子リーダー",
-    "電子インク",
-    "電子ペーパー",
-    "電子ブック",
-    "読書端末",
+    "??kobo",
+    "????",
+    "????????",
+    "??????",
+    "?????",
+    "??????",
+    "?????",
+    "????",
 ]
-
 WHITELIST = list(CORE_KEYWORDS)
 
-
 FALLBACK_TOPICS = [
-    # 比較・定番系
-    "KindleとKoboの最新モデル比較（2025年版）",
-    "2025年に買うべき電子書籍リーダー3選",
-    "Kindle UnlimitedとKobo Plusの読み放題を徹底比較",
+    # ??????
+    "Kindle?Kobo?????????2025???",
+    "2025??????????????3?",
+    "Kindle Unlimited?Kobo Plus??????????",
+    "Kindle?Kobo??????????????????????????",
 
-    # 使い方・ノウハウ
-    "EPUBとPDFの使い分け：学習・技術書・漫画でどう違う？",
-    "読書ハイライト活用術：メモ・引用を最短で整理する方法",
-    "電子書籍のセール攻略：失敗しない買い方の順序",
+    # ????????
+    "EPUB?PDF?????????????????????",
+    "??????????????????????????",
+    "??????????????????????",
+    "??????????????1?30???15?????",
+    "?????????Kindle???????????",
 
-    # 設定・快適さ
-    "E-Inkリーダーの目の疲れを減らす設定おすすめ",
-    "防水モデルは本当に必要か？通勤・お風呂・旅行で検証",
-    "電子インク端末で日本語縦書きをきれいに表示するコツ",
+    # ??????
+    "E-Ink???????????????????",
+    "?????????????????????????",
+    "?????????????????????????",
+    "?????????????????????????",
 
-    # トラブル・豆知識
-    "電子書籍の返金・キャンセルの基礎知識",
-    "PCやスマホ・Kindle間での読みかけ同期を確実にする方法",
+    # ????????
+    "??????????????????",
+    "PC?????Kindle?????????????????",
+    "??????????????????????",
+    "??????????????????????",
 ]
 
-
-QUALITY_MIN_WORDS = 200          # primary語数（≒1000文字を想定）
-MIN_CHAR_COUNT = 1500            # primary文字数
-RELAXED_MIN_WORDS = 150          # 第1緩和語数
-RELAXED_MIN_CHAR_COUNT = 1000    # 第1緩和文字数
-RELAXED_MIN_WORD_COUNT_LOWER = 120   # 第2緩和語数
-RELAXED_MIN_CHAR_COUNT_LOWER = 800   # 第2緩和文字数
+QUALITY_MIN_WORDS = 200
+MIN_CHAR_COUNT = 1500
+RELAXED_MIN_WORDS = 150
+RELAXED_MIN_CHAR_COUNT = 1000
+RELAXED_MIN_WORD_COUNT_LOWER = 120
+RELAXED_MIN_CHAR_COUNT_LOWER = 800
 TREND_QUALITY_MIN_WORDS = 450
 TREND_MIN_CHAR_COUNT = 2200
 TREND_RELAXED_MIN_WORDS = 320
 TREND_RELAXED_MIN_CHAR_COUNT = 1600
 TREND_RELAXED_MIN_WORD_COUNT_LOWER = 220
 TREND_RELAXED_MIN_CHAR_COUNT_LOWER = 1100
-FINAL_MIN_WORDS = 100                # フォールバック採用時の最終語数
-FINAL_MIN_CHAR_COUNT = 600           # フォールバック採用時の最終文字数
-FAILSAFE_MIN_WORDS = 80              # 追加救済語数
-FAILSAFE_MIN_CHAR_COUNT = 500        # 追加救済文字数
-MAX_PRIMARY_EXPAND_ATTEMPTS = 1  # 追リライト回数（コスト節約のため最小限）
+FINAL_MIN_WORDS = 100
+FINAL_MIN_CHAR_COUNT = 600
+FAILSAFE_MIN_WORDS = 80
+FAILSAFE_MIN_CHAR_COUNT = 500
+MAX_PRIMARY_EXPAND_ATTEMPTS = 1
 MAX_PRIMARY_EXPAND_ATTEMPTS_TREND = 3
 MAX_RELAXED_EXPAND_ATTEMPTS_TREND = 2
 MAX_RELAXED_EXPAND_ATTEMPTS = 1
-MAX_CONSECUTIVE_FAILS = 3        # 通常トピックでの連続失敗閾値
+MAX_CONSECUTIVE_FAILS = 3
 
 RELEVANCE_KEYWORDS = [kw.lower() for kw in CORE_KEYWORDS] + [
     "reader",
@@ -118,19 +138,177 @@ RELEVANCE_KEYWORDS = [kw.lower() for kw in CORE_KEYWORDS] + [
 ]
 
 PILLAR_LINKS = [
-    ("KindleとKoboを徹底比較", "/posts/kindle-vs-kobo/"),
-    ("Kindle Paperwhiteレビュー", "/posts/kindle-paperwhite-review/"),
-    ("Kobo Claraレビュー", "/posts/kobo-clara-review/"),
+    ("Kindle?Kobo?????", "/posts/kindle-vs-kobo/"),
+    ("Kindle Paperwhite????", "/posts/kindle-paperwhite-review/"),
+    ("Kobo Clara????", "/posts/kobo-clara-review/"),
 ]
 
-def has_core_keyword(text: str) -> bool:
-    normalized = (text or "").lower()
-    return any(keyword in normalized for keyword in RELEVANCE_KEYWORDS)
+SYSTEM = "?????????????????????????????????SEO????????????????????????????????"
+USER_TMPL = """\
+???????????????????????????????
 
+# ???
+{topic}
+
+# ??
+?????????????????????????????????5??????????????????????????????????????????????
+
+# ?????
+- ???: ??2500??????????3000??????
+- ??: ???3?5?????????? H2????H2?H3?????????????
+- ?H2????????????????????????????????????????????????????
+- ?????????????????????????????????????????????????
+- ??: ????????????????
+- ?????: ???? [????](/posts/) ?1??????URL???
+- ???: ????????????????2?3?
+
+# ????
+- ????????????????????????????
+- ?????????????????????????
+- ?????????????????????????????????????
+- ???????????????????????????????????
+"""
+
+TREND_USER_TMPL = """\
+?????????????????????????????????????????????????
+
+# ???
+{topic}
+
+# ??
+?????????????????????????????????????????????????????????
+
+# ?????
+- ???: ??2000?????2800?3000??????????????????????
+- ???H2???:
+  1. ??????3?5???????
+  2. ??????????????
+  3. ????????????????????
+  4. ????????????????????/??????
+  5. ?????????? or ?????????
+  6. ??????????????
+  7. ?????????????????2?3??
+- Q&A/FAQ??????H2??????????3????Q&A???
+- ?H2?????1?H3??????????????QA?FAQ??????????
+- ??: ???????????????????????
+
+# ????
+- ??????????????????????????
+- ??????????????????????
+- ???????????????????????????????????
+"""
+
+REVIEWER_SYSTEM = "?????????????????????????????????????????????????????"
+REWRITER_SYSTEM = "????SEO????????????????????????????????????????????????"
+CHECKLIST = """\
+??????????????
+1) ??????????????????????
+2) ?????????????????
+3) ??: ???H2/H3??????????????????
+4) ???????????????????????????
+5) ???????????????????????[????]????
+6) ???????????????????
+"""
+TAG_SYSTEM = "????SEO??????????????????????????????????JSON???????????"
+
+RAKUTEN_API_ENDPOINT = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601"
+PEXELS_API_ENDPOINT = "https://api.pexels.com/v1/search"
+
+
+
+def parse_frontmatter(md_text: str):
+    m = re.search(r"^---\s*(.*?)\s*---", md_text, re.S | re.M)
+    data = {}
+    if not m:
+        return data
+    fm = m.group(1)
+
+    def pick(key):
+        mm = re.search(rf"^{key}:\s*(.+)$", fm, re.M)
+        if not mm:
+            return None
+        val = mm.group(1).strip()
+        if (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'")):
+            val = val[1:-1]
+        return val
+
+    data["title"] = pick("title")
+    data["slug"] = pick("slug")
+    data["date"] = pick("date")
+    return data
+
+
+def permalink_from(date_str: str, slug: str):
+    y, m, _ = date_str.split("-")
+    return f"/posts/{y}/{m}/{slug}/"
+
+
+def list_existing_posts(out_dir: pathlib.Path):
+    posts = []
+    for p in sorted(out_dir.glob("*.md")):
+        txt = p.read_text(encoding="utf-8", errors="ignore")
+        fm = parse_frontmatter(txt)
+        date = fm.get("date")
+        slug = fm.get("slug")
+        title = fm.get("title")
+        if (not date or not slug) and re.match(r"\d{4}-\d{2}-\d{2}", p.name):
+            date_guess = p.name[:10]
+            slug_guess = re.sub(r"^\d{4}-\d{2}-\d{2}-\d+-", "", p.name)
+            slug_guess = slug_guess[:-3] if slug_guess.endswith(".md") else slug_guess
+            date = date or date_guess
+            slug = slug or slug_guess
+        if not date or not slug:
+            continue
+        url = permalink_from(date, slug)
+        posts.append({"url": url, "title": title or slug, "date": date, "slug": slug})
+    return posts
+
+
+def recent_titles_within(posts: list[dict], days: int = 7) -> set[str]:
+    recent = set()
+    today = datetime.date.today()
+    for p in posts:
+        try:
+            d = datetime.date.fromisoformat(p.get("date", ""))
+        except Exception:
+            continue
+        if (today - d).days <= days:
+            t = (p.get("title") or "").strip().lower()
+            if t:
+                recent.add(t)
+    return recent
+
+
+def extract_h2_headings(markdown: str) -> set[str]:
+    headings = re.findall(r"(?m)^##\s+(.+)", markdown)
+    return {re.sub(r"\s+", " ", h).strip() for h in headings if h.strip()}
+
+
+def load_existing_headings(out_dir: pathlib.Path):
+    data = []
+    for p in sorted(out_dir.glob("*.md")):
+        try:
+            txt = p.read_text(encoding="utf-8")
+        except Exception:
+            continue
+        data.append((p.name, extract_h2_headings(txt)))
+    return data
+
+
+def is_duplicate_headings(candidate: set[str], pool: list[tuple[str, set[str]]], threshold: float = 0.6) -> bool:
+    if not candidate:
+        return False
+    for _, headings in pool:
+        if not headings:
+            continue
+        overlap = len(candidate & headings)
+        if overlap and overlap / max(len(candidate), 1) >= threshold:
+            return True
+    return False
 
 
 def collect_candidates(max_needed: int):
-    """RSSから候補収集→ユニーク化。足りなければFALLBACK補完。"""
+    """RSS???????????????????FALLBACK???"""
     items = []
     try:
         import importlib.util
@@ -154,8 +332,8 @@ def collect_candidates(max_needed: int):
     seen = set(); uniq = []
     for t in items:
         t = re.sub(r"\s+", " ", t).strip()
-        t = re.sub(r"【.*?】|\[.*?\]|（.*?）|\(.*?\)", "", t).strip()
-        t = re.sub(r"。+$", "", t)
+        t = re.sub(r"?.*??|\[.*?\]|\(.*?\)|?.*??", "", t).strip()
+        t = re.sub(r"?+$", "", t)
         if t and t not in seen:
             uniq.append(t); seen.add(t)
 
@@ -171,7 +349,7 @@ def collect_candidates(max_needed: int):
 
 
 def ensure_pillar_links(text: str) -> str:
-    heading = "## 電子書籍リーダーの定番ガイド"
+    heading = "## ??????????????"
     lower_text = text.lower()
     missing = [(title, url) for title, url in PILLAR_LINKS if url.lower() not in lower_text]
     if not missing or heading in text:
@@ -190,28 +368,32 @@ def count_chars(text: str) -> int:
     return len(text.replace("\n", ""))
 
 
+def has_core_keyword(text: str) -> bool:
+    normalized = (text or "").lower()
+    return any(keyword in normalized for keyword in RELEVANCE_KEYWORDS)
+
+
 def contains_relevant_keyword(text: str) -> bool:
     return has_core_keyword(text)
 
 
 def expand_to_min_words(topic: str, draft: str, min_words: int, min_chars: int, max_attempts: int) -> str:
-    """If the draft is too short, ask the model to enrich it up to min_words."""
     attempts = 0
     while (count_words(draft) < min_words or count_chars(draft) < min_chars) and attempts < max_attempts:
         attempts += 1
         expand_prompt = dedent(f"""\
-        以下の原稿は約{count_words(draft)}語（{count_chars(draft)}文字）で分量が不足しています。テーマ「{topic}」に沿って、
-        - 少なくとも{min_words}語、かつ{min_chars}文字以上になるまで詳しくする
-        - 導入→要点まとめ→詳細セクション→まとめ→今日できる小さな一歩、の構成を維持
-        - 外部リンク・価格断定・未検証情報は書かない
-        - です・ます調、専門用語は初出でかんたんな説明を入れる
+            ???????{count_words(draft)}??{count_chars(draft)}???????????????????{topic}??????
+            - ?????{min_words}????{min_chars}??????????????
+            - ??????????????????????????????????????
+            - ?????????????????????
+            - ??????????????????????????
 
-        原稿を改善した完全版のみ返してください。
+            ????????????????????
 
-        --- 原稿ここから ---
-        {draft}
-        --- 原稿ここまで ---
-        """)
+            --- ?????? ---
+            {draft}
+            --- ?????? ---
+            """)
         resp = openai.chat.completions.create(
             model="gpt-4o-mini",
             temperature=0.5,
@@ -224,154 +406,14 @@ def expand_to_min_words(topic: str, draft: str, min_words: int, min_chars: int, 
     return draft
 
 
-# ---------- OpenAI ----------
-import openai
-openai.api_key = OPENAI_API_KEY
-
-SYSTEM = "あなたは電子書籍リーダー専門ブログの編集長。事実に忠実で、誇張や過度な断定を避ける。SEO対策を完ぺきに施す。読者が具体的に動ける日本語記事を作る。"
-
-USER_TMPL = """\
-次のテーマで、読者が迷わず行動できる実用記事を書いてください。
-
-# テーマ
-{topic}
-
-# 目的
-初めての読者が「何を選び、どう設定し、どんな落とし穴を避けるか」を5分で掴める。電子書籍の定番テーマはもちろん、トレンド話題でも背景→影響→具体的な活用法を提示し、読者がすぐ行動できる形で解説する。
-
-# 出力ルール
-- 文字数: 「必ず」2500字以上。3000字前後まで掘り下げるつもりで書く
-- 構成: 冒頭に3〜5行の「要点まとめ」→ H2見出しを中心に、H3で詳細・事例・手順を必ず加える
-- 各H2の下には「背景」「今起きていること」「具体例」「注意点」「アクション」のいずれかを必ず含め、箇条書きや表も活用する
-- 手順・チェックリスト・判断基準を具体化（数字・固有名詞・シナリオ例を盛り込む）。曖昧な主張・過度な煽り・未検証の噂はNG
-- テーマが電子書籍以外でも「背景→何が起きているか→ユーザーができること」を明確に書き、最後に応用アイデアを付ける
-- 禁止: 外部リンク・具体的価格断定・未検証情報
-- 内部リンク: 文末に [関連記事](/posts/) を1つだけ（※後で実URLに置換）
-- 仕上げ: 最後に「今日できる小さな一歩」を2〜3文で書く
-
-# スタイルと配慮（重要）
-- 文章は「です・ます調」で、やさしくカジュアルに。ただし情報密度は高く、固有名詞や専門用語には必ず短い補足を付ける（例: 「EPUB（電子書籍のファイル形式）」）
-- 中学生が読んでも理解できるように、長い文は分割し箇条書きも使う
-- 各セクションで実例・観察データ・使い方のステップを示し、抽象論で終わらせない
-- 生成後はチェックリストに沿って自己レビューし、漏れがあれば加筆してから返す（2回繰り返す前提）
-"""
-
-TREND_USER_TMPL = """\
-以下の速報・トレンドテーマについて、背景から実践ステップまでを体系的にまとめた長文記事を書いてください。
-
-# テーマ
-{topic}
-
-# 目的
-初めて情報を得た読者が「なぜ話題なのか」「どんな影響があるか」「今すぐ何をすべきか」を一度で理解できるようにする。
-
-# 出力ルール
-- 文字数: 最低2000字、理想は2800〜3000字。各セクションで具体例と行動案を必ず入れる
-- 構成（H2必須）:
-  1. 要点まとめ（3〜5行の箇条書き）
-  2. 背景と今回のトレンド発生理由
-  3. 今起きていること（時系列・関係者・数字）
-  4. 影響とリスク（ユーザー種別ごとのメリット/デメリット）
-  5. 具体的な活用シナリオ or 対策チェックリスト
-  6. 応用アイデア・他分野への波及
-  7. まとめと「今日できる小さな一歩」（2〜3文）
-- Q&A/FAQセクション（H2）を最後に必ず入れ、3問以上の「Q&A」を書く（各Qは悩みや誤解、Aは具体的なアドバイス）
-- 各H2の下には最低1つH3を置き、そこに数値付きの例・手順・QA・FAQなど具体情報を入れる
-- 文章中で「背景」「現状」「アクション」「注意点」を明示し、抽象論で終わらせない
-- 禁止: 外部リンク、確定していない価格・噂話、主語の曖昧な断定表現
-
-# スタイル
-- です・ます調でフレンドリー。専門用語は初出で短く説明
-- 箇条書き・表を積極活用し、情報を視覚的に整理
-- 生成後はチェックリストに沿って自己レビューし、漏れがあれば追記してから返す（2回繰り返す前提）
-"""
-
-REVIEWER_SYSTEM = "あなたは厳格な日本語編集者。論理・構成・可読性・初学者配慮を点検し、必要な修正を加えて完全原稿として返す。"
-REWRITER_SYSTEM = "あなたはSEOに強い日本語ライター。与えられた原稿を構成を保ったまま情報量を増やし、指定文字数まで肉付けする。"
-CHECKLIST = """\
-【必ず満たすチェックリスト】
-1) です・ます調で自然か？口調がぶれていないか？
-2) 専門用語は初出で短い解説があるか？
-3) 構成: 要点→H2/H3→結論と小さな一歩、が揃っているか？
-4) 断定しすぎ・煽りがないか？根拠の薄い主張は言い切らない
-5) 外部リンクを入れていないか？内部リンクは末尾の[関連記事]のみか？
-6) 冗長な表現や重複を削って読みやすいか？
-"""
-
-TAG_SYSTEM = "あなたはSEOに強い日本語編集者です。記事内容から検索意図に合う短いタグを抽出し、JSON配列で返してください。"
-RAKUTEN_API_ENDPOINT = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601"
-PEXELS_API_ENDPOINT = "https://api.pexels.com/v1/search"
-
-# ---------- 既存記事のパース & パーマリンク構築 ----------
-def parse_frontmatter(md_text: str):
-    m = re.search(r'^---\s*(.*?)\s*---', md_text, re.S | re.M)
-    data = {}
-    if not m:
-        return data
-    fm = m.group(1)
-    def pick(key):
-        mm = re.search(rf'^{key}:\s*(.+)$', fm, re.M)
-        if not mm: return None
-        val = mm.group(1).strip()
-        if (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'")):
-            val = val[1:-1]
-        return val
-    data["title"] = pick("title")
-    data["slug"]  = pick("slug")
-    data["date"]  = pick("date")
-    return data
-
-def permalink_from(date_str: str, slug: str):
-    # hugo.toml: posts = "/posts/:year/:month/:slug/"
-    y, m, _ = date_str.split("-")
-    return f"/posts/{y}/{m}/{slug}/"
-
-def list_existing_posts(out_dir: pathlib.Path):
-    posts = []
-    for p in sorted(out_dir.glob("*.md")):
-        txt = p.read_text(encoding="utf-8", errors="ignore")
-        fm = parse_frontmatter(txt)
-        date = fm.get("date")
-        slug = fm.get("slug")
-        title = fm.get("title")
-        # ファイル名から推定（保険）
-        if (not date or not slug) and re.match(r"\d{4}-\d{2}-\d{2}", p.name):
-            date_guess = p.name[:10]
-            slug_guess = re.sub(r"^\d{4}-\d{2}-\d{2}-\d+-", "", p.name)
-            slug_guess = slug_guess[:-3] if slug_guess.endswith(".md") else slug_guess
-            date = date or date_guess
-            slug = slug or slug_guess
-        if not date or not slug:
-            continue
-        url = permalink_from(date, slug)
-        posts.append({"url": url, "title": title or slug, "date": date, "slug": slug})
-    return posts
-
-def pick_related_urls(out_dir: pathlib.Path, today_iso: str, k: int = 3):
-    all_posts = list_existing_posts(out_dir)
-    # 今日生成分は除外
-    candidates = [p for p in all_posts if p["date"] != today_iso]
-    if not candidates:
-        return ["/posts/"] * k
-    # 安定シャッフル（当日でseed固定）
-    seed = datetime.date.today().toordinal()
-    random.Random(seed).shuffle(candidates)
-    picked = candidates[:k]
-    # URLだけ返すと寂しいので (title, url) で返す
-    # 不足があれば /posts/ で埋める
-    while len(picked) < k:
-        picked.append({"title": "記事一覧", "url": "/posts/", "date": "1900-01-01"})
-    return [(p["title"], p["url"]) for p in picked[:k]]
-
 def generate_tags(topic: str, draft: str, max_tags: int = 5):
-    fallback = ["電子書籍リーダー", "Kindle", "Kobo", "読書術"]
-    preview = re.sub(r"\s+", " ", draft.strip())
-    preview = preview[:1200]
-    prompt = f"""記事テーマ: {topic}
+    fallback = ["????????", "Kindle", "Kobo", "???"]
+    preview = re.sub(r"\s+", " ", draft.strip())[:1200]
+    prompt = f"""?????: {topic}
 
-本文冒頭プレビュー: {preview}
+???????: {preview}
 
-上記をもとに、検索意図に沿う日本語タグを最大{max_tags}個、JSON配列のみで出力してください。タグは10文字以内・名詞中心・重複なしで。"""
+??????????????????????{max_tags}??JSON?????????????????10????????????????"""
     try:
         resp = openai.chat.completions.create(
             model="gpt-4o-mini",
@@ -381,8 +423,7 @@ def generate_tags(topic: str, draft: str, max_tags: int = 5):
                 {"role": "user", "content": prompt},
             ],
         )
-        text = resp.choices[0].message.content.strip()
-        tags = json.loads(text)
+        tags = json.loads(resp.choices[0].message.content.strip())
         cleaned = []
         seen = set()
         for tag in tags:
@@ -407,37 +448,36 @@ def generate_tags(topic: str, draft: str, max_tags: int = 5):
 
 def generate_seo_title(topic: str, draft: str) -> str:
     preview = re.sub(r"\s+", " ", draft.strip())[:800]
-    prompt = f"""元タイトル: {topic}
-本文抜粋: {preview}
+    prompt = f"""?????: {topic}
+????: {preview}
 
-上記をもとに、検索ユーザーがクリックしたくなるSEOタイトルを1つだけ出力してください。
-条件:
-- 32〜60文字程度
-- 主要キーワード（Kindle/Kobo/電子書籍など）を自然に含める
-- 「完全版」「徹底解説」などの強調語を必要に応じて使う
-- 既存タイトルと重複しないよう、オリジナルの構成にする
-- 出力はタイトルのみ
-"""
+???????????????????????SEO?????1????????????
+??:
+- 32?60????
+- ????????Kindle/Kobo/??????????????
+- ??????????????????????????
+- ???????????????????????
+- ?????????"""
     try:
         resp = openai.chat.completions.create(
             model="gpt-4o-mini",
             temperature=0.4,
             messages=[
-                {"role": "system", "content": "あなたはSEOに強い日本語コピーライターです。"},
+                {"role": "system", "content": "????SEO????????????????"},
                 {"role": "user", "content": prompt},
             ],
         )
         title = resp.choices[0].message.content.strip()
-        title = re.sub(r'["“”]', "", title)
+        title = re.sub(r'["??]', "", title)
         if 10 <= len(title) <= 80:
             return title
     except Exception:
         pass
-    return f"{topic} 徹底ガイド"
+    return f"{topic} ?????"
 
 
 def build_search_keyword(topic: str, max_words: int = 6, max_chars: int = 60) -> str:
-    cleaned = re.sub(r"[「」『』【】\[\]\(\)（）]", " ", topic)
+    cleaned = re.sub(r"[??????\[\]\(\)??]", " ", topic)
     words = [w for w in re.split(r"\s+", cleaned) if w]
     keyword = " ".join(words[:max_words]) or topic
     return keyword[:max_chars]
@@ -474,13 +514,12 @@ def fetch_rakuten_items(topic: str, hits: int = 3) -> List[Dict[str, str]]:
         price = item.get("itemPrice")
         if not title or not url:
             continue
-        items.append(
-            {
-                "title": title,
-                "url": url,
-                "price": price,
-            }
-        )
+        price_text = ""
+        try:
+            price_text = f" ?{int(price):,}"
+        except Exception:
+            price_text = ""
+        items.append({"title": title, "url": url, "price_text": price_text})
         if len(items) >= hits:
             break
     if not items:
@@ -527,30 +566,45 @@ def fetch_pexels_image(topic: str) -> Dict[str, str] | None:
         "pexels_url": photo.get("url"),
     }
 
-# ---------- 1本生成 ----------
+
+def ensure_unique_path(basedir: pathlib.Path, prefix: str, slug: str):
+    p = basedir / f"{prefix}-{slug}.md"
+    if not p.exists():
+        return p
+    n = 2
+    while True:
+        q = basedir / f"{prefix}-{slug}-{n}.md"
+        if not q.exists():
+            return q
+        n += 1
+
+
+def ensure_pillar_links_block(draft: str) -> str:
+    return ensure_pillar_links(draft)
+
+
 def make_post(topic: str, slug: str, template: str = USER_TMPL):
     is_trend_template = template == TREND_USER_TMPL
     user = template.format(topic=topic)
     resp = openai.chat.completions.create(
         model="gpt-4o-mini",
         temperature=0.7,
-        messages=[{"role":"system","content":SYSTEM},{"role":"user","content":user}]
+        messages=[{"role": "system", "content": SYSTEM}, {"role": "user", "content": user}],
     )
     draft = resp.choices[0].message.content.strip()
     for _ in range(2):
-        review_prompt = f"""以下の原稿をチェックリストに沿って自己レビューし、必要な改訂を反映した最終版のみ返してください。
+        review_prompt = f"""????????????????????????????????????????????????
 
 {CHECKLIST}
 
---- 原稿 ---
+--- ?? ---
 {draft}
---- ここまで ---
+--- ???? ---
 """
         r = openai.chat.completions.create(
             model="gpt-4o-mini",
             temperature=0.4,
-            messages=[{"role":"system","content":REVIEWER_SYSTEM},
-                      {"role":"user","content":review_prompt}]
+            messages=[{"role": "system", "content": REVIEWER_SYSTEM}, {"role": "user", "content": review_prompt}],
         )
         draft = r.choices[0].message.content.strip()
 
@@ -584,7 +638,7 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     if hero:
         credit_url = hero.get("photographer_url") or hero.get("pexels_url")
         image_block = (
-            f"![{topic}のイメージ]({hero['image_url']})"
+            f"![{topic}?????]({hero['image_url']})"\
             f"\n<small>Photo by [{hero['photographer']}]({credit_url}) on [Pexels]({hero['pexels_url']})</small>"
         )
         parts = draft.split("\n\n", 1)
@@ -595,26 +649,19 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
 
     today = datetime.date.today()
 
-    # remove accidental heading labels like "H2:" / "H3:" that sometimes appear in generations
     draft = re.sub(r"(?m)^##\s*H2:\s*", "## ", draft)
     draft = re.sub(r"(?m)^###\s*H3:\s*", "### ", draft)
-    draft = re.sub(r"\n?\[関連記事\]\(/posts/?\)\s*", "\n", draft)
+    draft = re.sub(r"\n?\[????\]\(/posts/?\)\s*", "\n", draft)
 
     has_related_products = False
     rakuten_items = fetch_rakuten_items(topic)
     if rakuten_items:
-        rakuten_lines = ["\n## 関連アイテム（楽天）", ""]
+        rakuten_lines = ["", "## ??????????", ""]
         for item in rakuten_items:
-            price_text = ""
-            try:
-                price_int = int(item.get("price"))
-                price_text = f" — ¥{price_int:,}"
-            except (TypeError, ValueError):
-                pass
-            rakuten_lines.append(f"- [{item['title']}]({item['url']}){price_text}")
+            rakuten_lines.append(f"- [{item['title']}]({item['url']}){item['price_text']}")
         rakuten_block = "\n".join(rakuten_lines) + "\n"
         has_related_products = True
-        summary_match = re.search(r"(\n## まとめ[\s\S]*?)(?=\n## |\Z)", draft)
+        summary_match = re.search(r"(\n## ???[\s\S]*?)(?=\n## |\Z)", draft)
         if summary_match:
             insert_pos = summary_match.end()
             draft = draft[:insert_pos] + "\n\n" + rakuten_block + draft[insert_pos:]
@@ -623,49 +670,51 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
 
     out_dir = pathlib.Path("content/posts")
     related = pick_related_urls(out_dir, today.isoformat(), k=3)
-
-    related_block_lines = ["\n## 関連記事", ""]
+    related_block_lines = ["", "## ????", ""]
     for title, url in related:
         related_block_lines.append(f"- [{title}]({url})")
     related_block = "\n".join(related_block_lines) + "\n"
 
-    draft = ensure_pillar_links(draft)
+    draft = ensure_pillar_links_block(draft)
     draft = draft.rstrip() + "\n\n" + related_block
 
     seo_title = generate_seo_title(topic, draft)
     tags = generate_tags(topic, draft)
     word_count = count_words(draft)
 
-    fm = dedent(f"""\
+    fm = dedent(
+        f"""\
     ---
     title: "{seo_title}"
     date: {today.isoformat()}
     draft: false
     tags: {tags}
-    categories: ["ガイド"]
-    description: "{topic}の要点と実用ヒントをわかりやすく解説。"
+    categories: ["???"]
+    description: "{topic}????????????????????????????????????????????????"
     slug: "{slug}"
     hasRelatedProducts: {"true" if has_related_products else "false"}
     ---
-    """)
+    """
+    )
     return slug, seo_title, fm + "\n" + draft + "\n", word_count
 
 
-def ensure_unique_path(basedir: pathlib.Path, prefix: str, slug: str):
-    """{date}-{seq}-{slug}.md を基本に、衝突時は -2, -3… を付与"""
-    p = basedir / f"{prefix}-{slug}.md"
-    if not p.exists():
-        return p
-    n = 2
-    while True:
-        q = basedir / f"{prefix}-{slug}-{n}.md"
-        if not q.exists():
-            return q
-        n += 1
+def pick_related_urls(out_dir: pathlib.Path, today_iso: str, k: int = 3):
+    all_posts = list_existing_posts(out_dir)
+    candidates = [p for p in all_posts if p["date"] != today_iso]
+    if not candidates:
+        return [("????", "/posts/")] * k
+    seed = datetime.date.today().toordinal()
+    random.Random(seed).shuffle(candidates)
+    picked = candidates[:k]
+    while len(picked) < k:
+        picked.append({"title": "????", "url": "/posts/", "date": "1900-01-01"})
+    return [(p["title"], p["url"]) for p in picked[:k]]
+
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--count", type=int, default=1, help="本日の生成本数（1〜3）")
+    parser.add_argument("--count", type=int, default=1, help="????????1?3?")
     args = parser.parse_args()
 
     requested_count = max(1, min(3, args.count))
@@ -679,7 +728,6 @@ def main():
     existing_today = sorted(out_dir.glob(f"{today}-*.md"))
     already = len(existing_today)
 
-    # Ensure at least 1 article is generated (if possible) and cap at 3 per run
     need = max(1, requested_count - already)
     need = min(need, 3)
     if need == 0:
@@ -687,18 +735,21 @@ def main():
         return
 
     existing_posts = list_existing_posts(out_dir)
-    used_titles = { (p.get("title") or "").strip().lower() for p in existing_posts if p.get("title") }
-    used_slugs = { p.get("slug") for p in existing_posts if p.get("slug") }
+    used_titles = {(p.get("title") or "").strip().lower() for p in existing_posts if p.get("title")}
+    used_slugs = {p.get("slug") for p in existing_posts if p.get("slug")}
+    existing_headings = load_existing_headings(out_dir)
+    recent_titles = recent_titles_within(existing_posts, days=7)
+    generated_headings: list[Tuple[str, Set[str]]] = []
 
     def prioritize_topics(candidates):
         scored = []
         for t in candidates:
             score = 0
             lowered = t.lower()
-            for kw in ["kindle", "kobo", "電子書籍", "ebook", "reader", "epub", "セール", "設定", "ガイド"]:
+            for kw in ["kindle", "kobo", "????", "ebook", "reader", "epub", "???", "??", "???"]:
                 if kw in lowered:
                     score += 2
-            for kw in ["レビュー", "比較", "選び方", "チェックリスト", "使い方", "設定", "アップデート"]:
+            for kw in ["????", "??", "???", "???????", "???", "??", "?????"]:
                 if kw in lowered:
                     score += 1
             scored.append((score, t))
@@ -710,10 +761,10 @@ def main():
     for t in raw_topics:
         score = 0
         lowered = t.lower()
-        for kw in ["kindle", "kobo", "電子書籍", "ebook", "reader", "epub", "セール", "設定", "ガイド"]:
+        for kw in ["kindle", "kobo", "????", "ebook", "reader", "epub", "???", "??", "???"]:
             if kw in lowered:
                 score += 2
-        for kw in ["レビュー", "比較", "選び方", "チェックリスト", "使い方", "設定", "アップデート"]:
+        for kw in ["????", "??", "???", "???????", "???", "??", "?????"]:
             if kw in lowered:
                 score += 1
         scored.append((score, t))
@@ -723,8 +774,23 @@ def main():
     start_index = already + 1
     generated = 0
     index = start_index
-    fallback_queue = list(FALLBACK_TOPICS)
+    fallback_queue = [t for t in FALLBACK_TOPICS if t.lower() not in recent_titles]
     consecutive_fails = 0
+
+    def next_fallback_topic() -> str | None:
+        nonlocal fallback_queue
+        while fallback_queue:
+            candidate = fallback_queue.pop(0)
+            cand_lower = candidate.lower()
+            if cand_lower in used_titles or cand_lower in recent_titles:
+                continue
+            return candidate
+        for candidate in FALLBACK_TOPICS:
+            cand_lower = candidate.lower()
+            if cand_lower in used_titles or cand_lower in recent_titles:
+                continue
+            return candidate
+        return None
 
     def generate_for_topic(raw_topic: str, allow_fallback=True, allow_final=False, use_failsafe=False) -> bool:
         nonlocal generated, index
@@ -735,7 +801,7 @@ def main():
         if lowered in used_titles:
             return False
 
-        slug_base = slugify_lib(topic_clean, lowercase=True, max_length=60, separator='-')
+        slug_base = slugify_lib(topic_clean, lowercase=True, max_length=60, separator="-")
         if not slug_base:
             return False
         slug_candidate = slug_base
@@ -762,6 +828,10 @@ def main():
                 final_words = FAILSAFE_MIN_WORDS if use_failsafe else FINAL_MIN_WORDS
                 final_chars = FAILSAFE_MIN_CHAR_COUNT if use_failsafe else FINAL_MIN_CHAR_COUNT
                 meets_final = word_count >= final_words and char_count >= final_chars
+            h2_set = extract_h2_headings(content)
+            if h2_set and is_duplicate_headings(h2_set, existing_headings + generated_headings, threshold=0.6):
+                print(f"[skip] Draft '{seo_title}' skipped because H2??????????????????")
+                continue
             if meets_relaxed or meets_lower or meets_final:
                 prefix = f"{today}-{index}"
                 path = ensure_unique_path(out_dir, prefix, slug)
@@ -769,6 +839,7 @@ def main():
                 print(f"generated: {path}")
                 used_titles.add(seo_title.strip().lower())
                 used_slugs.add(slug)
+                generated_headings.append((path.name, h2_set))
                 generated += 1
                 index += 1
                 if meets_final and not (meets_relaxed or meets_lower):
@@ -786,19 +857,6 @@ def main():
                 return generate_for_topic(fb_topic, allow_fallback=False, allow_final=True, use_failsafe=use_failsafe)
         return False
 
-    extra_fallbacks = list(FALLBACK_TOPICS)
-
-    def next_fallback_topic() -> str | None:
-        while fallback_queue:
-            candidate = fallback_queue.pop(0)
-            if candidate.lower() not in used_titles:
-                return candidate
-        while extra_fallbacks:
-            candidate = extra_fallbacks.pop(0)
-            if candidate.lower() not in used_titles:
-                return candidate
-        return None
-
     for topic in topics:
         if generate_for_topic(topic):
             consecutive_fails = 0
@@ -813,7 +871,7 @@ def main():
                     if generated >= need:
                         break
                 else:
-                    consecutive_fails = 0  # リセットして次へ
+                    consecutive_fails = 0
 
     while generated < need:
         fb_topic = next_fallback_topic()
@@ -835,7 +893,7 @@ def main():
 
     if generated < need:
         print("[warn] Trying remaining fallback pool with failsafe thresholds.")
-        remaining_fb = [t for t in fallback_queue + extra_fallbacks if t.lower() not in used_titles]
+        remaining_fb = [t for t in fallback_queue if t.lower() not in used_titles]
         for fb_topic in remaining_fb:
             if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True, use_failsafe=True):
                 if generated >= need:
@@ -850,6 +908,7 @@ def main():
 
     if generated < need:
         raise SystemExit(f"Unable to generate {need} unique posts (created {generated}).")
+
 
 if __name__ == "__main__":
     main()
