@@ -300,6 +300,28 @@ def is_duplicate_headings(candidate: set[str], pool: list[tuple[str, set[str]]],
     return False
 
 
+def _tokenize(text: str) -> set[str]:
+    cleaned = re.sub(r"[^0-9A-Za-z\u3040-\u30ff\u4e00-\u9fff]+", " ", text.lower())
+    tokens = {t for t in cleaned.split() if len(t) >= 2}
+    return tokens
+
+
+def is_similar_title(title: str, existing: list[str], threshold: float = 0.65) -> bool:
+    """Check Jaccard similarity to avoid near-duplicate titles."""
+    cand_tokens = _tokenize(title)
+    if not cand_tokens:
+        return False
+    for t in existing:
+        base_tokens = _tokenize(t)
+        if not base_tokens:
+            continue
+        overlap = len(cand_tokens & base_tokens)
+        union = len(cand_tokens | base_tokens)
+        if union and overlap / union >= threshold:
+            return True
+    return False
+
+
 def collect_candidates(max_needed: int):
     """RSSから候補を集め、足りなければFALLBACKで補う"""
     items = []
@@ -736,11 +758,13 @@ def main():
         return
 
     existing_posts = list_existing_posts(out_dir)
+    existing_title_pool = [(p.get("title") or "").strip() for p in existing_posts if p.get("title")]
     used_titles = {(p.get("title") or "").strip().lower() for p in existing_posts if p.get("title")}
     used_slugs = {p.get("slug") for p in existing_posts if p.get("slug")}
     existing_headings = load_existing_headings(out_dir)
     recent_titles = recent_titles_within(existing_posts, days=7)
     generated_headings: list[Tuple[str, Set[str]]] = []
+    similar_title_pool: list[str] = list(existing_title_pool)
 
     raw_topics = collect_candidates(max(need * 3, need))
     scored = []
@@ -779,12 +803,15 @@ def main():
         return None
 
     def generate_for_topic(raw_topic: str, allow_fallback=True, allow_final=False, use_failsafe=False) -> bool:
-        nonlocal generated, index
+        nonlocal generated, index, similar_title_pool
         topic_clean = re.sub(r"\s+", " ", raw_topic).strip()
         if not topic_clean:
             return False
         lowered = topic_clean.lower()
         if lowered in used_titles:
+            return False
+        if is_similar_title(topic_clean, similar_title_pool, threshold=0.7):
+            print(f"[skip] Topic '{topic_clean}' skipped because it is too similar to an existing title.")
             return False
 
         slug_base = slugify_lib(topic_clean, lowercase=True, max_length=60, separator="-")
@@ -806,6 +833,9 @@ def main():
             if title_key in used_titles:
                 print(f"[skip] Draft '{seo_title}' skipped because title already exists.")
                 continue
+            if is_similar_title(seo_title, similar_title_pool, threshold=0.7):
+                print(f"[skip] Draft '{seo_title}' skipped because it is too close to an existing title.")
+                continue
             char_count = count_chars(content)
             meets_relaxed = word_count >= RELAXED_MIN_WORDS and char_count >= RELAXED_MIN_CHAR_COUNT
             meets_lower = word_count >= RELAXED_MIN_WORD_COUNT_LOWER and char_count >= RELAXED_MIN_CHAR_COUNT_LOWER
@@ -815,7 +845,7 @@ def main():
                 final_chars = FAILSAFE_MIN_CHAR_COUNT if use_failsafe else FINAL_MIN_CHAR_COUNT
                 meets_final = word_count >= final_words and char_count >= final_chars
             h2_set = extract_h2_headings(content)
-            if h2_set and is_duplicate_headings(h2_set, existing_headings + generated_headings, threshold=0.6):
+            if h2_set and is_duplicate_headings(h2_set, existing_headings + generated_headings, threshold=0.5):
                 print(f"[skip] Draft '{seo_title}' skipped because H2が既存記事と近い構成です。")
                 continue
             if meets_relaxed or meets_lower or meets_final:
@@ -825,6 +855,7 @@ def main():
                 print(f"generated: {path}")
                 used_titles.add(seo_title.strip().lower())
                 used_slugs.add(slug)
+                similar_title_pool.append(seo_title)
                 generated_headings.append((path.name, h2_set))
                 generated += 1
                 index += 1
