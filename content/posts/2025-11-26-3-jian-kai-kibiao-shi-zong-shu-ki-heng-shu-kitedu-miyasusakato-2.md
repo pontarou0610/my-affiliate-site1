@@ -7,6 +7,8 @@ categories: ["電子書籍"]
 description: "見開き表示・縦書き・横書きで読みやすさがどう変わるかに関する実用的なガイドと最新情報をまとめました。"
 slug: "jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-2"
 hasRelatedProducts: false
+aliases:
+  - /posts/2025/11/jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato/
 ---
 
 # 見開き表示・縦書き・横書きで読みやすさがどう変わるか

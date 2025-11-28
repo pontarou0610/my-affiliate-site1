@@ -1,7 +1,7 @@
 ---
 title: "Kindle/Kobo 購入ガイド2025：失敗しない選び方チェックリスト"
 date: 2025-09-01T09:00:00+09:00
-draft: false
+draft: true
 description: "2025年に電子書籍リーダーを選ぶときのポイントをまとめたチェックリスト。KindleとKoboのどちらを選ぶか迷ったときの判断基準を解説。"
 categories: ["電子書籍リーダー"]
 tags: ["Kindle", "Kobo", "買い方", "電子書籍"]

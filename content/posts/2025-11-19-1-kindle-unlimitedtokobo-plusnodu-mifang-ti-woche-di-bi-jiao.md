@@ -1,7 +1,7 @@
 ﻿---
 title: "Kindle Unlimited vs Kobo Plus徹底比較：電子書籍読み放題の選び方"
 date: 2025-11-19
-draft: false
+draft: true
 tags: ['電子書籍リーダー', 'Kindle', 'Kobo', '読書']
 categories: ['ガイド']
 description: "Kindle UnlimitedとKobo Plusの読み放題を料金・ラインナップ・使い方で比較し、選び方のポイントをまとめました。"

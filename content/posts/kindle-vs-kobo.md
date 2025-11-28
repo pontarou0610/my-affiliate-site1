@@ -14,6 +14,14 @@ tags:
   - "比較レビュー"
   - "Amazon"
   - "楽天"
+aliases:
+  - /posts/2025/09/kindle-kobo-buying-guide-2025/
+  - /posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-5/
+  - /posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-4/
+  - /posts/2025/11/kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo/
+  - /posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-3/
+  - /posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-2/
+  - /posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan/
 schema:
   products:
     - name: "Kindle Paperwhite (第11世代)"

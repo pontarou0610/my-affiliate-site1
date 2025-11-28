@@ -7,6 +7,11 @@ categories: ['ガイド']
 description: "似たサービスに見えるKindle UnlimitedとKobo Plusをどう選ぶか悩む人向けに、使い分け・乗り換えの判断軸、月額回収の目安、タイプ別の推奨プランを整理。"
 slug: "kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao-2"
 hasRelatedProducts: false
+aliases:
+  - /posts/2025/11/kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao/
+  - /posts/2025/11/kindle-unlimitedtokobo-plusnowei-itoxuan-hifang/
+  - /posts/2025/11/kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-2/
+  - /posts/2025/11/kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-3/
 ---
 
 # Kindle UnlimitedとKobo Plusを賢く使い分ける実践ガイド

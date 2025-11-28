@@ -1,7 +1,7 @@
 ---
 title: "「Kindleでの縦書き・横書き表示の違いと読みやすさのメリット」"
 date: 2025-11-23
-draft: false
+draft: true
 tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
 categories: ["電子書籍"]
 description: "見開き表示・縦書き・横書きで読みやすさがどう変わるかに関する実用的なガイドと最新情報をまとめました。"

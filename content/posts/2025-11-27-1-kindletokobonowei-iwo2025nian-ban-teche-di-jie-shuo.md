@@ -1,7 +1,7 @@
 ---
 title: "「2025年版：KindleとKoboの違いを徹底解説！あなたに最適な電子書籍リーダーはどっち？」"
 date: 2025-11-27
-draft: false
+draft: true
 tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
 categories: ["電子書籍"]
 description: "KindleとKoboの違いを2025年版で徹底解説に関する実用的なガイドと最新情報をまとめました。"
