@@ -50,6 +50,13 @@ RSS_SOURCES = [
     "https://wired.jp/rssfeeder/",
     "https://techcrunch.com/feed/",
 ]
+GOOGLE_SUGGEST_QUERIES = [
+    "電子書籍",
+    "Kindle 読書",
+    "Kobo 使い方",
+    "Kindle Unlimited",
+    "読書術",
+]
 
 CORE_KEYWORDS = [
     "kindle",
@@ -578,6 +585,37 @@ def fetch_rakuten_items(topic: str, hits: int = 3) -> List[Dict[str, str]]:
     return items
 
 
+def fetch_google_suggest_topics(max_needed: int) -> list[str]:
+    """Fallback: collect trending-ish topics from Google suggest."""
+    endpoint = "https://suggestqueries.google.com/complete/search"
+    results: list[str] = []
+    seen = set()
+    for seed in GOOGLE_SUGGEST_QUERIES:
+        try:
+            resp = requests.get(
+                endpoint,
+                params={"client": "firefox", "hl": "ja", "q": seed},
+                timeout=5,
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            suggestions = data[1] if isinstance(data, list) and len(data) > 1 else []
+            for s in suggestions:
+                if not isinstance(s, str):
+                    continue
+                t = re.sub(r"\s+", " ", s).strip()
+                if not t or t.lower() in seen:
+                    continue
+                if has_core_keyword(t):
+                    results.append(t)
+                    seen.add(t.lower())
+                    if len(results) >= max_needed:
+                        return results
+        except Exception:
+            continue
+    return results
+
+
 def fetch_pexels_image(topic: str) -> Dict[str, str] | None:
     if not PEXELS_API_KEY:
         print("[Pexels] API key missing. Skipping image fetch.")
@@ -926,6 +964,15 @@ def main():
         fb_topic = next_fallback_topic()
         if not fb_topic or not generate_for_topic(fb_topic):
             break
+
+    if generated < need:
+        suggest_topics = fetch_google_suggest_topics(need - generated)
+        if suggest_topics:
+            print(f"[info] Using Googleサジェストで補充: {suggest_topics}")
+        for t in suggest_topics:
+            if generate_for_topic(t, allow_fallback=False, allow_final=True):
+                if generated >= need:
+                    break
 
     if generated == 0:
         print("[info] No articles generated from RSS; forcing ebook fallback.")

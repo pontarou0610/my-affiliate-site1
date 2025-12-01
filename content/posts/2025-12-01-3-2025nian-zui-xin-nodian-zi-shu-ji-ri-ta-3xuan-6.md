@@ -1,7 +1,7 @@
 ---
 title: "「2025年最新！KindleとKoboで楽しむ快適電子書籍リーダー3選」"
 date: 2025-12-01
-draft: false
+draft: true
 tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
 categories: ["電子書籍"]
 description: "2025年最新の電子書籍リーダー3選に関する実用的なガイドと最新情報をまとめました。"
