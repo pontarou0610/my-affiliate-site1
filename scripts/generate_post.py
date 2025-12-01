@@ -344,6 +344,11 @@ def is_similar_title(title: str, existing: list[str], threshold: float = 0.65) -
     return False
 
 
+def is_similar_topic(topic: str, existing: list[str], threshold: float = 0.6) -> bool:
+    """Avoid generating multiple posts on near-identical topics."""
+    return is_similar_title(topic, existing, threshold=threshold)
+
+
 def collect_candidates(max_needed: int):
     """RSSから候補を集め、足りなければFALLBACKで補う"""
     items = []
@@ -773,7 +778,7 @@ def main():
     existing_today = sorted(out_dir.glob(f"{today}-*.md"))
     already = len(existing_today)
 
-    need = max(1, requested_count - already)
+    need = max(0, requested_count - already)
     need = min(need, 3)
     if need == 0:
         print(f"Already have {already} posts for {today}. Nothing to do.")
@@ -787,6 +792,7 @@ def main():
     recent_titles = recent_titles_within(existing_posts, days=7)
     generated_headings: list[Tuple[str, Set[str]]] = []
     similar_title_pool: list[str] = list(existing_title_pool)
+    topic_pool: list[str] = list(existing_title_pool)
 
     raw_topics = collect_candidates(max(need * 3, need))
     scored = []
@@ -825,12 +831,15 @@ def main():
         return None
 
     def generate_for_topic(raw_topic: str, allow_fallback=True, allow_final=False, use_failsafe=False) -> bool:
-        nonlocal generated, index, similar_title_pool
+        nonlocal generated, index, similar_title_pool, topic_pool
         topic_clean = re.sub(r"\s+", " ", raw_topic).strip()
         if not topic_clean:
             return False
         lowered = topic_clean.lower()
         if lowered in used_titles:
+            return False
+        if is_similar_topic(topic_clean, topic_pool, threshold=0.6):
+            print(f"[skip] Topic '{topic_clean}' skipped because it is too similar to an existing or generated topic.")
             return False
         if is_similar_title(topic_clean, similar_title_pool, threshold=0.7):
             print(f"[skip] Topic '{topic_clean}' skipped because it is too similar to an existing title.")
@@ -855,7 +864,7 @@ def main():
             if title_key in used_titles:
                 print(f"[skip] Draft '{seo_title}' skipped because title already exists.")
                 continue
-            if is_similar_title(seo_title, similar_title_pool, threshold=0.7):
+            if is_similar_title(seo_title, similar_title_pool, threshold=0.6):
                 print(f"[skip] Draft '{seo_title}' skipped because it is too close to an existing title.")
                 continue
             char_count = count_chars(content)
@@ -878,6 +887,7 @@ def main():
                 used_titles.add(seo_title.strip().lower())
                 used_slugs.add(slug)
                 similar_title_pool.append(seo_title)
+                topic_pool.append(topic_clean)
                 generated_headings.append((path.name, h2_set))
                 generated += 1
                 index += 1

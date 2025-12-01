@@ -6,6 +6,8 @@ description: "Kobo Clara 2Eの使い勝手をレビュー。軽さ、防水、�
 categories: ["電子書籍リーダー"]
 tags: ["Kobo", "Clara 2E", "レビュー", "電子書籍"]
 slug: "kobo-clara-review"
+aliases:
+  - /posts/kobo-clara-review/
 ---
 
 # Kobo Clara 2E レビュー

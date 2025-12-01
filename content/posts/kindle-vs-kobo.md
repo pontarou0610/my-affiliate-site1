@@ -15,6 +15,7 @@ tags:
   - "Amazon"
   - "楽天"
 aliases:
+  - /posts/kindle-vs-kobo/
   - /posts/2025/09/kindle-kobo-buying-guide-2025/
   - /posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-5/
   - /posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-4/

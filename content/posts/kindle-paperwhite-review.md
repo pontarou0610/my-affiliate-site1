@@ -6,6 +6,8 @@ description: "第11世代Kindle Paperwhiteの使い勝手、防水・色調整�
 categories: ["電子書籍リーダー"]
 tags: ["Kindle", "Paperwhite", "レビュー", "電子書籍"]
 slug: "kindle-paperwhite-review"
+aliases:
+  - /posts/kindle-paperwhite-review/
 ---
 
 # Kindle Paperwhite 第11世代レビュー
