@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }} | {{ .Site.Title }}</title>
+    <meta name="description" content="{{ .Params.description }}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    {{ $style := resources.Get "css/kobo-lp.css" }}
+    {{ if $style }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+    {{ else }}
+    <link rel="stylesheet" href="/css/kobo-lp.css">
+    {{ end }}
+</head>
+
+<body>
+    <header class="lp-header">
+        <div class="container">
+            <div class="logo">Rakuten <span>Kobo</span></div>
+            <nav>
+                <a href="#features">特徴</a>
+                <a href="#comparison">モデル比較</a>
+                <a href="#cta" class="btn btn-sm">ストアへ</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="hero-badge">楽天ポイントが貯まる</span>
+                    <h1>{{ .Title }}</h1>
+                    <p class="hero-subtitle">{{ .Params.description }}</p>
+                    <div class="hero-cta">
+                        <a href="https://books.rakuten.co.jp/e-book/" class="btn btn-primary btn-lg">Koboストアで見る</a>
+                        <a href="#comparison" class="btn btn-secondary btn-lg">モデルを比較</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="points-badge">
+                        <span class="num">P</span>
+                        <span class="text">ポイント</span>
+                    </div>
+                    <div class="hero-photo">
+                        <img src="https://images.pexels.com/photos/4861355/pexels-photo-4861355.jpeg?auto=compress&cs=tinysrgb&h=800&w=1200"
+                            alt="Rakuten Kobo">
+                    </div>
+                    <div class="device-mockup">
+                        <div class="device-screen">
+                            <div class="device-content">
+                                <h3>Koboで読む</h3>
+                                <p>EPUBも楽天ポイントも、ひとつで完結。</p>
+                                <div class="device-text-lines">
+                                    <span></span><span></span><span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="device-logo">Rakuten Kobo</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2><span>Kobo</span>の特徴</h2>
+                <div class="features-grid">
+                    {{ .Content }}
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison" class="comparison">
+            <div class="container">
+                <h2>モデル比較</h2>
+                <div class="comparison-table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>項目</th>
+                                <th>Kobo Clara</th>
+                                <th>Kobo Libra</th>
+                                <th>Kobo Sage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ディスプレイ</td>
+                                <td>6インチ</td>
+                                <td>7インチ</td>
+                                <td>8インチ</td>
+                            </tr>
+                            <tr>
+                                <td>ページ送りボタン</td>
+                                <td>なし</td>
+                                <td>あり</td>
+                                <td>あり</td>
+                            </tr>
+                            <tr>
+                                <td>手書きメモ</td>
+                                <td>なし</td>
+                                <td>なし</td>
+                                <td>あり（スタイラス対応）</td>
+                            </tr>
+                            <tr>
+                                <td>価格レンジ</td>
+                                <td>エントリー</td>
+                                <td>スタンダード</td>
+                                <td>ハイエンド</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta" class="cta-banner">
+            <div class="container">
+                <h2>楽天ポイントで、もっとお得に</h2>
+                <p>初めての方限定クーポンも配布中。カラーE Ink対応モデルも要チェック。</p>
+                <div class="cta-buttons">
+                    <a href="https://books.rakuten.co.jp/e-book/" class="btn btn-primary btn-xl">Koboストアへ行く</a>
+                    <a href="https://search.rakuten.co.jp/search/mall/Kobo+%E9%9B%BB%E5%AD%90%E6%9B%B8%E7%B1%8D%E3%83%AA%E3%83%BC%E3%83%80%E3%83%BC/"
+                        class="btn btn-secondary btn-xl">アクセサリーを見る</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</p>
+            <p><a href="/">サイトトップへ戻る</a></p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
