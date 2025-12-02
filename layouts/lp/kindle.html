@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }} | {{ .Site.Title }}</title>
+    <meta name="description" content="{{ .Params.description }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    {{ $style := resources.Get "css/kindle-lp.css" }}
+    {{ if $style }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+    {{ else }}
+    <link rel="stylesheet" href="/css/kindle-lp.css">
+    {{ end }}
+</head>
+
+<body>
+    <header class="lp-header">
+        <div class="container">
+            <div class="logo">Amazon <span>Kindle</span></div>
+            <nav>
+                <a href="#features">特徴</a>
+                <a href="#howto">使い方</a>
+                <a href="#cta" class="btn btn-sm">今すぐ始める</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="hero-badge">Unlimited対応</span>
+                    <h1>{{ .Title }}</h1>
+                    <p class="hero-subtitle">{{ .Params.description }}</p>
+                    <div class="hero-cta">
+                        <a href="https://www.amazon.co.jp/kindle-dbs/hz/signup" class="btn btn-primary btn-lg">Kindle Unlimitedを試す</a>
+                        <a href="#features" class="btn btn-secondary btn-lg">特徴を見る</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-photo">
+                        <img src="https://images.pexels.com/photos/276583/pexels-photo-276583.jpeg?auto=compress&cs=tinysrgb&h=800&w=1200" alt="Kindle">
+                    </div>
+                    <div class="device-mockup">
+                        <div class="device-screen">
+                            <div class="device-content">
+                                <h3>Kindleで読む</h3>
+                                <p>Prime Reading / Unlimited / Send to Kindle</p>
+                                <div class="device-text-lines">
+                                    <span></span><span></span><span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="device-logo">Kindle</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2><span>Kindle</span>の特徴</h2>
+                <div class="features-grid">
+                    {{ .Content }}
+                </div>
+            </div>
+        </section>
+
+        <section id="howto" class="howto">
+            <div class="container">
+                <h2>活用のポイント</h2>
+                <div class="howto-grid">
+                    <div class="howto-card">
+                        <h3>Send to Kindleで一元化</h3>
+                        <p>PDF/EPUBをメールやアプリで即同期。学習資料も端末に集約。</p>
+                    </div>
+                    <div class="howto-card">
+                        <h3>セールを待つ</h3>
+                        <p>プライムデー/ブラックフライデーでPaperwhiteが狙い目。買う前に欲しいモデルを決めておく。</p>
+                    </div>
+                    <div class="howto-card">
+                        <h3>サブスクを組み合わせる</h3>
+                        <p>Prime Readingはおまけ、Unlimitedが本命。月数冊読めば元が取れる。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta" class="cta-banner">
+            <div class="container">
+                <h2>Kindleで読書を始めよう</h2>
+                <p>防水・色温度・USB-C対応のPaperwhiteがバランス最強。セールを活用して賢く導入。</p>
+                <div class="cta-buttons">
+                    <a href="https://www.amazon.co.jp/Kindle-Paperwhite" class="btn btn-primary btn-xl">Paperwhiteを見る</a>
+                    <a href="https://www.amazon.co.jp/kindle-dbs/hz/signup" class="btn btn-secondary btn-xl">Unlimitedを試す</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</p>
+            <p><a href="/">サイトトップへ戻る</a></p>
+        </div>
+    </footer>
+</body>
+</html>
