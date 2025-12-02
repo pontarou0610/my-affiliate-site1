@@ -237,6 +237,24 @@ TAG_SYSTEM = "あなたはSEOに詳しい編集者です。記事内容に沿う
 RAKUTEN_API_ENDPOINT = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601"
 PEXELS_API_ENDPOINT = "https://api.pexels.com/v1/search"
 
+RAKUTEN_FALLBACK_ITEMS: List[Dict[str, str]] = [
+    {
+        "title": "Kindle Paperwhite 用カバー",
+        "url": "https://search.rakuten.co.jp/search/mall/Kindle+Paperwhite+%E3%82%AB%E3%83%90%E3%83%BC/",
+        "price_text": "",
+    },
+    {
+        "title": "Kobo Clara 用カバー",
+        "url": "https://search.rakuten.co.jp/search/mall/Kobo+Clara+%E3%82%AB%E3%83%90%E3%83%BC/",
+        "price_text": "",
+    },
+    {
+        "title": "電子書籍リーダー 保護フィルム",
+        "url": "https://search.rakuten.co.jp/search/mall/%E9%9B%BB%E5%AD%90%E6%9B%B8%E7%B1%8D%E3%83%AA%E3%83%BC%E3%83%80%E3%83%BC+%E4%BF%9D%E8%AD%B7%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0/",
+        "price_text": "",
+    },
+]
+
 
 def parse_frontmatter(md_text: str):
     m = re.search(r"^---\s*(.*?)\s*---", md_text, re.S | re.M)
@@ -533,16 +551,29 @@ def generate_seo_title(topic: str, draft: str) -> str:
 
 
 def build_search_keyword(topic: str, max_words: int = 6, max_chars: int = 60) -> str:
-    cleaned = re.sub(r"[！!？?\\[\\]\\(\\)【】]", " ", topic)
+    """Rakuten???????????????????????????????"""
+    topic_lower = topic.lower()
+    brand_keys = ["kindle", "paperwhite", "oasis", "scribe", "kobo", "clara", "libra", "sage", "elipsa"]
+    category_keys = ["????", "????????", "??????", "e ink", "?????", "???", "???", "?????"]
+    picked_brand = next((b for b in brand_keys if b in topic_lower), "")
+    picked_category = next((c for c in category_keys if c in topic_lower), "")
+    if picked_brand and picked_category:
+        base = f"{picked_brand} {picked_category}"
+    elif picked_brand:
+        base = f"{picked_brand} ????????"
+    elif picked_category:
+        base = f"{picked_category} ????????"
+    else:
+        base = "????????"
+    cleaned = re.sub(r"[?!??\[\]\(\)??]", " ", base)
     words = [w for w in re.split(r"\s+", cleaned) if w]
-    keyword = " ".join(words[:max_words]) or topic
+    keyword = " ".join(words[:max_words]) or base
     return keyword[:max_chars]
-
 
 def fetch_rakuten_items(topic: str, hits: int = 3) -> List[Dict[str, str]]:
     if not (RAKUTEN_APP_ID and RAKUTEN_AFFILIATE_ID):
-        print("[Rakuten] Missing app or affiliate ID. Skipping.")
-        return []
+        print("[Rakuten] Missing app or affiliate ID. Using fallback items.")
+        return RAKUTEN_FALLBACK_ITEMS[:hits]
 
     keyword = build_search_keyword(topic)
     params = {
@@ -560,7 +591,7 @@ def fetch_rakuten_items(topic: str, hits: int = 3) -> List[Dict[str, str]]:
         data = resp.json()
     except Exception as exc:
         print(f"[Rakuten] Request failed: {exc}")
-        return []
+        return RAKUTEN_FALLBACK_ITEMS[:hits]
 
     items: List[Dict[str, str]] = []
     for entry in data.get("Items", []):
@@ -572,7 +603,7 @@ def fetch_rakuten_items(topic: str, hits: int = 3) -> List[Dict[str, str]]:
             continue
         price_text = ""
         try:
-            price_text = f" ¥{int(price):,}"
+            price_text = f" ?{int(price):,}"
         except Exception:
             price_text = ""
         items.append({"title": title, "url": url, "price_text": price_text})
@@ -580,9 +611,11 @@ def fetch_rakuten_items(topic: str, hits: int = 3) -> List[Dict[str, str]]:
             break
     if not items:
         print(f"[Rakuten] No affiliate items found for {keyword}.")
+        return RAKUTEN_FALLBACK_ITEMS[:hits]
     else:
         print(f"[Rakuten] Selected {len(items)} items for {keyword}.")
     return items
+
 
 
 def fetch_google_suggest_topics(max_needed: int) -> list[str]:
