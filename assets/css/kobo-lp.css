@@ -262,6 +262,28 @@ a { text-decoration: none; color: inherit; }
     line-height: 1.8;
 }
 
+.cta-section {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+}
+.cta-section .btn {
+    background: var(--rakuten-red);
+    color: #fff;
+    border: 1px solid var(--rakuten-crimson);
+    box-shadow: 0 8px 18px rgba(191,0,0,0.16);
+}
+.cta-section .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 22px rgba(191,0,0,0.22);
+}
+.btn.brand-rakuten {
+    background: linear-gradient(135deg, var(--rakuten-red), var(--rakuten-crimson));
+    color: #fff;
+    border: 1px solid var(--rakuten-crimson);
+}
+
 /* Comparison */
 .comparison { padding: 70px 0; background: #fff7fb; }
 .comparison h2 { text-align: center; font-size: 2.1rem; margin-bottom: 35px; color: #2c2c2c; }
