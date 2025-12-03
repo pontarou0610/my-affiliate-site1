@@ -52,7 +52,10 @@
     {{- $showRakuten = true -}}
   {{- end -}}
   {{- if $showRakuten }}
+  <section class="related-products">
+    <h2>関連アイテム</h2>
     {{- partial "rakuten-widget.html" . }}
+  </section>
   {{- end }}
   
   <footer class="post-footer">
