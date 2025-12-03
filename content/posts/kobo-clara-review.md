@@ -1,7 +1,7 @@
 ---
 title: "Kobo Clara 2E レビュー：軽さと防水が魅力のエントリー最強機"
 date: 2025-08-10T09:00:00+09:00
-draft: false
+draft: true
 tags: ["Kobo", "Clara 2E", "レビュー", "電子書籍"]
 categories: ["電子書籍"]
 description: "Kobo Clara 2Eの使い勝手をレビュー。軽さ、防水、環境配慮素材、EPUB対応などをチェックし、初心者に向く理由と注意点をまとめました。"
