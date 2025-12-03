@@ -774,20 +774,8 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     draft = re.sub(r"(?m)^###\s*H3:\s*", "### ", draft)
     draft = re.sub(r"\n?\[読書ガイド\]\(/posts/?\)\s*", "\n", draft)
 
-    has_related_products = False
     rakuten_items = fetch_rakuten_items(topic)
-    if rakuten_items:
-        rakuten_lines = ["", "## 関連アイテム（楽天）", ""]
-        for item in rakuten_items:
-            rakuten_lines.append(f"- [{item['title']}]({item['url']}){item['price_text']}")
-        rakuten_block = "\n".join(rakuten_lines) + "\n"
-        has_related_products = True
-        summary_match = re.search(r"(\n## まとめ[\s\S]*?)(?=\n## |\Z)", draft)
-        if summary_match:
-            insert_pos = summary_match.end()
-            draft = draft[:insert_pos] + "\n\n" + rakuten_block + draft[insert_pos:]
-        else:
-            draft = draft.rstrip() + "\n\n" + rakuten_block
+    show_rakuten_widget = bool(rakuten_items)
 
     out_dir = pathlib.Path("content/posts")
     related = pick_related_urls(out_dir, today.isoformat(), k=3)
@@ -813,7 +801,8 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     categories: ["電子書籍"]
     description: "{topic}に関する実用的なガイドと最新情報をまとめました。"
     slug: "{slug}"
-    hasRelatedProducts: {"true" if has_related_products else "false"}
+    hasRelatedProducts: false
+    showRakutenWidget: {"true" if show_rakuten_widget else "false"}
     ---
     """
     )
