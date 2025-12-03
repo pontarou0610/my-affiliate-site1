@@ -23,16 +23,8 @@
 
 <body>
     {{ $tag := or .Site.Params.amazonTag (getenv "AMAZON_TAG") }}
-    {{ $kuUrl := "https://www.amazon.co.jp/kindle-dbs/hz/signup" }}
-    {{ $paperwhiteUrl := "https://www.amazon.co.jp/dp/B09S2VC8NS" }}
-    {{ if and $tag (not (in $kuUrl "tag=")) }}
-    {{ $sep := cond (in $kuUrl "?") "&" "?" }}
-    {{ $kuUrl = printf "%s%stag=%s" $kuUrl $sep $tag }}
-    {{ end }}
-    {{ if and $tag (not (in $paperwhiteUrl "tag=")) }}
-    {{ $sep := cond (in $paperwhiteUrl "?") "&" "?" }}
-    {{ $paperwhiteUrl = printf "%s%stag=%s" $paperwhiteUrl $sep $tag }}
-    {{ end }}
+    {{ $kuUrl := "https://amzn.to/4oyRBSx" }}
+    {{ $paperwhiteUrl := "https://amzn.to/48wNGzs" }}
 
     <div class="notice-bar">本ページにはプロモーションが含まれます。Kindle Unlimitedは30日無料体験つきです。</div>
     <header class="lp-header">

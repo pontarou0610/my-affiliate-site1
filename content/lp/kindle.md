@@ -33,6 +33,6 @@ image: "/images/kindle-lp-ogp.jpg"
 </div>
 
 <div class="cta-section">
-  {{< affbtn store="amazon" url="https://www.amazon.co.jp/kindle-dbs/hz/signup" text="30日無料でUnlimitedを試す" >}}
-  {{< affbtn store="amazon" url="https://www.amazon.co.jp/dp/B09S2VC8NS" text="Paperwhiteを見る" >}}
+  {{< affbtn store="amazon" url="https://amzn.to/4oyRBSx" text="30日無料でUnlimitedを試す" >}}
+  {{< affbtn store="amazon" url="https://amzn.to/48wNGzs" text="Paperwhiteを見る" >}}
 </div>
