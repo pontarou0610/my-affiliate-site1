@@ -10,6 +10,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DISABLE_POST_GENERATION: "false"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -66,7 +68,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           python -c "import importlib.util; print('feedparser installed:', importlib.util.find_spec('feedparser') is not None)"
-          python scripts/generate_post.py --count 3
+          python scripts/generate_post.py --count 1
 
       - name: Check duplicate titles/slugs (post-generation)
         run: python scripts/check_unique_posts.py
