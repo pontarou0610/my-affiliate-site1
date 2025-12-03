@@ -1,7 +1,7 @@
 ﻿---
 title: "「Metaが変えるFacebook Marketplaceの電子書籍ソーシャルショッピング完全ガイド」"
 date: 2025-11-14
-draft: false
+draft: true
 tags: ['電子書籍リーダー', 'Kindle', 'Kobo', '読書術']
 categories: ["ガイド"]
 description: "Meta is trying to make Facebook Marketplace a social shopping experienceの要点と実用ヒントをわかりやすく解説。"

@@ -1,4 +1,4 @@
-# scripts/generate_post.py
+﻿# scripts/generate_post.py
 """
 Article generator for the ebook-focused blog.
 - Collects topics from RSS or fallback list
@@ -823,6 +823,11 @@ def pick_related_urls(out_dir: pathlib.Path, today_iso: str, k: int = 3):
 
 
 def main():
+    # Safety guard: disable accidental generation unless explicitly enabled.
+    if os.getenv("DISABLE_POST_GENERATION", "true").lower() != "false":
+        print("[info] Post generation is disabled. Set DISABLE_POST_GENERATION=false to enable.")
+        return
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--count", type=int, default=1, help="1〜3記事生成")
     args = parser.parse_args()
@@ -1030,3 +1035,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

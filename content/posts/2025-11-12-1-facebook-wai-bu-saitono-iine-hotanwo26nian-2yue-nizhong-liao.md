@@ -1,7 +1,7 @@
 ﻿---
 title: "Facebook外部「いいね！」ボタン終了の完全ガイド：プライバシー強化と運営者の対策"
 date: 2025-11-12
-draft: false
+draft: true
 tags: ["電子書籍リーダー", "Kindle", "Kobo", "読書環境"]
 categories: ["ガイド"]
 description: "Facebookが2026年2月で外部サイト向け「いいね！」ボタンを廃止する理由と、サイト運営者・読者が今すぐ取るべき対策をわかりやすく解説。"

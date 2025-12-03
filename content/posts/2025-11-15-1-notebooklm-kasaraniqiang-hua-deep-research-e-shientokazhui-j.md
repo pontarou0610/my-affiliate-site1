@@ -1,7 +1,7 @@
 ﻿---
 title: "「NotebookLM完全解説！新機能Deep Researchで電子書籍も活用」"
 date: 2025-11-15
-draft: false
+draft: true
 tags: ['電子書籍リーダー', 'Kindle', 'Kobo', '読書術']
 categories: ["ガイド"]
 description: "「NotebookLM」がさらに強化、「Deep Research」エージェントが追加、使えるデータ形式も増える／手書きメモやパンフレット画像、スプレッドシートの統計、Googleドライブ内のPDFなどにも対応の要点と実用ヒントをわかりやすく解説。"
