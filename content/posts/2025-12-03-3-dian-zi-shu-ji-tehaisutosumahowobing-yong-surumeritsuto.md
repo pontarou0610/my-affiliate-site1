@@ -60,16 +60,16 @@ hasRelatedProducts: false
 をご覧ください。あなたの読書スタイルを見直し、今すぐ実践してみましょう。
 
 
-## 関連ガイド
+## ?????
 
-- [KindleとKoboの違い](/posts/kindle-vs-kobo/)
-- [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
-- [Kobo Claraレビュー](/posts/kobo-clara-review/)
+- [Kindle?Kobo???](/posts/kindle-vs-kobo/)
+- [Kindle Paperwhite????](/posts/kindle-paperwhite-review/)
+- [Kobo Clara????](/posts/kobo-clara-review/)
 
 
-## 関連記事
+## ?????
 
-- [「Kindleでの読みやすさを変える！見開き・縦書き・横書きのメリット徹底解説」](/posts/2025/11/jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
-- [kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao](/posts/2025/11/kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao/)
-- [「2025年版 Kindle・Koboで快適読書！最新電子書籍リーダー3選」](/posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-4/)
+- [Kindle??????????????????????](/posts/2025/11/jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
+- [Kindle Unlimited?Kobo Plus?????](/posts/2025/11/kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao/)
+- [2025?? Kindle/Kobo????????????3?](/posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-4/)
 
