@@ -203,6 +203,10 @@ a { text-decoration: none; color: inherit; }
     text-align: center; font-size: 2.2rem; margin-bottom: 45px; color: #2f2f2f;
 }
 .features h2 span { color: var(--rakuten-red); }
+.features-body {
+    display: grid;
+    gap: 26px;
+}
 .feature-intro {
     max-width: 720px;
     margin: 0 auto 26px;
