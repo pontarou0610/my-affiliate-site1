@@ -24,7 +24,7 @@
 <body>
     {{ $tag := or .Site.Params.amazonTag (getenv "AMAZON_TAG") }}
     {{ $kuUrl := "https://www.amazon.co.jp/kindle-dbs/hz/signup" }}
-    {{ $paperwhiteUrl := "https://www.amazon.co.jp/dp/B09S6XTCFS" }}
+    {{ $paperwhiteUrl := "https://www.amazon.co.jp/dp/B09S2VC8NS" }}
     {{ if and $tag (not (in $kuUrl "tag=")) }}
     {{ $sep := cond (in $kuUrl "?") "&" "?" }}
     {{ $kuUrl = printf "%s%stag=%s" $kuUrl $sep $tag }}
