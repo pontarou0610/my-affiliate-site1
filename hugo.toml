@@ -34,6 +34,8 @@ canonifyURLs = true
   publisherLogo = "/images/ogp-default.jpg"
   breadcrumbHome = "ホーム"
   defaultRakutenWidget = false
+  amazonTag = "naoto0610-22"
+  rakutenAffiliateId = "0d62db60.7df6bee9.0d62db61.74fe29be"
 
   # UI/UX
   ShowShareButtons = true

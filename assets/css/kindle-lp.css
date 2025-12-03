@@ -22,6 +22,14 @@ body {
 .container { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
 a { text-decoration: none; color: inherit; }
 
+.notice-bar {
+    background: var(--amazon-dark);
+    color: #fff;
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+}
+
 /* Header */
 .lp-header {
     background: var(--white);
@@ -102,7 +110,27 @@ a { text-decoration: none; color: inherit; }
     border-radius: 6px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
+.hero-points { list-style: none; padding: 0; margin: 0 0 18px 0; }
+.hero-points li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 8px;
+    color: #303030;
+}
+.hero-points li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--amazon-orange);
+    font-size: 1.2rem;
+    line-height: 1;
+}
 .hero-cta .btn { margin-right: 10px; margin-bottom: 10px; }
+.hero-note {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 10px;
+}
 
 .hero-image {
     flex: 1;
@@ -180,8 +208,59 @@ a { text-decoration: none; color: inherit; }
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.04);
 }
+.howto-card .step-number {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: var(--amazon-orange);
+    color: #111;
+    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
 .howto-card h3 { font-size: 1.1rem; color: var(--amazon-dark); margin-bottom: 8px; }
 .howto-card p { color: #505050; font-size: 0.95rem; }
+
+/* Value section */
+.value-section {
+    padding: 60px 0;
+    background: #fffdf6;
+    border-top: 1px solid #f3d7a6;
+    border-bottom: 1px solid #f3d7a6;
+}
+.value-section h2 { text-align: center; font-size: 2rem; margin-bottom: 22px; color: var(--amazon-dark); }
+.value-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 12px;
+}
+.value-list li {
+    background: #fff;
+    border: 1px solid #f1e3c4;
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    color: #3c3c3c;
+}
+.value-list strong { color: var(--amazon-dark); }
+
+/* FAQ */
+.faq { padding: 70px 0; background: #ffffff; }
+.faq h2 { text-align: center; font-size: 2rem; margin-bottom: 26px; color: var(--amazon-dark); }
+.faq-item {
+    background: #f6f8fb;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.faq-item h3 { font-size: 1.05rem; margin-bottom: 6px; color: var(--amazon-dark); }
+.faq-item p { margin: 0; color: #424242; }
 
 /* CTA */
 .cta-banner {
@@ -212,4 +291,5 @@ footer a { color: var(--amazon-blue); }
     .hero h1 { font-size: 2.2rem; }
     .hero .container { flex-direction: column-reverse; }
     .hero-content { padding-right: 0; text-align: center; }
+    .hero-points { text-align: left; display: inline-block; }
 }

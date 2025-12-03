@@ -9,7 +9,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Montserrat:wght@400;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Montserrat:wght@400;700&display=swap"
         rel="stylesheet">
 
     {{ $style := resources.Get "css/kindle-lp.css" }}
@@ -21,13 +22,27 @@
 </head>
 
 <body>
+    {{ $tag := or .Site.Params.amazonTag (getenv "AMAZON_TAG") }}
+    {{ $kuUrl := "https://www.amazon.co.jp/kindle-dbs/hz/signup" }}
+    {{ $paperwhiteUrl := "https://www.amazon.co.jp/Kindle-Paperwhite" }}
+    {{ if and $tag (not (in $kuUrl "tag=")) }}
+    {{ $sep := cond (in $kuUrl "?") "&" "?" }}
+    {{ $kuUrl = printf "%s%stag=%s" $kuUrl $sep $tag }}
+    {{ end }}
+    {{ if and $tag (not (in $paperwhiteUrl "tag=")) }}
+    {{ $sep := cond (in $paperwhiteUrl "?") "&" "?" }}
+    {{ $paperwhiteUrl = printf "%s%stag=%s" $paperwhiteUrl $sep $tag }}
+    {{ end }}
+
+    <div class="notice-bar">本ページにはプロモーションが含まれます。Kindle Unlimitedは30日無料体験つきです。</div>
     <header class="lp-header">
         <div class="container">
             <div class="logo">Amazon <span>Kindle</span></div>
             <nav>
                 <a href="#features">特徴</a>
                 <a href="#howto">使い方</a>
-                <a href="#cta" class="btn btn-sm">今すぐ始める</a>
+                <a href="#faq">FAQ</a>
+                <a href="#cta" class="btn btn-sm">30日無料で試す</a>
             </nav>
         </div>
     </header>
@@ -36,23 +51,32 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <span class="hero-badge">Unlimited対応</span>
+                    <span class="hero-badge">30日無料体験 + いつでも解約OK</span>
                     <h1>{{ .Title }}</h1>
                     <p class="hero-subtitle">{{ .Params.description }}</p>
+                    <ul class="hero-points">
+                        <li>Paperwhite/無印の失敗しない選び方を1分で把握</li>
+                        <li>ベストセラー+マンガが読み放題、買い切りより圧倒的にお得</li>
+                        <li>Send to KindleでPDF/EPUBも一括管理し「読みたい本」を一元化</li>
+                    </ul>
                     <div class="hero-cta">
-                        <a href="https://www.amazon.co.jp/kindle-dbs/hz/signup" class="btn btn-primary btn-lg">Kindle Unlimitedを試す</a>
-                        <a href="#features" class="btn btn-secondary btn-lg">特徴を見る</a>
+                        <a href="{{ $kuUrl }}" class="btn btn-primary btn-lg" target="_blank"
+                            rel="sponsored noopener noreferrer">30日無料で読み放題を試す</a>
+                        <a href="{{ $paperwhiteUrl }}" class="btn btn-secondary btn-lg" target="_blank"
+                            rel="sponsored noopener noreferrer">Paperwhiteの詳細を見る</a>
                     </div>
+                    <p class="hero-note">Amazonの公式ページへ遷移します。価格・キャンペーンは必ず遷移先でご確認ください。</p>
                 </div>
                 <div class="hero-image">
                     <div class="hero-photo">
-                        <img src="https://images.pexels.com/photos/276583/pexels-photo-276583.jpeg?auto=compress&cs=tinysrgb&h=800&w=1200" alt="Kindle">
+                        <img src="https://images.pexels.com/photos/276583/pexels-photo-276583.jpeg?auto=compress&cs=tinysrgb&h=800&w=1200"
+                            alt="Kindle">
                     </div>
                     <div class="device-mockup">
                         <div class="device-screen">
                             <div class="device-content">
                                 <h3>Kindleで読む</h3>
-                                <p>Prime Reading / Unlimited / Send to Kindle</p>
+                                <p>Unlimited / Prime Reading / Send to Kindle</p>
                                 <div class="device-text-lines">
                                     <span></span><span></span><span></span><span></span><span></span>
                                 </div>
@@ -66,7 +90,7 @@
 
         <section id="features" class="features">
             <div class="container">
-                <h2><span>Kindle</span>の特徴</h2>
+                <h2><span>Kindle</span>が選ばれる3つの理由</h2>
                 <div class="features-grid">
                     {{ .Content }}
                 </div>
@@ -75,31 +99,65 @@
 
         <section id="howto" class="howto">
             <div class="container">
-                <h2>活用のポイント</h2>
+                <h2>使い方はかんたん3ステップ</h2>
                 <div class="howto-grid">
                     <div class="howto-card">
-                        <h3>Send to Kindleで一元化</h3>
-                        <p>PDF/EPUBをメールやアプリで即同期。学習資料も端末に集約。</p>
+                        <div class="step-number">1</div>
+                        <h3>30日無料体験に登録</h3>
+                        <p>AmazonアカウントでKindle Unlimitedに申し込むだけ。最初の30日は無料、解約も1分で完了します。</p>
                     </div>
                     <div class="howto-card">
-                        <h3>セールを待つ</h3>
-                        <p>プライムデー/ブラックフライデーでPaperwhiteが狙い目。買う前に欲しいモデルを決めておく。</p>
+                        <div class="step-number">2</div>
+                        <h3>端末 or アプリで読む</h3>
+                        <p>Paperwhite/無印端末はもちろん、スマホ・タブレットのKindleアプリでも同じ本棚を共有。明るさや背景色は細かく調整できます。</p>
                     </div>
                     <div class="howto-card">
-                        <h3>サブスクを組み合わせる</h3>
-                        <p>Prime Readingはおまけ、Unlimitedが本命。月数冊読めば元が取れる。</p>
+                        <div class="step-number">3</div>
+                        <h3>PDF/EPUBも一括転送</h3>
+                        <p>Send to Kindleで購入済みの技術書や資料もまとめて投入。検索もハイライトも端末全体で同期され、学習効率が上がります。</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="value-section">
+            <div class="container">
+                <h2>迷う前に押さえるチェックポイント</h2>
+                <ul class="value-list">
+                    <li><strong>通勤・就寝前の15分読書</strong>：防眩のE-inkで目が疲れにくい。紙の本より軽く、片手で読める。</li>
+                    <li><strong>買い切りよりコスパ◎</strong>：Unlimitedは月額980円。ビジネス書2冊で元が取れる計算です。</li>
+                    <li><strong>紙+デジタルの併用</strong>：手持ちPDFをSend to Kindleに放り込めば、検索・ハイライト・メモが同期。</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="faq" class="faq">
+            <div class="container">
+                <h2>よくある質問</h2>
+                <div class="faq-item">
+                    <h3>無料体験後はいくらかかる？</h3>
+                    <p>Kindle Unlimitedは月額980円。30日以内に解約すれば費用は発生しません。解約しても端末自体はそのまま使えます。</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Prime Readingと何が違う？</h3>
+                    <p>Prime Readingはプライム会員向けの入門版（対象は数百冊）。Unlimitedは和書・マンガ・洋書など約200万冊が対象で選択肢が桁違いです。</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Paperwhiteと無印どちらを買うべき？</h3>
+                    <p>お風呂・ベッドでの読書や暗所が多いなら防水と色調ライトがあるPaperwhite。軽さと価格重視なら無印Kindleが最適です。</p>
                 </div>
             </div>
         </section>
 
         <section id="cta" class="cta-banner">
             <div class="container">
-                <h2>Kindleで読書を始めよう</h2>
-                <p>防水・色温度・USB-C対応のPaperwhiteがバランス最強。セールを活用して賢く導入。</p>
+                <h2>Kindleで「読みたい」を溜めない生活をはじめよう</h2>
+                <p>30日無料でUnlimitedを体験し、端末はPaperwhiteで快適読書。解約リスクゼロで今すぐ試せます。</p>
                 <div class="cta-buttons">
-                    <a href="https://www.amazon.co.jp/Kindle-Paperwhite" class="btn btn-primary btn-xl">Paperwhiteを見る</a>
-                    <a href="https://www.amazon.co.jp/kindle-dbs/hz/signup" class="btn btn-secondary btn-xl">Unlimitedを試す</a>
+                    <a href="{{ $kuUrl }}" class="btn btn-primary btn-xl" target="_blank"
+                        rel="sponsored noopener noreferrer">30日無料でUnlimitedを試す</a>
+                    <a href="{{ $paperwhiteUrl }}" class="btn btn-secondary btn-xl" target="_blank"
+                        rel="sponsored noopener noreferrer">Paperwhiteを見る</a>
                 </div>
             </div>
         </section>
@@ -108,7 +166,7 @@
     <footer>
         <div class="container">
             <p>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</p>
-            <p><a href="/">サイトトップへ戻る</a></p>
+            <p><a href="/">トップへ戻る</a></p>
         </div>
     </footer>
 </body>

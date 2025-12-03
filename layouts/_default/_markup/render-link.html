@@ -1,8 +1,25 @@
 {{- $href := .Destination -}}
 {{- $isExternal := or (hasPrefix $href "http://") (hasPrefix $href "https://") (hasPrefix $href "//") -}}
+
+{{- /* Affiliate tagging */ -}}
+{{- $amazonTag := or (.Page.Site.Params.amazonTag) (.Page.Site.Site.Params.amazonTag) (getenv "AMAZON_TAG") -}}
+{{- $rakutenId := or (.Page.Site.Params.rakutenAffiliateId) (.Page.Site.Site.Params.rakutenAffiliateId) (getenv "RAKUTEN_AFFILIATE_ID") -}}
+
+{{- $isAmazon := and $isExternal (in $href "amazon.co.jp") -}}
+{{- if and $isAmazon $amazonTag (not (in $href "tag=")) -}}
+  {{- $sep := cond (in $href "?") "&" "?" -}}
+  {{- $href = printf "%s%stag=%s" $href $sep $amazonTag -}}
+{{- end -}}
+
+{{- $isRakuten := and $isExternal (or (in $href "rakuten.co.jp") (in $href "rakuten.com")) -}}
+{{- if and $isRakuten $rakutenId (not (hasPrefix $href "https://hb.afl.rakuten.co.jp/")) -}}
+  {{- $encoded := urlquery $href -}}
+  {{- $href = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $encoded $encoded -}}
+{{- end -}}
+
 {{- $isAff := and $isExternal (or (in $href "amzn.to") (in $href "amazon.co.jp")
                  (in $href "rakuten") (in $href "valuecommerce.com")
-                 (in $href "ck.jp.ap.valuecommerce.com")) -}}
+                 (in $href "ck.jp.ap.valuecommerce.com") (hasPrefix $href "https://hb.afl.rakuten.co.jp/")) -}}
 {{- $rel := slice -}}
 {{- if $isExternal }}
   {{- $rel = $rel | append "noopener" | append "noreferrer" -}}
@@ -11,7 +28,7 @@
   {{- $rel = $rel | append "nofollow" | append "sponsored" -}}
 {{- end -}}
 {{- $rel = uniq $rel -}}
-<a href="{{ .Destination }}"
+<a href="{{ $href }}"
    {{ with .Title }}title="{{ . }}"{{ end }}
    {{ if $isExternal }}target="_blank"{{ end }}
    {{ if gt (len $rel) 0 }}rel="{{ delimit $rel " " }}"{{ end }}>{{ .Text }}</a>

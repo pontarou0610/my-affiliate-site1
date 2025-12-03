@@ -1,12 +1,26 @@
 {{- /* Shortcode: affbtn
      Params:
        url   = "https://..."
-       text  = "ボタン文言"（任意）
+       text  = "ボタン文言"（必須）
        store = "amazon|rakuten|yahoo"（任意：色が変わる）
 */ -}}
 {{- $url := .Get "url" -}}
 {{- $text := .Get "text" | default "購入する" -}}
 {{- $store := (lower (.Get "store")) -}}
 {{- $class := cond (eq $store "amazon") "brand-amazon" (cond (eq $store "rakuten") "brand-rakuten" (cond (eq $store "yahoo") "brand-yahoo" "")) -}}
+
+{{- $amazonTag := or (.Page.Site.Params.amazonTag) (.Page.Site.Site.Params.amazonTag) (getenv "AMAZON_TAG") -}}
+{{- $rakutenId := or (.Page.Site.Params.rakutenAffiliateId) (.Page.Site.Site.Params.rakutenAffiliateId) (getenv "RAKUTEN_AFFILIATE_ID") -}}
+
+{{- if and (eq $store "amazon") $amazonTag (in $url "amazon.co.jp") (not (in $url "tag=")) -}}
+  {{- $sep := cond (in $url "?") "&" "?" -}}
+  {{- $url = printf "%s%stag=%s" $url $sep $amazonTag -}}
+{{- end -}}
+
+{{- if and (eq $store "rakuten") $rakutenId (not (hasPrefix $url "https://hb.afl.rakuten.co.jp/")) -}}
+  {{- $encoded := urlquery $url -}}
+  {{- $url = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $encoded $encoded -}}
+{{- end -}}
+
 <a class="btn {{ $class }}" href="{{ $url }}"
    target="_blank" rel="nofollow sponsored noopener">{{ $text }}</a>

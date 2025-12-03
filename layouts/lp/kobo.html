@@ -23,6 +23,18 @@
 </head>
 
 <body>
+    {{ $rakutenId := or .Site.Params.rakutenAffiliateId (getenv "RAKUTEN_AFFILIATE_ID") }}
+    {{ $storeUrl := "https://books.rakuten.co.jp/e-book/" }}
+    {{ $deviceUrl := "https://books.rakuten.co.jp/event/e-book/ereaders/" }}
+    {{ $searchUrl := "https://search.rakuten.co.jp/search/mall/Kobo+%E9%9B%BB%E5%AD%90%E6%9B%B8%E7%B1%8D%E3%83%AA%E3%83%BC%E3%83%80%E3%83%BC/" }}
+    {{ if and $rakutenId (not (hasPrefix $storeUrl "https://hb.afl.rakuten.co.jp/")) }}
+    {{ $storeEncoded := urlquery $storeUrl }}
+    {{ $deviceEncoded := urlquery $deviceUrl }}
+    {{ $searchEncoded := urlquery $searchUrl }}
+    {{ $storeUrl = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $storeEncoded $storeEncoded }}
+    {{ $deviceUrl = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $deviceEncoded $deviceEncoded }}
+    {{ $searchUrl = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $searchEncoded $searchEncoded }}
+    {{ end }}
     <header class="lp-header">
         <div class="container">
             <div class="logo">Rakuten <span>Kobo</span></div>
@@ -42,7 +54,7 @@
                     <h1>{{ .Title }}</h1>
                     <p class="hero-subtitle">{{ .Params.description }}</p>
                     <div class="hero-cta">
-                        <a href="https://books.rakuten.co.jp/e-book/" class="btn btn-primary btn-lg">Koboストアで見る</a>
+                        <a href="{{ $storeUrl }}" class="btn btn-primary btn-lg" target="_blank" rel="sponsored noopener noreferrer">Koboストアで見る</a>
                         <a href="#comparison" class="btn btn-secondary btn-lg">モデルを比較</a>
                     </div>
                 </div>

@@ -41,6 +41,6 @@ image: "/images/kobo-lp-ogp.jpg"
 国内最大級の品揃えで、読みたかったあの一冊が必ず見つかります。
 
 <div class="cta-section">
-  <a href="https://books.rakuten.co.jp/e-book/" class="btn btn-primary">楽天Koboストアを見る</a>
-  <a href="https://books.rakuten.co.jp/event/e-book/ereaders/" class="btn btn-secondary">Kobo端末を探す</a>
+  {{< affbtn store="rakuten" url="https://books.rakuten.co.jp/e-book/" text="??Kobo??????" >}}
+  {{< affbtn store="rakuten" url="https://books.rakuten.co.jp/event/e-book/ereaders/" text="Kobo?????" >}}
 </div>
