@@ -1,7 +1,7 @@
 ---
 title: "Kindleとスマホ併用で読書時間を倍増！便利な同期機能の活用法"
 date: 2025-12-03
-draft: true
+draft: false
 tags: ["電子書籍", "Kindle", "Kobo", "読書術"]
 categories: ["読書術"]
 description: "電子書籍デバイスとスマホを併用するメリットに関する実用的なガイドと最新情報をまとめました。"

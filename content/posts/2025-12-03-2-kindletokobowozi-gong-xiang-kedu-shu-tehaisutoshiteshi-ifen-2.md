@@ -1,7 +1,7 @@
 ---
 title: "「KindleとKoboを活用！子供向け読書デバイスの賢い使い分け法」"
 date: 2025-12-03
-draft: true
+draft: false
 tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
 categories: ["電子書籍"]
 description: "KindleとKoboを子供向け読書デバイスとして使い分けるコツに関する実用的なガイドと最新情報をまとめました。"
