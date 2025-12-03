@@ -1,7 +1,7 @@
 ﻿---
 title: "旅行・出張で後悔しない電子書籍リーダー活用術（オフライン・充電・防水）"
 date: 2025-12-02
-draft: true
+draft: false
 tags: ["電子書籍", "Kindle", "Kobo", "旅行", "オフライン"]
 categories: ["電子書籍"]
 description: "旅先や出張で失敗しがちな電子書籍リーダーの準備と使い方を、オフライン運用・充電計画・防水・セキュリティの観点でまとめました。"
@@ -55,4 +55,5 @@ hasRelatedProducts: false
 - [1日30分でKindleを活用！読書習慣を身につける15の方法](/posts/2025/12/1ri-30fen-tedu-shu-xi-guan-wozuo-ru15noaitea-3/)
 - [Kindle UnlimitedとKobo Plusの違いを徹底比較！あなたに最適な電子書籍サービスは？](/posts/2025/11/kindle-unlimitedtokobo-plusnowei-itoxuan-hifang/)
 - [見開き・縦書き・横書きで読みやすさを上げる設定ガイド](/posts/2025/11/jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
+
 

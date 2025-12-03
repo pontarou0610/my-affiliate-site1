@@ -2,7 +2,7 @@
 title: "電子書籍の返品・キャンセルの基礎知識"
 date: 2025-11-05T00:00:00+09:00
 slug: "dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi"
-draft: true
+draft: false
 description: "Kindleや楽天Koboで電子書籍を返品・キャンセルする手順と注意点をまとめました。"
 categories:
   - "電子書籍ストア"
@@ -128,4 +128,5 @@ tags:
 - [KindleとKoboの最新モデル比較（2025年版）](/posts/2025/11/kindletokobonozui-xin-moterubi-jiao-2025nian-ban/)
 - [エンジニアリングリーダー ― 技術組織を育てるリーダーシップとセルフマネジメント](/posts/2025/10/engineering-leader-team-leadership-and-self-management/)
 - [マッハーツール | 登録不要の無料オンライン効率化ツール | マッハーツール](/posts/2025/11/matsuha-tsu-ru-deng-lu-bu-yao-nowu-liao-onrainxiao-lu-hua-ts/)
+
 

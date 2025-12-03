@@ -1,7 +1,7 @@
 ﻿---
 title: "「Kindleでの縦書き・横書き表示の違いと読みやすさのメリット」"
 date: 2025-11-23
-draft: true
+draft: false
 tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
 categories: ["電子書籍"]
 description: "見開き表示・縦書き・横書きで読みやすさがどう変わるかに関する実用的なガイドと最新情報をまとめました。"
@@ -89,5 +89,6 @@ A3: 最初は少しずつ試してみるのが良いでしょう。例えば、�
 - [マッハツール | 登録不要の無料オンライン効率化ツール活用ガイド](/posts/2025/11/matsuha-tsu-ru-deng-lu-bu-yao-nowu-liao-onrainxiao-lu-hua-ts/)
 - [手塚治虫の名作が最大55％OFF！Kindleで楽しむ電子書籍セール完全ガイド](/posts/2025/11/huratsuku-shiyatsuku-huo-noniao-natoshou-zhong-zhi-chong-zuo/)
 - [「Apple Watch SE 3徹底解説！ブラックフライデー前の特別価格$200」](/posts/2025/11/the-apple-watch-se-3-drops-to-200-before-black-friday/)
+
 
 

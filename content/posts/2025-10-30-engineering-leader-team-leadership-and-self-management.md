@@ -1,4 +1,4 @@
----
+﻿---
 title: "エンジニアリングリーダーが技術組織を育てるリーダーシップとセルフマネジメント"
 date: 2025-10-01T09:00:00+09:00
 draft: false
@@ -77,3 +77,4 @@ slug: "engineering-leader-team-leadership-and-self-management"
 - [記事一覧を開く](/posts/)
 - [電子書籍デバイスの比較ガイド](/posts/2025/08/2025%E5%B9%B4%E6%9C%80%E6%96%B0kindle%E3%81%A8kobo%E3%82%92%E5%BE%B9%E5%BA%95%E6%AF%94%E8%BC%83%E9%9B%BB%E5%AD%90%E6%9B%B8%E7%B1%8D%E3%83%AA%E3%83%BC%E3%83%80%E3%83%BC%E3%81%AF%E3%81%A9%E3%81%A3%E3%81%A1%E3%82%92%E9%81%B8%E3%81%B6/)
 - [EPUBとPDFの使い分け](/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u/)
+

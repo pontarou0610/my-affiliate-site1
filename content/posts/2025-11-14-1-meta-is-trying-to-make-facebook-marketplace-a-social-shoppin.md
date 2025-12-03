@@ -1,7 +1,7 @@
 ﻿---
 title: "「Metaが変えるFacebook Marketplaceの電子書籍ソーシャルショッピング完全ガイド」"
 date: 2025-11-14
-draft: true
+draft: false
 tags: ['電子書籍リーダー', 'Kindle', 'Kobo', '読書術']
 categories: ["ガイド"]
 description: "Meta is trying to make Facebook Marketplace a social shopping experienceの要点と実用ヒントをわかりやすく解説。"
@@ -155,6 +155,7 @@ Facebook Marketplaceを利用するには、まず基本的な設定が必要で
 - [EPUBとPDFの使い分け：学習・技術書・漫画でどちらを選ぶ？](/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u/)
 - [Engadget Podcast: Our favorite gadgets of 2025](/posts/2025/11/engadget-podcast-our-favorite-gadgets-of-2025/)
 - [「Valetudo完全ガイド：ロボット掃除機をローカルで自由に操作する方法」](/posts/2025/11/rohotsutosao-chu-ji-wokurautonashi-sa-ha-nashinoro-karunomit/)
+
 
 
 

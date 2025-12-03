@@ -1,4 +1,4 @@
----
+﻿---
 title: "「KindleとKoboを活用！子供向け読書デバイスの賢い使い分け法」"
 date: 2025-12-03
 draft: false
@@ -80,4 +80,5 @@ KindleとKoboは、それぞれ異なる魅力を持つ電子書籍リーダー�
 - [「Kindleでの読みやすさを変える！見開き・縦書き・横書きのメリット徹底解説」](/posts/2025/11/jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
 - [kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao](/posts/2025/11/kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao/)
 - [「2025年版 Kindle・Koboで快適読書！最新電子書籍リーダー3選」](/posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-4/)
+
 

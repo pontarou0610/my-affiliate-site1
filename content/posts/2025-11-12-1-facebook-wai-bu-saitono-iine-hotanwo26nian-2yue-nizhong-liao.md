@@ -1,7 +1,7 @@
 ﻿---
 title: "Facebook外部「いいね！」ボタン終了の完全ガイド：プライバシー強化と運営者の対策"
 date: 2025-11-12
-draft: true
+draft: false
 tags: ["電子書籍リーダー", "Kindle", "Kobo", "読書環境"]
 categories: ["ガイド"]
 description: "Facebookが2026年2月で外部サイト向け「いいね！」ボタンを廃止する理由と、サイト運営者・読者が今すぐ取るべき対策をわかりやすく解説。"
@@ -105,4 +105,5 @@ A. ページ運用自体は今も有効です。ライブ配信やグループ�
 - [The YouTube TV Disney blackout continues: How to watch college football on ESPN, ABC and more](/posts/2025/11/the-youtube-tv-disney-blackout-continues-how-to-watch-colleg/)
 - [Engadget Podcast: Our favorite gadgets of 2025](/posts/2025/11/engadget-podcast-our-favorite-gadgets-of-2025/)
 - [電子書籍の返金・キャンセルの基礎知識](/posts/2025/11/dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2/)
+
 

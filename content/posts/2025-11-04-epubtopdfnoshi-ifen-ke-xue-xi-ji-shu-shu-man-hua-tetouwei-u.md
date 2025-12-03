@@ -2,7 +2,7 @@
 title: "EPUBとPDFの使い分け：学習・技術書・漫画でどちらを選ぶ？"
 date: 2025-11-04T00:00:00+09:00
 slug: "epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u"
-draft: true
+draft: false
 description: "用途別にEPUBとPDFを選ぶポイントを整理し、KindleやKoboでの読みやすさを解説します。"
 categories:
   - "出版と作家活動"
@@ -116,4 +116,5 @@ EPUBとPDFは、それぞれ異なる特性を持つファイル形式です。�
 まずは、自分が読みたいコンテンツがEPUBかPDFのどちらで提供されているか確認してみましょう。
 
 [関連記事](/posts/)
+
 

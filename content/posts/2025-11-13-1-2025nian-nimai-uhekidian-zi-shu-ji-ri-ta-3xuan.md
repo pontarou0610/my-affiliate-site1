@@ -1,7 +1,7 @@
 ﻿---
 title: "2025年版！KindleとKoboの電子書籍リーダー完全ガイド"
 date: 2025-11-13
-draft: true
+draft: false
 tags: ['電子書籍リーダー', 'Kindle', 'Kobo', '読書術']
 categories: ["ガイド"]
 description: "2025年に買うべき電子書籍リーダー3選の要点と実用ヒントをわかりやすく解説。"
@@ -120,5 +120,6 @@ PocketBook InkPad Colorは、カラーディスプレイを採用した革新的
 - [「Apple Watch SE 3徹底解説！ブラックフライデー前の特別価格$200」](/posts/2025/11/the-apple-watch-se-3-drops-to-200-before-black-friday/)
 - [できるチームで7.5倍使われる“声掛け”とは？ 17万人のAI分析からわかったリーダーの勘所](/posts/2025/11/tekiruchi-mute7-5bei-shi-wareru-sheng-gua-ke-toha-17mo-ren-n/)
 - [フォントサイズを横幅ぴったりに合わせるfit-widthの提案](/posts/2025/11/huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi/)
+
 
 

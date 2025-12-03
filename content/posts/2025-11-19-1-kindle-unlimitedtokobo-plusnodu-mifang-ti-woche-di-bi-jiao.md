@@ -1,7 +1,7 @@
 ﻿---
 title: "Kindle Unlimited vs Kobo Plus徹底比較：電子書籍読み放題の選び方"
 date: 2025-11-19
-draft: true
+draft: false
 tags: ['電子書籍リーダー', 'Kindle', 'Kobo', '読書']
 categories: ['ガイド']
 description: "Kindle UnlimitedとKobo Plusの読み放題を料金・ラインナップ・使い方で比較し、選び方のポイントをまとめました。"
@@ -127,4 +127,5 @@ Kindle UnlimitedとKobo Plusは、それぞれ得意ジャンルとエコシス�
 - [2025年版！KindleとKoboの電子書籍リーダー完全ガイド](/posts/2025/11/2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan/)
 - [できるチームで7.5倍使われる“声掛け”とは？：17万件のAI分析からわかったリーダーの勘所](/posts/2025/11/tekiruchi-mute7-5bei-shi-wareru-sheng-gua-ke-toha-17mo-ren-n/)
 - [Lego Black Friday deals: Early sales include up to 40 percent off Star Wars and Disney sets](/posts/2025/11/lego-black-friday-deals-early-sales-include-up-to-40-percent/)
+
 

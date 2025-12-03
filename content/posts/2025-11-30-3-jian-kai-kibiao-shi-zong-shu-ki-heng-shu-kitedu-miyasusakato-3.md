@@ -1,7 +1,7 @@
 ﻿---
 title: "「Kindleでの読みやすさを変える！見開き・縦書き・横書きのメリット徹底解説」"
 date: 2025-11-30
-draft: true
+draft: false
 tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
 categories: ["電子書籍"]
 description: "見開き表示・縦書き・横書きで読みやすさがどう変わるかに関する実用的なガイドと最新情報をまとめました。"
@@ -86,5 +86,6 @@ hasRelatedProducts: false
 - [「2025年最新！KindleとKoboの高解像度電子書籍リーダー3選」](/posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan/)
 - [「KindleでEPUB・PDFを快適に読むための完全ガイドと変換方法」](/posts/2025/11/epubyapdfwokindletekuai-shi-nidu-mutamenowan-quan-kaito-2/)
 - [「Valetudo完全ガイド：ロボット掃除機をローカルで自由に操作する方法」](/posts/2025/11/rohotsutosao-chu-ji-wokurautonashi-sa-ha-nashinoro-karunomit/)
+
 
 

@@ -1,4 +1,4 @@
----
+﻿---
 title: "Kindleとスマホ併用で読書時間を倍増！便利な同期機能の活用法"
 date: 2025-12-03
 draft: false
@@ -52,3 +52,4 @@ Eインクのリーダーは長時間読書に最適。目に優しく屋外で�
 - [Kindleでの読みやすさを変える！見開き・縦書き・横書きのメリット徹底解説](/posts/2025/11/jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
 - [Kindle UnlimitedとKobo Plusの違い比較](/posts/2025/11/kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao/)
 - [2025年版 Kindle/Koboで失敗しない読書デバイス3選](/posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-4/)
+
