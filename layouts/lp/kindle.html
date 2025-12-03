@@ -24,7 +24,7 @@
 <body>
     {{ $tag := or .Site.Params.amazonTag (getenv "AMAZON_TAG") }}
     {{ $kuUrl := "https://www.amazon.co.jp/kindle-dbs/hz/signup" }}
-    {{ $paperwhiteUrl := "https://www.amazon.co.jp/Kindle-Paperwhite" }}
+    {{ $paperwhiteUrl := "https://www.amazon.co.jp/dp/B09S6XTCFS" }}
     {{ if and $tag (not (in $kuUrl "tag=")) }}
     {{ $sep := cond (in $kuUrl "?") "&" "?" }}
     {{ $kuUrl = printf "%s%stag=%s" $kuUrl $sep $tag }}
@@ -65,7 +65,7 @@
                         <a href="{{ $paperwhiteUrl }}" class="btn btn-secondary btn-lg" target="_blank"
                             rel="sponsored noopener noreferrer">Paperwhiteの詳細を見る</a>
                     </div>
-                    <p class="hero-note">Amazonの公式ページへ遷移します。価格・キャンペーンは必ず遷移先でご確認ください。</p>
+                    <p class="hero-note">Amazonの公式ページへ遷移します。価格・キャンペーンは遷移先でご確認ください。</p>
                 </div>
                 <div class="hero-image">
                     <div class="hero-photo">
@@ -91,7 +91,7 @@
         <section id="features" class="features">
             <div class="container">
                 <h2><span>Kindle</span>が選ばれる3つの理由</h2>
-                <div class="features-grid">
+                <div class="features-body">
                     {{ .Content }}
                 </div>
             </div>
