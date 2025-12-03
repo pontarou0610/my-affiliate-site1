@@ -98,3 +98,4 @@ Kindle譛ｬ縺ｯ蝓ｺ譛ｬ逧・↓霑泌刀縺後〒縺阪↑縺・◆繧�
 - [Lego Black Friday deals: Early sales include up to 40 percent off Star Wars and Disney sets](/posts/2025/11/lego-black-friday-deals-early-sales-include-up-to-40-percent/)
 - [EPUB縺ｨPDF縺ｮ菴ｿ縺・・縺托ｼ壼ｭｦ鄙偵・謚陦捺嶌繝ｻ貍ｫ逕ｻ縺ｧ縺ｩ縺・＆縺・ｼ歉(/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u-2/)
 
+

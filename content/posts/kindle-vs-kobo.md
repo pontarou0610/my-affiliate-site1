@@ -1,7 +1,7 @@
----
+﻿---
 title: "【2025年最新】KindleとKoboを徹底比較：電子書籍リーダーはどっちを選ぶ？"
 date: 2025-08-22T10:00:00+09:00
-draft: false
+draft: true
 pageviews: 3200
 showRakutenWidget: true
 description: "KindleとKoboを価格・端末ラインナップ・使い勝手・キャンペーンで比較し、目的別のおすすめをまとめました。"
@@ -93,3 +93,4 @@ Kindleは「Amazon連携とコンテンツ量」、Koboは「EPUB対応とポイ
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
 - [旅行・出張で後悔しない電子書籍リーダー活用術](/posts/dian-zi-shu-ji-ri-ta/)
+

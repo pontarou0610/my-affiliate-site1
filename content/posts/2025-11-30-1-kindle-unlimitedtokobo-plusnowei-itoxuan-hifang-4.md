@@ -1,4 +1,4 @@
----
+﻿---
 title: "「Kindle Unlimited vs Kobo Plus：あなたに最適な電子書籍サービスの選び方」"
 date: 2025-11-30
 draft: true
@@ -73,4 +73,5 @@ Kindle UnlimitedとKobo Plusは、それぞれ異なる魅力を持った電子�
 - [「2025年最新！KindleとKoboの高解像度電子書籍リーダー3選」](/posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan/)
 - [「KindleでEPUB・PDFを快適に読むための完全ガイドと変換方法」](/posts/2025/11/epubyapdfwokindletekuai-shi-nidu-mutamenowan-quan-kaito-2/)
 - [「Valetudo完全ガイド：ロボット掃除機をローカルで自由に操作する方法」](/posts/2025/11/rohotsutosao-chu-ji-wokurautonashi-sa-ha-nashinoro-karunomit/)
+
 

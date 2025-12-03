@@ -1,4 +1,4 @@
----
+﻿---
 title: "「Kindleでの読みやすさを変える！見開き・縦書き・横書きのメリット徹底解説」"
 date: 2025-11-30
 draft: true
@@ -86,4 +86,5 @@ hasRelatedProducts: false
 - [「2025年最新！KindleとKoboの高解像度電子書籍リーダー3選」](/posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan/)
 - [「KindleでEPUB・PDFを快適に読むための完全ガイドと変換方法」](/posts/2025/11/epubyapdfwokindletekuai-shi-nidu-mutamenowan-quan-kaito-2/)
 - [「Valetudo完全ガイド：ロボット掃除機をローカルで自由に操作する方法」](/posts/2025/11/rohotsutosao-chu-ji-wokurautonashi-sa-ha-nashinoro-karunomit/)
+
 

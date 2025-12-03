@@ -1,7 +1,7 @@
----
+﻿---
 title: "「活字離れ」「レンタルショップ苦戦」なのに、ブックオフとゲオはなぜ成長？ 「祖業」だけじゃない巧みな稼ぎ方とは"
 date: 2025-11-06
-draft: false
+draft: true
 tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
 categories: ["ガイド"]
 description: "「活字離れ」「レンタルショップ苦戦」なのに、ブックオフとゲオはなぜ成長？ 「祖業」だけじゃない巧みな稼ぎ方とはの要点と実用ヒントをやさしく解説。"
@@ -95,4 +95,5 @@ slug: "huo-zi-li-re-rentarushiyotsuhuku-zhan-nanoni-hutsukuohutokeo"
 - [マッハツール | 登録不要の無料オンライン効率化ツール活用ガイド](/posts/2025/11/matsuha-tsu-ru-deng-lu-bu-yao-nowu-liao-onrainxiao-lu-hua-ts/)
 - [KindleとKoboの最新モデル比較ガイド【2025年版】](/posts/2025/11/kindletokobonozui-xin-moterubi-jiao-2025nian-ban/)
 - [エンジニアリングリーダーが技術組織を育てるリーダーシップとセルフマネジメント](/posts/2025/10/engineering-leader-team-leadership-and-self-management/)
+
 

@@ -1,4 +1,4 @@
----
+﻿---
 title: "「Kindle UnlimitedとKobo Plusの違いを徹底比較！あなたに最適な電子書籍サービスは？」"
 date: 2025-11-26
 draft: true
@@ -89,4 +89,5 @@ Kindle UnlimitedとKobo Plusは、それぞれ異なる魅力を持つ電子書�
 - [AI動画生成が超簡単＆「SD 3.0」でNPU画像生成！ AMD製プロセッサー最適化生成ツール「Amuse」／2,048×2,048ドットという高解像度・高クオリティの画像を約85秒で生成可能](/posts/2025/11/aidong-hua-sheng-cheng-kachao-jian-dan-sd-3-0-tenpuhua-xiang/)
 - [フォントサイズを横幅ぴったりに合わせるfit-widthの提案](/posts/2025/11/huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi/)
 - [12 steps you can take right now to be safer online](/posts/2025/11/12-steps-you-can-take-right-now-to-be-safer-online/)
+
 

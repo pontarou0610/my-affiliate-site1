@@ -1,7 +1,7 @@
 ﻿---
 title: "2025年版！KindleとKoboのおすすめ電子書籍リーダー完全ガイド"
 date: 2025-11-18
-draft: false
+draft: true
 tags: ['電子書籍リーダー', 'Kindle', 'Kobo', '読書術']
 categories: ["ガイド"]
 description: "2025年に買うべき電子書籍リーダー3選の要点と実用ヒントをわかりやすく解説。"
@@ -179,6 +179,7 @@ Onyx Booxの公式サイトでNote Air 2の詳細を確認し、実際に店舗�
 - [フォントサイズを横幅ぴったりに合わせるfit-widthの提案](/posts/2025/11/huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi/)
 - [EPUBとPDFの使い分け：学習・技術書・漫画でどう違う？](/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u-2/)
 - [Kindle/Kobo 購入ガイド2025：失敗しない選び方チェックリスト](/posts/2025/09/kindle-kobo-buying-guide-2025/)
+
 
 
 

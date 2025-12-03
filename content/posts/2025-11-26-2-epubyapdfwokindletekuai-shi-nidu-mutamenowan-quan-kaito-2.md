@@ -1,7 +1,7 @@
----
+﻿---
 title: "「KindleでEPUB・PDFを快適に読むための完全ガイドと変換方法」"
 date: 2025-11-26
-draft: false
+draft: true
 tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
 categories: ["電子書籍"]
 description: "EPUBやPDFをKindleで快適に読むための完全ガイドに関する実用的なガイドと最新情報をまとめました。"
@@ -73,4 +73,5 @@ EPUBやPDFをKindleで快適に読むための方法を紹介しました。変�
 - [AI動画生成が超簡単＆「SD 3.0」でNPU画像生成！ AMD製プロセッサー最適化生成ツール「Amuse」／2,048×2,048ドットという高解像度・高クオリティの画像を約85秒で生成可能](/posts/2025/11/aidong-hua-sheng-cheng-kachao-jian-dan-sd-3-0-tenpuhua-xiang/)
 - [フォントサイズを横幅ぴったりに合わせるfit-widthの提案](/posts/2025/11/huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi/)
 - [12 steps you can take right now to be safer online](/posts/2025/11/12-steps-you-can-take-right-now-to-be-safer-online/)
+
 

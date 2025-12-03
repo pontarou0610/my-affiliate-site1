@@ -1,4 +1,4 @@
----
+﻿---
 title: "Kindle/Kobo 購入ガイド2025：失敗しない選び方チェックリスト"
 date: 2025-09-01T09:00:00+09:00
 draft: true
@@ -36,3 +36,4 @@ slug: "kindle-kobo-buying-guide-2025"
 
 ## まとめ
 「読むジャンル」「ストア」「必須機能」を先に決めると迷わない。Amazon派はPaperwhiteをセールで、楽天派はClara 2E/Libra 2をクーポン込みで狙うのが定番ルートです。
+

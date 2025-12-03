@@ -1,4 +1,4 @@
----
+﻿---
 title: "「2025年版 KindleとKoboの最新電子書籍リーダー3選 - 快適な読書体験を実現！」"
 date: 2025-11-25
 draft: true
@@ -72,4 +72,5 @@ Onyx Boox Nova Airは、電子書籍リーダーでありながら手書き機�
 - [フォントサイズを横幅ぴったりに合わせるfit-widthの提案](/posts/2025/11/huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi/)
 - [「2025年最新！KindleとKoboの高解像度電子書籍リーダー3選」](/posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan/)
 - [meta-is-trying-to-make-facebook-marketplace-a-social-shoppin](/posts/2025/11/meta-is-trying-to-make-facebook-marketplace-a-social-shoppin/)
+
 

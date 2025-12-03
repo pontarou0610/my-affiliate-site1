@@ -1,4 +1,4 @@
----
+﻿---
 title: "「Kindle UnlimitedとKobo Plusの違いを徹底比較！あなたに最適な電子書籍サービスの選び方」"
 date: 2025-11-28
 draft: true
@@ -68,4 +68,5 @@ Kindle UnlimitedとKobo Plusは、それぞれ異なる強みを持った電子�
 - [Kindle/Kobo 購入ガイド2025：失敗しない選び方チェックリスト](/posts/2025/09/kindle-kobo-buying-guide-2025/)
 - [「Apple Watch SE 3徹底解説！ブラックフライデー前の特別価格$200」](/posts/2025/11/the-apple-watch-se-3-drops-to-200-before-black-friday/)
 - [「KindleでEPUB・PDFを快適に読むための完全ガイドと変換方法」](/posts/2025/11/epubyapdfwokindletekuai-shi-nidu-mutamenowan-quan-kaito-2/)
+
 

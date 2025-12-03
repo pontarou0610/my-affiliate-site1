@@ -1,7 +1,7 @@
 ﻿---
 title: "2025年版！電子書籍リーダー完全ガイド：KindleとKoboの最強3選"
 date: 2025-11-17
-draft: false
+draft: true
 tags: ['電子書籍リーダー', 'Kindle', 'Kobo', '読書術']
 categories: ["ガイド"]
 description: "2025年に買うべき電子書籍リーダー3選の要点と実用ヒントをわかりやすく解説。"
@@ -143,6 +143,7 @@ Onyx Boox Poke 3は、Androidベースの電子書籍リーダーです。アプ
 - [「Metaが変えるFacebook Marketplaceの電子書籍ソーシャルショッピング完全ガイド」](/posts/2025/11/meta-is-trying-to-make-facebook-marketplace-a-social-shoppin/)
 - [「活字離れ」「レンタルショップ苦戦」なのに、ブックオフとゲオはなぜ成長？ 「祖業」だけじゃない巧みな稼ぎ方とは](/posts/2025/11/huo-zi-li-re-rentarushiyotsuhuku-zhan-nanoni-hutsukuohutokeo/)
 - [マッハツール | 登録不要の無料オンライン効率化ツール活用ガイド](/posts/2025/11/matsuha-tsu-ru-deng-lu-bu-yao-nowu-liao-onrainxiao-lu-hua-ts/)
+
 
 
 

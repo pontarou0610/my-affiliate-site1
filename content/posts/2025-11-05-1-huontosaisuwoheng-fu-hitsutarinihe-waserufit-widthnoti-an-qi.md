@@ -1,8 +1,8 @@
----
+﻿---
 title: "フォントサイズを横幅ぴったりに合わせるfit-widthの提案"
 date: 2025-11-05T00:00:00+09:00
 slug: "huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi"
-draft: false
+draft: true
 description: "Hugoやウェブ記事で使えるfit-widthの考え方とスタイル例を紹介します。"
 categories:
   - "自動化とAI活用"
@@ -146,3 +146,4 @@ body {
 - [KindleとKoboの最新モデル比較（2025年版）](/posts/2025/11/kindletokobonozui-xin-moterubi-jiao-2025nian-ban/)
 - [エンジニアリングリーダー ― 技術組織を育てるリーダーシップとセルフマネジメント](/posts/2025/10/engineering-leader-team-leadership-and-self-management/)
 - [マッハーツール | 登録不要の無料オンライン効率化ツール | マッハーツール](/posts/2025/11/matsuha-tsu-ru-deng-lu-bu-yao-nowu-liao-onrainxiao-lu-hua-ts/)
+

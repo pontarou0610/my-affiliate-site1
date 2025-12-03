@@ -1,4 +1,4 @@
----
+﻿---
 title: "「2025年最新KindleとKoboの電子書籍リーダー3選：快適読書体験の秘訣」"
 date: 2025-11-22
 draft: true
@@ -70,4 +70,5 @@ Onyx Boox Note Air 2は、電子ペーパー技術を採用しており、非常
 - [The YouTube TV Disney blackout continues: How to watch college football on ESPN, ABC and more](/posts/2025/11/the-youtube-tv-disney-blackout-continues-how-to-watch-colleg/)
 - [「活字離れ」「レンタルショップ苦戦」なのに、ブックオフとゲオはなぜ成長？ 「祖業」だけじゃない巧みな稼ぎ方とは](/posts/2025/11/huo-zi-li-re-rentarushiyotsuhuku-zhan-nanoni-hutsukuohutokeo/)
 - [EPUBとPDFの使い分け：学習・技術書・漫画でどちらを選ぶ？](/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u/)
+
 
