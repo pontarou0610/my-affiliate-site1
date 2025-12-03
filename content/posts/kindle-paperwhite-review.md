@@ -53,3 +53,6 @@ Kindle Paperwhite（第11世代）は、防水・色温度・USB-Cを揃えた�
 - [旅行・出張で後悔しない電子書籍リーダー活用術](/posts/dian-zi-shu-ji-ri-ta/)
 - [Kindle特設LP（購入・使い方まとめ）](/lp/kindle/)
 
+
+
+

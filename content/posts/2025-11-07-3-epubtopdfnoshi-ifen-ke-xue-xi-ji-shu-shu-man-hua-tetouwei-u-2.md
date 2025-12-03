@@ -1,7 +1,7 @@
 ﻿---
 title: "EPUBとPDFの使い分け：学習・技術書・漫画でどう違う？"
 date: 2025-11-07
-draft: false
+draft: true
 tags: ['電子書籍リーダー', 'Kindle', 'Kobo', '読書術']
 categories: ["ガイド"]
 description: "EPUBとPDFの使い分け：学習・技術書・漫画でどう違う？の要点と実用ヒントをわかりやすく解説。"
@@ -94,6 +94,8 @@ EPUBとPDFの使い分けは、主にその内容とデバイスの使用状況�
 - [フォントサイズを横幅ぴったりに合わせるfit-widthの提案](/posts/2025/11/huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi/)
 - [電子書籍の返品・キャンセルの基礎知識](/posts/2025/11/dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi/)
 - [KindleとKoboの最新モデル比較（2025年版）](/posts/2025/11/kindletokobonozui-xin-moterubi-jiao-2025nian-ban/)
+
+
 
 
 

@@ -1,7 +1,7 @@
 ﻿---
 title: "2025年版：用途別ベストE Inkリーダー3タイプ（軽量・学習・カラー）"
 date: 2025-12-02
-draft: false
+draft: true
 tags: ["電子書籍", "Kindle", "Kobo", "E Ink", "比較"]
 categories: ["電子書籍"]
 description: "旅行用の軽量モデル、学習・PDF向けの大画面メモ機、カラーE Inkで雑誌も楽しむ端末。2025年に選ぶべき3タイプと失敗しないチェックポイントをまとめました。"
@@ -51,5 +51,7 @@ hasRelatedProducts: false
 - [Kindleでの読みやすさを変える！見開き・縦書き・横書きのメリット徹底解説](/posts/2025/11/jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
 - [電子書籍リーダー完全ガイド：KindleとKoboの徹底比較](/posts/kindle-vs-kobo/)
 - [Kindle UnlimitedとKobo Plusの違いを徹底比較！あなたに最適な電子書籍サービスは？](/posts/2025/11/kindle-unlimitedtokobo-plusnowei-itoxuan-hifang/)
+
+
 
 

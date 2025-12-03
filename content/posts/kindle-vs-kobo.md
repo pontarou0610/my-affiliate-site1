@@ -66,3 +66,6 @@ Kindleは「Amazon連携とコンテンツ量」、Koboは「EPUB対応とポイ
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
 - [旅行・出張で後悔しない電子書籍リーダー活用術](/posts/dian-zi-shu-ji-ri-ta/)
 
+
+
+

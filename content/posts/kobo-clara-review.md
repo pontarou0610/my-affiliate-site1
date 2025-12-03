@@ -61,3 +61,6 @@ Kobo Clara 2Eは「軽さ・防水・EPUB対応」で、楽天経済圏ユーザ
 - [旅行・出張で後悔しない電子書籍リーダー活用術](/posts/dian-zi-shu-ji-ri-ta/)
 - [Kobo特設LP（購入・使い方まとめ）](/lp/kobo/)
 
+
+
+

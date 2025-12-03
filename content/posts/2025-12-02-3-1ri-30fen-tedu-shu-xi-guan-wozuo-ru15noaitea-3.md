@@ -1,7 +1,7 @@
 ﻿---
 title: "1日30分を3ブロックに分けて読む：朝10分・移動10分・夜10分の習慣化ガイド"
 date: 2025-12-02
-draft: false
+draft: true
 tags: ["電子書籍", "Kindle", "読書習慣", "タイムマネジメント"]
 categories: ["ガイド"]
 description: "1日30分を朝・移動・夜の3ブロックに分け、電子書籍で習慣化する具体的な手順。ジャンル配分、環境セットアップ、ログ管理のコツをまとめました。"
@@ -46,5 +46,7 @@ hasRelatedProducts: false
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [旅行・出張で後悔しない電子書籍リーダー活用術](/posts/dian-zi-shu-ji-ri-ta/)
 - [見開き・縦書き・横書きで読みやすさを上げる設定ガイド](/posts/2025/11/jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
+
+
 
 

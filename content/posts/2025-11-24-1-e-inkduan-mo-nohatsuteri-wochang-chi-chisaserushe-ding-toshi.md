@@ -1,7 +1,7 @@
 ﻿---
 title: "「KindleやKoboをもっと長持ち！E-Ink端末のバッテリー節約法」"
 date: 2025-11-24
-draft: false
+draft: true
 tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
 categories: ["電子書籍"]
 description: "E-Ink端末のバッテリーを長持ちさせる設定と使い方に関する実用的なガイドと最新情報をまとめました。"
@@ -87,6 +87,8 @@ E-Ink端末のバッテリーを長持ちさせるためには、明るさの調
 - [notebooklm-kasaraniqiang-hua-deep-research-e-shientokazhui-j](/posts/2025/11/notebooklm-kasaraniqiang-hua-deep-research-e-shientokazhui-j/)
 - [2025年版！KindleとKoboの電子書籍リーダー完全ガイド](/posts/2025/11/2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan/)
 - [Kindle/Kobo 購入ガイド2025：失敗しない選び方チェックリスト](/posts/2025/09/kindle-kobo-buying-guide-2025/)
+
+
 
 
 

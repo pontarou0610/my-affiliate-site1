@@ -1,7 +1,7 @@
 ﻿---
 title: "謇句｡壽ｲｻ陌ｫ縺ｮ蜷堺ｽ懊′譛螟ｧ55・・FF・゜indle縺ｧ讌ｽ縺励・髮ｻ蟄先嶌邀阪そ繝ｼ繝ｫ螳悟・繧ｬ繧､繝・
 date: 2025-11-10
-draft: false
+draft: true
 tags: ['髮ｻ蟄先嶌邀阪Μ繝ｼ繝繝ｼ', 'Kindle', 'Kobo', '隱ｭ譖ｸ陦・]
 categories: ["繧ｬ繧､繝・]
 description: "縲弱ヶ繝ｩ繝・け繝ｻ繧ｸ繝｣繝・け縲上守↓縺ｮ魑･縲上↑縺ｩ謇句｡壽ｲｻ陌ｫ菴懷刀縺悟ｮ峨＞・゜indle譛ｬ 譛域崛繧上ｊ繝槭Φ繧ｬ・・Λ繝弱・繧ｻ繝ｼ繝ｫ・上弱い繝峨Ν繝輔↓蜻翫＄縲上惹ｸ峨▽逶ｮ縺後→縺翫ｋ縲上朱延閻輔い繝医Β縲上弱ヶ繝・ム縲・縺ｪ縺ｩ蜷堺ｽ懷､壽焚縲・,000蜀贋ｻ･荳翫′譛螟ｧ55・・FF縺ｮ隕∫せ縺ｨ螳溽畑繝偵Φ繝医ｒ繧上°繧翫ｄ縺吶￥隗｣隱ｬ縲・
@@ -97,6 +97,8 @@ Kindle譛ｬ縺ｯ蝓ｺ譛ｬ逧・↓霑泌刀縺後〒縺阪↑縺・◆繧�
 - [髮ｻ蟄先嶌邀阪・霑秘≡繝ｻ繧ｭ繝｣繝ｳ繧ｻ繝ｫ縺ｮ蝓ｺ遉守衍隴肋(/posts/2025/11/dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2/)
 - [Lego Black Friday deals: Early sales include up to 40 percent off Star Wars and Disney sets](/posts/2025/11/lego-black-friday-deals-early-sales-include-up-to-40-percent/)
 - [EPUB縺ｨPDF縺ｮ菴ｿ縺・・縺托ｼ壼ｭｦ鄙偵・謚陦捺嶌繝ｻ貍ｫ逕ｻ縺ｧ縺ｩ縺・＆縺・ｼ歉(/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u-2/)
+
+
 
 
 

@@ -1,7 +1,7 @@
 ﻿---
 title: "「2025年版 Kindle・Koboで快適読書！最新電子書籍リーダー3選」"
 date: 2025-11-27
-draft: false
+draft: true
 tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
 categories: ["電子書籍"]
 description: "2025年最新の電子書籍リーダー3選に関する実用的なガイドと最新情報をまとめました。"
@@ -77,6 +77,8 @@ PocketBook InkPad 3は、10.3インチの大画面を搭載しており、特に
 - [facebook-wai-bu-saitono-iine-hotanwo26nian-2yue-nizhong-liao](/posts/2025/11/facebook-wai-bu-saitono-iine-hotanwo26nian-2yue-nizhong-liao/)
 - [2025年版！電子書籍リーダー完全ガイド：KindleとKoboの徹底比較](/posts/2025/11/2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-5/)
 - [KindleとKoboの最新モデル比較（2025年版）](/posts/2025/11/kindletokobonozui-xin-moterubi-jiao-2025nian-ban/)
+
+
 
 
 

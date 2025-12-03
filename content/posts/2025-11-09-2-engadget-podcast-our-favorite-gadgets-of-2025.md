@@ -1,7 +1,7 @@
 ﻿---
 title: "Engadget Podcast: Our favorite gadgets of 2025"
 date: 2025-11-09
-draft: false
+draft: true
 tags: ['髮ｻ蟄先嶌邀阪Μ繝ｼ繝繝ｼ', 'Kindle', 'Kobo', '隱ｭ譖ｸ陦・]
 categories: ["繧ｬ繧､繝・]
 description: "Engadget Podcast: Our favorite gadgets of 2025縺ｮ隕∫せ縺ｨ螳溽畑繝偵Φ繝医ｒ繧上°繧翫ｄ縺吶￥隗｣隱ｬ縲・
@@ -88,6 +88,8 @@ slug: "engadget-podcast-our-favorite-gadgets-of-2025"
 - [縺ｧ縺阪ｋ繝√・繝縺ｧ7.5蛟堺ｽｿ繧上ｌ繧銀懷｣ｰ謗帙￠窶昴→縺ｯ・・17荳・ｺｺ縺ｮAI蛻・梵縺九ｉ繧上°縺｣縺溘Μ繝ｼ繝繝ｼ縺ｮ蜍俶園](/posts/2025/11/tekiruchi-mute7-5bei-shi-wareru-sheng-gua-ke-toha-17mo-ren-n/)
 - [EPUB縺ｨPDF縺ｮ菴ｿ縺・・縺托ｼ壼ｭｦ鄙偵・謚陦捺嶌繝ｻ貍ｫ逕ｻ縺ｧ縺ｩ縺・＆縺・ｼ歉(/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u-2/)
 - [髮ｻ蟄先嶌邀阪・霑秘≡繝ｻ繧ｭ繝｣繝ｳ繧ｻ繝ｫ縺ｮ蝓ｺ遉守衍隴肋(/posts/2025/11/dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2/)
+
+
 
 
 

@@ -1,7 +1,7 @@
 ﻿---
 title: "できるチームで7.5倍使われる“声掛け”とは？ 17万人のAI分析からわかったリーダーの勘所"
 date: 2025-11-07
-draft: false
+draft: true
 tags: ['電子書籍リーダー', 'Kindle', 'Kobo', '読書術']
 categories: ["ガイド"]
 description: "できるチームで7.5倍使われる“声掛け”とは？ 17万人のAI分析からわかったリーダーの勘所の要点と実用ヒントをわかりやすく解説。"
@@ -97,6 +97,8 @@ slug: "tekiruchi-mute7-5bei-shi-wareru-sheng-gua-ke-toha-17mo-ren-n"
 - [フォントサイズを横幅ぴったりに合わせるfit-widthの提案](/posts/2025/11/huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi/)
 - [電子書籍の返品・キャンセルの基礎知識](/posts/2025/11/dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi/)
 - [KindleとKoboの最新モデル比較（2025年版）](/posts/2025/11/kindletokobonozui-xin-moterubi-jiao-2025nian-ban/)
+
+
 
 
 

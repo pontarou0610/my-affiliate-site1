@@ -1,7 +1,7 @@
 ﻿---
 title: "2025年版：Kindle・Kobo・BOOX 電子書籍リーダー徹底解説"
 date: 2025-11-16
-draft: false
+draft: true
 tags: ["電子書籍リーダー", "Kindle", "Kobo", "読書術"]
 categories: ["ガイド"]
 description: "2025年に買うべき電子書籍リーダー3選の要点と実用ヒントを解説。"
@@ -111,5 +111,7 @@ hasRelatedProducts: false
 - [電子書籍の返品・キャンセルの基礎知識](/posts/2025/11/dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2/)
 - [できるチームで7.5倍使われる“声掛け”とは？ 17万件のAI分析でわかったリーダーの勘所](/posts/2025/11/tekiruchi-mute7-5bei-shi-wareru-sheng-gua-ke-toha-17mo-ren-n/)
 - [EPUBとPDFの使い分け：学習・技術書・漫画でどちらを選ぶ？](/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u/)
+
+
 
 

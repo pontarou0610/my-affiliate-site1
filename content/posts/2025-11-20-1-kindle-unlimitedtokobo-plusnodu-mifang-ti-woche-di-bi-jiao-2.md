@@ -1,7 +1,7 @@
 ﻿---
 title: "Kindle UnlimitedとKobo Plusを賢く使い分ける実践ガイド"
 date: 2025-11-20
-draft: false
+draft: true
 tags: ['電子書籍リーダー', 'Kindle', 'Kobo', '読書術']
 categories: ['ガイド']
 description: "似たサービスに見えるKindle UnlimitedとKobo Plusをどう選ぶか悩む人向けに、使い分け・乗り換えの判断軸、月額回収の目安、タイプ別の推奨プランを整理。"
@@ -86,5 +86,7 @@ aliases:
 - [2025年に買うべき電子書籍リーダー3選](/posts/2025/11/2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-3/)
 - [Kobo Claraレビュー](/posts/2025/08/kobo-clara-review/)
 - [11月版 Kindle UnlimitedとKobo Plusの基本比較](/posts/2025/11/kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao/)
+
+
 
 

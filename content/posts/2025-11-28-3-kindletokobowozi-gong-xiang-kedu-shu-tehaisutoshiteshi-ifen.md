@@ -1,7 +1,7 @@
 ﻿---
 title: "「KindleとKoboを活用！子供向け読書デバイスの選び方と魅力」"
 date: 2025-11-28
-draft: false
+draft: true
 tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
 categories: ["電子書籍"]
 description: "KindleとKoboを子供向け読書デバイスとして使い分けるコツに関する実用的なガイドと最新情報をまとめました。"
@@ -72,6 +72,8 @@ KindleとKoboはそれぞれ異なる特徴を持つため、子供の興味や�
 - [Kindle/Kobo 購入ガイド2025：失敗しない選び方チェックリスト](/posts/2025/09/kindle-kobo-buying-guide-2025/)
 - [「Apple Watch SE 3徹底解説！ブラックフライデー前の特別価格$200」](/posts/2025/11/the-apple-watch-se-3-drops-to-200-before-black-friday/)
 - [「KindleでEPUB・PDFを快適に読むための完全ガイドと変換方法」](/posts/2025/11/epubyapdfwokindletekuai-shi-nidu-mutamenowan-quan-kaito-2/)
+
+
 
 
 
