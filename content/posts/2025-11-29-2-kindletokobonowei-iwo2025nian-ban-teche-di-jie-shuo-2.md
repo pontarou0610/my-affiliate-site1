@@ -1,4 +1,4 @@
-﻿---
+---
 title: "KindleとKoboの違い・選び方まとめ（11/29版）"
 date: 2025-11-29
 draft: false

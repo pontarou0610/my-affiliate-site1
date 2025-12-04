@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Facebookの外部サイトいいねボタン終了についてのメモ"
 date: 2025-11-12
 draft: false

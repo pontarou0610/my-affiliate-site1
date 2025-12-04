@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Facebook Marketplaceが“ソーシャルEC”強化へ：最新アップデートまとめ"
 date: 2025-11-14
 draft: false

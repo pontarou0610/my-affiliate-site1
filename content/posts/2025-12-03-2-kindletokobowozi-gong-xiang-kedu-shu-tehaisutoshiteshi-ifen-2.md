@@ -1,4 +1,4 @@
-﻿---
+---
 title: "「KindleとKoboを活用！子供向け読書デバイスの賢い使い分け法」"
 date: 2025-12-03
 draft: false

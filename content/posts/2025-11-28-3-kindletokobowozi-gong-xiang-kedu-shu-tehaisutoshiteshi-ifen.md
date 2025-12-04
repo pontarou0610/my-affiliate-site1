@@ -1,4 +1,4 @@
-﻿---
+---
 title: "KindleとKoboを併用して本棚を整える方法"
 date: 2025-11-28
 draft: false

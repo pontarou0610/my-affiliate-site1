@@ -1,4 +1,4 @@
-﻿---
+---
 title: "EPUBとPDFの速読ワークフロー（基本編）"
 date: 2025-11-21
 draft: false

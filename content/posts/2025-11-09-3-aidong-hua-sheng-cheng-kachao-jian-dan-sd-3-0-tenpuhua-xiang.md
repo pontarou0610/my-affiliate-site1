@@ -1,4 +1,4 @@
-﻿---
+---
 title: "AI画像生成まわりの最新動向メモ（SD3/NPU/AMDなど）"
 date: 2025-11-09
 draft: false

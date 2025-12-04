@@ -1,4 +1,4 @@
-﻿---
+---
 title: "EPUB/PDFの実践Tips（変換・注釈・共有編）"
 date: 2025-11-26
 draft: false

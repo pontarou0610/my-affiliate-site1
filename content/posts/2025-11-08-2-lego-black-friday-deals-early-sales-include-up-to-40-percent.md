@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Lego ブラックフライデー早期セール速報"
 date: 2025-11-08
 draft: false

@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Engadget Podcast: 2025年の注目ガジェットまとめ"
 date: 2025-11-09
 draft: false

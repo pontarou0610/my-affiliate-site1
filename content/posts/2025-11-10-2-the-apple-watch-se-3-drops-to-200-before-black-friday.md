@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Apple Watch SE 3がブラックフライデー前に約$200に"
 date: 2025-11-10
 draft: false

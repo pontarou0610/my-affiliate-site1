@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Fitbitの部分的な障害が発生中"
 date: 2025-11-08
 draft: false

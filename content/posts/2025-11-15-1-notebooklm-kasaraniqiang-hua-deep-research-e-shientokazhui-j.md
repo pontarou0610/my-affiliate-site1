@@ -1,4 +1,4 @@
-﻿---
+---
 title: "NotebookLMで調査効率を上げるコツ（Deep Research編）"
 date: 2025-11-15
 draft: false

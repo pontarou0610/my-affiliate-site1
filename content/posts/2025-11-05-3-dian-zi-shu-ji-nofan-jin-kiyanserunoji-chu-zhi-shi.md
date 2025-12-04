@@ -1,4 +1,4 @@
-﻿---
+---
 title: "電子書籍フォーマットの基礎（EPUB/PDF/独自形式）"
 date: 2025-11-05
 draft: false

@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Kindle UnlimitedとKobo Plusの比較ガイド（11/19版）"
 date: 2025-11-19
 draft: false

@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Kindle Paperwhite レビュー：第11世代の良いところ・惜しいところ"
 date: 2025-08-15T09:00:00+09:00
 draft: false

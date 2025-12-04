@@ -1,4 +1,4 @@
-﻿---
+---
 title: "KindleやKoboで実践！1日30分の読書習慣を身につける15の方法"
 date: 2025-11-29
 draft: false

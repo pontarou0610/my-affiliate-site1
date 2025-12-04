@@ -1,4 +1,4 @@
-﻿---
+---
 title: "EPUBとPDFの使い分け（補足編）"
 date: 2025-11-07
 draft: false
