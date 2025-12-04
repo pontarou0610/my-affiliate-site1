@@ -321,6 +321,23 @@ th {
 .cta-banner p { font-size: 1.05rem; margin-bottom: 30px; color: #444; font-weight: 700; }
 .cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
 
+.cross-links {
+    padding: 60px 0;
+    background: #fff7fb;
+    border-top: 1px solid #ffd6e1;
+}
+.cross-links h2 {
+    text-align: center;
+    margin-bottom: 18px;
+    color: var(--rakuten-crimson);
+}
+.cross-links__actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
 /* Footer */
 footer {
     background: #fdf4f7;
