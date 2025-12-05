@@ -5,7 +5,7 @@ draft: false
 tags: ["電子書籍", "フォーマット", "変換"]
 categories: ["電子書籍"]
 description: "EPUB/PDF/独自形式を目的別に使い分け、Calibreや読み上げ機能を活かすための中級テク。"
-slug: "dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi"
+slug: "dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2"
 ---
 
 # 電子書籍フォーマットの活用と変換テク（中級編）
