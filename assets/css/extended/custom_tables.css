@@ -1,0 +1,29 @@
+/* Mobile-optimized tables */
+.post-content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1.5rem;
+    border-collapse: collapse;
+}
+
+.post-content table th,
+.post-content table td {
+    white-space: nowrap;
+    /* Prevent wrapping initially to encourage scrolling or stack */
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Optional: Make specific columns sticky or stack on very small screens if needed */
+@media screen and (max-width: 480px) {
+
+    .post-content table th,
+    .post-content table td {
+        white-space: normal;
+        /* Allow wrap on very small screens to avoid excessive scrolling */
+        font-size: 14px;
+        padding: 8px;
+    }
+}
