@@ -74,14 +74,14 @@ KindleとKoboは、それぞれ異なる魅力を持つ電子書籍リーダー�
 
 ## 関連ガイド
 
-- [KindleとKoboの違い](/posts/2025/08/kindle-vs-kobo/)
-- [Kindle Paperwhiteレビュー](/posts/2025/08/kindle-paperwhite-review/)
-- [Kobo Claraレビュー](/posts/2025/08/kobo-clara-review/)
+- [KindleとKoboの違い](/posts/kindle-vs-kobo/)
+- [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
+- [Kobo Claraレビュー](/posts/kobo-clara-review/)
 
 
 ## 関連記事
 
-- [【2025年最新】KindleとKoboを徹底比較：電子書籍リーダーはどっちを選ぶ？](/posts/2025/08/kindle-vs-kobo/)
+- [【2025年最新】KindleとKoboを徹底比較：電子書籍リーダーはどっちを選ぶ？](/posts/kindle-vs-kobo/)
 - [2025年電子書籍リーダー3選アップデート（11/18版）](/posts/2025/11/1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-4/)
 - [パスキー＆ワンタイムコードでログインをラクにする方法](/posts/2025/11/matsuha-tsu-ru-deng-lu-bu-yao-nowu-liao-onrainxiao-lu-hua-ts/)
 

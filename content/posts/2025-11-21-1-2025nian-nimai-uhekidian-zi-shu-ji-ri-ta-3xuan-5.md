@@ -26,4 +26,4 @@ BF突入前に押さえておきたい3機と、価格が動きやすいポイ�
 ## 関連リンク
 - [Kindle特化LP](/lp/kindle/)
 - [楽天Kobo特化LP](/lp/kobo/)
-- [KindleとKoboの違いまとめ](/posts/2025/08/kindle-vs-kobo/)
+- [KindleとKoboの違いまとめ](/posts/kindle-vs-kobo/)

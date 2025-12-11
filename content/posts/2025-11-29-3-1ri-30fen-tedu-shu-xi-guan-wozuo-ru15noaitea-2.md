@@ -49,9 +49,9 @@ hasRelatedProducts: false
 - **スリープカバー付き端末**: 開くだけで電源オンにしてスタート時間を短縮。
 
 ## 関連リンク
-- [KindleとKoboの違い（選び方ガイド）](/posts/2025/08/kindle-vs-kobo/)
+- [KindleとKoboの違い（選び方ガイド）](/posts/kindle-vs-kobo/)
 - [楽天Koboでポイントも貯まる｜端末選びとストア攻略](/lp/kobo/)
-- [Amazon Kindle ペーパーホワイトの実機レビュー](/posts/2025/08/kindle-paperwhite-review/)
+- [Amazon Kindle ペーパーホワイトの実機レビュー](/posts/kindle-paperwhite-review/)
 
 スキマの10分を積み重ねれば、月に15時間、年で180時間。まずは今日の10分から、読書習慣を再スタートしてみてください。
 

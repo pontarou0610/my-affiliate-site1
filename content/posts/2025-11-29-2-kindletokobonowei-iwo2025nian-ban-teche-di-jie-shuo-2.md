@@ -30,4 +30,4 @@ hasRelatedProducts: false
 ## 関連リンク
 - [Kindle特化LP](/lp/kindle/)
 - [楽天Kobo特化LP](/lp/kobo/)
-- [端末比較の決定版ガイド](/posts/2025/08/kindle-vs-kobo/)
+- [端末比較の決定版ガイド](/posts/kindle-vs-kobo/)

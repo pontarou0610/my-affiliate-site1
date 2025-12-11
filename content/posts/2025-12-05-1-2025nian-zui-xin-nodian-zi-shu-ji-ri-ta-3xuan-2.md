@@ -61,9 +61,9 @@ Onyx Boox Note Air 2は、電子ペーパー技術を使用した大画面のリ
 
 ## 関連ガイド
 
-- [KindleとKoboの違い](/posts/2025/08/kindle-vs-kobo/)
-- [Kindle Paperwhiteレビュー](/posts/2025/08/kindle-paperwhite-review/)
-- [Kobo Claraレビュー](/posts/2025/08/kobo-clara-review/)
+- [KindleとKoboの違い](/posts/kindle-vs-kobo/)
+- [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
+- [Kobo Claraレビュー](/posts/kobo-clara-review/)
 
 
 ## 関連記事

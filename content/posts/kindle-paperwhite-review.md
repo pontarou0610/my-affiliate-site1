@@ -47,8 +47,8 @@ url: "/posts/kindle-paperwhite-review/"
 Kindle Paperwhite（第11世代）は、防水・色温度・USB-Cを揃えた“失敗しにくい標準機”。Amazonのサブスクやライブラリと組み合わせれば、通勤から風呂まで1台完結。物理ボタンが不要で、テキスト主体の読書なら最優先候補です。
 
 ## 関連ガイド
-- [KindleとKoboの違い](/posts/2025/08/kindle-vs-kobo/)
-- [Kobo Claraレビュー](/posts/2025/08/kobo-clara-review/)
+- [KindleとKoboの違い](/posts/kindle-vs-kobo/)
+- [Kobo Claraレビュー](/posts/kobo-clara-review/)
 - [旅行・出張で後悔しない電子書籍リーダー活用術](/posts/2025/12/dian-zi-shu-ji-ri-ta/)
 - [Kindle特設LP（購入・使い方まとめ）](/lp/kindle/)
 

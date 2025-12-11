@@ -42,24 +42,31 @@ for filepath in glob.glob(os.path.join(CONTENT_DIR, "*.md")):
         date_str = get_date_from_filename(filename)
     
     slug = meta.get('slug')
-    if not slug:
-        name_part = filename.replace('.md', '')
-        match = re.match(r'\d{4}-\d{2}-\d{2}-(.+)', name_part)
-        if match:
-            slug = match.group(1)
-        else:
-            slug = name_part
-            
-    if date_str:
-        try:
-            year = date_str[0:4]
-            month = date_str[5:7]
-            # Use lower case for strict comparison if needed, but Hugo slugs are usually maintained case
-            url = f"/posts/{year}/{month}/{slug}/"
-            valid_urls.add(url)
-            file_info[filepath] = url
-        except:
-            print(f"Error parsing date {date_str} in {filename}")
+    explicit_url = meta.get('url')
+    
+    if explicit_url:
+        if not explicit_url.endswith('/'):
+            explicit_url += '/'
+        valid_urls.add(explicit_url)
+        file_info[filepath] = explicit_url
+    else:
+        if not slug:
+            name_part = filename.replace('.md', '')
+            match = re.match(r'\d{4}-\d{2}-\d{2}-(.+)', name_part)
+            if match:
+                slug = match.group(1)
+            else:
+                slug = name_part
+                
+        if date_str:
+            try:
+                year = date_str[0:4]
+                month = date_str[5:7]
+                url = f"/posts/{year}/{month}/{slug}/"
+                valid_urls.add(url)
+                file_info[filepath] = url
+            except:
+                print(f"Error parsing date {date_str} in {filename}")
 
 print(f"Found {len(valid_urls)} valid URLs.")
 

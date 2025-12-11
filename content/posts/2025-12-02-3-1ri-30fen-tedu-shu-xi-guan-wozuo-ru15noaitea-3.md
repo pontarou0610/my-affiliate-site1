@@ -40,7 +40,7 @@ hasRelatedProducts: false
 - **飽きる**: 週1でジャンルを入れ替える。短編やポエムを挟んでリズムを変える。
 
 ## 関連ガイド
-- [KindleとKoboの違い](/posts/2025/08/kindle-vs-kobo/)
+- [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [旅行・出張で後悔しない電子書籍リーダー活用術](/posts/2025/12/dian-zi-shu-ji-ri-ta/)
 - [見開き・縦書き・横書きで読みやすさを上げる設定ガイド](/posts/2025/11/3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
 - [Kindleのおすすめ端末とストア攻略まとめ](/lp/kindle/)

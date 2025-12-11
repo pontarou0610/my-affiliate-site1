@@ -47,9 +47,9 @@ hasRelatedProducts: false
 旅先では「通信なしでも読める準備」「軽量防水の端末」「計画的な充電」が鍵。出発前の数分の仕込みで、移動中も滞在中もストレスなく読書を楽しめます。
 
 ## 関連ガイド
-- [KindleとKoboの違い](/posts/2025/08/kindle-vs-kobo/)
-- [Kindle Paperwhiteレビュー](/posts/2025/08/kindle-paperwhite-review/)
-- [Kobo Claraレビュー](/posts/2025/08/kobo-clara-review/)
+- [KindleとKoboの違い](/posts/kindle-vs-kobo/)
+- [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
+- [Kobo Claraレビュー](/posts/kobo-clara-review/)
 
 ## 関連記事
 - [1日30分でKindleを活用！読書習慣を身につける15の方法](/posts/2025/12/1ri-30fen-tedu-shu-xi-guan-wozuo-ru15noaitea-3/)

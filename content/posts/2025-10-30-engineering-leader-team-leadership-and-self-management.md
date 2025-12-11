@@ -75,7 +75,7 @@ slug: "engineering-leader-team-leadership-and-self-management"
 ## 関連記事
 
 - [記事一覧を開く](/posts/)
-- [電子書籍デバイスの比較ガイド](/posts/2025/08/kindle-vs-kobo/)
+- [電子書籍デバイスの比較ガイド](/posts/kindle-vs-kobo/)
 - [EPUBとPDFの使い分け](/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u/)
 
 

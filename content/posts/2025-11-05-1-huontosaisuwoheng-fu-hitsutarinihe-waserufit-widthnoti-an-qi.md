@@ -30,4 +30,4 @@ slug: "huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi"
 ## 関連リーダーガイド
 - [Kindle/Kobo 購入ガイド 2025](/posts/2025/09/kindle-kobo-buying-guide-2025/)
 - [見開き・縦書き・横書きの読みやすさ設定](/posts/2025/11/3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
-- [KindleとKoboの違いまとめ](/posts/2025/08/kindle-vs-kobo/)
+- [KindleとKoboの違いまとめ](/posts/kindle-vs-kobo/)
