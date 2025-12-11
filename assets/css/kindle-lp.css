@@ -1,323 +1,188 @@
+/* =========================================
+   Kindle LP - ブランド固有スタイル
+   共通スタイルは lp-common.css を参照
+   ========================================= */
+
+/* Kindle ブランドカラー */
 :root {
     --amazon-orange: #ff9900;
     --amazon-dark: #232f3e;
     --amazon-blue: #146eb4;
-    --bg: #f7f7f7;
-    --white: #ffffff;
-    --text: #1f1f1f;
-    --muted: #6a6a6a;
-    --card: #ffffff;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    --text-color: #1f1f1f;
     --font-main: 'Noto Sans JP', sans-serif;
     --font-heading: 'Montserrat', sans-serif;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* 背景グラデーション */
 body {
-    font-family: var(--font-main);
-    color: var(--text);
     background: radial-gradient(circle at 20% 20%, #ffffff 0%, #f2f2f2 45%, #ffffff 100%);
-    line-height: 1.6;
 }
-.container { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
-a { text-decoration: none; color: inherit; }
 
+/* 通知バー - Kindle */
 .notice-bar {
     background: var(--amazon-dark);
-    color: #fff;
-    text-align: center;
-    padding: 8px 12px;
-    font-size: 0.9rem;
 }
 
-/* Header */
+/* ヘッダー - Kindle */
 .lp-header {
-    background: var(--white);
     border-bottom: 3px solid var(--amazon-orange);
-    position: sticky; top: 0; z-index: 100;
-    padding: 12px 0;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-}
-.lp-header .container { display: flex; justify-content: space-between; align-items: center; }
-.logo {
-    font-size: 1.8rem;
-    font-weight: 900;
-    color: var(--amazon-dark);
-    font-family: var(--font-heading);
-}
-.logo span { color: var(--amazon-orange); margin-left: 6px; font-weight: 700; }
-.lp-header nav { display: flex; align-items: center; gap: 18px; }
-.lp-header nav a { font-weight: 700; color: #3d3d3d; font-size: 0.95rem; }
-.lp-header nav a:hover { color: var(--amazon-orange); }
-.lp-header nav a.btn {
-    color: #fff;
-    background: var(--amazon-orange);
-    padding: 8px 16px;
-    border-radius: 999px;
-    box-shadow: 0 2px 8px rgba(255,153,0,0.24);
 }
 
-/* Buttons */
-.btn {
-    display: inline-block;
-    padding: 12px 28px;
-    border-radius: 6px;
-    font-weight: 800;
-    transition: all 0.2s ease;
-    text-align: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+.logo {
+    color: var(--amazon-dark);
 }
+
+.logo span {
+    color: var(--amazon-orange);
+}
+
+.lp-header nav a:hover {
+    color: var(--amazon-orange);
+}
+
+.lp-header nav a.btn {
+    background: var(--amazon-orange);
+    box-shadow: 0 2px 8px rgba(255, 153, 0, 0.24);
+}
+
+/* ボタン - Kindle */
 .btn-primary {
     background: linear-gradient(135deg, var(--amazon-orange), #ffb33b);
-    color: #111; border: 1px solid #e08800;
+    color: #111;
+    border: 1px solid #e08800;
 }
-.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 12px rgba(255,153,0,0.25); }
+
+.btn-primary:hover {
+    box-shadow: 0 6px 12px rgba(255, 153, 0, 0.25);
+}
+
 .btn-secondary {
     background: var(--amazon-dark);
     color: #fff;
     border: 1px solid var(--amazon-dark);
 }
-.btn-secondary:hover { background: #1a2533; }
-.btn-lg { padding: 14px 34px; font-size: 1.05rem; }
-.btn-xl { padding: 18px 48px; font-size: 1.2rem; border-radius: 999px; }
-.btn-sm { padding: 8px 18px; font-size: 0.9rem; }
 
-/* Hero */
-.hero {
-    padding: 70px 0;
-    background: linear-gradient(135deg, #fdfaf5 0%, #f2f6fb 50%, #ffffff 100%);
-    border-bottom: 1px solid #e8e8e8;
+.btn-secondary:hover {
+    background: #1a2533;
 }
-.hero .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 28px; }
-.hero-content { flex: 1; min-width: 320px; padding-right: 20px; }
+
+/* ヒーロー - Kindle */
+.hero {
+    background: linear-gradient(135deg, #fdfaf5 0%, #f2f6fb 50%, #ffffff 100%);
+}
+
 .hero-badge {
-    display: inline-block;
     background: var(--amazon-dark);
     color: #fff;
-    padding: 6px 12px;
-    font-weight: 800;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    margin-bottom: 14px;
-}
-.hero h1 {
-    font-family: var(--font-heading);
-    font-size: 2.7rem;
-    line-height: 1.25;
-    margin-bottom: 12px;
-    color: var(--amazon-dark);
-}
-.hero-subtitle {
-    font-size: 1.05rem;
-    margin-bottom: 26px;
-    color: #4a4a4a;
-    background: #fff;
-    padding: 16px;
-    border-left: 5px solid var(--amazon-orange);
-    border-radius: 6px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-.hero-points { list-style: none; padding: 0; margin: 0 0 18px 0; }
-.hero-points li {
-    position: relative;
-    padding-left: 18px;
-    margin-bottom: 8px;
-    color: #303030;
-}
-.hero-points li::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: var(--amazon-orange);
-    font-size: 1.2rem;
-    line-height: 1;
-}
-.hero-cta .btn { margin-right: 10px; margin-bottom: 10px; }
-.hero-note {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-top: 10px;
 }
 
-.hero-image {
-    flex: 1;
-    min-width: 320px;
-    display: grid;
-    gap: 12px;
-    justify-items: center;
+.hero h1 {
+    color: var(--amazon-dark);
 }
-.hero-photo img {
-    width: 100%;
-    max-width: 420px;
-    border-radius: 14px;
-    object-fit: cover;
-    box-shadow: var(--shadow);
-    border: 5px solid #fff;
+
+.hero-subtitle {
+    border-left: 5px solid var(--amazon-orange);
 }
-.device-mockup {
-    width: 280px;
-    background: #0f1620;
-    border-radius: 10px;
-    padding: 12px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    border: 2px solid #222d3a;
+
+.hero-points li::before {
+    color: var(--amazon-orange);
 }
-.device-screen {
-    background: #f8f6f2;
-    border-radius: 3px;
-    padding: 14px;
-    box-shadow: inset 0 0 8px rgba(0,0,0,0.12);
-}
+
+/* デバイスモックアップ - Kindle */
 .device-content h3 {
-    font-size: 1.25rem;
-    margin-bottom: 8px;
     color: var(--amazon-dark);
     border-bottom: 2px solid var(--amazon-orange);
-    display: inline-block;
-    padding-bottom: 3px;
 }
-.device-content p { font-size: 0.9rem; margin-bottom: 10px; color: #444; }
-.device-text-lines span { display: block; height: 6px; background: #d8d3cb; margin-bottom: 6px; }
-.device-logo { text-align: center; color: #9ea7b2; font-size: 0.78rem; padding-top: 6px; font-weight: 800; }
 
-/* Features */
-.features { padding: 70px 0; background: #fff; }
-.features h2 { text-align: center; font-size: 2.1rem; margin-bottom: 40px; color: var(--amazon-dark); }
-.features h2 span { color: var(--amazon-orange); }
-.features-body { display: grid; gap: 24px; }
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
-    gap: 20px;
+/* 特徴セクション - Kindle */
+.features h2 {
+    color: var(--amazon-dark);
 }
-.feature-card {
-    background: var(--card);
-    padding: 22px;
-    border: 1px solid #ececec;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    transition: all 0.2s ease;
-}
-.feature-card:hover { transform: translateY(-3px); border-color: #ffd28a; }
-.feature-card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--amazon-dark); }
-.feature-card p { color: #4a4a4a; font-size: 0.95rem; }
 
-/* How-to */
-.howto { padding: 70px 0; background: #f6f6f6; }
-.howto h2 { text-align: center; font-size: 2rem; margin-bottom: 32px; color: var(--amazon-dark); }
-.howto-grid {
-    display: grid; gap: 18px;
-    grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+.features h2 span {
+    color: var(--amazon-orange);
 }
-.howto-card {
-    background: #fff;
-    border: 1px solid #e6e6e6;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+
+.feature-card:hover {
+    border-color: #ffd28a;
 }
+
+.feature-card h3 {
+    color: var(--amazon-dark);
+}
+
+/* 使い方セクション - Kindle */
+.howto h2 {
+    color: var(--amazon-dark);
+}
+
 .howto-card .step-number {
-    width: 34px;
-    height: 34px;
-    border-radius: 999px;
     background: var(--amazon-orange);
-    color: #111;
-    font-weight: 900;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 8px;
 }
-.howto-card h3 { font-size: 1.1rem; color: var(--amazon-dark); margin-bottom: 8px; }
-.howto-card p { color: #505050; font-size: 0.95rem; }
 
-/* Value section */
+.howto-card h3 {
+    color: var(--amazon-dark);
+}
+
+/* バリューセクション - Kindle */
 .value-section {
-    padding: 60px 0;
     background: #fffdf6;
     border-top: 1px solid #f3d7a6;
     border-bottom: 1px solid #f3d7a6;
 }
-.value-section h2 { text-align: center; font-size: 2rem; margin-bottom: 22px; color: var(--amazon-dark); }
-.value-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 12px;
-}
-.value-list li {
-    background: #fff;
-    border: 1px solid #f1e3c4;
-    border-radius: 10px;
-    padding: 14px 16px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
-    color: #3c3c3c;
-}
-.value-list strong { color: var(--amazon-dark); }
 
+.value-section h2 {
+    color: var(--amazon-dark);
+}
+
+.value-list li {
+    border: 1px solid #f1e3c4;
+}
+
+.value-list strong {
+    color: var(--amazon-dark);
+}
+
+/* クロスリンク - Kindle */
 .cross-links {
-    padding: 60px 0;
     background: #f9fbff;
     border-top: 1px solid #e5edf8;
 }
+
 .cross-links h2 {
-    text-align: center;
-    margin-bottom: 20px;
     color: var(--amazon-dark);
 }
-.cross-links__actions {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
+
 .cross-links__actions .btn-primary {
     color: #111;
 }
 
-/* FAQ */
-.faq { padding: 70px 0; background: #ffffff; }
-.faq h2 { text-align: center; font-size: 2rem; margin-bottom: 26px; color: var(--amazon-dark); }
-.faq-item {
-    background: #f6f8fb;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+/* FAQ - Kindle */
+.faq h2 {
+    color: var(--amazon-dark);
 }
-.faq-item h3 { font-size: 1.05rem; margin-bottom: 6px; color: var(--amazon-dark); }
-.faq-item p { margin: 0; color: #424242; }
 
-/* CTA */
+.faq-item h3 {
+    color: var(--amazon-dark);
+}
+
+/* CTAバナー - Kindle */
 .cta-banner {
-    padding: 80px 0;
-    text-align: center;
     background: linear-gradient(135deg, #fff5e5 0%, #ffffff 60%, #f0f6ff 100%);
     border-top: 1px solid #f3d7a6;
     border-bottom: 1px solid #dbe7f6;
 }
-.cta-banner h2 { font-size: 2.1rem; margin-bottom: 14px; color: var(--amazon-dark); }
-.cta-banner p { font-size: 1.05rem; margin-bottom: 28px; color: #3f3f3f; font-weight: 700; }
-.cta-buttons { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
 
-/* Footer */
+.cta-banner h2 {
+    color: var(--amazon-dark);
+}
+
+/* フッター - Kindle */
 footer {
     background: #eef1f5;
-    color: #4f4f4f;
-    padding: 26px 0;
-    text-align: center;
     border-top: 1px solid #dfe3ea;
-    font-size: 0.85rem;
 }
-footer a { color: var(--amazon-blue); }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .hero { padding: 50px 0; }
-    .hero h1 { font-size: 2.2rem; }
-    .hero .container { flex-direction: column-reverse; }
-    .hero-content { padding-right: 0; text-align: center; }
-    .hero-points { text-align: left; display: inline-block; }
+footer a {
+    color: var(--amazon-blue);
 }

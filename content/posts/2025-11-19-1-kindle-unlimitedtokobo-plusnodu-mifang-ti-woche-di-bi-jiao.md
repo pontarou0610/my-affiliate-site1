@@ -31,4 +31,4 @@ hasRelatedProducts: false
 ## 関連リンク
 - [Kindle Unlimited登録ページ](/lp/kindle/)
 - [楽天Kobo Plus攻略](/lp/kobo/)
-- [KindleとKoboの違いまとめ](/posts/kindle-vs-kobo/)
+- [KindleとKoboの違いまとめ](/posts/2025/08/kindle-vs-kobo/)

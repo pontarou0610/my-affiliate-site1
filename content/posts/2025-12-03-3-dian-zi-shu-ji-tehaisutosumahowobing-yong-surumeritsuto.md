@@ -43,15 +43,15 @@ Eインクのリーダーは長時間読書に最適。目に優しく屋外で�
 
 ## 関連ガイド
 
-- [KindleとKoboの違い](/posts/kindle-vs-kobo/)
-- [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
-- [Kobo Claraレビュー](/posts/kobo-clara-review/)
+- [KindleとKoboの違い](/posts/2025/08/kindle-vs-kobo/)
+- [Kindle Paperwhiteレビュー](/posts/2025/08/kindle-paperwhite-review/)
+- [Kobo Claraレビュー](/posts/2025/08/kobo-clara-review/)
 
 ## 関連リンク
 
-- [Kindleでの読みやすさを変える！見開き・縦書き・横書きのメリット徹底解説](/posts/2025/11/jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
-- [Kindle UnlimitedとKobo Plusの違い比較](/posts/2025/11/kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao/)
-- [2025年版 Kindle/Koboで失敗しない読書デバイス3選](/posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-4/)
+- [Kindleでの読みやすさを変える！見開き・縦書き・横書きのメリット徹底解説](/posts/2025/11/3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
+- [Kindle UnlimitedとKobo Plusの違い比較](/posts/2025/11/1-kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao/)
+- [2025年版 Kindle/Koboで失敗しない読書デバイス3選](/posts/2025/12/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-4/)
 
 
 

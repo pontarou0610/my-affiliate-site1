@@ -26,4 +26,4 @@ slug: "kindle-kobo-buying-guide-2025"
 - セール/クーポンと0・5のつく日/プライム系の還元を組み合わせる。
 - カバーとフィルムを同時購入し、ポイント・送料を最適化。
 
-詳しい比較は [/posts/kindle-vs-kobo/](/posts/kindle-vs-kobo/) と各LP（[Kindle](/lp/kindle/), [Kobo](/lp/kobo/)）も参考にしてください。
+詳しい比較は [/posts/kindle-vs-kobo/](/posts/2025/08/kindle-vs-kobo/) と各LP（[Kindle](/lp/kindle/), [Kobo](/lp/kobo/)）も参考にしてください。

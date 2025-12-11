@@ -54,9 +54,9 @@ hasRelatedProducts: false
 - 端末とスマホの両方に同じ本を入れておけば、どこでも続きを読める。
 
 ## さらに読みたい人へ
-- [KindleとKoboの違い（選び方ガイド）](/posts/kindle-vs-kobo/)  
+- [KindleとKoboの違い（選び方ガイド）](/posts/2025/08/kindle-vs-kobo/)  
 - [楽天Koboでポイントも貯まる｜端末選びとストア攻略](/lp/kobo/)  
-- [Amazon Kindle ペーパーホワイトの実機レビュー](/posts/kindle-paperwhite-review/)
+- [Amazon Kindle ペーパーホワイトの実機レビュー](/posts/2025/08/kindle-paperwhite-review/)
 
 30分でも、毎日続ければ月15時間・年180時間。KindleやKoboなら持ち歩きも同期も簡単です。今日の10分から始めて、読書が当たり前の生活を作りましょう。
 長編小説に挑戦するのも良いですが、短編やエッセイ集から始めるのもおすすめです。特に電子書籍では短い作品が多く手に入るため、気軽に読み進めやすい点が魅力です。また、1冊の本を数日かけて読むのも良いですが、短時間で読み終えられる本を選ぶことで達成感を得られます。例えば、短編小説集を選ぶことで、1日1話ずつ楽しむことができ、毎日の読書が楽しくなります。
@@ -104,9 +104,9 @@ hasRelatedProducts: false
 
 ## 関連ガイド
 
-- [KindleとKoboの違い](/posts/kindle-vs-kobo/)
-- [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
-- [Kobo Claraレビュー](/posts/kobo-clara-review/)
+- [KindleとKoboの違い](/posts/2025/08/kindle-vs-kobo/)
+- [Kindle Paperwhiteレビュー](/posts/2025/08/kindle-paperwhite-review/)
+- [Kobo Claraレビュー](/posts/2025/08/kobo-clara-review/)
 
 
 ## 関連記事

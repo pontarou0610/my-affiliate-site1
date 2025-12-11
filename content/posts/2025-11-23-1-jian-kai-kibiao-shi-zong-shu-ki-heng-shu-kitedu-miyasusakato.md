@@ -29,4 +29,4 @@ Kindle/Kobo双方で使える表示最適化の基本をまとめました。11/
 ## 関連リンク
 - [Kindle特化LP](/lp/kindle/)
 - [楽天Kobo特化LP](/lp/kobo/)
-- [見開き・表示設定の詳細ガイド（最新）](/posts/2025/11/jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-2/)
+- [見開き・表示設定の詳細ガイド（最新）](/posts/2025/11/3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-2/)

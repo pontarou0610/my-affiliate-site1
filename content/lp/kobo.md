@@ -2,10 +2,13 @@
 title: "楽天Koboでポイントも貯まる｜端末選びとストア攻略"
 description: "楽天ポイント還元を活かしつつ、Kobo端末/アプリ/EPUB対応をまとめました。セール時に損せず買うコツと読書環境の整え方を解説。"
 date: 2025-12-02
+lastmod: 2025-12-10
 type: "lp"
 layout: "kobo"
 url: "/lp/kobo/"
 image: "/images/kobo-lp-ogp.jpg"
+keywords: ["Kobo", "楽天Kobo", "電子書籍", "楽天ポイント", "電子書籍リーダー", "EPUB", "Kobo Clara", "Kobo Libra", "Kobo Sage"]
+author: "ぽんたろう"
 ---
 
 <div class="feature-intro">

@@ -2,10 +2,13 @@
 title: "Kindleを本気で使い倒す｜読み放題＆端末選びガイド"
 description: "30日無料体験で損せず始める方法、Paperwhite/無印の選び方、Send to Kindleで手持ちPDFも一括管理する手順をまとめました。"
 date: 2025-12-02
+lastmod: 2025-12-10
 type: "lp"
 layout: "kindle"
 url: "/lp/kindle/"
 image: "/images/kindle-lp-ogp.jpg"
+keywords: ["Kindle", "Kindle Unlimited", "Kindle Paperwhite", "電子書籍", "読み放題", "Amazon", "Send to Kindle", "電子書籍リーダー"]
+author: "ぽんたろう"
 ---
 
 <div class="features-grid">

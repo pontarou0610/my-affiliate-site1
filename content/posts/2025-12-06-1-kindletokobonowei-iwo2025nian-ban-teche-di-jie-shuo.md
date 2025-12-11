@@ -74,9 +74,9 @@ KindleとKoboは、それぞれ異なる魅力を持つ電子書籍リーダー�
 
 ## 関連ガイド
 
-- [KindleとKoboの違い](/posts/kindle-vs-kobo/)
-- [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
-- [Kobo Claraレビュー](/posts/kobo-clara-review/)
+- [KindleとKoboの違い](/posts/2025/08/kindle-vs-kobo/)
+- [Kindle Paperwhiteレビュー](/posts/2025/08/kindle-paperwhite-review/)
+- [Kobo Claraレビュー](/posts/2025/08/kobo-clara-review/)
 
 
 ## 関連記事
