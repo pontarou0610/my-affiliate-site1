@@ -6,6 +6,7 @@ tags: ["Kindle", "Kobo", "電子書籍", "比較レビュー", "Amazon", "楽天
 categories: ["電子書籍"]
 description: "KindleとKoboを価格・端末ラインナップ・使い勝手・キャンペーンで比較し、目的別のおすすめをまとめました。"
 slug: "kindle-vs-kobo"
+url: "/posts/kindle-vs-kobo/"
 hasRelatedProducts: false
 ---
 
