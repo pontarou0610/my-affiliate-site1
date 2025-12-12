@@ -472,7 +472,7 @@ def expand_to_min_words(topic: str, draft: str, min_words: int, min_chars: int, 
             """
         )
         resp = openai.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-5.1",
             temperature=0.5,
             messages=[
                 {"role": "system", "content": REWRITER_SYSTEM},
@@ -493,7 +493,7 @@ def generate_tags(topic: str, draft: str, max_tags: int = 5):
 記事内容に合う短いタグを{max_tags}個まで、日本語でJSON配列として返してください。10文字以内で汎用的でないものを優先。"""
     try:
         resp = openai.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-5.1",
             temperature=0.2,
             messages=[
                 {"role": "system", "content": TAG_SYSTEM},
@@ -538,7 +538,7 @@ def generate_seo_title(topic: str, draft: str) -> str:
 """
     try:
         resp = openai.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-5.1",
             temperature=0.4,
             messages=[
                 {"role": "system", "content": "あなたはSEO編集者です。検索意図に合うタイトルを1本だけ返してください。"},
@@ -711,7 +711,7 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     is_trend_template = template == TREND_USER_TMPL
     user = template.format(topic=topic)
     resp = openai.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-5.1",
         temperature=0.7,
         messages=[{"role": "system", "content": SYSTEM}, {"role": "user", "content": user}],
     )
@@ -726,7 +726,7 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
 --- candidate ---
 """
         r = openai.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-5.1",
             temperature=0.4,
             messages=[{"role": "system", "content": REVIEWER_SYSTEM}, {"role": "user", "content": review_prompt}],
         )
