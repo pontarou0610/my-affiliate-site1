@@ -279,6 +279,7 @@ def parse_frontmatter(md_text: str):
     data["title"] = pick("title")
     data["slug"] = pick("slug")
     data["date"] = pick("date")
+    data["url"] = pick("url")
     return data
 
 
@@ -303,7 +304,7 @@ def list_existing_posts(out_dir: pathlib.Path):
             slug = slug or slug_guess
         if not date or not slug:
             continue
-        url = permalink_from(date, slug)
+        url = fm.get("url") or permalink_from(date, slug)
         posts.append({"url": url, "title": title or slug, "date": date, "slug": slug})
     return posts
 
