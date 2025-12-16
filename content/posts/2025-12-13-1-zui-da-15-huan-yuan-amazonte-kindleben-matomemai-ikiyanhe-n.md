@@ -10,9 +10,6 @@ hasRelatedProducts: false
 showRakutenWidget: true
 ---
 
-以下に、記事全体を校正した「改善版」を示します。  
-構成の重複を削り、H2/H3の流れを整理しつつ、トーンは丁寧・非押し付けに調整しています。
-
 ![最大15％還元！Amazonで「Kindle本まとめ買いキャンペーン」が実施中／5週連続開催。購入したKindle本の点数に応じてAmazonポイント獲得のイメージ](https://images.pexels.com/photos/35167343/pexels-photo-35167343.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
 <small>Photo by [Yifan Lai](https://www.pexels.com/@yifan-lai-1434608) on [Pexels](https://www.pexels.com/photo/serene-autumn-scene-with-bridge-and-trees-35167343/)</small>
 

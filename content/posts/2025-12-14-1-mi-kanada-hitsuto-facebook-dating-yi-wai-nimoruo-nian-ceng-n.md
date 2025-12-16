@@ -10,18 +10,12 @@ hasRelatedProducts: false
 showRakutenWidget: true
 ---
 
-以下に、構成と重複をさらに整理した「完成版の改稿案」を示します。  
-元のトーンは維持しつつ、
-
 ![密かな大ヒット「Facebook Dating」──意外にも若年層に広がっていたのイメージ](https://images.pexels.com/photos/1884777/pexels-photo-1884777.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
 <small>Photo by [Pok Rie](https://www.pexels.com/@pok-rie-33563) on [Pexels](https://www.pexels.com/photo/close-up-photo-of-white-mobile-phone-1884777/)</small>
 
-- 重複している説明の統合
-- H2/H3の流れの整理
 - 行動喚起の明確化
 - 「若年層」「読書・学び」文脈とのつながり強化
 
-を行っています。
 
 ---
 

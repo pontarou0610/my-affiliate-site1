@@ -10,9 +10,6 @@ hasRelatedProducts: false
 showRakutenWidget: true
 ---
 
-以下に、元記事を踏まえた「校正・再構成済みの本文案」を示します。  
-冗長・重複を削り、見出し構成と「次に取れる行動」を明確にしました。
-
 ![「Acrobat Reader」などに致命的な脆弱性、2025年12月のAdobeセキュリティ情報／5製品で138件の脆弱性に対処のイメージ](https://images.pexels.com/photos/35153027/pexels-photo-35153027.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
 <small>Photo by [Diana Reyes](https://www.pexels.com/@diana-reyes-227887231) on [Pexels](https://www.pexels.com/photo/bright-holiday-portrait-with-santa-hat-35153027/)</small>
 
