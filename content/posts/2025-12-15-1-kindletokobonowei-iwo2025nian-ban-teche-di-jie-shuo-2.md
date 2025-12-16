@@ -10,9 +10,6 @@ hasRelatedProducts: false
 showRakutenWidget: true
 ---
 
-以下は、提示いただいた記事をもとにした「校正＋構成改善済みの完成稿」です。  
-重複を削り、H2/H3の流れを整理し、トーンもやや落ち着かせています。
-
 ![KindleとKoboの違いを2025年版で徹底解説のイメージ](https://images.pexels.com/photos/35153027/pexels-photo-35153027.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
 <small>Photo by [Diana Reyes](https://www.pexels.com/@diana-reyes-227887231) on [Pexels](https://www.pexels.com/photo/bright-holiday-portrait-with-santa-hat-35153027/)</small>
 
@@ -274,7 +271,6 @@ showRakutenWidget: true
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
 
 ## 関連記事
 
