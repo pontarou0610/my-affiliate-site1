@@ -19,38 +19,24 @@
 {{- $lang := .Site.Language.Lang | default "ja" -}}
 {{- $author := site.Params.authorName | default "ぽんたろう" -}}
 {{- $publisher := site.Title | default $author -}}
-{{- $logo := site.Params.publisherLogo | default (index (site.Params.images | default (slice "/images/ogp-default.jpg")) 0) -}}
+{{- $logo := site.Params.publisherLogo | default (index (site.Params.images | default (slice "images/ogp-default.jpg")) 0) -}}
 {{- $image := "" -}}
 {{- if .Params.images }}
-  {{- $image = (index .Params.images 0) | absURL -}}
+  {{- $image = (index .Params.images 0) | strings.TrimPrefix "/" | absURL -}}
 {{- else if .Params.cover }}
   {{- with .Params.cover.image }}
-    {{- $image = . | absURL -}}
+    {{- $image = . | strings.TrimPrefix "/" | absURL -}}
   {{- end -}}
 {{- else if site.Params.images }}
-  {{- $image = (index site.Params.images 0) | absURL -}}
+  {{- $image = (index site.Params.images 0) | strings.TrimPrefix "/" | absURL -}}
 {{- end -}}
-{{- $twitterCard := cond $image "summary_large_image" "summary" -}}
-{{- $ogType := cond .IsPage "article" "website" -}}
-
-<link rel="canonical" href="{{ .Permalink }}">
-<meta name="description" content="{{ $description }}">
-<meta property="og:type" content="{{ $ogType }}">
-<meta property="og:title" content="{{ $title }}">
-<meta property="og:description" content="{{ $description }}">
-<meta property="og:url" content="{{ .Permalink }}">
-{{- if $image }}<meta property="og:image" content="{{ $image }}">{{ end }}
-<meta name="twitter:card" content="{{ $twitterCard }}">
-<meta name="twitter:title" content="{{ $title }}">
-<meta name="twitter:description" content="{{ $description }}">
-{{- if $image }}<meta name="twitter:image" content="{{ $image }}">{{ end }}
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": "{{ "/" | absLangURL }}#website",
-  "url": "{{ "/" | absLangURL }}",
+  "@id": "{{ "" | absLangURL }}#website",
+  "url": "{{ "" | absLangURL }}",
   "name": {{ site.Title | jsonify }},
   "inLanguage": "{{ $lang }}"
 }
@@ -72,7 +58,7 @@
       "name": {{ $publisher | jsonify }},
       "logo": {
         "@type": "ImageObject",
-        "url": {{ $logo | absURL | jsonify }}
+        "url": {{ $logo | strings.TrimPrefix "/" | absURL | jsonify }}
       }
     },
     {{- if $image }}"image": {{ $image | jsonify }},{{ end }}

@@ -225,7 +225,11 @@ TREND_USER_TMPL = """\
 - 日本以外の読者を想定しない
 """
 
-REVIEWER_SYSTEM = "あなたは厳しい文章校正者です。事実誤認や重複表現、H2/H3の構成を点検し、改善案を返します。"
+REVIEWER_SYSTEM = (
+    "あなたは厳しい文章校正者です。事実誤認や重複表現、H2/H3の構成を点検し、"
+    "指摘ではなく“修正後の完成稿”のみをMarkdownで返してください。"
+    "前置き・見出し外の解説・箇条書きの改善案は書かないでください。"
+)
 REWRITER_SYSTEM = "あなたはSEOライターです。指定された記事を長文化し、重複を避け、自然な日本語に整えます。"
 CHECKLIST = """\
 以下の観点で修正してください
@@ -708,6 +712,38 @@ def ensure_pillar_links_block(draft: str) -> str:
     return ensure_pillar_links(draft)
 
 
+_UNWANTED_PREFACE_PATTERNS = [
+    r"^以下に、.*(リライト案|修正案|改善案).*$",
+    r"^元テキストの流れは活かしつつ.*$",
+    r"^以下は、?.*(リライト|修正|校正).*$",
+    r"^（?注）?この(文章|記事)は.*(リライト|修正|校正).*$",
+]
+
+
+def strip_unwanted_preface(markdown: str) -> str:
+    lines = markdown.splitlines()
+
+    def is_stop_line(line: str) -> bool:
+        s = line.lstrip()
+        return s.startswith(("#", "![", "---"))
+
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if is_stop_line(line):
+            break
+        if not line.strip():
+            i += 1
+            continue
+        if any(re.match(p, line.strip()) for p in _UNWANTED_PREFACE_PATTERNS):
+            i += 1
+            continue
+        break
+
+    cleaned = "\n".join(lines[i:]).lstrip("\n")
+    return cleaned
+
+
 def make_post(topic: str, slug: str, template: str = USER_TMPL):
     is_trend_template = template == TREND_USER_TMPL
     user = template.format(topic=topic)
@@ -719,6 +755,7 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     draft = resp.choices[0].message.content.strip()
     for _ in range(2):
         review_prompt = f"""以下の記事を校正し、重複や構成の乱れを直してください。
+必ず「修正後の完成稿（本文）」のみをMarkdownで返してください（前置き/解説/改善案は不要）。
 
 {CHECKLIST}
 
@@ -731,7 +768,7 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
             temperature=0.4,
             messages=[{"role": "system", "content": REVIEWER_SYSTEM}, {"role": "user", "content": review_prompt}],
         )
-        draft = r.choices[0].message.content.strip()
+        draft = strip_unwanted_preface(r.choices[0].message.content.strip())
 
     def ensure_min_length(current: str, min_words: int, min_chars: int, attempts: int) -> str:
         if attempts <= 0:
@@ -758,6 +795,8 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     lower_attempts = 1 if is_trend_template else 0
     if lower_attempts and (count_words(draft) < lower_words or count_chars(draft) < lower_chars):
         draft = ensure_min_length(draft, lower_words, lower_chars, lower_attempts)
+
+    draft = strip_unwanted_preface(draft)
 
     hero = fetch_pexels_image(topic)
     if hero:
@@ -1040,4 +1079,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

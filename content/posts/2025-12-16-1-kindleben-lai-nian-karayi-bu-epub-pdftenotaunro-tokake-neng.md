@@ -10,9 +10,6 @@ hasRelatedProducts: false
 showRakutenWidget: true
 ---
 
-以下に、厳しめにチェックしたうえでの「全面リライト案」を示します。  
-元テキストの流れは活かしつつ、重複・冗長・構成のブレを削り、読者が「次に何をすればよいか」が明確になるよう整理しました。
-
 ![Kindle本、来年から一部EPUB/ PDFでのダウンロードが可能にのイメージ](https://images.pexels.com/photos/5745040/pexels-photo-5745040.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
 <small>Photo by [Ryutaro Tsukata](https://www.pexels.com/@ryutaro) on [Pexels](https://www.pexels.com/photo/signage-with-inscriptions-and-pictures-5745040/)</small>
 
@@ -376,4 +373,3 @@ Kindle本のEPUB / PDFダウンロード対応は、電子書籍を「どこで�
 - [2025年電子書籍リーダー3選アップデート（12/1 サイバーマンデー）](/posts/2025/12/3-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-6/)
 - [パスキー＆ワンタイムコードでログインをラクにする方法](/posts/2025/11/matsuha-tsu-ru-deng-lu-bu-yao-nowu-liao-onrainxiao-lu-hua-ts/)
 - [若年層に広がるFacebook Dating活用術：Kindle・電子書籍好きが安心して出会える理由](/posts/2025/12/mi-kanada-hitsuto-facebook-dating-yi-wai-nimoruo-nian-ceng-n/)
-

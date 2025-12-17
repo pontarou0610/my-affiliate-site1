@@ -3,6 +3,8 @@
 # =========================
 baseURL = "https://pontarou0610.github.io/my-affiliate-site1/"
 languageCode = "ja"
+defaultContentLanguage = "ja"
+hasCJKLanguage = true
 title = "電子書籍・未来研究所 - KindleとKoboの比較・出版・AI活用"
 theme = "PaperMod"
 pagesize = 10
@@ -29,9 +31,9 @@ canonifyURLs = true
   env = "production"
   defaultTheme = "auto"                 # "dark" | "light" | "auto"
   description = "Kindle・Koboなど電子書籍リーダーの比較から、自費出版・AIライティング・自動化までを解説するブログ"
-  images = ["/images/ogp-default.jpg"]  # static/images/ogp-default.jpg を参照
+  images = ["images/ogp-default.jpg"]   # static/images/ogp-default.jpg を参照（project pagesでも崩れない相対パス）
   authorName = "ぽんたろう"
-  publisherLogo = "/images/ogp-default.jpg"
+  publisherLogo = "images/ogp-default.jpg"
   breadcrumbHome = "ホーム"
   defaultRakutenWidget = false
   amazonTag = "naoto0610-22"
