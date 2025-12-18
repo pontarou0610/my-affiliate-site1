@@ -172,6 +172,15 @@ PILLAR_LINKS = [
     ("Kobo Claraレビュー", "/posts/kobo-clara-review/"),
 ]
 
+def should_canonicalize_to_kindle_vs_kobo(topic_text: str, title_text: str = "") -> bool:
+    text = f"{topic_text}\n{title_text}"
+    must = ("Kindle" in text) and ("Kobo" in text)
+    if not must:
+        return False
+    has_year_or_latest = any(k in text for k in ["2025", "最新", "最新版"])
+    has_compare_intent = any(k in text for k in ["徹底比較", "比較", "違い", "どっち"])
+    return has_year_or_latest and has_compare_intent
+
 # ---------- prompts ----------
 SYSTEM = "あなたは電子書籍・電子リーダー専門メディアの熟練編集者として、日本語でSEOを意識しつつオリジナル記事を作成してください。あなたは世界一のブロガーです。"
 USER_TMPL = """\
@@ -835,12 +844,20 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     tags = generate_tags(topic, draft)
     word_count = count_words(draft)
 
+    canonical_url = None
+    robots_no_index = False
+    if should_canonicalize_to_kindle_vs_kobo(topic, seo_title):
+        canonical_url = f"{BASE_URL.rstrip('/')}/posts/kindle-vs-kobo/"
+        robots_no_index = True
+
     fm = dedent(
         f"""\
     ---
     title: "{seo_title}"
     date: {today.isoformat()}
     draft: false
+    {"robotsNoIndex: true" if robots_no_index else ""}
+    {f'canonicalURL: \"{canonical_url}\"' if canonical_url else ""}
     tags: {tags}
     categories: ["電子書籍"]
     description: "{topic}に関する実用的なガイドと最新情報をまとめました。"
@@ -947,6 +964,12 @@ def main():
         lowered = topic_clean.lower()
         if lowered in used_titles:
             return False
+
+        # Avoid creating duplicate/cannibal pages for the main pillar article.
+        if should_canonicalize_to_kindle_vs_kobo(topic_clean) and pathlib.Path("content/posts/kindle-vs-kobo.md").exists():
+            print(f"[skip] Topic '{topic_clean}' skipped because it targets the existing pillar /posts/kindle-vs-kobo/.")
+            return False
+
         if is_similar_topic(topic_clean, topic_pool, threshold=0.6):
             print(f"[skip] Topic '{topic_clean}' skipped because it is too similar to an existing or generated topic.")
             return False

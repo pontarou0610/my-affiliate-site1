@@ -2,6 +2,8 @@
 title: "2025年版KindleとKobo徹底比較｜電子書籍リーダーの選び方と損しないメリット整理"
 date: 2025-12-15
 draft: false
+robotsNoIndex: true
+canonicalURL: "https://pontarou0610.github.io/my-affiliate-site1/posts/kindle-vs-kobo/"
 tags: ['Kindle比較', 'Kobo比較', '電子書籍端末', '楽天Kobo', 'Kindle選び方']
 categories: ["電子書籍"]
 description: "KindleとKoboの違いを2025年版で徹底解説に関する実用的なガイドと最新情報をまとめました。"
@@ -277,4 +279,3 @@ showRakutenWidget: true
 - [EPUB/PDFの実践Tips（変換・注釈・共有編）](/posts/2025/11/epubyapdfwokindletekuai-shi-nidu-mutamenowan-quan-kaito-2/)
 - [2025年電子書籍リーダー3選アップデート（11/21 BF前哨戦）](/posts/2025/11/1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-5/)
 - [Facebook Marketplaceが“ソーシャルEC”強化へ：最新アップデートまとめ](/posts/2025/11/meta-is-trying-to-make-facebook-marketplace-a-social-shoppin/)
-

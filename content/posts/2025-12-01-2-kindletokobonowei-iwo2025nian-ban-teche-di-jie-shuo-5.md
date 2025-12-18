@@ -2,6 +2,8 @@
 title: "KindleとKoboの違い・選び方まとめ（12/1夜版）"
 date: 2025-12-01
 draft: false
+robotsNoIndex: true
+canonicalURL: "https://pontarou0610.github.io/my-affiliate-site1/posts/kindle-vs-kobo/"
 tags: ["電子書籍", "Kindle", "Kobo", "比較"]
 categories: ["電子書籍"]
 description: "KindleとKoboの違い2025年版（12/1夜更新）。"

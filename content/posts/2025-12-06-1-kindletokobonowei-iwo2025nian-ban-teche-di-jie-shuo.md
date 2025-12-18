@@ -2,6 +2,8 @@
 title: "「2025年版：KindleとKoboの違いを徹底比較！電子書籍選びのポイント」"
 date: 2025-12-06
 draft: false
+robotsNoIndex: true
+canonicalURL: "https://pontarou0610.github.io/my-affiliate-site1/posts/kindle-vs-kobo/"
 tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
 categories: ["電子書籍"]
 description: "KindleとKoboの違いを2025年版で徹底解説に関する実用的なガイドと最新情報をまとめました。"
@@ -84,4 +86,3 @@ KindleとKoboは、それぞれ異なる魅力を持つ電子書籍リーダー�
 - [【2025年最新】KindleとKoboを徹底比較：電子書籍リーダーはどっちを選ぶ？](/posts/kindle-vs-kobo/)
 - [2025年電子書籍リーダー3選アップデート（11/18版）](/posts/2025/11/1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-4/)
 - [パスキー＆ワンタイムコードでログインをラクにする方法](/posts/2025/11/matsuha-tsu-ru-deng-lu-bu-yao-nowu-liao-onrainxiao-lu-hua-ts/)
-
