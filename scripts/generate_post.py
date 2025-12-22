@@ -857,7 +857,7 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     date: {today.isoformat()}
     draft: false
     {"robotsNoIndex: true" if robots_no_index else ""}
-    {f'canonicalURL: \"{canonical_url}\"' if canonical_url else ""}
+    {f'canonicalURL: "{canonical_url}"' if canonical_url else ""}
     tags: {tags}
     categories: ["電子書籍"]
     description: "{topic}に関する実用的なガイドと最新情報をまとめました。"
