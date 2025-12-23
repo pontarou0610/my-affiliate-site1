@@ -10,11 +10,13 @@ Article generator for the ebook-focused blog.
 
 import os
 import re
+import difflib
 import datetime
 import pathlib
 import random
 import argparse
 import json
+import unicodedata
 from typing import List, Dict, Tuple, Set
 
 import requests
@@ -371,19 +373,50 @@ def _tokenize(text: str) -> set[str]:
     return tokens
 
 
+def _normalize_for_similarity(text: str) -> str:
+    t = unicodedata.normalize("NFKC", text).lower()
+    t = re.sub(r"\s+", "", t)
+    # Treat common separators as noise to improve Japanese title matching.
+    t = t.replace("・", "").replace("|", "")
+    t = re.sub(r"[^0-9a-z\u3040-\u30ff\u4e00-\u9fff]+", "", t)
+    return t
+
+
+def _char_ngrams(text: str, n: int = 2) -> set[str]:
+    if not text:
+        return set()
+    if len(text) < n:
+        return {text}
+    return {text[i : i + n] for i in range(len(text) - n + 1)}
+
+
+def _jaccard(a: set[str], b: set[str]) -> float:
+    if not a or not b:
+        return 0.0
+    union = len(a | b)
+    return (len(a & b) / union) if union else 0.0
+
+
 def is_similar_title(title: str, existing: list[str], threshold: float = 0.65) -> bool:
     """Check Jaccard similarity to avoid near-duplicate titles."""
     cand_tokens = _tokenize(title)
-    if not cand_tokens:
-        return False
+    cand_norm = _normalize_for_similarity(title)
+    cand_grams = _char_ngrams(cand_norm, n=2) if cand_norm else set()
     for t in existing:
         base_tokens = _tokenize(t)
-        if not base_tokens:
-            continue
-        overlap = len(cand_tokens & base_tokens)
-        union = len(cand_tokens | base_tokens)
-        if union and overlap / union >= threshold:
-            return True
+        if cand_tokens and base_tokens:
+            overlap = len(cand_tokens & base_tokens)
+            union = len(cand_tokens | base_tokens)
+            if union and overlap / union >= threshold:
+                return True
+
+        # Japanese titles often have few separators, so token Jaccard can miss near-duplicates.
+        base_norm = _normalize_for_similarity(t)
+        if cand_norm and base_norm:
+            if difflib.SequenceMatcher(None, cand_norm, base_norm).ratio() >= 0.55:
+                return True
+            if cand_grams and _jaccard(cand_grams, _char_ngrams(base_norm, n=2)) >= 0.25:
+                return True
     return False
 
 
@@ -980,11 +1013,10 @@ def main():
         slug_base = slugify_lib(topic_clean, lowercase=True, max_length=60, separator="-")
         if not slug_base:
             return False
+        if slug_base in used_slugs:
+            print(f"[skip] Topic '{topic_clean}' skipped because its slug '{slug_base}' already exists (likely same search intent).")
+            return False
         slug_candidate = slug_base
-        suffix = 2
-        while slug_candidate in used_slugs:
-            slug_candidate = f"{slug_base}-{suffix}"
-            suffix += 1
 
         templates = [USER_TMPL]
         if not contains_relevant_keyword(topic_clean):
