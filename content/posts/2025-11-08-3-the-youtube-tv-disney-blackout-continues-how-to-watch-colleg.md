@@ -26,7 +26,7 @@ slug: "the-youtube-tv-disney-blackout-continues-how-to-watch-colleg"
 
 
 ## 関連リーダーガイド
-- [Kindle/Kobo 購入ガイド 2025](/posts/2025/09/kindle-kobo-buying-guide-2025/)
+- [Kindle/Kobo 購入ガイド 2025](/posts/kindle-vs-kobo/)
 - [KindleとKoboの違いまとめ](/posts/kindle-vs-kobo/)
 - [楽天Koboでポイントを貯めるLP](/lp/kobo/)
 - [Kindle UnlimitedとKobo Plusの比較](/posts/2025/11/1-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-4/)

@@ -30,4 +30,4 @@ slug: "dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2"
 ## 関連リーダーガイド
 - [EPUB/PDFの実践Tips](/posts/2025/11/epubyapdfwokindletekuai-shi-nidu-mutamenowan-quan-kaito-2/)
 - [フォーマット入門編](/posts/2025/11/dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi/)
-- [Kindle/Kobo 購入ガイド 2025](/posts/2025/09/kindle-kobo-buying-guide-2025/)
+- [Kindle/Kobo 購入ガイド 2025](/posts/kindle-vs-kobo/)

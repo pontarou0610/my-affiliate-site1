@@ -259,7 +259,7 @@ showRakutenWidget: true
 
 ## 関連記事
 
-- [2025年版KindleとKobo徹底比較｜電子書籍リーダーの選び方と損しないメリット整理](/posts/2025/12/kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-2/)
+- [2025年版KindleとKobo徹底比較｜電子書籍リーダーの選び方と損しないメリット整理](/posts/kindle-vs-kobo/)
 - [電子書籍フォーマットの活用と変換テク（中級編）](/posts/2025/11/dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2/)
 - [Apple Watch SE 3がブラックフライデー前に約$200に](/posts/2025/11/the-apple-watch-se-3-drops-to-200-before-black-friday/)
 

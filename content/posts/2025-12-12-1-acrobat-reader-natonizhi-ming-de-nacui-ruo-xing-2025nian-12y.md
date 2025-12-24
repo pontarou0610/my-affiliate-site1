@@ -324,6 +324,6 @@ CVEの内容を追うと、**PDFを開くだけでの任意コード実行系が
 ## 関連記事
 
 - [2025年電子書籍リーダー3選アップデート（11/30 サイバー前夜）](/posts/2025/11/2-kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-3/)
-- [Kindle/Kobo 購入ガイド2025：失敗しない選び方チェックリスト](/posts/2025/09/kindle-kobo-buying-guide-2025/)
+- [Kindle/Kobo 購入ガイド2025：失敗しない選び方チェックリスト](/posts/kindle-vs-kobo/)
 - [【2025年最新】KindleとKoboを徹底比較：電子書籍リーダーはどっちを選ぶ？](/posts/kindle-vs-kobo/)
 

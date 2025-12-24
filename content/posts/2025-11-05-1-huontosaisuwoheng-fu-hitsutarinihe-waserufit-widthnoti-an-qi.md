@@ -28,6 +28,6 @@ slug: "huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi"
 - 行間を広げても縦方向のスクロール回数が増えすぎないか確認。
 
 ## 関連リーダーガイド
-- [Kindle/Kobo 購入ガイド 2025](/posts/2025/09/kindle-kobo-buying-guide-2025/)
+- [Kindle/Kobo 購入ガイド 2025](/posts/kindle-vs-kobo/)
 - [見開き・縦書き・横書きの読みやすさ設定](/posts/2025/11/3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
 - [KindleとKoboの違いまとめ](/posts/kindle-vs-kobo/)

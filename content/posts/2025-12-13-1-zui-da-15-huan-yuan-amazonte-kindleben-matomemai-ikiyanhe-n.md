@@ -306,7 +306,7 @@ Kindleは「どこまで読んだか」が自動同期されるため、デバ�
 
 ## 関連記事
 
-- [「2025年版：KindleとKoboの違いを徹底比較！電子書籍選びのポイント」](/posts/2025/12/kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo/)
+- [「2025年版：KindleとKoboの違いを徹底比較！電子書籍選びのポイント」](/posts/kindle-vs-kobo/)
 - [見開き・縦書き・横書きの読みやすさ設定ガイド（11/26版）](/posts/2025/11/3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-2/)
 - [Engadget Podcast: 2025年の注目ガジェットまとめ](/posts/2025/11/engadget-podcast-our-favorite-gadgets-of-2025/)
 

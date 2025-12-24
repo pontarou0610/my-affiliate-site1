@@ -79,5 +79,5 @@ PDFやEPUBなど、さまざまなフォーマットに対応しているかも�
 
 - [kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao](/posts/2025/11/1-kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao/)
 - [amazon-kdpzhu-zhe-xiang-keaifan-yi-sa-hisu-kindle-translate](/posts/2025/11/amazon-kdpzhu-zhe-xiang-keaifan-yi-sa-hisu-kindle-translate/)
-- [kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo](/posts/2025/12/kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo/)
+- [kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo](/posts/kindle-vs-kobo/)
 

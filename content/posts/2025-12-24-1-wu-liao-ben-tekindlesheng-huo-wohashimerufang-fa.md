@@ -252,5 +252,5 @@ Kindle本そのものに手書きはできなくても、メモアプリと併�
 
 - [2025年電子書籍リーダー3選アップデート（12/2 延長戦）](/posts/2025/12/2-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-7/)
 - [2025年電子書籍リーダー3選アップデート（11/22 BF週末）](/posts/2025/11/1-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-2/)
-- [「2025年版：KindleとKoboの違いを徹底比較！あなたに最適な電子書籍リーダーはどっち？」](/posts/2025/12/kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-6/)
+- [「2025年版：KindleとKoboの違いを徹底比較！あなたに最適な電子書籍リーダーはどっち？」](/posts/kindle-vs-kobo/)
 

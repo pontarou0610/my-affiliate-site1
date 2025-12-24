@@ -7,6 +7,18 @@ categories: ["電子書籍"]
 description: "KindleとKoboを価格・端末ラインナップ・使い勝手・キャンペーンで比較し、目的別のおすすめをまとめました。"
 slug: "kindle-vs-kobo"
 url: "/posts/kindle-vs-kobo/"
+aliases:
+  - "/posts/2025/09/kindle-kobo-buying-guide-2025/"
+  - "/posts/2025/11/kindletokobonozui-xin-moterubi-jiao-2025nian-ban/"
+  - "/posts/2025/11/1-kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo/"
+  - "/posts/2025/11/2-kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-2/"
+  - "/posts/2025/12/1-kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-4/"
+  - "/posts/2025/12/2-kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-5/"
+  - "/posts/2025/12/kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo/"
+  - "/posts/2025/12/kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-2/"
+  - "/posts/2025/12/kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-3/"
+  - "/posts/2025/12/kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-4/"
+  - "/posts/2025/12/kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-6/"
 hasRelatedProducts: false
 ---
 
