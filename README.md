@@ -51,7 +51,8 @@ X側（Developer Portal / App設定）の目安：
 - JST 19:00（UTC 10:00）
 
 ### トラブルシュート
-- `401/403`：App権限（Read and write）、Access Token の発行方式（OAuth 1.0a User Context）を確認
+- `401`：キー/トークンの組み合わせ違い。Secrets の値を再確認
+- `403`（`You are not permitted to perform this action.`）：X側で投稿権限が不足。App権限を `Read and write` にし、OAuth 1.0a の Access Token/Secret を再生成してSecretsを更新
 - `403` で `Just a moment...`（Cloudflare）：GitHub-hosted runner のIP/経路でブロックされる場合があります。`X_API_BASE_URL=https://api.x.com` を設定して再実行し、改善しない場合は `self-hosted` runner を検討
 - `429`：短時間連投や上限。時間を空けて再実行
 - URL が想定と違う：`hugo.toml` の `baseURL` と `permalinks`、生成HTMLの canonical を確認

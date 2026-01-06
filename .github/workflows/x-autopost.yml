@@ -30,6 +30,7 @@ jobs:
     env:
       DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || '1' }}
       FORCE_POST: ${{ github.event_name == 'workflow_dispatch' && inputs.force_post || '0' }}
+      X_API_BASE_URL: https://api.x.com
       X_API_KEY: ${{ secrets.X_API_KEY }}
       X_API_KEY_SECRET: ${{ secrets.X_API_KEY_SECRET }}
       X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
@@ -80,4 +81,3 @@ jobs:
 
           git commit -m "chore(autopost): update state [skip ci]"
           git push origin HEAD:main
-
