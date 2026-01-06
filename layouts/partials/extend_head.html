@@ -1,5 +1,11 @@
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7953303438736598"
+{{- /* AdSense: avoid ads on navigation/list pages (policy: Navigation) */ -}}
+{{- $adsenseClient := site.Params.adsenseClient | default "ca-pub-7953303438736598" -}}
+{{- $adsenseEnabled := and $adsenseClient (or hugo.IsProduction (eq site.Params.env "production")) -}}
+{{- $adsenseEligible := and $adsenseEnabled .IsPage (eq .Type "posts") (ne .Params.robotsNoIndex true) -}}
+{{- if $adsenseEligible -}}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ $adsenseClient }}"
      crossorigin="anonymous"></script>
+{{- end -}}
 
 {{- $page := . -}}
 {{- $title := cond .IsHome (site.Title | default .Title) .Title -}}
