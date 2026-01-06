@@ -52,6 +52,7 @@ X側（Developer Portal / App設定）の目安：
 
 ### トラブルシュート
 - `401/403`：App権限（Read and write）、Access Token の発行方式（OAuth 1.0a User Context）を確認
+- `403` で `Just a moment...`（Cloudflare）：GitHub-hosted runner のIP/経路でブロックされる場合があります。`X_API_BASE_URL=https://api.x.com` を設定して再実行し、改善しない場合は `self-hosted` runner を検討
 - `429`：短時間連投や上限。時間を空けて再実行
 - URL が想定と違う：`hugo.toml` の `baseURL` と `permalinks`、生成HTMLの canonical を確認
 - 投稿されない：`DRY_RUN` が `1` のまま／Secrets不足（`FORCE_POST=1` で検知可能）
