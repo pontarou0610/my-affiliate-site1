@@ -1,6 +1,7 @@
 ---
-title: "Kobo Clara 2E レビュー：軽さと防水が魅力のエントリー最強機"
+title: "Kobo Clara 2E レビュー：軽さと防水が魅力のエントリー有力機"
 date: 2025-08-10T09:00:00+09:00
+lastmod: 2026-01-06T00:00:00+09:00
 draft: false
 tags: ["Kobo", "Clara 2E", "レビュー", "電子書籍"]
 categories: ["電子書籍"]
@@ -10,9 +11,9 @@ url: "/posts/kobo-clara-review/"
 hasRelatedProducts: false
 ---
 
-# Kobo Clara 2E レビュー
-
 Kobo Clara 2Eは「軽さ・防水・EPUB対応」で、楽天経済圏ユーザーの最初の一台に最適な6インチ機です。Paperwhiteと迷う人向けに、実使用レビューを踏まえて強みと弱みを整理しました。
+
+※Koboはラインナップが更新されることがあります。購入前に現行モデルの仕様・価格を確認してください。
 
 ## 総評と結論
 

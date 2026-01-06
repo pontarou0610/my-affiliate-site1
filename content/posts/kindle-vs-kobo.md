@@ -1,6 +1,7 @@
 ---
-title: "【2025年最新】KindleとKoboを徹底比較：電子書籍リーダーはどっちを選ぶ？"
+title: "KindleとKoboを徹底比較：電子書籍リーダーはどっちを選ぶ？（2026年時点）"
 date: 2025-08-22T10:00:00+09:00
+lastmod: 2026-01-06T00:00:00+09:00
 draft: false
 tags: ["Kindle", "Kobo", "電子書籍", "比較レビュー", "Amazon", "楽天"]
 categories: ["電子書籍"]
@@ -22,21 +23,20 @@ aliases:
 hasRelatedProducts: false
 ---
 
-# 【2025年最新】KindleとKoboを徹底比較
+Kindleは「Amazon連携とコンテンツ量」、Koboは「EPUB対応と楽天ポイント」が強みです。  
+この記事では、端末・ストア・読み放題の違いを、迷いがちなポイントだけに絞って整理します（価格やラインナップは時期により変動します）。
 
-Kindleは「Amazon連携とコンテンツ量」、Koboは「EPUB対応とポイント還元」が強み。2025年に失敗しないための端末・ストア・サブスクをプロ視点で整理しました。
+## 結論（用途別）
 
-## 2025年の結論（用途別）
+- **コスパ＆軽量重視**: Kindle無印 or Kobo Claraシリーズ（防水が欲しければ防水モデル、最安を狙うならセール時期を優先）。
+- **バランス万能**: Kindle Paperwhite（防水・色温度・USB-C）。楽天ポイントを活かしたいならKobo Libra系も有力。
+- **大画面/手書き/PDF**: Kobo Sage/ElipsaやKindle Scribeなど。PDFや手書きが中心なら「大きめ画面＋ペン」を優先。
+- **読み放題活用**: Kindle Unlimited / Kobo Plus（対象タイトルや提供状況は国・時期で変わるため要確認）。
 
-- **コスパ＆軽量重視**: Kindle無印 or Kobo Clara 2E（防水が欲しければClara 2E、最安を狙うなら無印をセールで）。
-- **バランス万能**: Kindle Paperwhite（防水・色温度・USB-C）。楽天ポイントを稼ぐならLibra 2も有力。
-- **大画面/手書き/PDF**: Kobo Sage/Elipsa。手書きやPDFならKobo側が一歩リード。
-- **サブスク活用**: Kindle Unlimitedの和書/洋書ラインナップが圧倒的。Kobo Plusは提供国・対象タイトルが限定的。
+## 端末ラインナップ比較（2026年時点）
 
-## 端末ラインナップ比較（2025）
-
-- **Kindle**: 無印（軽量/最安）、Paperwhite（防水・色温度・6.8インチ）、Oasis後継は在庫限り。カラーE Inkは未展開。
-- **Kobo**: Clara 2E（軽量防水6インチ）、Libra 2（物理ボタン＋防水の7インチ）、Sage/Elipsa（手書き＋大画面）。一部モデルでカラーE Inkも選択可。
+- **Kindle**: 無印（軽量/最安）、Paperwhite（防水・色温度・大画面）、Scribe（手書き）など。Oasis系は販売状況により変動。
+- **Kobo**: Clara系（軽量・防水）、Libra系（物理ボタン）、Sage/Elipsa（手書き＋大画面）など。カラーE Ink対応モデルの有無は時期により変動。
 - **チェック軸**: 重量、防水、物理ボタン、色温度調整、USB-C、手書き対応、カラーE Inkの有無。
 
 ## ストア・価格・キャンペーン
@@ -54,8 +54,8 @@ Kindleは「Amazon連携とコンテンツ量」、Koboは「EPUB対応とポイ
 
 ## サブスク・エコシステム
 
-- **Kindle Unlimited**: 和書・洋書・コミックの総量が多い。Prime Readingはおまけ枠。
-- **Kobo Plus**: 日本では対象タイトルが限定的。楽天ポイントとの併用で実質コストを抑えたい人向け。
+- **Kindle Unlimited**: 読み放題を主軸にするならまず候補。対象ラインナップは時期により入れ替わる。
+- **Kobo Plus**: 対象タイトルや提供状況は国・時期で変動。楽天ポイントと組み合わせたい人向け。
 - **外部サービス**: KoboはPocket連携で「あとで読む」が強力。KindleはSend to KindleでPDF/EPUBを投げやすい。
 
 ## 目的別おすすめ

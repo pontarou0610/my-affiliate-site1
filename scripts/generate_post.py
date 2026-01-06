@@ -113,9 +113,9 @@ CORE_KEYWORDS = [
 WHITELIST = list(CORE_KEYWORDS)
 
 FALLBACK_TOPICS = [
-    # 比較
-    "KindleとKoboの違いを2025年版で徹底解説",
-    "2025年最新の電子書籍リーダー3選",
+    # 比較（カニバリ回避のため、柱記事ど真ん中は避ける）
+    "KindleとKoboを使い分けるコツ｜読む本・読む場所・予算で最適化する方法",
+    "電子書籍リーダーの選び方｜6インチ・7インチ・10インチで後悔しない基準",
     "Kindle UnlimitedとKobo Plusの違いと選び方",
     "KindleとKoboを子供向け読書デバイスとして使い分けるコツ",
 
@@ -175,13 +175,35 @@ PILLAR_LINKS = [
 ]
 
 def should_canonicalize_to_kindle_vs_kobo(topic_text: str, title_text: str = "") -> bool:
-    text = f"{topic_text}\n{title_text}"
-    must = ("Kindle" in text) and ("Kobo" in text)
+    text = f"{topic_text}\n{title_text}".lower()
+    must = ("kindle" in text) and ("kobo" in text)
     if not must:
         return False
-    has_year_or_latest = any(k in text for k in ["2025", "最新", "最新版"])
-    has_compare_intent = any(k in text for k in ["徹底比較", "比較", "違い", "どっち"])
-    return has_year_or_latest and has_compare_intent
+
+    # Don't treat subscription/service comparisons as device comparisons.
+    if any(k in text for k in ["kindle unlimited", "kobo plus", "prime reading", "読み放題", "サブスク"]):
+        return False
+
+    has_compare_intent = any(k in text for k in ["徹底比較", "比較", "違い", "どっち", "vs", "選ぶ", "選び方"])
+    has_device_context = any(
+        k in text
+        for k in [
+            "電子書籍リーダー",
+            "端末",
+            "デバイス",
+            "e-ink",
+            "e ink",
+            "電子ペーパー",
+            "paperwhite",
+            "scribe",
+            "clara",
+            "libra",
+            "sage",
+            "elipsa",
+        ]
+    )
+    has_year_or_latest = bool(re.search(r"\b20\d{2}\b", text)) or any(k in text for k in ["最新", "最新版"])
+    return has_compare_intent and (has_device_context or has_year_or_latest)
 
 # ---------- prompts ----------
 SYSTEM = "あなたは電子書籍・電子リーダー専門メディアの熟練編集者として、日本語でSEOを意識しつつオリジナル記事を作成してください。あなたは世界一のブロガーです。"
