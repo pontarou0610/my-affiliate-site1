@@ -1151,7 +1151,11 @@ def main():
                     break
 
     if generated < need:
-        raise SystemExit(f"Unable to generate {need} unique posts (created {generated}).")
+        msg = f"Unable to generate {need} unique posts (created {generated})."
+        # Avoid failing the whole workflow when we intentionally skip duplicates/cannibal content.
+        print(f"[warn] {msg}")
+        print(f"::warning::{msg}")
+        return
 
 
 if __name__ == "__main__":
