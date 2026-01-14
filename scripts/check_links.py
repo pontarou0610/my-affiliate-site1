@@ -2,7 +2,7 @@ import os
 import re
 import frontmatter
 from pathlib import Path
-from datetime import datetime
+from datetime import date, datetime
 
 # Configuration
 CONTENT_DIR = r"c:\work\hugo-sites\my-affiliate-site1\content"
@@ -28,8 +28,7 @@ def parse_hugo_file_info(file_path):
         
         # Determine Date for permalink
         date_obj = metadata.get('date')
-        if isinstance(date_obj, datetime):
-            date_str = date_obj.strftime("%Y-%m-%d")
+        if isinstance(date_obj, (datetime, date)):
             year = date_obj.strftime("%Y")
             month = date_obj.strftime("%m")
         elif isinstance(date_obj, str):
@@ -38,7 +37,7 @@ def parse_hugo_file_info(file_path):
                 dt = datetime.strptime(date_obj[:10], "%Y-%m-%d")
                 year = dt.strftime("%Y")
                 month = dt.strftime("%m")
-            except:
+            except Exception:
                 year = "0000"
                 month = "00"
         else:
@@ -106,6 +105,9 @@ def find_broken_links():
     link_pattern = re.compile(r'\[([^\]]+)\]\(([^)]+)\)')
     
     broken_links = []
+    relref_pattern = re.compile(
+        r'^\{\{[<%]\s*(?:relref|ref)\s+(?:"([^"]+)"|\'([^\']+)\'|([^\\s>]+))\s*[>%]\}\}$'
+    )
 
     print("Scanning files for broken links...")
     for f in files:
@@ -117,9 +119,22 @@ def find_broken_links():
             # Skip external links
             if link.startswith("http") and BASE_URL not in link:
                 continue
+
+            # Handle Hugo ref/relref shortcodes inside markdown links.
+            if "{{" in link:
+                relref_match = relref_pattern.match(link.strip())
+                if relref_match:
+                    link = next((g for g in relref_match.groups() if g), link)
+                else:
+                    # If we can't resolve it safely, don't report as broken.
+                    continue
             
             # Skip anchor links on same page
             if link.startswith("#"):
+                continue
+
+            # Skip email / telephone links
+            if link.startswith(("mailto:", "tel:")):
                 continue
 
             # Normalize internal link
