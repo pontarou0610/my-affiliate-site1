@@ -11,7 +11,6 @@ slug: "ji-shu-tong-ren-zhi-nozhu-zhe-ha-nasekindleban-wochu-sunoka"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 # 技術同人誌の著者は、なぜKindle版を出すのか or 出さないのか  
 ――「プログラマでありたい」視点で考える
 
@@ -501,11 +500,3 @@ Kindleが強力なプラットフォームであることは間違いありま�
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [フォントサイズを揃えて読みやすくする3つの設定](/posts/2025/11/huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi/)
-- [2025年電子書籍リーダー3選アップデート（11/30 サイバー前夜）](/posts/2025/11/2-kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-3/)
-- [YouTube TVでDisney系チャンネルが視聴できない件のメモ](/posts/2025/11/the-youtube-tv-disney-blackout-continues-how-to-watch-colleg/)
-

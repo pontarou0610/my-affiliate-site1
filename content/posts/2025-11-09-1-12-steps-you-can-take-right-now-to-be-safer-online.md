@@ -1,13 +1,15 @@
 ---
 title: "オンラインで安全に過ごすための12ステップ"
 date: 2025-11-09
-draft: false
+draft: true
 tags: ["セキュリティ", "プライバシー", "パスワード管理"]
 categories: ["セキュリティ"]
 description: "すぐ実践できるオンライン安全12ステップのメモ。パスワード、2段階認証、Wi-Fi設定など基本対策を整理。"
 slug: "12-steps-you-can-take-right-now-to-be-safer-online"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 ## まずやること
 1. 主要サービスのパスワードを長く強いものに変更し、再利用をやめる。
 2. すべての主要アカウントで2段階認証（MFA）を有効にする。
@@ -23,10 +25,3 @@ slug: "12-steps-you-can-take-right-now-to-be-safer-online"
 12. 家族にも上記を共有し、定期的に見直す仕組みを作る。
 
 ※速報メモ。詳細は各サービスの公式ヘルプを参照してください。
-
-
-## 関連リーダーガイド
-- [Kindle/Kobo 購入ガイド 2025](/posts/kindle-vs-kobo/)
-- [KindleとKoboの違いまとめ](/posts/kindle-vs-kobo/)
-- [楽天Koboでポイントを貯めるLP](/lp/kobo/)
-- [Kindle UnlimitedとKobo Plusの比較](/posts/2025/11/1-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-4/)

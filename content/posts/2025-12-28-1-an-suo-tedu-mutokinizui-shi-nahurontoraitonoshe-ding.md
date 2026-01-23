@@ -11,7 +11,6 @@ slug: "an-suo-tedu-mutokinizui-shi-nahurontoraitonoshe-ding"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## 1. 暗所での読書環境はいまどうなっているか
 
 ![暗所で読むときに最適なフロントライトの設定のイメージ](https://images.pexels.com/photos/33817432/pexels-photo-33817432.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -389,11 +388,3 @@ Kindle、Kobo、BOOX など主要ブランドの中位〜上位機種では、�
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [若年層に広がるFacebook Dating活用術：Kindle・電子書籍好きが安心して出会える理由](/posts/2025/12/mi-kanada-hitsuto-facebook-dating-yi-wai-nimoruo-nian-ceng-n/)
-- [最大15％還元で電子書籍まとめ買い！Amazon Kindle本キャンペーンでお得にポイント獲得](/posts/2025/12/zui-da-15-huan-yuan-amazonte-kindleben-matomemai-ikiyanhe-n/)
-- [Kindle UnlimitedとKobo Plusの比較ガイド（11/19版）](/posts/2025/11/1-kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao/)
-

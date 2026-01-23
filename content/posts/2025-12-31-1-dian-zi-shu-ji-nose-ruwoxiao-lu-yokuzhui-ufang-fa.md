@@ -11,7 +11,6 @@ slug: "dian-zi-shu-ji-nose-ruwoxiao-lu-yokuzhui-ufang-fa"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 # 電子書籍のセールを「取りこぼさない」ための新しい習慣術
 
 ![電子書籍のセールを効率よく追う方法のイメージ](https://images.pexels.com/photos/5745040/pexels-photo-5745040.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -241,19 +240,10 @@ Kindleや楽天Koboなど、多くのストアには「セール・キャンペ�
 この3つを意識するだけで、電子書籍のセールは「追いかけるもの」から「勝手に寄ってくるもの」に変わります。  
 ご自身の読書ペースに合ったセール活用を、無理のない範囲で試してみてください。
 
-さらに電子書籍の選び方や読書環境づくりを深掘りしたい方は、
-も参考になるかもしれません。
+さらに電子書籍の選び方や読書環境づくりを深掘りしたい方は、下記の関連ガイドもあわせてご覧ください。
 
 ## 関連ガイド
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [2025年最新の電子書籍リーダー3選：失敗しない買い方ガイド](/posts/2025/11/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan/)
-- [2025年電子書籍リーダー3選アップデート（11/18版）](/posts/2025/11/1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-4/)
-- [1日30分で電子書籍を楽しむ！読書習慣を簡単に身につける15のアイデア](/posts/2025/11/1ri-30fen-tedu-shu-xi-guan-wozuo-ru15noaitea-2/)
-

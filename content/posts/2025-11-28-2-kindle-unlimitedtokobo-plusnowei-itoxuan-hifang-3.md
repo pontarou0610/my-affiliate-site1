@@ -8,7 +8,6 @@ description: "11/28版の最新キャンペーンを踏まえたKindle Unlimited
 slug: "2-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-3"
 hasRelatedProducts: false
 ---
-
 # Kindle UnlimitedとKobo Plusの比較ガイド（11/28版・完全保存版）
 
 「技術書も漫画も読みたい」「どちらが自分に合うかわからない」という人向けに、**価格・蔵書・キャンペーン・端末相性**を一気に整理した最新版です。11/28時点のセール情報を踏まえ、実質コストを下げる手順と乗り換えの考え方までまとめました。

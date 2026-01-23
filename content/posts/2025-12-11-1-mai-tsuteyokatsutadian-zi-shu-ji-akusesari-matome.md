@@ -9,7 +9,6 @@ slug: "mai-tsuteyokatsutadian-zi-shu-ji-akusesari-matome"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 # 買ってよかった電子書籍アクセサリーまとめ
 
 ![買ってよかった電子書籍アクセサリーまとめのイメージ](https://images.pexels.com/photos/33817432/pexels-photo-33817432.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -84,11 +83,3 @@ showRakutenWidget: true
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [「2025年最新Kindle＆Kobo電子書籍リーダー3選：軽量で読書がもっと楽しくなる！」](/posts/2025/12/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-8/)
-- [2025年電子書籍リーダー3選アップデート（12/2 延長戦）](/posts/2025/12/2-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-7/)
-- [2025年電子書籍リーダー3選アップデート（11/17週明け版）](/posts/2025/11/1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-3/)
-

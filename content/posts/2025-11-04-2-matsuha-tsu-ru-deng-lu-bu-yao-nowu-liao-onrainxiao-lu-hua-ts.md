@@ -1,13 +1,15 @@
 ---
 title: "パスキー＆ワンタイムコードでログインをラクにする方法"
 date: 2025-11-04
-draft: false
+draft: true
 tags: ["セキュリティ", "パスワード", "パスキー"]
 categories: ["セキュリティ"]
 description: "パスワードレス化（パスキー＋ワンタイムコード）でログインを効率化しつつ安全にする手順。"
 slug: "matsuha-tsu-ru-deng-lu-bu-yao-nowu-liao-onrainxiao-lu-hua-ts"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # パスキー＆ワンタイムコードでログインをラクにする方法
 
 強いパスワード管理が面倒なら、パスキーやワンタイムコードを組み合わせて安全に効率化しましょう。

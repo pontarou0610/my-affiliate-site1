@@ -1,0 +1,270 @@
+{{- $lang := site.Language.Lang | default "ja" -}}
+{{- $siteURL := site.Home.Permalink -}}
+
+{{- /* Publisher (Organization/Person) */ -}}
+{{- $publisherType := (site.Params.schema.publisherType | default "Organization") | title -}}
+{{- $publisherName := site.Title -}}
+{{- $publisherID := printf "%s#publisher" $siteURL -}}
+
+{{- $logoPath := site.Params.publisherLogo | default (site.Params.assets.favicon | default "favicon.ico") -}}
+{{- $logoURL := "" -}}
+{{- if $logoPath -}}
+  {{- if hasPrefix $logoPath "http" -}}
+    {{- $logoURL = $logoPath -}}
+  {{- else -}}
+    {{- $logoURL = $logoPath | strings.TrimPrefix "/" | absURL -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $publisherDesc := site.Params.description | default site.Title | plainify | truncate 180 -}}
+{{- $publisherLD := dict
+  "@context" "https://schema.org"
+  "@id" $publisherID
+  "@type" $publisherType
+  "name" $publisherName
+  "url" $siteURL
+  "description" $publisherDesc
+-}}
+{{- if $logoURL -}}
+  {{- if eq $publisherType "Person" -}}
+    {{- $publisherLD = merge $publisherLD (dict "image" $logoURL) -}}
+  {{- else -}}
+    {{- $publisherLD = merge $publisherLD (dict "logo" $logoURL) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $sameAs := slice -}}
+{{- with site.Params.schema.sameAs -}}
+  {{- range . }}{{- $sameAs = $sameAs | append (trim . " ") -}}{{- end -}}
+{{- else -}}
+  {{- with site.Params.SocialIcons -}}
+    {{- range . }}{{- $sameAs = $sameAs | append (trim .url " " | safeURL) -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if gt (len $sameAs) 0 -}}
+  {{- $publisherLD = merge $publisherLD (dict "sameAs" $sameAs) -}}
+{{- end -}}
+
+<script type="application/ld+json">
+{{ $publisherLD | jsonify | safeJS }}
+</script>
+
+{{- $websiteID := printf "%s#website" $siteURL -}}
+{{- $websiteLD := dict
+  "@context" "https://schema.org"
+  "@type" "WebSite"
+  "@id" $websiteID
+  "url" $siteURL
+  "name" $publisherName
+  "inLanguage" $lang
+  "publisher" (dict "@id" $publisherID)
+-}}
+<script type="application/ld+json">
+{{ $websiteLD | jsonify | safeJS }}
+</script>
+
+{{- /* Canonical URL (match <link rel="canonical"> behavior) */ -}}
+{{- $canonical := .Permalink -}}
+{{- with .Params.canonicalURL -}}
+  {{- $c := trim . " " -}}
+  {{- if $c -}}
+    {{- if or (hasPrefix $c "http://") (hasPrefix $c "https://") -}}
+      {{- $canonical = $c -}}
+    {{- else -}}
+      {{- $canonical = $c | strings.TrimPrefix "/" | absURL -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* BreadcrumbList */ -}}
+{{- if and (not .IsHome) (or .IsPage .IsSection) -}}
+  {{- $homeName := site.Params.breadcrumbHome | default (i18n "home" | default "Home") -}}
+  {{- $crumbs := slice (dict "name" $homeName "item" $siteURL) -}}
+  {{- range .Ancestors.Reverse -}}
+    {{- if not .IsHome -}}
+      {{- $crumbs = $crumbs | append (dict "name" .LinkTitle "item" .Permalink) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $crumbs = $crumbs | append (dict "name" .Title "item" $canonical) -}}
+
+  {{- $items := slice -}}
+  {{- range $index, $crumb := $crumbs -}}
+    {{- $items = $items | append (dict
+      "@type" "ListItem"
+      "position" (add $index 1)
+      "name" $crumb.name
+      "item" $crumb.item
+    ) -}}
+  {{- end -}}
+
+  {{- $breadcrumbLD := dict
+    "@context" "https://schema.org"
+    "@type" "BreadcrumbList"
+    "itemListElement" $items
+  -}}
+<script type="application/ld+json">
+{{ $breadcrumbLD | jsonify | safeJS }}
+</script>
+{{- end -}}
+
+{{- /* Page schema */ -}}
+{{- if .IsPage -}}
+  {{- $isPost := or (eq .Section "posts") (eq .Type "posts") -}}
+  {{- $desc := .Description | default .Summary | default (printf "%s - %s" .Title site.Title) -}}
+  {{- $desc = $desc | plainify | htmlUnescape | truncate 180 -}}
+
+  {{- $published := .PublishDate -}}
+  {{- if $published.IsZero -}}{{- $published = .Date -}}{{- end -}}
+  {{- $modified := .Lastmod -}}
+
+  {{- $authorVal := .Params.author | default site.Params.author | default site.Params.authorName -}}
+  {{- $authors := slice -}}
+  {{- if $authorVal -}}
+    {{- if or (eq (printf "%T" $authorVal) "[]string") (eq (printf "%T" $authorVal) "[]interface {}") -}}
+      {{- range $authorVal -}}
+        {{- $authors = $authors | append (dict "@type" "Person" "name" .) -}}
+      {{- end -}}
+    {{- else -}}
+      {{- $authors = slice (dict "@type" "Person" "name" $authorVal) -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- $image := "" -}}
+  {{- with .Params.images -}}
+    {{- if gt (len .) 0 -}}{{- $image = index . 0 -}}{{- end -}}
+  {{- end -}}
+  {{- if and (not $image) (.Params.cover.image) -}}
+    {{- $image = .Params.cover.image -}}
+  {{- end -}}
+  {{- if and (not $image) site.Params.images -}}
+    {{- if gt (len site.Params.images) 0 -}}{{- $image = index site.Params.images 0 -}}{{- end -}}
+  {{- end -}}
+  {{- if and $image (not (hasPrefix $image "http")) -}}
+    {{- $image = $image | strings.TrimPrefix "/" | absURL -}}
+  {{- end -}}
+
+  {{- if $isPost -}}
+    {{- $articleLD := dict
+      "@context" "https://schema.org"
+      "@type" "BlogPosting"
+      "@id" (printf "%s#article" $canonical)
+      "url" $canonical
+      "headline" (.Title | plainify)
+      "description" $desc
+      "inLanguage" $lang
+      "datePublished" (time.Format "2006-01-02T15:04:05Z07:00" $published)
+      "dateModified" (time.Format "2006-01-02T15:04:05Z07:00" $modified)
+      "mainEntityOfPage" (dict "@type" "WebPage" "@id" $canonical)
+      "publisher" (dict "@id" $publisherID)
+      "isPartOf" (dict "@type" "WebSite" "@id" (printf "%s#website" $siteURL))
+    -}}
+    {{- if eq (len $authors) 1 -}}
+      {{- $articleLD = merge $articleLD (dict "author" (index $authors 0)) -}}
+    {{- else if gt (len $authors) 1 -}}
+      {{- $articleLD = merge $articleLD (dict "author" $authors) -}}
+    {{- end -}}
+    {{- if $image -}}
+      {{- $articleLD = merge $articleLD (dict "image" $image) -}}
+    {{- end -}}
+
+<script type="application/ld+json">
+{{ $articleLD | jsonify | safeJS }}
+</script>
+  {{- else -}}
+    {{- $pageType := "WebPage" -}}
+    {{- if eq .Section "about" -}}{{- $pageType = "AboutPage" -}}{{- end -}}
+    {{- if eq .Section "contact" -}}{{- $pageType = "ContactPage" -}}{{- end -}}
+
+    {{- $webPageLD := dict
+      "@context" "https://schema.org"
+      "@type" $pageType
+      "@id" (printf "%s#webpage" $canonical)
+      "url" $canonical
+      "name" (.Title | plainify)
+      "description" $desc
+      "inLanguage" $lang
+      "publisher" (dict "@id" $publisherID)
+      "isPartOf" (dict "@type" "WebSite" "@id" (printf "%s#website" $siteURL))
+    -}}
+    {{- if $image -}}
+      {{- $webPageLD = merge $webPageLD (dict "primaryImageOfPage" $image) -}}
+    {{- end -}}
+<script type="application/ld+json">
+{{ $webPageLD | jsonify | safeJS }}
+</script>
+  {{- end -}}
+
+  {{- /* Optional: ItemList / FAQ structured data via front matter */ -}}
+  {{- with .Params.schema -}}
+    {{- with .products -}}
+      {{- $listItems := slice -}}
+      {{- range $index, $product := . -}}
+        {{- $position := add $index 1 -}}
+        {{- $productURL := $product.url -}}
+        {{- if and $productURL (not (hasPrefix $productURL "http")) -}}
+          {{- $productURL = $productURL | strings.TrimPrefix "/" | absURL -}}
+        {{- end -}}
+        {{- $productImage := $product.image -}}
+        {{- if and $productImage (not (hasPrefix $productImage "http")) -}}
+          {{- $productImage = $productImage | strings.TrimPrefix "/" | absURL -}}
+        {{- end -}}
+
+        {{- $prodDict := dict "@type" "Product" "name" $product.name -}}
+        {{- if $productURL }}{{- $prodDict = merge $prodDict (dict "url" $productURL) -}}{{- end -}}
+        {{- if $productImage }}{{- $prodDict = merge $prodDict (dict "image" $productImage) -}}{{- end -}}
+        {{- with $product.brand -}}
+          {{- $prodDict = merge $prodDict (dict "brand" (dict "@type" "Brand" "name" .)) -}}
+        {{- end -}}
+
+        {{- if or $product.price $product.priceCurrency $product.availability -}}
+          {{- $offer := dict "@type" "Offer" -}}
+          {{- with $product.price }}{{- $offer = merge $offer (dict "price" (printf "%v" .)) -}}{{- end -}}
+          {{- with $product.priceCurrency }}{{- $offer = merge $offer (dict "priceCurrency" .) -}}{{- end -}}
+          {{- with $product.availability }}{{- $offer = merge $offer (dict "availability" .) -}}{{- end -}}
+          {{- if $productURL }}{{- $offer = merge $offer (dict "url" $productURL) -}}{{- end -}}
+          {{- $prodDict = merge $prodDict (dict "offers" $offer) -}}
+        {{- end -}}
+
+        {{- if and $product.ratingValue $product.reviewCount -}}
+          {{- $rating := dict "@type" "AggregateRating" "ratingValue" (printf "%v" $product.ratingValue) "reviewCount" (printf "%v" $product.reviewCount) -}}
+          {{- $prodDict = merge $prodDict (dict "aggregateRating" $rating) -}}
+        {{- end -}}
+
+        {{- $listItems = $listItems | append (dict "@type" "ListItem" "position" $position "item" $prodDict) -}}
+      {{- end -}}
+
+      {{- if gt (len $listItems) 0 -}}
+        {{- $itemListLD := dict
+          "@context" "https://schema.org"
+          "@type" "ItemList"
+          "name" (.Title | plainify)
+          "itemListElement" $listItems
+        -}}
+<script type="application/ld+json">
+{{ $itemListLD | jsonify | safeJS }}
+</script>
+      {{- end -}}
+    {{- end -}}
+
+    {{- with .faq -}}
+      {{- $faqItems := slice -}}
+      {{- range . -}}
+        {{- $faqItems = $faqItems | append (dict
+          "@type" "Question"
+          "name" .question
+          "acceptedAnswer" (dict "@type" "Answer" "text" (.answer | plainify))
+        ) -}}
+      {{- end -}}
+      {{- if gt (len $faqItems) 0 -}}
+        {{- $faqLD := dict
+          "@context" "https://schema.org"
+          "@type" "FAQPage"
+          "mainEntity" $faqItems
+        -}}
+<script type="application/ld+json">
+{{ $faqLD | jsonify | safeJS }}
+</script>
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

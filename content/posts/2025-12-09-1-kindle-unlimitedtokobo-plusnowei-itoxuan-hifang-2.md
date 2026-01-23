@@ -9,7 +9,6 @@ slug: "kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-2"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 # Kindle UnlimitedとKobo Plusの違いと選び方
 
 ![Kindle UnlimitedとKobo Plusの違いと選び方のイメージ](https://images.pexels.com/photos/33168437/pexels-photo-33168437.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -71,11 +70,3 @@ Kindle UnlimitedとKobo Plusは、それぞれ異なる魅力を持つサービ�
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [Apple Watch SE 3がブラックフライデー前に約$200に](/posts/2025/11/the-apple-watch-se-3-drops-to-200-before-black-friday/)
-- [2025年電子書籍リーダー3選アップデート（12/2 延長戦）](/posts/2025/12/2-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-7/)
-- [電子書籍フォーマットの活用と変換テク（中級編）](/posts/2025/11/dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2/)
-

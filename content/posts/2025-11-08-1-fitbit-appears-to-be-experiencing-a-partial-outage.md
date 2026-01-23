@@ -1,13 +1,15 @@
 ---
 title: "Fitbitの部分的な障害が発生中"
 date: 2025-11-08
-draft: false
+draft: true
 tags: ["ニュース", "Fitbit", "障害"]
 categories: ["ニュース"]
 description: "2025年11月8日に報告されたFitbitの部分的な障害についてのメモ。ステータス確認方法と暫定対処をまとめています。"
 slug: "fitbit-appears-to-be-experiencing-a-partial-outage"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # Fitbitの部分的な障害が発生中
 
 ## 要点
@@ -25,10 +27,3 @@ slug: "fitbit-appears-to-be-experiencing-a-partial-outage"
 - ステータス確認: https://status.fitbit.com/
 
 ※速報用のメモです。復旧が確認でき次第アップデートしてください。
-
-
-## 関連リーダーガイド
-- [Kindle/Kobo 購入ガイド 2025](/posts/kindle-vs-kobo/)
-- [KindleとKoboの違いまとめ](/posts/kindle-vs-kobo/)
-- [楽天Koboでポイントを貯めるLP](/lp/kobo/)
-- [Kindle UnlimitedとKobo Plusの比較](/posts/2025/11/1-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-4/)

@@ -1,6 +1,21 @@
 {{- $href := .Destination -}}
 {{- $isExternal := or (hasPrefix $href "http://") (hasPrefix $href "https://") (hasPrefix $href "//") -}}
 
+{{- /* Fix root-relative internal links for GitHub Pages (baseURL subpath) */ -}}
+{{- if not $isExternal -}}
+  {{- $u := urls.Parse $href -}}
+  {{- $base := urls.Parse site.BaseURL -}}
+  {{- $basePath := $base.Path | strings.TrimSuffix "/" -}}
+  {{- if and (eq $u.Scheme "") (eq $u.Host "") (hasPrefix $u.Path "/") -}}
+    {{- if not (and $basePath (ne $basePath "/") (hasPrefix $u.Path $basePath)) -}}
+      {{- $path := $u.Path | strings.TrimPrefix "/" | relURL -}}
+      {{- $href = $path -}}
+      {{- with $u.RawQuery }}{{- $href = printf "%s?%s" $href . -}}{{- end -}}
+      {{- with $u.Fragment }}{{- $href = printf "%s#%s" $href . -}}{{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
 {{- /* Affiliate tagging */ -}}
 {{- $amazonTag := or (.Page.Site.Params.amazonTag) (.Page.Site.Site.Params.amazonTag) (getenv "AMAZON_TAG") -}}
 {{- $rakutenId := or (.Page.Site.Params.rakutenAffiliateId) (.Page.Site.Site.Params.rakutenAffiliateId) (getenv "RAKUTEN_AFFILIATE_ID") -}}

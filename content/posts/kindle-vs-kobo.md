@@ -22,7 +22,6 @@ aliases:
   - "/posts/2025/12/kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-6/"
 hasRelatedProducts: false
 ---
-
 Kindleは「Amazon連携とコンテンツ量」、Koboは「EPUB対応と楽天ポイント」が強みです。  
 この記事では、端末・ストア・読み放題の違いを、迷いがちなポイントだけに絞って整理します（価格やラインナップは時期により変動します）。
 

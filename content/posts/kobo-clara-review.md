@@ -10,7 +10,6 @@ slug: "kobo-clara-review"
 url: "/posts/kobo-clara-review/"
 hasRelatedProducts: false
 ---
-
 Kobo Clara 2Eは「軽さ・防水・EPUB対応」で、楽天経済圏ユーザーの最初の一台に最適な6インチ機です。Paperwhiteと迷う人向けに、実使用レビューを踏まえて強みと弱みを整理しました。
 
 ※Koboはラインナップが更新されることがあります。購入前に現行モデルの仕様・価格を確認してください。

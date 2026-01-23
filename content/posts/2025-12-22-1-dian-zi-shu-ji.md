@@ -13,7 +13,6 @@ aliases:
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 # 電子書籍の「いま」と「これから」：紙派も納得できる使いこなしガイド
 
 ![電子書籍のイメージ](https://images.pexels.com/photos/35278277/pexels-photo-35278277.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -255,11 +254,3 @@ showRakutenWidget: true
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [2025年版KindleとKobo徹底比較｜電子書籍リーダーの選び方と損しないメリット整理](/posts/kindle-vs-kobo/)
-- [電子書籍フォーマットの活用と変換テク（中級編）](/posts/2025/11/dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2/)
-- [Apple Watch SE 3がブラックフライデー前に約$200に](/posts/2025/11/the-apple-watch-se-3-drops-to-200-before-black-friday/)
-

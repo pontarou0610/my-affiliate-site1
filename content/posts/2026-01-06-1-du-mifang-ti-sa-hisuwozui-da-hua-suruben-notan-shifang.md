@@ -11,7 +11,6 @@ slug: "du-mifang-ti-sa-hisuwozui-da-hua-suruben-notan-shifang"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## 1. 読み放題サービスを「使い倒す」人と「損する」人の差
 
 ![読み放題サービスを最大化する本の探し方のイメージ](https://images.pexels.com/photos/5745018/pexels-photo-5745018.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -410,11 +409,3 @@ A. まずは「何を読みたいか」から逆算してみてください。
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [フォントサイズを揃えて読みやすくする3つの設定](/posts/2025/11/huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi/)
-- [2025年電子書籍リーダー3選アップデート（11/17週明け版）](/posts/2025/11/1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-3/)
-- [Kindle UnlimitedとKobo Plusの比較ガイド（11/30版）](/posts/2025/11/1-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-4/)
-

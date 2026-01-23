@@ -9,7 +9,6 @@ slug: "1ri-30fen-tedu-shu-xi-guan-wozuo-ru15noaitea-4"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 以下に、1日30分で読書習慣を作るためのアイデアをさらに具体的に広げ、読者が実際に行動に移しやすい内容を提案します。
 
 ![1日30分で読書習慣を作る15のアイデアのイメージ](https://images.pexels.com/photos/35040864/pexels-photo-35040864.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -97,11 +96,3 @@ KindleやKoboでは、多くの本にサンプルをダウンロードできる�
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [「Kindleでの縦書き・横書き・見開き表示の読みやすさを徹底比較！」](/posts/2025/12/jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato/)
-- [2025年電子書籍リーダー3選アップデート（11/16週末版）](/posts/2025/11/1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-2/)
-- [見開き・縦書き・横書きの読みやすさ設定ガイド（11/30版）](/posts/2025/11/3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
-

@@ -1,13 +1,15 @@
 ---
 title: "AI画像生成まわりの最新動向メモ（SD3/NPU/AMDなど）"
 date: 2025-11-09
-draft: false
+draft: true
 tags: ["AI", "画像生成", "ニュース"]
 categories: ["ニュース"]
 description: "SD3やNPU搭載PC、AMDのAIアクセラレーションなど画像生成の最新動向をメモ。"
 slug: "aidong-hua-sheng-cheng-kachao-jian-dan-sd-3-0-tenpuhua-xiang"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 ## ポイント
 - Stable Diffusion 3系やMuseなど新モデルが登場し、生成品質と速度が向上。
 - NPU搭載PCやGPUによるローカル生成が一般化しつつあり、ノートでも高速化。
@@ -19,10 +21,3 @@ slug: "aidong-hua-sheng-cheng-kachao-jian-dan-sd-3-0-tenpuhua-xiang"
 - ローカル生成ではVRAM容量とモデルサイズのバランスが重要。16GBクラスだと安定。
 
 ※速報メモです。詳細は公式リリースやベンチマークを参照してください。
-
-
-## 関連リーダーガイド
-- [Kindle/Kobo 購入ガイド 2025](/posts/kindle-vs-kobo/)
-- [KindleとKoboの違いまとめ](/posts/kindle-vs-kobo/)
-- [楽天Koboでポイントを貯めるLP](/lp/kobo/)
-- [Kindle UnlimitedとKobo Plusの比較](/posts/2025/11/1-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-4/)

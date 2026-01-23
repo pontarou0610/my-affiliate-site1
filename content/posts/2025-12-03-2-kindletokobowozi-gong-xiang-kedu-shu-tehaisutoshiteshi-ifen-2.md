@@ -8,7 +8,6 @@ description: "KindleとKoboを子供向け読書デバイスとして使い分�
 slug: "kindletokobowozi-gong-xiang-kedu-shu-tehaisutoshiteshi-ifen-2"
 hasRelatedProducts: false
 ---
-
 # KindleとKoboを子供向け読書デバイスとして使い分けるコツ
 
 ![KindleとKoboを子供向け読書デバイスとして使い分けるコツのイメージ](https://images.pexels.com/photos/750225/pexels-photo-750225.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -73,15 +72,3 @@ KindleとKoboは、それぞれ異なる魅力を持つ電子書籍リーダー�
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [「Kindleでの読みやすさを変える！見開き・縦書き・横書きのメリット徹底解説」](/posts/2025/11/3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
-- [kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao](/posts/2025/11/1-kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao/)
-- [「2025年版 Kindle・Koboで快適読書！最新電子書籍リーダー3選」](/posts/2025/12/2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-4/)
-
-
-
-
-

@@ -1,13 +1,15 @@
 ---
 title: "Lego ブラックフライデー早期セール速報"
 date: 2025-11-08
-draft: false
+draft: true
 tags: ["ニュース", "セール", "レゴ"]
 categories: ["ニュース"]
 description: "レゴのブラックフライデー早期セールでスター・ウォーズやディズニーセットが最大40%オフになっている件のメモ。"
 slug: "lego-black-friday-deals-early-sales-include-up-to-40-percent"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # レゴのブラックフライデー早期セール
 
 ## 要点
@@ -25,10 +27,3 @@ slug: "lego-black-friday-deals-early-sales-include-up-to-40-percent"
 - 楽天レゴセール: https://search.rakuten.co.jp/search/mall/LEGO/
 
 ※速報メモ。価格は変動します。最新情報に置き換えてご利用ください。
-
-
-## 関連リーダーガイド
-- [Kindle/Kobo 購入ガイド 2025](/posts/kindle-vs-kobo/)
-- [KindleとKoboの違いまとめ](/posts/kindle-vs-kobo/)
-- [楽天Koboでポイントを貯めるLP](/lp/kobo/)
-- [Kindle UnlimitedとKobo Plusの比較](/posts/2025/11/1-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-4/)

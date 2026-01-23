@@ -11,7 +11,6 @@ slug: "hishinesushu-nato2000ce-yi-shang-ka50-huan-yuan-teshi-zhi-ba"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## Amazon「Kindle本 冬のポイントフェア」とは？
 
 Amazonで開催される「Kindle本 冬のポイントフェア」は、対象タイトルを購入すると**購入額（税込）の50％分のポイントが還元**されるキャンペーンです。  
@@ -251,11 +250,3 @@ ChatGPTなどの生成AIが普及したことで、「知識はAIに聞けばい
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [「Kindleで1日30分！読書習慣を身につける15の実践アイデア」](/posts/2025/12/1ri-30fen-tedu-shu-xi-guan-wozuo-ru15noaitea-4/)
-- [ビジネス・IT本が最大50％OFF！Kindle電子書籍セールで仕事力とスキルを一気に底上げする選び方](/posts/2026/01/hishinesu-jing-ji-shu-kazui-da-50-off-kindleben-sutoatese-ru/)
-- [2025年電子書籍リーダー3選アップデート（11/18版）](/posts/2025/11/1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-4/)
-

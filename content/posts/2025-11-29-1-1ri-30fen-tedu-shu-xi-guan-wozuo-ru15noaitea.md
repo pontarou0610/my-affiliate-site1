@@ -8,7 +8,6 @@ description: "通勤・家事・就寝前を使って1日30分の読書を続け
 slug: "1ri-30fen-tedu-shu-xi-guan-wozuo-ru15noaitea"
 hasRelatedProducts: false
 ---
-
 # 1日30分で読書習慣を作る15のアイデア
 
 ![1日30分で読書習慣を作る15のアイデアのイメージ](https://images.pexels.com/photos/34958238/pexels-photo-34958238.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -107,15 +106,3 @@ hasRelatedProducts: false
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [電子書籍の返金・キャンセルの基礎知識](/posts/2025/11/dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2/)
-- [「Valetudo完全ガイド：ロボット掃除機をローカルで自由に操作する方法」](/posts/2025/11/rohotsutosao-chu-ji-wokurautonashi-sa-ha-nashinoro-karunomit/)
-- [12 steps you can take right now to be safer online](/posts/2025/11/12-steps-you-can-take-right-now-to-be-safer-online/)
-
-
-
-
-

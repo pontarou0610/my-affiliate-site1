@@ -85,6 +85,10 @@ canonifyURLs = true
     url = "legal/disclosure/"
     weight = 95
   [[menu.main]]
+    name = "プライバシー"
+    url = "legal/privacy/"
+    weight = 96
+  [[menu.main]]
     name = "お問い合わせ"
     url = "contact/"
     weight = 99

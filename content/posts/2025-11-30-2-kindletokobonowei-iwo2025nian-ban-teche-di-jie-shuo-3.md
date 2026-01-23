@@ -1,14 +1,16 @@
 ---
 title: "2025年電子書籍リーダー3選アップデート（11/30 サイバー前夜）"
 date: 2025-11-30
-draft: false
+draft: true
 tags: ["電子書籍", "Kindle", "Kobo", "端末選び"]
 categories: ["電子書籍"]
 description: "サイバーマンデー前夜の3機と買い方。"
 slug: "2-kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-3"
 hasRelatedProducts: false
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # 2025年電子書籍リーダー3選アップデート（11/30 サイバー前夜）
 
 サイバー前夜に値動きしやすい3機と、クーポン併用のコツを整理。

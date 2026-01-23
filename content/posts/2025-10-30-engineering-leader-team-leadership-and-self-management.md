@@ -1,13 +1,15 @@
 ---
 title: "エンジニアリングリーダーが技術組織を育てるリーダーシップとセルフマネジメント"
 date: 2025-10-01T09:00:00+09:00
-draft: false
+draft: true
 tags: ["コラム", "マネジメント"]
 categories: ["マネジメント"]
 description: "技術組織を伸ばすためのリーダーシップとセルフマネジメントの要点をわかりやすく解説します。"
 slug: "engineering-leader-team-leadership-and-self-management"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 エンジニアリングリーダーは、技術だけでなく人とチームのマネジメントも担います。本稿では、今日から実践できる具体策に絞ってやさしく解説します。
 
 ## 要点まとめ
@@ -71,13 +73,3 @@ slug: "engineering-leader-team-leadership-and-self-management"
 ## 今日できる小さな一歩
 
 まずはメンバーに1on1ミーティングを提案し、悩みや目標を聞いてみてください。信頼の土台をつくることが、チームの成長を加速させる第一歩になります。
-
-## 関連記事
-
-- [記事一覧を開く](/posts/)
-- [電子書籍デバイスの比較ガイド](/posts/kindle-vs-kobo/)
-- [EPUBとPDFの使い分け](/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u/)
-
-
-
-

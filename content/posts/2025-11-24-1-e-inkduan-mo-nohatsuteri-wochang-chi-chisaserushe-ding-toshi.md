@@ -1,13 +1,15 @@
 ---
 title: "E Ink端末のバッテリーを長持ちさせる設定"
 date: 2025-11-24
-draft: false
+draft: true
 tags: ["電子書籍", "バッテリー", "E Ink"]
 categories: ["電子書籍"]
 description: "E Inkリーダーの電池持ちを伸ばすための明るさ・通信・スリープ設定のポイント。"
 slug: "e-inkduan-mo-nohatsuteri-wochang-chi-chisaserushe-ding-toshi"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # E Ink端末のバッテリーを長持ちさせる設定
 
 ## すぐできる省電力設定

@@ -25,8 +25,36 @@ from dotenv import load_dotenv
 from slugify import slugify as slugify_lib
 import openai
 
+# ---------- paths / config ----------
+REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
+HUGO_CONFIG_PATH = REPO_ROOT / "hugo.toml"
+CONTENT_POSTS_DIR = REPO_ROOT / "content" / "posts"
+
+
+def load_base_url() -> str:
+    """Resolve baseURL for canonicalURL generation (prefer env, fallback to hugo.toml)."""
+    for key in ("SITE_BASE_URL", "BASE_URL"):
+        v = (os.getenv(key) or "").strip()
+        if v:
+            return v
+    try:
+        import tomllib
+
+        if HUGO_CONFIG_PATH.exists():
+            data = tomllib.loads(HUGO_CONFIG_PATH.read_text(encoding="utf-8"))
+            v = (data.get("baseURL") or "").strip()
+            if v:
+                return v
+    except Exception:
+        pass
+    return ""
+
+
+BASE_URL = ""
+
 # ---------- env ----------
 load_dotenv()
+BASE_URL = load_base_url()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     raise SystemExit("OPENAI_API_KEY not set")
@@ -160,6 +188,7 @@ MAX_PRIMARY_EXPAND_ATTEMPTS_TREND = 3
 MAX_RELAXED_EXPAND_ATTEMPTS_TREND = 2
 MAX_RELAXED_EXPAND_ATTEMPTS = 1
 MAX_CONSECUTIVE_FAILS = 3
+META_DESCRIPTION_MAX_CHARS = 120
 
 RELEVANCE_KEYWORDS = [kw.lower() for kw in CORE_KEYWORDS] + [
     "reader",
@@ -502,6 +531,35 @@ def ensure_pillar_links(text: str) -> str:
     for title, url in missing:
         lines.append(f"- [{title}]({url})")
     return text.rstrip() + "\n" + "\n".join(lines) + "\n"
+
+
+def yaml_escape(value: str) -> str:
+    """Escape a value for use inside a double-quoted YAML string."""
+    v = (value or "").replace("\\", "\\\\").replace('"', '\\"')
+    v = re.sub(r"\s+", " ", v).strip()
+    return v
+
+
+def generate_meta_description(topic: str, draft: str, max_chars: int = META_DESCRIPTION_MAX_CHARS) -> str:
+    """Create a concise, unique meta description from generated content."""
+    text = draft or ""
+    text = re.sub(r"(?s)```.*?```", " ", text)
+    text = re.sub(r"(?m)^#+\s+.*$", " ", text)
+    text = re.sub(r"(?m)^\s*[-*+]\s+", " ", text)
+    text = re.sub(r"!\[[^\]]*\]\([^)]+\)", " ", text)
+    text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
+    text = re.sub(r"(?i)\bphoto by\b.*?\bon pexels\b", " ", text)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+
+    if not text:
+        fallback = f"{topic}のポイントと、選び方・手順をわかりやすくまとめました。"
+        return fallback[:max_chars]
+
+    desc = text[:max_chars].rstrip()
+    if desc and desc[-1] not in "。.!?！？":
+        desc += "。"
+    return desc
 
 
 def count_words(text: str) -> int:
@@ -862,8 +920,10 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
 
     draft = strip_unwanted_preface(draft)
 
+    hero_image_url = None
     hero = fetch_pexels_image(topic)
     if hero:
+        hero_image_url = hero.get("image_url") or None
         credit_url = hero.get("photographer_url") or hero.get("pexels_url")
         image_block = (
             f"![{topic}のイメージ]({hero['image_url']})"
@@ -885,7 +945,7 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     rakuten_items = fetch_rakuten_items(topic)
     show_rakuten_widget = bool(rakuten_items)
 
-    out_dir = pathlib.Path("content/posts")
+    out_dir = CONTENT_POSTS_DIR
     related = pick_related_urls(out_dir, today.isoformat(), k=3)
     related_block_lines = ["", "## 関連記事", ""]
     for title, url in related:
@@ -898,11 +958,15 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     seo_title = generate_seo_title(topic, draft)
     tags = generate_tags(topic, draft)
     word_count = count_words(draft)
+    meta_description = generate_meta_description(topic, draft)
 
     canonical_url = None
     robots_no_index = False
     if should_canonicalize_to_kindle_vs_kobo(topic, seo_title):
-        canonical_url = f"{BASE_URL.rstrip('/')}/posts/kindle-vs-kobo/"
+        if BASE_URL:
+            canonical_url = f"{BASE_URL.rstrip('/')}/posts/kindle-vs-kobo/"
+        else:
+            print("[warn] baseURL is not resolved; canonicalURL will not be set.")
         robots_no_index = True
 
     fm = dedent(
@@ -912,10 +976,12 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     date: {today.isoformat()}
     draft: false
     {"robotsNoIndex: true" if robots_no_index else ""}
+    {"sitemap:\n  disable: true" if robots_no_index else ""}
     {f'canonicalURL: "{canonical_url}"' if canonical_url else ""}
+    {f'images: ["{yaml_escape(hero_image_url)}"]' if hero_image_url else ""}
     tags: {tags}
     categories: ["電子書籍"]
-    description: "{topic}に関する実用的なガイドと最新情報をまとめました。"
+    description: "{yaml_escape(meta_description)}"
     slug: "{slug}"
     hasRelatedProducts: false
     showRakutenWidget: {"true" if show_rakuten_widget else "false"}
@@ -952,7 +1018,7 @@ def main():
     if requested_count != args.count:
         print(f"[info] Adjusted count from {args.count} to {requested_count} (allowed range: 1-3).")
 
-    out_dir = pathlib.Path("content/posts")
+    out_dir = CONTENT_POSTS_DIR
     out_dir.mkdir(parents=True, exist_ok=True)
 
     today = datetime.date.today().isoformat()
@@ -1021,7 +1087,7 @@ def main():
             return False
 
         # Avoid creating duplicate/cannibal pages for the main pillar article.
-        if should_canonicalize_to_kindle_vs_kobo(topic_clean) and pathlib.Path("content/posts/kindle-vs-kobo.md").exists():
+        if should_canonicalize_to_kindle_vs_kobo(topic_clean) and (CONTENT_POSTS_DIR / "kindle-vs-kobo.md").exists():
             print(f"[skip] Topic '{topic_clean}' skipped because it targets the existing pillar /posts/kindle-vs-kobo/.")
             return False
 

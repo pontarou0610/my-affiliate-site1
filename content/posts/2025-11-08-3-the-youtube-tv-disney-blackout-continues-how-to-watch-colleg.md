@@ -1,13 +1,15 @@
 ---
 title: "YouTube TVでDisney系チャンネルが視聴できない件のメモ"
 date: 2025-11-08
-draft: false
+draft: true
 tags: ["ニュース", "YouTube TV", "Disney"]
 categories: ["ニュース"]
 description: "YouTube TVとDisney系チャンネルの契約問題による視聴不可（ESPN/ABCなど）の際の代替視聴メモ。"
 slug: "the-youtube-tv-disney-blackout-continues-how-to-watch-colleg"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 ## 概要
 - 契約交渉の影響でESPN/ABCなどDisney系チャンネルが一時視聴不可に。
 - 公式の案内と返金ポリシーを確認し、代替サービスも検討。
@@ -23,10 +25,3 @@ slug: "the-youtube-tv-disney-blackout-continues-how-to-watch-colleg"
 3. 見逃し配信があるか公式SNS／ヘルプを確認。
 
 ※速報メモ。最新状況は公式ステータスで確認してください。
-
-
-## 関連リーダーガイド
-- [Kindle/Kobo 購入ガイド 2025](/posts/kindle-vs-kobo/)
-- [KindleとKoboの違いまとめ](/posts/kindle-vs-kobo/)
-- [楽天Koboでポイントを貯めるLP](/lp/kobo/)
-- [Kindle UnlimitedとKobo Plusの比較](/posts/2025/11/1-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-4/)

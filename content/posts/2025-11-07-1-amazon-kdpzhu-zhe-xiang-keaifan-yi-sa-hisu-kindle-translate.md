@@ -1,13 +1,15 @@
 ---
 title: "KDPで翻訳出版するときのチェックリスト"
 date: 2025-11-07
-draft: false
+draft: true
 tags: ["KDP", "翻訳", "出版"]
 categories: ["出版"]
 description: "KDPで翻訳本を出す際の権利確認、校正、プロモーションの基本チェックリスト。"
 slug: "amazon-kdpzhu-zhe-xiang-keaifan-yi-sa-hisu-kindle-translate"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # KDPで翻訳出版するときのチェックリスト
 
 著作権と品質を守りつつ、Kindleで翻訳本を出すための最小手順です。

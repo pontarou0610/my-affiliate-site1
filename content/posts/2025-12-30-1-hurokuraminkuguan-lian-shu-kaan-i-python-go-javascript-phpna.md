@@ -11,7 +11,6 @@ slug: "hurokuraminkuguan-lian-shu-kaan-i-python-go-javascript-phpna"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## いまプログラミング本を買うなら「Kindle本年末年始セール」が狙い目
 
 ![プログラミング関連書が安い！Python、Go、JavaScript、PHPなど、Amazonの「Kindle本年末年始セール」／「生成AIアプリ開発入門 Dify 徹底活用ガイド」が50％OFFの1,485円のイメージ](https://images.pexels.com/photos/34448906/pexels-photo-34448906.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -283,19 +282,10 @@ PythonやGoのリファレンス的な本は、紙と電子を併用している
 - 『生成AIアプリ開発入門 Dify 徹底活用ガイド』は、ノーコードでAIアプリを作りつつ、業務フロー設計の感覚を掴める実務寄りの1冊です。
 - プログラミング入門書と生成AI本をセットで選ぶことで、「AIに任せる部分」と「自分でコードを書く部分」の境界が見えやすくなります。
 
-技術書選びや電子リーダーの活用法をもっと知りたい方は、
-も参考にしてみてください。
+技術書選びや電子リーダーの活用法をもっと知りたい方は、下記の関連ガイドもあわせてご覧ください。
 
 ## 関連ガイド
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [Apple Watch SE 3がブラックフライデー前に約$200に](/posts/2025/11/the-apple-watch-se-3-drops-to-200-before-black-friday/)
-- [Kindle UnlimitedとKobo Plusの比較ガイド（11/27版）](/posts/2025/11/3-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-2/)
-- [2025年電子書籍リーダー3選アップデート（11/18版）](/posts/2025/11/1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-4/)
-

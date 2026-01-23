@@ -1,13 +1,15 @@
 ---
 title: "Engadget Podcast: 2025年の注目ガジェットまとめ"
 date: 2025-11-09
-draft: false
+draft: true
 tags: ["ニュース", "ガジェット", "ポッドキャスト"]
 categories: ["ニュース"]
 description: "Engadget Podcastで紹介された2025年お気に入りガジェットのメモ。"
 slug: "engadget-podcast-our-favorite-gadgets-of-2025"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 ## 概要
 - Engadget Podcastで紹介された2025年の注目ガジェットをピックアップ。
 - スマートホーム、ウェアラブル、Eインク系デバイスなどが話題。
@@ -22,10 +24,3 @@ slug: "engadget-podcast-our-favorite-gadgets-of-2025"
 - 話題になった製品リンクは順次追記してください。
 
 ※速報メモ。公開用に整える際は詳細レビューを追加してください。
-
-
-## 関連リーダーガイド
-- [Kindle/Kobo 購入ガイド 2025](/posts/kindle-vs-kobo/)
-- [KindleとKoboの違いまとめ](/posts/kindle-vs-kobo/)
-- [楽天Koboでポイントを貯めるLP](/lp/kobo/)
-- [Kindle UnlimitedとKobo Plusの比較](/posts/2025/11/1-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-4/)

@@ -1,13 +1,15 @@
 ---
 title: "EPUBとPDFの速読ワークフロー（基本編）"
 date: 2025-11-21
-draft: false
+draft: true
 tags: ["電子書籍", "EPUB", "PDF", "読書術"]
 categories: ["電子書籍"]
 description: "文字中心の本はEPUB、図版多めはPDFに分けて効率よく読むための基本ワークフロー。"
 slug: "epubyapdfwokindletekuai-shi-nidu-mutamenowan-quan-kaito"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # EPUBとPDFの速読ワークフロー（基本編）
 
 ## ステップ

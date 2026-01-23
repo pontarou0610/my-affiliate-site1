@@ -11,7 +11,6 @@ slug: "huresenzi-liao-zuo-cheng-hatokomateainiren-serarerunoka-gemi"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## プレゼン資料作成はどこまでAIに任せられるのか
 
 ![プレゼン資料作成はどこまでAIに任せられるのか。Gemini、NotebookLM、ChatGPTを組み合わせ、構成からデザイン、PowerPoint化までを検証（東洋経済オンライン） - Yahoo!ニュースのイメージ](https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -338,19 +337,10 @@ Kindleで読んだ本のハイライトをエクスポートし、ChatGPTに読�
 プレゼン資料作成は、構成・文章・レイアウトの多くをAIに任せられる段階に入っていますが、「誰に何を伝え、どう動いてほしいか」という本質的な設計は、まだ人間の領域です。  
 Gemini・NotebookLM・ChatGPTをそれぞれの得意分野で使い分け、「AIは共同編集者」というスタンスで取り入れると、作業時間を減らしつつ説得力を維持しやすくなります。
 
-読書や情報収集のインプットをプレゼンにどう活かすかを考える際は、あわせて 
-も参考にしてみてください。
+読書や情報収集のインプットをプレゼンにどう活かすかを考える際は、下記の関連ガイドもあわせてご覧ください。
 
 ## 関連ガイド
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [YouTube TVでDisney系チャンネルが視聴できない件のメモ](/posts/2025/11/the-youtube-tv-disney-blackout-continues-how-to-watch-colleg/)
-- [Kindle UnlimitedとKobo Plusの比較ガイド（11/20版）](/posts/2025/11/1-kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao-2/)
-- [フォント選びとライティングで読書を快適にする](/posts/2025/11/huo-zi-li-re-rentarushiyotsuhuku-zhan-nanoni-hutsukuohutokeo/)
-

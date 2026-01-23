@@ -1,13 +1,15 @@
 ---
 title: "フォントサイズを揃えて読みやすくする3つの設定"
 date: 2025-11-05
-draft: false
+draft: true
 tags: ["電子書籍", "設定", "読書術"]
 categories: ["電子書籍"]
 description: "Kindle/Koboでフォントサイズと行間を整え、どの端末でも読みやすくする簡単な設定。"
 slug: "huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # フォントサイズを揃えて読みやすくする3つの設定
 
 端末をまたいで読むと文字サイズがバラバラになりがち。基本設定を決めておけばストレスが減ります。
@@ -26,8 +28,3 @@ slug: "huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi"
 - 文字組みは「両端揃え」より「左揃え」にするとリズムが一定で読みやすい。
 - 太字・斜体の多い本はフォントをゴシックに切り替え、判読性を上げる。
 - 行間を広げても縦方向のスクロール回数が増えすぎないか確認。
-
-## 関連リーダーガイド
-- [Kindle/Kobo 購入ガイド 2025](/posts/kindle-vs-kobo/)
-- [見開き・縦書き・横書きの読みやすさ設定](/posts/2025/11/3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
-- [KindleとKoboの違いまとめ](/posts/kindle-vs-kobo/)

@@ -9,7 +9,6 @@ slug: "2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-2"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 # 2025年最新の電子書籍リーダー3選
 
 ![2025年最新の電子書籍リーダー3選のイメージ](https://images.pexels.com/photos/34993508/pexels-photo-34993508.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -64,11 +63,3 @@ Onyx Boox Note Air 2は、電子ペーパー技術を使用した大画面のリ
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [見開き・縦書き・横書きの読みやすさ設定ガイド（11/30版）](/posts/2025/11/3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
-- [Valetudoでロボット掃除機をクラウドなしで運用するメモ](/posts/2025/11/rohotsutosao-chu-ji-wokurautonashi-sa-ha-nashinoro-karunomit/)
-- [読書速度を無理なく上げる7つの習慣](/posts/2025/11/tekiruchi-mute7-5bei-shi-wareru-sheng-gua-ke-toha-17mo-ren-n/)
-

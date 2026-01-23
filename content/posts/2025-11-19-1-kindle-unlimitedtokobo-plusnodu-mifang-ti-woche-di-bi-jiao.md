@@ -1,14 +1,16 @@
 ---
 title: "Kindle UnlimitedとKobo Plusの比較ガイド（11/19版）"
 date: 2025-11-19
-draft: false
+draft: true
 tags: ["電子書籍", "サブスク", "Kindle", "Kobo"]
 categories: ["電子書籍"]
 description: "11/19時点のKindle UnlimitedとKobo Plus比較メモ。"
 slug: "1-kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao"
 hasRelatedProducts: false
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # Kindle UnlimitedとKobo Plusの比較ガイド（11/19版）
 
 サブスクを選ぶときは「読みたいジャンル」「端末の使い分け」「ポイント還元」で決めるのが近道です。11/19版のアップデート版として、直近のキャンペーンを踏まえて整理しました。

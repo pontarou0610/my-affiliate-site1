@@ -11,7 +11,6 @@ slug: "huru-raitowoyi-etemu-woshou-rudu-shu-shu"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## ブルーライトを抑える「読書設計」という発想
 
 ![ブルーライトを抑えて目を守る読書術のイメージ](https://images.pexels.com/photos/3970339/pexels-photo-3970339.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -235,11 +234,3 @@ KindleやKoboは、同じアカウントなら読書位置がクラウドで同�
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [Kobo Clara 2E レビュー：軽さと防水が魅力のエントリー最強機](/posts/kobo-clara-review/)
-- [Kindle UnlimitedとKobo Plusの比較ガイド（11/30版）](/posts/2025/11/1-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-4/)
-- [オンラインで安全に過ごすための12ステップ](/posts/2025/11/12-steps-you-can-take-right-now-to-be-safer-online/)
-

@@ -11,7 +11,6 @@ slug: "aino-tohutsuku-notebooklm-nite-tate-hurukazhui-jia-zi-liao-w"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## NotebookLMの「データテーブル」機能とは何か
 
 ![AIノートブック「NotebookLM」にデータテーブルが追加、資料をもとに表を生成／Googleスプレッドシートにもエクスポート可能のイメージ](https://images.pexels.com/photos/35280311/pexels-photo-35280311.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -278,11 +277,3 @@ NotebookLMのデータテーブルは、AIが資料から自動で「表」を�
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [2025年電子書籍リーダー3選アップデート（11/27 BF直前）](/posts/2025/11/2-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-4/)
-- [「Kindle UnlimitedとKobo Plusの違いを徹底解説！あなたに最適な電子書籍サービスを見つけよう」](/posts/2025/12/kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-2/)
-- [見開き・縦書き・横書きの読みやすさ設定ガイド（11/23版）](/posts/2025/11/1-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato/)
-

@@ -1,14 +1,16 @@
 ---
 title: "2025年電子書籍リーダー3選アップデート（12/1 サイバーマンデー）"
 date: 2025-12-01
-draft: false
+draft: true
 tags: ["電子書籍", "Kindle", "Kobo", "端末選び"]
 categories: ["電子書籍"]
 description: "サイバーマンデー当日の3機セレクト。"
 slug: "3-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-6"
 hasRelatedProducts: false
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # 2025年電子書籍リーダー3選アップデート（12/1 サイバーマンデー）
 
 サイバーマンデーで狙いやすい3機を厳選し、実質価格の下げ方をまとめました。

@@ -11,7 +11,6 @@ slug: "komitsukuka33yuan-jun-yi-se-ruzhong-amazon-kindleben-sutoano"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## カドカワ祭り2026とは？33円均一コミックの基本を整理
 
 ![コミックが33円均一セール中！Amazon Kindle本ストアの「カドカワ祭り2026」／『多重人格探偵サイコ』『テルマエ・ロマエ』『強殖装甲ガイバー』『涼宮ハルヒの憂鬱』などのイメージ](https://images.pexels.com/photos/9212718/pexels-photo-9212718.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -326,18 +325,10 @@ Kindle端末とスマホアプリを併用し、
 
 といった流れで進めていただくと、セールを無理なく活用しやすくなります。
 
-電子書籍リーダーやアプリの選び方をもっと知りたい方は、こちらも参考にしてみてください。
+電子書籍リーダーやアプリの選び方をもっと知りたい方は、下記の関連ガイドもあわせてご覧ください。
 
 ## 関連ガイド
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [2025年電子書籍リーダー3選アップデート（11/16週末版）](/posts/2025/11/1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-2/)
-- [Kindle Paperwhite レビュー：第11世代の良いところ・惜しいところ](/posts/kindle-paperwhite-review/)
-- [Kindleとスマホ併用で読書時間を倍増！便利な同期機能の活用法](/posts/2025/12/dian-zi-shu-ji-tehaisutosumahowobing-yong-surumeritsuto/)
-

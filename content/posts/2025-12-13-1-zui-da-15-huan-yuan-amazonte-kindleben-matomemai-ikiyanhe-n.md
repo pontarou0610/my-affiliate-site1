@@ -9,7 +9,6 @@ slug: "zui-da-15-huan-yuan-amazonte-kindleben-matomemai-ikiyanhe-n"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ![最大15％還元！Amazonで「Kindle本まとめ買いキャンペーン」が実施中／5週連続開催。購入したKindle本の点数に応じてAmazonポイント獲得のイメージ](https://images.pexels.com/photos/35167343/pexels-photo-35167343.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
 <small>Photo by [Yifan Lai](https://www.pexels.com/@yifan-lai-1434608) on [Pexels](https://www.pexels.com/photo/serene-autumn-scene-with-bridge-and-trees-35167343/)</small>
 
@@ -302,11 +301,3 @@ Kindleは「どこまで読んだか」が自動同期されるため、デバ�
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [「2025年版：KindleとKoboの違いを徹底比較！電子書籍選びのポイント」](/posts/kindle-vs-kobo/)
-- [見開き・縦書き・横書きの読みやすさ設定ガイド（11/26版）](/posts/2025/11/3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-2/)
-- [Engadget Podcast: 2025年の注目ガジェットまとめ](/posts/2025/11/engadget-podcast-our-favorite-gadgets-of-2025/)
-

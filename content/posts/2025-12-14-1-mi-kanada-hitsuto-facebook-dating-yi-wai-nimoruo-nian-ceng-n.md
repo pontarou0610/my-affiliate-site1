@@ -1,15 +1,17 @@
 ---
 title: "若年層に広がるFacebook Dating活用術：Kindle・電子書籍好きが安心して出会える理由"
 date: 2025-12-14
-draft: false
+draft: true
 tags: ['Facebook出会い', '若年層恋愛', 'マッチング機能', 'SNS恋活']
 categories: ["電子書籍"]
 description: "密かな大ヒット「Facebook Dating」──意外にも若年層に広がっていたに関する実用的なガイドと最新情報をまとめました。"
 slug: "mi-kanada-hitsuto-facebook-dating-yi-wai-nimoruo-nian-ceng-n"
 hasRelatedProducts: false
 showRakutenWidget: true
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 ![密かな大ヒット「Facebook Dating」──意外にも若年層に広がっていたのイメージ](https://images.pexels.com/photos/1884777/pexels-photo-1884777.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
 <small>Photo by [Pok Rie](https://www.pexels.com/@pok-rie-33563) on [Pexels](https://www.pexels.com/photo/close-up-photo-of-white-mobile-phone-1884777/)</small>
 
@@ -304,11 +306,3 @@ Facebook Datingは、派手さはないものの、
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [2025年電子書籍リーダー3選アップデート（11/22 BF週末）](/posts/2025/11/1-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-2/)
-- [2025年電子書籍リーダー3選アップデート（11/27 BF直前）](/posts/2025/11/2-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-4/)
-- [AI画像生成まわりの最新動向メモ（SD3/NPU/AMDなど）](/posts/2025/11/aidong-hua-sheng-cheng-kachao-jian-dan-sd-3-0-tenpuhua-xiang/)
-

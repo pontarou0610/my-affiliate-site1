@@ -1,14 +1,16 @@
 ---
 title: "2025年電子書籍リーダー3選アップデート（11/16週末版）"
 date: 2025-11-16
-draft: false
+draft: true
 tags: ["電子書籍", "Kindle", "Kobo", "端末選び"]
 categories: ["電子書籍"]
 description: "11/16週末セールを踏まえた3機比較。"
 slug: "1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-2"
 hasRelatedProducts: false
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # 2025年電子書籍リーダー3選アップデート（11/16週末版）
 
 週末のポイント還元を前提に、価格と使い勝手のバランスが良い3台を再整理しました。

@@ -11,7 +11,6 @@ slug: "pcnashitekindleben-woguan-li-zheng-li-surushou-shun"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## PCなしでもKindle本はきちんと整理できる
 
 ![PCなしでKindle本を管理・整理する手順のイメージ](https://images.pexels.com/photos/35471660/pexels-photo-35471660.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -319,11 +318,3 @@ PCなし運用を前提に、「管理のしやすさ」という観点で、代
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [Facebookの外部サイトいいねボタン終了についてのメモ](/posts/2025/11/facebook-wai-bu-saitono-iine-hotanwo26nian-2yue-nizhong-liao/)
-- [Kindle・Koboの電子書籍セールを効率よく追う仕組み化テクニック](/posts/2025/12/dian-zi-shu-ji-nose-ruwoxiao-lu-yokuzhui-ufang-fa/)
-- [Kindle UnlimitedとKobo Plusの比較ガイド（11/30版）](/posts/2025/11/1-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-4/)
-

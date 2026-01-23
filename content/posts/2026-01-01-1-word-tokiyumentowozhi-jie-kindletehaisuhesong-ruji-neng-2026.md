@@ -11,7 +11,6 @@ slug: "word-tokiyumentowozhi-jie-kindletehaisuhesong-ruji-neng-2026"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 # 「WordをKindleに直接送信」が終了へ──2026年春までに何が変わるのか
 
 ![「Word」ドキュメントを直接Kindleデバイスへ送る機能、2026年2月9日より段階的に終了／3月9日までに完全削除のイメージ](https://images.pexels.com/photos/35377378/pexels-photo-35377378.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -329,18 +328,10 @@ Word直送ができなくても、「元論文＋自作要約」のセット運�
 まずは、よく使うWord文書を1つ選び、PDFまたはEPUBに変換してSend to Kindleで送ってみるところから始めてみてください。  
 実際に試してみると、自分に合った形式や手順が見えてきます。
 
-さらに電子書籍リーダーの活用法を深掘りしたい方は、こちらも参考にしてみてください。
+さらに電子書籍リーダーの活用法を深掘りしたい方は、下記の関連ガイドもあわせてご覧ください。
 
 ## 関連ガイド
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [Kindle Paperwhite レビュー：第11世代の良いところ・惜しいところ](/posts/kindle-paperwhite-review/)
-- [オンラインで安全に過ごすための12ステップ](/posts/2025/11/12-steps-you-can-take-right-now-to-be-safer-online/)
-- [Fitbitの部分的な障害が発生中](/posts/2025/11/fitbit-appears-to-be-experiencing-a-partial-outage/)
-

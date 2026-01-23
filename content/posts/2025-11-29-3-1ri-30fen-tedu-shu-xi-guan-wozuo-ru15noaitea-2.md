@@ -8,7 +8,6 @@ description: "朝・移動・夜のスキマで30分読めるようになる実�
 slug: "1ri-30fen-tedu-shu-xi-guan-wozuo-ru15noaitea-2"
 hasRelatedProducts: false
 ---
-
 # 1日30分で読書習慣を作る15のアイデア
 
 ![1日30分で読書習慣を作る15のアイデアのイメージ](https://images.pexels.com/photos/34958238/pexels-photo-34958238.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)

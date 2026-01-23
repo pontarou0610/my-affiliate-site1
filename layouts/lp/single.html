@@ -339,11 +339,11 @@
                 <h2>他のLPもチェック</h2>
                 <div class="cross-links__actions">
                     {{ if eq $brand "kindle" }}
-                    <a class="btn btn-secondary" href="/lp/kobo/">楽天KoboのLPを見る</a>
+                    <a class="btn btn-secondary" href="{{ "lp/kobo/" | relURL }}">楽天KoboのLPを見る</a>
                     {{ else if eq $brand "kobo" }}
-                    <a class="btn btn-secondary" href="/lp/kindle/">KindleのLPを見る</a>
+                    <a class="btn btn-secondary" href="{{ "lp/kindle/" | relURL }}">KindleのLPを見る</a>
                     {{ end }}
-                    <a class="btn btn-primary" href="/">トップページへ</a>
+                    <a class="btn btn-primary" href="{{ .Site.Home.RelPermalink }}">トップページへ</a>
                 </div>
             </div>
         </section>
@@ -408,7 +408,7 @@
     <footer>
         <div class="container">
             <p>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</p>
-            <p><a href="/">トップへ戻る</a></p>
+            <p><a href="{{ .Site.Home.RelPermalink }}">トップへ戻る</a></p>
         </div>
     </footer>
 </body>

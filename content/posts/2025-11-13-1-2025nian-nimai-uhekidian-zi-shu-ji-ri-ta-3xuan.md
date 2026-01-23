@@ -1,14 +1,16 @@
 ---
 title: "2025年電子書籍リーダー3選アップデート（11/13版）"
 date: 2025-11-13
-draft: false
+draft: true
 tags: ["電子書籍", "Kindle", "Kobo", "端末選び"]
 categories: ["電子書籍"]
 description: "11月13日時点のおすすめ3機と値引きの狙い目。"
 slug: "1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan"
 hasRelatedProducts: false
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # 2025年電子書籍リーダー3選アップデート（11/13版）
 
 ブラックフライデー前に、迷ったらこの3機から選べば外しにくいという最新ピックアップです。

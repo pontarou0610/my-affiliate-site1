@@ -8,8 +8,8 @@ if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
 
-# Hugo で生成
-hugo
+# Hugo で生成（古い出力の残存を防ぐ）
+hugo --minify --cleanDestinationDir
 
 # public フォルダへ移動
 Set-Location -Path ".\public"

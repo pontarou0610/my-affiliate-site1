@@ -1,14 +1,16 @@
 ---
 title: "2025年電子書籍リーダー3選アップデート（11/18版）"
 date: 2025-11-18
-draft: false
+draft: true
 tags: ["電子書籍", "Kindle", "Kobo", "端末選び"]
 categories: ["電子書籍"]
 description: "11/18時点の電子書籍リーダー3選と買い方メモ。"
 slug: "1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-4"
 hasRelatedProducts: false
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # 2025年電子書籍リーダー3選アップデート（11/18版）
 
 11/18の在庫と価格動向を見ながら、失敗しにくい3機をピックアップ。

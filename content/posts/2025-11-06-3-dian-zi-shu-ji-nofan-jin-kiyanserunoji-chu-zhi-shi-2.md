@@ -1,13 +1,15 @@
 ---
 title: "電子書籍フォーマットの活用と変換テク（中級編）"
 date: 2025-11-06
-draft: false
+draft: true
 tags: ["電子書籍", "フォーマット", "変換"]
 categories: ["電子書籍"]
 description: "EPUB/PDF/独自形式を目的別に使い分け、Calibreや読み上げ機能を活かすための中級テク。"
 slug: "dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # 電子書籍フォーマットの活用と変換テク（中級編）
 
 ファイル形式を意識すると、端末の性能を引き出せます。
@@ -26,8 +28,3 @@ slug: "dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2"
 - 文字化けする: 変換時のエンコードをUTF-8に固定、フォント埋め込みを確認。
 - 画像が崩れる: PDF→EPUB変換では画像位置が崩れやすいので、固定レイアウト出力を試す。
 - 容量が大きい: 画像圧縮と不要メタデータ削除で最適化。
-
-## 関連リーダーガイド
-- [EPUB/PDFの実践Tips](/posts/2025/11/epubyapdfwokindletekuai-shi-nidu-mutamenowan-quan-kaito-2/)
-- [フォーマット入門編](/posts/2025/11/dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi/)
-- [Kindle/Kobo 購入ガイド 2025](/posts/kindle-vs-kobo/)

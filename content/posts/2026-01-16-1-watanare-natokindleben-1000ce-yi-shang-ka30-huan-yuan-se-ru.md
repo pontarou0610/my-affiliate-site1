@@ -11,7 +11,6 @@ slug: "watanare-natokindleben-1000ce-yi-shang-ka30-huan-yuan-se-ru"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## 『わたなれ』などKindle本1,000冊以上が30％還元セール──「集英社 冬デジ2026」をお得に楽しむ方法
 
 Amazon Kindleストアで「集英社 冬デジ2026」キャンペーンが開催されています。  
@@ -232,11 +231,3 @@ Amazon Kindleストアで「集英社 冬デジ2026」キャンペーンが開�
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [電子書籍フォーマットの活用と変換テク（中級編）](/posts/2025/11/dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi-2/)
-- [「Kindle UnlimitedとKobo Plusの違いを徹底解説！あなたに最適な電子書籍サービスを見つけよう」](/posts/2025/12/kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-2/)
-- [EPUBとPDFの使い分け（補足編）](/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u-2/)
-

@@ -1,14 +1,16 @@
 ---
 title: "2025年電子書籍リーダー3選アップデート（11/21 BF前哨戦）"
 date: 2025-11-21
-draft: false
+draft: true
 tags: ["電子書籍", "Kindle", "Kobo", "端末選び"]
 categories: ["電子書籍"]
 description: "ブラックフライデー前哨戦の3機セレクト。"
 slug: "1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-5"
 hasRelatedProducts: false
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # 2025年電子書籍リーダー3選アップデート（11/21 BF前哨戦）
 
 BF突入前に押さえておきたい3機と、価格が動きやすいポイントを整理しました。

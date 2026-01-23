@@ -11,7 +11,6 @@ slug: "hishinesu-jing-ji-shu-kazui-da-50-off-kindleben-sutoatese-ru"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 # ビジネス・経済書が最大50%OFF！Kindle本セールの「お得な活用術」とIT本の狙い目
 
 ![ビジネス・経済書が最大50%OFF！Kindle本ストアでセール中／『Google Workspace 完全マニュアル』などコンピュータ・IT関連書も。のイメージ](https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -305,19 +304,10 @@ Google Workspace（旧G Suite）は、リモートワークやハイブリッド
 
 この流れを意識しておくと、セールでの購入がそのまま日々の行動変化につながりやすくなります。
 
-さらに電子書籍リーダーや読書術の全体像を知りたい方は、あわせて
-も参考にしてみてください。
+さらに電子書籍リーダーや読書術の全体像を知りたい方は、下記の関連ガイドもあわせてご覧ください。
 
 ## 関連ガイド
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [「Kindleでの縦書き・横書き・見開き表示の読みやすさを徹底比較！」](/posts/2025/12/jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato/)
-- [PCなしでKindle電子書籍をスッキリ整理！スマホだけで蔵書管理する具体手順](/posts/2026/01/pcnashitekindleben-woguan-li-zheng-li-surushou-shun/)
-- [Kindle・Koboの電子書籍セールを効率よく追う仕組み化テクニック](/posts/2025/12/dian-zi-shu-ji-nose-ruwoxiao-lu-yokuzhui-ufang-fa/)
-

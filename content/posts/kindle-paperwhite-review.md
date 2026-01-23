@@ -9,7 +9,6 @@ tags: ["Kindle", "Paperwhite", "レビュー", "電子書籍"]
 slug: "kindle-paperwhite-review"
 url: "/posts/kindle-paperwhite-review/"
 ---
-
 ベストバランス機の定番、Kindle Paperwhite（第11世代）を1か月＋旅行で実使用したプロ視点レビューです。防水・色温度調整・USB-Cと6.8インチ画面で「これ1台で十分」と感じる理由と、買う前に注意すべき点をまとめました。
 
 ※本記事は第11世代Paperwhiteの実使用ベースです。ラインナップや価格は時期により変動するため、購入前に販売ページでご確認ください。

@@ -1,13 +1,15 @@
 ---
 title: "EPUBとPDFの使い分け（補足編）"
 date: 2025-11-07
-draft: false
+draft: true
 tags: ["電子書籍", "EPUB", "PDF"]
 categories: ["電子書籍"]
 description: "EPUBとPDFをシーン別に使い分ける補足メモ。自炊や共有時の注意点も整理。"
 slug: "epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u-2"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # EPUBとPDFの使い分け（補足編）
 
 ## シーン別おすすめ

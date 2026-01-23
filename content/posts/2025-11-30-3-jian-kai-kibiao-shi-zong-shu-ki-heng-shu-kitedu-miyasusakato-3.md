@@ -1,14 +1,16 @@
 ---
 title: "見開き・縦書き・横書きの読みやすさ設定ガイド（11/30版）"
 date: 2025-11-30
-draft: false
+draft: true
 tags: ["電子書籍", "設定", "読書術"]
 categories: ["電子書籍"]
 description: "11/30版：フォント・行間・見開きの最適化まとめ。"
 slug: "3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3"
 hasRelatedProducts: false
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # 見開き・縦書き・横書きの読みやすさ設定ガイド（11/30版）
 
 Kindle/Kobo双方で使える表示最適化の基本をまとめました。11/30版の更新版です。

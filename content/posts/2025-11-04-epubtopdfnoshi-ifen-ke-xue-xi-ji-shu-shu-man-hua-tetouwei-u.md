@@ -1,14 +1,16 @@
 ---
 title: "EPUBとPDFの使い分け：学習・技術書・漫画でどちらを選ぶ？"
 date: 2025-11-04T00:00:00+09:00
-draft: false
+draft: true
 tags: ["電子書籍", "EPUB", "PDF", "Kindle", "Kobo"]
 categories: ["電子書籍"]
 description: "用途別にEPUBとPDFを選ぶポイントを整理し、KindleやKoboでの読みやすさを解説します。"
 slug: "epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u"
 hasRelatedProducts: false
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # EPUBとPDFの使い分け：学習・技術書・漫画でどちらを選ぶ？
 
 電子書籍は主に「EPUB（リフロー）」と「PDF（固定レイアウト）」の2形式。内容と読むデバイスに合わせて選ぶと読みやすさが大きく変わります。

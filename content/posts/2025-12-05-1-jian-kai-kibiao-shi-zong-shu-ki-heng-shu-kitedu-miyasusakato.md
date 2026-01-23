@@ -9,7 +9,6 @@ slug: "jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## 現在の状況
 
 ![見開き表示・縦書き・横書きで読みやすさがどう変わるかのイメージ](https://images.pexels.com/photos/5745018/pexels-photo-5745018.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -100,11 +99,3 @@ A3: 利用目的、デバイス性能、試し読みの活用を考慮するこ�
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [見開き・縦書き・横書きの読みやすさ設定ガイド（11/30版）](/posts/2025/11/3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-3/)
-- [Valetudoでロボット掃除機をクラウドなしで運用するメモ](/posts/2025/11/rohotsutosao-chu-ji-wokurautonashi-sa-ha-nashinoro-karunomit/)
-- [読書速度を無理なく上げる7つの習慣](/posts/2025/11/tekiruchi-mute7-5bei-shi-wareru-sheng-gua-ke-toha-17mo-ren-n/)
-

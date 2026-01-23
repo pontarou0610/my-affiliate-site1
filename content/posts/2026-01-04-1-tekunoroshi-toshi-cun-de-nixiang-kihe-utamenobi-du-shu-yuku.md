@@ -11,7 +11,6 @@ slug: "tekunoroshi-toshi-cun-de-nixiang-kihe-utamenobi-du-shu-yuku"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 # “テクノロジー”と実存的に向き合うための必読書  
 ユク・ホイ最新刊『ポストヨーロッパ』徹底解題
 
@@ -281,11 +280,3 @@ DXや新規事業に関わる人にとって、『ポストヨーロッパ』は
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
-
-
-## 関連記事
-
-- [2025年電子書籍リーダー3選アップデート（11/25 最終週）](/posts/2025/11/1-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-3/)
-- [読書速度を無理なく上げる7つの習慣](/posts/2025/11/tekiruchi-mute7-5bei-shi-wareru-sheng-gua-ke-toha-17mo-ren-n/)
-- [Apple Watch SE 3がブラックフライデー前に約$200に](/posts/2025/11/the-apple-watch-se-3-drops-to-200-before-black-friday/)
-

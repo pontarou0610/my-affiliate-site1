@@ -1,14 +1,16 @@
 ---
 title: "2025年電子書籍リーダー3選アップデート（11/17週明け版）"
 date: 2025-11-17
-draft: false
+draft: true
 tags: ["電子書籍", "Kindle", "Kobo", "端末選び"]
 categories: ["電子書籍"]
 description: "週明けのクーポン更新を反映した3機セレクト。"
 slug: "1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan-3"
 hasRelatedProducts: false
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # 2025年電子書籍リーダー3選アップデート（11/17週明け版）
 
 週明けにクーポンが切り替わるタイミングで、買うべき端末を3つだけに絞っています。

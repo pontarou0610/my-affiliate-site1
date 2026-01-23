@@ -1,14 +1,16 @@
 ---
 title: "2025年電子書籍リーダー3選アップデート（11/28 BF直前夜）"
 date: 2025-11-28
-draft: false
+draft: true
 tags: ["電子書籍", "Kindle", "Kobo", "端末選び"]
 categories: ["電子書籍"]
 description: "BF直前の夜にチェックしたい3機。"
 slug: "1-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-5"
 hasRelatedProducts: false
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # 2025年電子書籍リーダー3選アップデート（11/28 BF直前夜）
 
 在庫切れリスクを踏まえ、直前夜に押さえておきたい3機をまとめました。

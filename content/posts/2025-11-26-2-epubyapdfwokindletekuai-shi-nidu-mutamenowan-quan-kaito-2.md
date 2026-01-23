@@ -1,13 +1,15 @@
 ---
 title: "EPUB/PDFの実践Tips（変換・注釈・共有編）"
 date: 2025-11-26
-draft: false
+draft: true
 tags: ["電子書籍", "EPUB", "PDF", "ワークフロー"]
 categories: ["電子書籍"]
 description: "EPUBとPDFを行き来しながら読むときの変換、注釈、共有の実践Tips。"
 slug: "epubyapdfwokindletekuai-shi-nidu-mutamenowan-quan-kaito-2"
+robotsNoIndex: true
+sitemap:
+  disable: true
 ---
-
 # EPUB/PDFの実践Tips（変換・注釈・共有編）
 
 ## 変換
