@@ -1,7 +1,8 @@
 name: Daily Post
+
 on:
   schedule:
-    - cron: '11 0 * * *'   # UTC 00:30 = JST 09:30
+    - cron: '11 0 * * *' # UTC 00:11 = JST 09:11
   workflow_dispatch:
 
 permissions:
@@ -15,14 +16,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: true        # ★ PaperModを取得
+          submodules: true
           fetch-depth: 0
+          persist-credentials: true
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
-      
+
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
@@ -52,12 +54,12 @@ jobs:
       - name: Install Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.149.0'   # 0.146 以上ならOK（例では 0.149.0）
+          hugo-version: '0.149.0'
           extended: true
 
       - name: Clean old build
-        run: rm -rf public resources   # ★ 残骸を掃除
-      
+        run: rm -rf public resources
+
       - name: Sanity check script revision
         run: |
           git rev-parse HEAD
@@ -75,17 +77,20 @@ jobs:
 
       - name: Commit generated post back to main
         if: github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # 最新を取り込んでローカル差分を再適用（競合が出たら失敗してくれる）
+          # Ensure auth for git pull/push in non-interactive runners.
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          # Latest取り込み（競合が出たら失敗）
           git pull --rebase origin main
 
-          # 生成物をステージ（A/U/D すべて）
           git add -A content/posts
 
-          # 変更がある時だけコミット
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
@@ -96,8 +101,8 @@ jobs:
       - name: Build
         run: |
           hugo --minify
-          touch public/.nojekyll       # ★ Jekyll無効化（安全のため）
-          ls -la public | head -n 50   # ★ デバッグ：index.htmlの有無をログに出す
+          touch public/.nojekyll
+          ls -la public | head -n 50
 
       - name: Deploy to Pages
         uses: peaceiris/actions-gh-pages@v3
