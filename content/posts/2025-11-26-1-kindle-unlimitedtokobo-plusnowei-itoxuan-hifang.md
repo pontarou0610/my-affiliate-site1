@@ -1,8 +1,9 @@
 ---
+
 title: "Kindle UnlimitedとKobo Plusの違いを徹底比較：2025年版の選び方"
 date: 2025-11-26T00:00:00+09:00
 draft: false
-tags: ["電子書籍", "Kindle", "Kobo", "サブスク", "読書術"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "Kindle UnlimitedとKobo Plusの料金・品揃え・端末連携の違いを整理し、用途別の選び方と注意点をまとめました。"
 slug: "kindle-unlimitedtokobo-plusnowei-itoxuan-hifang"

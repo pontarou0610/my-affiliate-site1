@@ -1,10 +1,11 @@
 ---
+
 title: "Python・生成AI本が半額！Kindle年末年始セールで狙うべきプログラミング電子書籍ガイド"
 date: 2025-12-30
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "比較レビュー", "レビュー"]
 
 
-tags: ['Kindleセール', 'プログラミング本', '生成AI本', 'Dify活用', 'LLMアプリ開発']
 categories: ["電子書籍"]
 description: "プログラミング関連書が安い！Python、Go、JavaScript、PHPなど、Amazonの「Kindle本年末年始セール」／「生成AIアプリ開発入門 Dify 徹底活用ガイド」が50％OFFの1,485円に関する実用的なガイドと最新情報をまとめました。"
 slug: "hurokuraminkuguan-lian-shu-kaan-i-python-go-javascript-phpna"

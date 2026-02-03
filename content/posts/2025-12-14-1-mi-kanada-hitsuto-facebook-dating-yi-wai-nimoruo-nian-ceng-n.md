@@ -1,8 +1,9 @@
 ---
+
 title: "若年層に広がるFacebook Dating活用術：Kindle・電子書籍好きが安心して出会える理由"
 date: 2025-12-14
 draft: true
-tags: ['Facebook出会い', '若年層恋愛', 'マッチング機能', 'SNS恋活']
+tags: ["電子書籍", "Kindle", "Kobo", "比較レビュー", "レビュー"]
 categories: ["電子書籍"]
 description: "密かな大ヒット「Facebook Dating」──意外にも若年層に広がっていたに関する実用的なガイドと最新情報をまとめました。"
 slug: "mi-kanada-hitsuto-facebook-dating-yi-wai-nimoruo-nian-ceng-n"

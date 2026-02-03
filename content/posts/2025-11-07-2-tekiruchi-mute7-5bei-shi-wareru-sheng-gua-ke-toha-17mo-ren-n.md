@@ -1,8 +1,9 @@
 ---
+
 title: "読書速度を無理なく上げる7つの習慣"
 date: 2025-11-07
 draft: true
-tags: ["読書術", "電子書籍", "習慣"]
+tags: ["電子書籍", "電子ペーパー", "電子書籍リーダー", "レビュー", "読書術"]
 categories: ["電子書籍"]
 description: "スキマ時間でも読書量を7割増やすための実践習慣と設定のコツ。"
 slug: "tekiruchi-mute7-5bei-shi-wareru-sheng-gua-ke-toha-17mo-ren-n"

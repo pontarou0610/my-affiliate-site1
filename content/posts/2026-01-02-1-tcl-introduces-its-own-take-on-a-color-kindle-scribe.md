@@ -1,10 +1,11 @@
 ---
+
 title: "TCLのカラー電子ノート登場：Kindle Scribe超え？電子書籍・手書きメモを一台で完結"
 date: 2026-01-02
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['TCL電子ノート', 'カラーEInk', 'KindleScribe', '電子ペーパー', 'カラー読書']
 categories: ["電子書籍"]
 description: "TCL introduces its own take on a color Kindle Scribeに関する実用的なガイドと最新情報をまとめました。"
 slug: "tcl-introduces-its-own-take-on-a-color-kindle-scribe"

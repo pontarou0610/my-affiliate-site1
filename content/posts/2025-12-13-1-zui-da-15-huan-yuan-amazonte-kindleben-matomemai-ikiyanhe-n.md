@@ -1,8 +1,9 @@
 ---
+
 title: "最大15％還元で電子書籍まとめ買い！Amazon Kindle本キャンペーンでお得にポイント獲得"
 date: 2025-12-13
 draft: false
-tags: ['Kindle本セール', 'まとめ買い', 'Amazonポイント', '電子書籍割引', '還元キャンペーン']
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "最大15％還元！Amazonで「Kindle本まとめ買いキャンペーン」が実施中／5週連続開催。購入したKindle本の点数に応じてAmazonポイント獲得に関する実用的なガイドと最新情報をまとめました。"
 slug: "zui-da-15-huan-yuan-amazonte-kindleben-matomemai-ikiyanhe-n"

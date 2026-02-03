@@ -1,8 +1,9 @@
 ---
+
 title: "Acrobat脆弱性138件に対処：Kindle・Koboで安全に電子書籍を読むための最新版対策ガイド"
 date: 2025-12-12
 draft: false
-tags: ['Adobe脆弱性', 'Acrobat更新', 'PDFセキュリティ', '任意コード実行', 'セキュリティ情報']
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "「Acrobat Reader」などに致命的な脆弱性、2025年12月のAdobeセキュリティ情報／5製品で138件の脆弱性に対処に関する実用的なガイドと最新情報をまとめました。"
 slug: "acrobat-reader-natonizhi-ming-de-nacui-ruo-xing-2025nian-12y"

@@ -1,8 +1,9 @@
 ---
+
 title: "1日30分で電子書籍を楽しむ！読書習慣を簡単に身につける15のアイデア"
 date: 2025-11-29
 draft: false
-tags: ["電子書籍", "Kindle", "Kobo", "読書術"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "朝・移動・夜のスキマで30分読めるようになる実践メニュー。Kindle/Koboで続けるための15の具体的な工夫をまとめました。"
 slug: "1ri-30fen-tedu-shu-xi-guan-wozuo-ru15noaitea-2"

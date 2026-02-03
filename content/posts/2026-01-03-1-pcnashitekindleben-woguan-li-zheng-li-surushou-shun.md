@@ -1,10 +1,11 @@
 ---
+
 title: "PCなしでKindle電子書籍をスッキリ整理！スマホだけで蔵書管理する具体手順"
 date: 2026-01-03
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['Kindle整理術', 'PCなし管理', 'スマホ司令塔', 'コレクション活用', '積読可視化']
 categories: ["電子書籍"]
 description: "PCなしでKindle本を管理・整理する手順に関する実用的なガイドと最新情報をまとめました。"
 slug: "pcnashitekindleben-woguan-li-zheng-li-surushou-shun"

@@ -1,10 +1,11 @@
 ---
+
 title: "無料本で始めるKindle電子書籍生活入門｜お金をかけずに読書量とジャンルを広げる方法"
 date: 2025-12-24
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['Kindle生活', '無料本活用', '電子書籍入門', 'Kindleアプリ', '0円読書']
 categories: ["電子書籍"]
 description: "無料本でKindle生活をはじめる方法に関する実用的なガイドと最新情報をまとめました。"
 slug: "wu-liao-ben-tekindlesheng-huo-wohashimerufang-fa"

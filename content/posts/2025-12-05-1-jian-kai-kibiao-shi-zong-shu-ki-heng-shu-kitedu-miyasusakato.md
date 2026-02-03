@@ -1,8 +1,9 @@
 ---
+
 title: "「Kindleでの縦書き・横書き・見開き表示の読みやすさを徹底比較！」"
 date: 2025-12-05
 draft: false
-tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "見開き表示・縦書き・横書きで読みやすさがどう変わるかに関する実用的なガイドと最新情報をまとめました。"
 slug: "jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato"

@@ -1,8 +1,9 @@
 ---
+
 title: "見開き・縦書き・横書きの読みやすさ設定ガイド（11/26版）"
 date: 2025-11-26
 draft: true
-tags: ["電子書籍", "設定", "読書術"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "11/26アップデート：表示設定の最適化メモ。"
 slug: "3-jian-kai-kibiao-shi-zong-shu-ki-heng-shu-kitedu-miyasusakato-2"

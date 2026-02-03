@@ -1,8 +1,9 @@
 ---
+
 title: "KindleとKoboを併用して本棚を整える方法"
 date: 2025-11-28
 draft: true
-tags: ["電子書籍", "Kindle", "Kobo", "蔵書管理"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "KindleとKoboを併用するときの蔵書整理、同期、フォーマット管理のコツ。"
 slug: "kindletokobowozi-gong-xiang-kedu-shu-tehaisutoshiteshi-ifen"

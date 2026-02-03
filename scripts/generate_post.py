@@ -341,6 +341,7 @@ ALLOWED_TAGS: List[str] = [
     "電子書籍",
     "Kindle",
     "Kobo",
+    "電子ペーパー",
     "電子書籍リーダー",
     "比較レビュー",
     "レビュー",
@@ -359,9 +360,11 @@ ALLOWED_TAGS: List[str] = [
     "KDP",
     "出版",
     "AI",
+    "NotebookLM",
     "ニュース",
     "セキュリティ",
     "プライバシー",
+    "電子書籍入門",
 ]
 
 TAG_SYNONYMS: Dict[str, str] = {
@@ -369,8 +372,16 @@ TAG_SYNONYMS: Dict[str, str] = {
     "kindleセール": "Kindleセール",
     "amazonセール": "セール",
     "楽天セール": "セール",
+    "電子書籍セール": "セール",
     "楽天ポイント": "楽天",
     "amazonポイント": "Amazon",
+    "amazonポイント還元": "Amazon",
+    "rakutenポイント": "楽天",
+    "adobe脆弱性": "セキュリティ",
+    "acrobat更新": "セキュリティ",
+    "pdfセキュリティ": "セキュリティ",
+    "セキュリティ情報": "セキュリティ",
+    "任意コード実行": "セキュリティ",
 }
 
 RAKUTEN_API_ENDPOINT = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601"

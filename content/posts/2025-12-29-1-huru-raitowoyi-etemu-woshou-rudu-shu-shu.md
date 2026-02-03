@@ -1,10 +1,11 @@
 ---
+
 title: "ブルーライトを抑えて目を守るKindle・Kobo読書術｜快眠と集中力を両立する電子書籍の使い方"
 date: 2025-12-29
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['ブルーライト対策', '読書設計', '電子ペーパー', '目の疲れ軽減', 'ナイトモード']
 categories: ["電子書籍"]
 description: "ブルーライトを抑えて目を守る読書術に関する実用的なガイドと最新情報をまとめました。"
 slug: "huru-raitowoyi-etemu-woshou-rudu-shu-shu"

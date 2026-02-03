@@ -1,8 +1,9 @@
 ---
+
 title: "Apple Watch SE 3がブラックフライデー前に約$200に"
 date: 2025-11-10
 draft: true
-tags: ["ニュース", "Apple Watch", "セール"]
+tags: ["電子書籍", "端末選び", "セール", "電子書籍入門"]
 categories: ["ニュース"]
 description: "Apple Watch SE 3がブラックフライデー前に約$200まで値下がりした件のメモ。"
 slug: "the-apple-watch-se-3-drops-to-200-before-black-friday"

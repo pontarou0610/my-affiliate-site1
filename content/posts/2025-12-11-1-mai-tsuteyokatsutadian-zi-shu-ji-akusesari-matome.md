@@ -1,8 +1,9 @@
 ---
+
 title: "「KindleやKoboをもっと楽しむ！買ってよかった電子書籍アクセサリー厳選まとめ」"
 date: 2025-12-11
 draft: false
-tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "買ってよかった電子書籍アクセサリーまとめに関する実用的なガイドと最新情報をまとめました。"
 slug: "mai-tsuteyokatsutadian-zi-shu-ji-akusesari-matome"

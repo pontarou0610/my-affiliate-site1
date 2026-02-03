@@ -1,8 +1,9 @@
 ---
+
 title: "手塚治虫作品セール（最大55%オフ）メモ"
 date: 2025-11-10
 draft: true
-tags: ["セール", "Kindle", "漫画"]
+tags: ["電子書籍", "Kindle", "比較レビュー", "端末選び", "セール"]
 categories: ["ニュース"]
 description: "手塚治虫作品が最大55%オフになるKindleセールのメモ。代表作と購入時の注意点を整理。"
 slug: "huratsuku-shiyatsuku-huo-noniao-natoshou-zhong-zhi-chong-zuo"

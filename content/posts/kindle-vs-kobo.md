@@ -1,9 +1,10 @@
 ---
+
 title: "KindleとKoboを徹底比較：電子書籍リーダーはどっちを選ぶ？（2026年時点）"
 date: 2025-08-22T10:00:00+09:00
 lastmod: 2026-01-06T00:00:00+09:00
 draft: false
-tags: ["Kindle", "Kobo", "電子書籍", "比較レビュー", "Amazon", "楽天"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "KindleとKoboを価格・端末ラインナップ・使い勝手・キャンペーンで比較し、目的別のおすすめをまとめました。"
 slug: "kindle-vs-kobo"

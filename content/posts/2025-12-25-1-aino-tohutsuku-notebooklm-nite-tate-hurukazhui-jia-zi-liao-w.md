@@ -1,10 +1,11 @@
 ---
+
 title: "NotebookLMのデータテーブル活用術：Kindle電子書籍メモから比較表を自動生成する方法"
 date: 2025-12-25
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['NotebookLM', 'データテーブル', 'AI要約表', '学習ノート整理', 'スプレッド連携']
 categories: ["電子書籍"]
 description: "AIノートブック「NotebookLM」にデータテーブルが追加、資料をもとに表を生成／Googleスプレッドシートにもエクスポート可能に関する実用的なガイドと最新情報をまとめました。"
 slug: "aino-tohutsuku-notebooklm-nite-tate-hurukazhui-jia-zi-liao-w"

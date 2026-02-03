@@ -1,8 +1,9 @@
 ---
+
 title: "オンラインで安全に過ごすための12ステップ"
 date: 2025-11-09
 draft: true
-tags: ["セキュリティ", "プライバシー", "パスワード管理"]
+tags: ["電子書籍", "使い方", "設定", "ニュース", "プライバシー"]
 categories: ["セキュリティ"]
 description: "すぐ実践できるオンライン安全12ステップのメモ。パスワード、2段階認証、Wi-Fi設定など基本対策を整理。"
 slug: "12-steps-you-can-take-right-now-to-be-safer-online"

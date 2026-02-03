@@ -1,10 +1,11 @@
 ---
+
 title: "紙派でもハマる電子書籍入門｜Kindle・Koboで快適読書と収納いらずを実現する使いこなし術"
 date: 2025-12-22
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['電子書籍入門', '読書術', 'Kindle活用', 'スキマ時間読書', 'オーディオブック連携']
 categories: ["電子書籍"]
 description: "電子書籍に関する実用的なガイドと最新情報をまとめました。"
 slug: "dian-zi-shu-ji"

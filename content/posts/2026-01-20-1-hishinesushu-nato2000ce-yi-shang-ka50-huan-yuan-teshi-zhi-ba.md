@@ -1,10 +1,11 @@
 ---
+
 title: "Kindle本冬のポイントフェアでビジネス書2000冊以上が実質半額に【Amazon電子書籍50％還元】"
 date: 2026-01-20
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['Kindle本セール', '冬のポイント', 'ビジネス書半額', 'Amazonポイント還元', '会社四季報']
 categories: ["電子書籍"]
 description: "ビジネス書など2,000冊以上が50％還元で実質半額、『会社四季報』や『外資系金融のExcel作成術』『サイコパスから見た世界』など／Amazonで「Kindle本 冬のポイントフェア」！に関する実用的なガイドと最新情報をまとめました。"
 slug: "hishinesushu-nato2000ce-yi-shang-ka50-huan-yuan-teshi-zhi-ba"

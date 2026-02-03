@@ -1,8 +1,9 @@
 ---
+
 title: "Kindle UnlimitedとKobo Plusの比較ガイド（11/19版）"
 date: 2025-11-19
 draft: true
-tags: ["電子書籍", "サブスク", "Kindle", "Kobo"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "11/19時点のKindle UnlimitedとKobo Plus比較メモ。"
 slug: "1-kindle-unlimitedtokobo-plusnodu-mifang-ti-woche-di-bi-jiao"

@@ -1,8 +1,9 @@
 ---
+
 title: "「2025年版KindleとKoboの最新電子書籍リーダー3選：快適な読書体験を実現！」"
 date: 2025-12-05
 draft: false
-tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "2025年最新の電子書籍リーダー3選に関する実用的なガイドと最新情報をまとめました。"
 slug: "2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-2"

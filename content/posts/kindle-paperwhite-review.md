@@ -1,11 +1,12 @@
 ---
+
 title: "Kindle Paperwhite レビュー：第11世代の良いところ・惜しいところ"
 date: 2025-08-15T09:00:00+09:00
 lastmod: 2026-01-06T00:00:00+09:00
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 description: "第11世代Kindle Paperwhiteの使い勝手、防水・色調整ライト・バッテリー持ちを中心にレビュー。迷ったらここを見るチェックリスト付き。"
 categories: ["電子書籍リーダー"]
-tags: ["Kindle", "Paperwhite", "レビュー", "電子書籍"]
 slug: "kindle-paperwhite-review"
 url: "/posts/kindle-paperwhite-review/"
 ---

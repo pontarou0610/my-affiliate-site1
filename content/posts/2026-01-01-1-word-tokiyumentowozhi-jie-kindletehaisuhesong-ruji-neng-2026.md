@@ -1,10 +1,11 @@
 ---
+
 title: "WordをKindleに直接送信終了へ｜2026年春までの電子書籍化・Kobo乗り換え完全ガイド"
 date: 2026-01-01
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['Word直送終了', 'SendToKindle', 'Kindle運用変更', 'Word送信代替', 'Kindle自炊']
 categories: ["電子書籍"]
 description: "「Word」ドキュメントを直接Kindleデバイスへ送る機能、2026年2月9日より段階的に終了／3月9日までに完全削除に関する実用的なガイドと最新情報をまとめました。"
 slug: "word-tokiyumentowozhi-jie-kindletehaisuhesong-ruji-neng-2026"

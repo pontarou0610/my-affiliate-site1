@@ -1,8 +1,9 @@
 ---
+
 title: "Fitbitの部分的な障害が発生中"
 date: 2025-11-08
 draft: true
-tags: ["ニュース", "Fitbit", "障害"]
+tags: ["電子書籍", "ニュース"]
 categories: ["ニュース"]
 description: "2025年11月8日に報告されたFitbitの部分的な障害についてのメモ。ステータス確認方法と暫定対処をまとめています。"
 slug: "fitbit-appears-to-be-experiencing-a-partial-outage"

@@ -1,8 +1,9 @@
 ---
+
 title: "フォント選びとライティングで読書を快適にする"
 date: 2025-11-06
 draft: true
-tags: ["電子書籍", "フォント", "読書術"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "フォント・明るさ・色温度の調整で目の疲れを減らし、読書効率を上げる方法。"
 slug: "huo-zi-li-re-rentarushiyotsuhuku-zhan-nanoni-hutsukuohutokeo"

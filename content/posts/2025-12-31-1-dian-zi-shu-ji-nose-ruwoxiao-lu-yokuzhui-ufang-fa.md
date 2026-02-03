@@ -1,10 +1,11 @@
 ---
+
 title: "Kindle・Koboの電子書籍セールを効率よく追う仕組み化テクニック"
 date: 2025-12-31
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['電子書籍セール', 'Kindleセール', '楽天Kobo', 'BookLive', 'セール追跡']
 categories: ["電子書籍"]
 description: "電子書籍のセールを効率よく追う方法に関する実用的なガイドと最新情報をまとめました。"
 slug: "dian-zi-shu-ji-nose-ruwoxiao-lu-yokuzhui-ufang-fa"

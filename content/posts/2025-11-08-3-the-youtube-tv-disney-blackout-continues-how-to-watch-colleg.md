@@ -1,8 +1,9 @@
 ---
+
 title: "YouTube TVでDisney系チャンネルが視聴できない件のメモ"
 date: 2025-11-08
 draft: true
-tags: ["ニュース", "YouTube TV", "Disney"]
+tags: ["電子書籍"]
 categories: ["ニュース"]
 description: "YouTube TVとDisney系チャンネルの契約問題による視聴不可（ESPN/ABCなど）の際の代替視聴メモ。"
 slug: "the-youtube-tv-disney-blackout-continues-how-to-watch-colleg"

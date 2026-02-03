@@ -1,8 +1,9 @@
 ---
+
 title: "Lego ブラックフライデー早期セール速報"
 date: 2025-11-08
 draft: true
-tags: ["ニュース", "セール", "レゴ"]
+tags: ["電子書籍", "比較レビュー", "レビュー", "端末選び", "セール"]
 categories: ["ニュース"]
 description: "レゴのブラックフライデー早期セールでスター・ウォーズやディズニーセットが最大40%オフになっている件のメモ。"
 slug: "lego-black-friday-deals-early-sales-include-up-to-40-percent"

@@ -1,10 +1,11 @@
 ---
+
 title: "Kindleなど電子書籍読み放題で年間100冊読む人の本の探し方と選び方"
 date: 2026-01-06
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "比較レビュー", "レビュー"]
 
 
-tags: ['読み放題攻略', '本の探し方', '電子書籍活用', 'アルゴリズム推薦', '横断検索術']
 categories: ["電子書籍"]
 description: "読み放題サービスを最大化する本の探し方に関する実用的なガイドと最新情報をまとめました。"
 slug: "du-mifang-ti-sa-hisuwozui-da-hua-suruben-notan-shifang"

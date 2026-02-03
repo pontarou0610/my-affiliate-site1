@@ -1,8 +1,9 @@
 ---
+
 title: "EPUBとPDFの使い分け：学習・技術書・漫画でどちらを選ぶ？"
 date: 2025-11-04T00:00:00+09:00
 draft: true
-tags: ["電子書籍", "EPUB", "PDF", "Kindle", "Kobo"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "用途別にEPUBとPDFを選ぶポイントを整理し、KindleやKoboでの読みやすさを解説します。"
 slug: "epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u"

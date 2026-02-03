@@ -1,8 +1,9 @@
 ---
+
 title: "NotebookLMで調査効率を上げるコツ（Deep Research編）"
 date: 2025-11-15
 draft: true
-tags: ["AI", "リサーチ", "生産性"]
+tags: ["電子書籍", "使い方", "PDF", "NotebookLM", "AI"]
 categories: ["AI"]
 description: "NotebookLMのDeep Research機能を使って資料読み込みと要約を高速化する手順。"
 slug: "notebooklm-kasaraniqiang-hua-deep-research-e-shientokazhui-j"

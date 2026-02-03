@@ -1,8 +1,9 @@
 ---
+
 title: "2025年電子書籍リーダー3選アップデート（11/28 BF直前夜）"
 date: 2025-11-28
 draft: true
-tags: ["電子書籍", "Kindle", "Kobo", "端末選び"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "BF直前の夜にチェックしたい3機。"
 slug: "1-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-5"

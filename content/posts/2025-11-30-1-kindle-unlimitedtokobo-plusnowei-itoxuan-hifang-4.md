@@ -1,8 +1,9 @@
 ---
+
 title: "Kindle UnlimitedとKobo Plusの比較ガイド（11/30版）"
 date: 2025-11-30
 draft: true
-tags: ["電子書籍", "サブスク", "Kindle", "Kobo"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "11/30サイバー前夜のサブスク比較と選び方。"
 slug: "1-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-4"

@@ -1,10 +1,11 @@
 ---
+
 title: "ユク・ホイ『ポストヨーロッパ』入門｜Kindle・電子書籍でテクノロジーと実存を深く理解する方法"
 date: 2026-01-04
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['ユク・ホイ', 'ポストヨーロッパ', 'テクノロジー哲学', '実存と技術', 'AI時代の生き方']
 categories: ["電子書籍"]
 description: "“テクノロジー”と実存的に向き合うための必読書｜ユク・ホイ最新刊『ポストヨーロッパ』徹底解題に関する実用的なガイドと最新情報をまとめました。"
 slug: "tekunoroshi-toshi-cun-de-nixiang-kihe-utamenobi-du-shu-yuku"

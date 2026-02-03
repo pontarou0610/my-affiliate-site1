@@ -1,10 +1,11 @@
 ---
+
 title: "AIでここまでできる！Gemini×ChatGPTで電子書籍級プレゼン資料を量産する方法"
 date: 2025-12-26
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "比較レビュー", "レビュー"]
 
 
-tags: ['AIプレゼン', '資料作成AI', 'Gemini活用', 'NotebookLM', 'ChatGPT活用']
 categories: ["電子書籍"]
 description: "プレゼン資料作成はどこまでAIに任せられるのか。Gemini、NotebookLM、ChatGPTを組み合わせ、構成からデザイン、PowerPoint化までを検証（東洋経済オンライン） - Yahoo!ニュースに関する実用的なガイドと最新情報をまとめました。"
 slug: "huresenzi-liao-zuo-cheng-hatokomateainiren-serarerunoka-gemi"

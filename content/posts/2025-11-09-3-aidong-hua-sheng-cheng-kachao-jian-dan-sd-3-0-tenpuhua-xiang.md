@@ -1,8 +1,9 @@
 ---
+
 title: "AI画像生成まわりの最新動向メモ（SD3/NPU/AMDなど）"
 date: 2025-11-09
 draft: true
-tags: ["AI", "画像生成", "ニュース"]
+tags: ["電子書籍", "AI", "ニュース"]
 categories: ["ニュース"]
 description: "SD3やNPU搭載PC、AMDのAIアクセラレーションなど画像生成の最新動向をメモ。"
 slug: "aidong-hua-sheng-cheng-kachao-jian-dan-sd-3-0-tenpuhua-xiang"

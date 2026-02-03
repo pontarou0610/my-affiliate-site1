@@ -1,8 +1,9 @@
 ---
+
 title: "Engadget Podcast: 2025年の注目ガジェットまとめ"
 date: 2025-11-09
 draft: true
-tags: ["ニュース", "ガジェット", "ポッドキャスト"]
+tags: ["電子書籍", "電子ペーパー", "電子書籍リーダー", "レビュー"]
 categories: ["ニュース"]
 description: "Engadget Podcastで紹介された2025年お気に入りガジェットのメモ。"
 slug: "engadget-podcast-our-favorite-gadgets-of-2025"

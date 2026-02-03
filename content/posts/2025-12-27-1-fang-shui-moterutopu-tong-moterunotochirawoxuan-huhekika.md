@@ -1,10 +1,11 @@
 ---
+
 title: "Kindle・Koboは防水モデルが得？お風呂読書とデータ保護で選び方が変わる理由"
 date: 2025-12-27
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['防水モデル選び', '電子書籍防水', 'IPX規格比較', '生活防水の実態', '端末水濡れリスク']
 categories: ["電子書籍"]
 description: "防水モデルと普通モデルのどちらを選ぶべきかに関する実用的なガイドと最新情報をまとめました。"
 slug: "fang-shui-moterutopu-tong-moterunotochirawoxuan-huhekika"

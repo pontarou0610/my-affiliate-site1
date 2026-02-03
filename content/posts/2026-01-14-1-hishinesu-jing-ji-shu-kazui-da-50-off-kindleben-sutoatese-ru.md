@@ -1,10 +1,11 @@
 ---
+
 title: "ビジネス・IT本が最大50％OFF！Kindle電子書籍セールで仕事力とスキルを一気に底上げする選び方"
 date: 2026-01-14
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['Kindleセール', 'ビジネス書', '経済書', 'IT実務書']
 categories: ["電子書籍"]
 description: "ビジネス・経済書が最大50%OFF！Kindle本ストアでセール中／『Google Workspace 完全マニュアル』などコンピュータ・IT関連書も。に関する実用的なガイドと最新情報をまとめました。"
 slug: "hishinesu-jing-ji-shu-kazui-da-50-off-kindleben-sutoatese-ru"

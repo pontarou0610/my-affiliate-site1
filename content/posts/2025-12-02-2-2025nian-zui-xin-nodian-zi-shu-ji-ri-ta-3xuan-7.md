@@ -1,8 +1,9 @@
 ---
+
 title: "2025年電子書籍リーダー3選アップデート（12/2 延長戦）"
 date: 2025-12-02
 draft: true
-tags: ["電子書籍", "Kindle", "Kobo", "端末選び"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "セール延長戦で買う3機と最終チェック。"
 slug: "2-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-7"

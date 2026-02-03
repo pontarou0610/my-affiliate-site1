@@ -1,10 +1,11 @@
 ---
+
 title: "暗い部屋で目が疲れないKindle・Koboフロントライト最適設定ガイド"
 date: 2025-12-28
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['フロントライト設定', '暗所読書', '電子書籍リーダー', '色温度調整', '視覚順応']
 categories: ["電子書籍"]
 description: "暗所で読むときに最適なフロントライトの設定に関する実用的なガイドと最新情報をまとめました。"
 slug: "an-suo-tedu-mutokinizui-shi-nahurontoraitonoshe-ding"

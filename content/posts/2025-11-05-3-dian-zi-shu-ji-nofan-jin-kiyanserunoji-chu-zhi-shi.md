@@ -1,8 +1,9 @@
 ---
+
 title: "電子書籍フォーマットの基礎（EPUB/PDF/独自形式）"
 date: 2025-11-05
 draft: true
-tags: ["電子書籍", "フォーマット", "入門"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "EPUB・PDF・Kindle/Koboの独自形式の違いと使い分けを初心者向けに整理。"
 slug: "dian-zi-shu-ji-nofan-jin-kiyanserunoji-chu-zhi-shi"

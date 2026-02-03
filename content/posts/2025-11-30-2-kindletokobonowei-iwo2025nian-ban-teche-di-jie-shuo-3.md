@@ -1,8 +1,9 @@
 ---
+
 title: "2025年電子書籍リーダー3選アップデート（11/30 サイバー前夜）"
 date: 2025-11-30
 draft: true
-tags: ["電子書籍", "Kindle", "Kobo", "端末選び"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "サイバーマンデー前夜の3機と買い方。"
 slug: "2-kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-3"

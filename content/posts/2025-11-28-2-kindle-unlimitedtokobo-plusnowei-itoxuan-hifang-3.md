@@ -1,8 +1,9 @@
 ---
+
 title: "Kindle UnlimitedとKobo Plusの比較ガイド（11/28版・完全保存版）"
 date: 2025-11-28
 draft: false
-tags: ["電子書籍", "サブスク", "Kindle", "Kobo", "読み放題"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "11/28版の最新キャンペーンを踏まえたKindle UnlimitedとKobo Plusの比較。価格・蔵書・還元率・端末相性・選び方チェックリスト・乗り換え動線まで徹底解説。"
 slug: "2-kindle-unlimitedtokobo-plusnowei-itoxuan-hifang-3"

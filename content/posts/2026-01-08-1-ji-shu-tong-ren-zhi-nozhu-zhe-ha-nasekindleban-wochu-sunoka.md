@@ -1,10 +1,11 @@
 ---
+
 title: "技術同人誌をKindleなど電子書籍化するメリット・デメリットを著者目線で徹底解説"
 date: 2026-01-08
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['技術同人誌', 'Kindle出版', '電子技術書', '技術書典', '個人開発本']
 categories: ["電子書籍"]
 description: "技術同人誌の著者は、なぜKindle版を出すのか or 出さないのか - プログラマでありたいに関する実用的なガイドと最新情報をまとめました。"
 slug: "ji-shu-tong-ren-zhi-nozhu-zhe-ha-nasekindleban-wochu-sunoka"

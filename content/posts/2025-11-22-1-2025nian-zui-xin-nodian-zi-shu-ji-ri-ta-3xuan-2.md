@@ -1,8 +1,9 @@
 ---
+
 title: "2025年電子書籍リーダー3選アップデート（11/22 BF週末）"
 date: 2025-11-22
 draft: true
-tags: ["電子書籍", "Kindle", "Kobo", "端末選び"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "BF週末のおすすめ3機と還元強化メモ。"
 slug: "1-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-2"

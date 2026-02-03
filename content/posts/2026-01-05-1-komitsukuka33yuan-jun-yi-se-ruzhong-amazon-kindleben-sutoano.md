@@ -1,10 +1,11 @@
 ---
+
 title: "コミック33円均一！Kindle電子書籍「カドカワ祭り2026」で名作をまとめ買いするコツ"
 date: 2026-01-05
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['カドカワ祭り2026', 'Kindleコミック', '33円セール', 'KADOKAWA漫画', '電子書籍セール']
 categories: ["電子書籍"]
 description: "コミックが33円均一セール中！Amazon Kindle本ストアの「カドカワ祭り2026」／『多重人格探偵サイコ』『テルマエ・ロマエ』『強殖装甲ガイバー』『涼宮ハルヒの憂鬱』などに関する実用的なガイドと最新情報をまとめました。"
 slug: "komitsukuka33yuan-jun-yi-se-ruzhong-amazon-kindleben-sutoano"

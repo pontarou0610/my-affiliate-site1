@@ -1,8 +1,9 @@
 ---
+
 title: "「Kindleで1日30分！読書習慣を身につける15の実践アイデア」"
 date: 2025-12-07
 draft: false
-tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "1日30分で読書習慣を作る15のアイデアに関する実用的なガイドと最新情報をまとめました。"
 slug: "1ri-30fen-tedu-shu-xi-guan-wozuo-ru15noaitea-4"

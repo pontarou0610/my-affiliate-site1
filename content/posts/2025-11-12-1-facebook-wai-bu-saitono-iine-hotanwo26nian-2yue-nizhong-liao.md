@@ -1,8 +1,9 @@
 ---
+
 title: "Facebookの外部サイトいいねボタン終了についてのメモ"
 date: 2025-11-12
 draft: true
-tags: ["ニュース", "Facebook", "ソーシャル"]
+tags: ["電子書籍", "ニュース"]
 categories: ["ニュース"]
 description: "Facebookが外部サイトのいいねボタンを終了する件の概要と影響、サイト運営者が取るべき対応。"
 slug: "facebook-wai-bu-saitono-iine-hotanwo26nian-2yue-nizhong-liao"

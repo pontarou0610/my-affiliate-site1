@@ -1,8 +1,9 @@
 ---
+
 title: "フォントサイズを揃えて読みやすくする3つの設定"
 date: 2025-11-05
 draft: true
-tags: ["電子書籍", "設定", "読書術"]
+tags: ["電子書籍", "電子ペーパー", "電子書籍リーダー", "使い方", "設定"]
 categories: ["電子書籍"]
 description: "Kindle/Koboでフォントサイズと行間を整え、どの端末でも読みやすくする簡単な設定。"
 slug: "huontosaisuwoheng-fu-hitsutarinihe-waserufit-widthnoti-an-qi"

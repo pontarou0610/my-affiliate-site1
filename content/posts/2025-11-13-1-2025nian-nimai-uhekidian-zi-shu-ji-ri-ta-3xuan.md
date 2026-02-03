@@ -1,8 +1,9 @@
 ---
+
 title: "2025年電子書籍リーダー3選アップデート（11/13版）"
 date: 2025-11-13
 draft: true
-tags: ["電子書籍", "Kindle", "Kobo", "端末選び"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "11月13日時点のおすすめ3機と値引きの狙い目。"
 slug: "1-2025nian-nimai-uhekidian-zi-shu-ji-ri-ta-3xuan"

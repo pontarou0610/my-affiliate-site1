@@ -1,10 +1,11 @@
 ---
+
 title: "Kindle電子書籍が実質30％還元！『わたなれ』『鬼滅』ほか集英社冬デジ2026攻略ガイド"
 date: 2026-01-16
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
-tags: ['集英社冬デジ2026', 'Kindleセール', 'わたなれ', '鬼滅スピンオフ', '水滸伝合本']
 categories: ["電子書籍"]
 description: "『わたなれ』などKindle本1,000冊以上が30％還元セール、『鬼滅の刃』スピンオフや北方謙三『水滸伝』合本版、『BLEACH』ノベライズも／Amazonで「集英社 冬デジ2026」開催中！に関する実用的なガイドと最新情報をまとめました。"
 slug: "watanare-natokindleben-1000ce-yi-shang-ka30-huan-yuan-se-ru"

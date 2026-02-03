@@ -1,8 +1,9 @@
 ---
+
 title: "Kindle本がEPUB・PDF対応へ｜Koboなど他端末でも読める電子書籍の新しい活用術"
 date: 2025-12-16
 draft: false
-tags: ['Kindle本EPUB化', 'KindlePDF対応', '電子書籍形式', 'DRMと所有権', '学習用途活用']
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "Kindle本、来年から一部EPUB/ PDFでのダウンロードが可能にに関する実用的なガイドと最新情報をまとめました。"
 slug: "kindleben-lai-nian-karayi-bu-epub-pdftenotaunro-tokake-neng"

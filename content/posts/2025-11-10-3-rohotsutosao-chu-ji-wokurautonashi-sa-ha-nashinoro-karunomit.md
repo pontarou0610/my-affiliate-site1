@@ -1,8 +1,9 @@
 ---
+
 title: "Valetudoでロボット掃除機をクラウドなしで運用するメモ"
 date: 2025-11-10
 draft: true
-tags: ["スマートホーム", "ロボット掃除機", "プライバシー"]
+tags: ["電子書籍", "使い方", "設定", "プライバシー"]
 categories: ["ニュース"]
 description: "Valetudoを使ってロボット掃除機をクラウド依存なしに動かす際の注意点メモ。"
 slug: "rohotsutosao-chu-ji-wokurautonashi-sa-ha-nashinoro-karunomit"

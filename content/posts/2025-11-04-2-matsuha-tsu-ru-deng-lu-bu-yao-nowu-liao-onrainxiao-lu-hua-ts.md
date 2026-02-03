@@ -1,8 +1,9 @@
 ---
+
 title: "パスキー＆ワンタイムコードでログインをラクにする方法"
 date: 2025-11-04
 draft: true
-tags: ["セキュリティ", "パスワード", "パスキー"]
+tags: ["電子書籍", "電子ペーパー", "電子書籍リーダー", "使い方", "設定"]
 categories: ["セキュリティ"]
 description: "パスワードレス化（パスキー＋ワンタイムコード）でログインを効率化しつつ安全にする手順。"
 slug: "matsuha-tsu-ru-deng-lu-bu-yao-nowu-liao-onrainxiao-lu-hua-ts"

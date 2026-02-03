@@ -1,8 +1,9 @@
 ---
+
 title: "「Kindleとスマホ併用のメリット：シーン別に楽しむ読書法」"
 date: 2025-12-04
 draft: false
-tags: ['電子書籍', 'Kindle', 'Kobo', '読書術']
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "電子書籍デバイスとスマホを併用するメリットに関する実用的なガイドと最新情報をまとめました。"
 slug: "dian-zi-shu-ji-tehaisutosumahowobing-yong-surumeritsuto-2"

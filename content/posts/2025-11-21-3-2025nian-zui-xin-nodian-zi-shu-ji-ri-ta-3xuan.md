@@ -1,8 +1,9 @@
 ---
+
 title: "2025年最新の電子書籍リーダー3選：失敗しない買い方ガイド"
 date: 2025-11-21T00:00:00+09:00
 draft: true
-tags: ["電子書籍", "Kindle", "Kobo", "読書術"]
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 description: "2025年に買うべきKindle/Koboのおすすめ3機種を用途別に整理。選び方のコツとセール攻略、チェックリスト付き。"
 slug: "2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan"
