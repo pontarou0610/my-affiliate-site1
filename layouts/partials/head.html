@@ -6,7 +6,8 @@
 
 {{- /* Thin term pages (e.g., 1-post tags/categories) are usually not worth indexing. */ -}}
 {{- if and (not $robotsNoIndex) (eq .Kind "term") -}}
-  {{- $termCount := len .RegularPages -}}
+  {{- $indexablePages := where .RegularPages "Params.robotsNoIndex" "ne" true -}}
+  {{- $termCount := len $indexablePages -}}
   {{- if le $termCount 1 -}}
     {{- $robotsNoIndex = true -}}
   {{- end -}}

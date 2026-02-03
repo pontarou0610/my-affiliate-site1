@@ -273,6 +273,7 @@ USER_TMPL = """\
 # 要件
 - 読者が初心者でも理解できるように5つ以上の具体例や対策を盛り込む
 - 最新の利用シーンや活用アイデアを含める
+- 見出しはH2(##)から開始し、H1(#)は使わない（ページタイトルは別途表示されます）
 - 同じH2を連続させず、自然な流れでH2/H3を組み立てる
 - Kindle/Koboなどの固有名詞は文脈に応じて出し分ける
 - トーンは丁寧だが押し付けがましくしない
@@ -296,6 +297,7 @@ TREND_USER_TMPL = """\
 
 # 要件
 - 文字数: 約2,000〜2,800字（増やせるなら3,000字歓迎）
+- 見出しはH2(##)から開始し、H1(#)は使わない（ページタイトルは別途表示されます）
 - 推奨H2構成:
   1. 現在の状況を3〜5行で背景説明
   2. 最新トレンドの概要
@@ -329,6 +331,7 @@ CHECKLIST = """\
 4) 読者が次に取れる行動が明確か
 5) 内部リンクは末尾に1回だけ[読書ガイド]を入れる
 6) トーンは丁寧で押し付けないか
+7) 本文にH1（#）は使わない（見出しはH2/##から）
 """
 TAG_SYSTEM = "あなたはSEOに詳しい編集者です。記事内容に沿うタグをJSON配列で返してください。"
 
@@ -1028,6 +1031,23 @@ def strip_unwanted_preface(markdown: str) -> str:
     return cleaned
 
 
+def downgrade_markdown_h1(markdown: str) -> str:
+    """Downgrade Markdown level-1 headings (# ) to level-2 (## ) to avoid duplicate <h1>."""
+    lines = markdown.splitlines()
+    out: List[str] = []
+    in_fence = False
+    for line in lines:
+        if re.match(r"^\s*```", line):
+            in_fence = not in_fence
+            out.append(line)
+            continue
+        if not in_fence and re.match(r"^#\s+", line):
+            out.append("## " + line[1:].lstrip())
+            continue
+        out.append(line)
+    return "\n".join(out)
+
+
 def make_post(topic: str, slug: str, template: str = USER_TMPL):
     is_trend_template = template == TREND_USER_TMPL
     user = template.format(topic=topic)
@@ -1081,6 +1101,7 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
         draft = ensure_min_length(draft, lower_words, lower_chars, lower_attempts)
 
     draft = strip_unwanted_preface(draft)
+    draft = downgrade_markdown_h1(draft)
 
     hero_image_url = None
     hero = fetch_pexels_image(topic)

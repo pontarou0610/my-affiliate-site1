@@ -1,0 +1,13 @@
+{{- /*
+Render hook for Markdown headings.
+
+PaperMod already renders the page title as an <h1>. To avoid multiple H1s per page
+(common in auto-generated posts), downgrade Markdown level-1 headings to level-2.
+*/ -}}
+
+{{- $level := .Level -}}
+{{- if eq $level 1 -}}
+  {{- $level = 2 -}}
+{{- end -}}
+
+<h{{ $level }}{{ with .Anchor }} id="{{ . | safeURL }}"{{ end }}>{{ .Text | safeHTML }}</h{{ $level }}>

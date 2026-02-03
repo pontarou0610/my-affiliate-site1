@@ -29,6 +29,7 @@ canonifyURLs = true
 # =========================
 [params]
   env = "production"
+  mainSections = ["posts"]
   defaultTheme = "auto"                 # "dark" | "light" | "auto"
   description = "Kindle・Koboなど電子書籍リーダーの比較から、自費出版・AIライティング・自動化までを解説するブログ"
   images = ["images/ogp-default.jpg"]   # static/images/ogp-default.jpg を参照（project pagesでも崩れない相対パス）
