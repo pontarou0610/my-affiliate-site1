@@ -2,7 +2,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 {{- $isProd := or hugo.IsProduction (eq site.Params.env "production") -}}
-{{- if .Params.robotsNoIndex }}
+{{- $robotsNoIndex := eq .Params.robotsNoIndex true -}}
+
+{{- /* Thin term pages (e.g., 1-post tags/categories) are usually not worth indexing. */ -}}
+{{- if and (not $robotsNoIndex) (eq .Kind "term") -}}
+  {{- $termCount := len .RegularPages -}}
+  {{- if le $termCount 1 -}}
+    {{- $robotsNoIndex = true -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $robotsNoIndex }}
   {{- if $isProd }}
 <meta name="robots" content="noindex, follow">
   {{- else }}
@@ -210,4 +220,3 @@
 {{- partial "templates/twitter_cards.html" . }}
 {{- partial "templates/schema_json.html" . }}
 {{- end -}}
-

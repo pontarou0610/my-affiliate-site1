@@ -234,6 +234,34 @@ def should_canonicalize_to_kindle_vs_kobo(topic_text: str, title_text: str = "")
     has_year_or_latest = bool(re.search(r"\b20\d{2}\b", text)) or any(k in text for k in ["最新", "最新版"])
     return has_compare_intent and (has_device_context or has_year_or_latest)
 
+
+def should_canonicalize_to_kindle_paperwhite_review(topic_text: str, title_text: str = "") -> bool:
+    text = f"{topic_text}\n{title_text}".lower()
+    if "paperwhite" not in text:
+        return False
+
+    # Don't canonicalize cross-brand comparisons.
+    has_compare_intent = any(k in text for k in ["徹底比較", "比較", "違い", "どっち", "vs", "選ぶ", "選び方"])
+    if ("kobo" in text or "clara" in text) and has_compare_intent:
+        return False
+
+    # Focus on "review / should you buy" type intent.
+    review_intent = any(k in text for k in ["レビュー", "評判", "口コミ", "実機", "使ってみた", "良いところ", "惜しいところ", "総評"])
+    return review_intent or ("第11世代" in text) or ("11世代" in text)
+
+
+def should_canonicalize_to_kobo_clara_review(topic_text: str, title_text: str = "") -> bool:
+    text = f"{topic_text}\n{title_text}".lower()
+    if "clara" not in text:
+        return False
+
+    has_compare_intent = any(k in text for k in ["徹底比較", "比較", "違い", "どっち", "vs", "選ぶ", "選び方"])
+    if ("kindle" in text or "paperwhite" in text) and has_compare_intent:
+        return False
+
+    review_intent = any(k in text for k in ["レビュー", "評判", "口コミ", "実機", "使ってみた", "良いところ", "惜しいところ", "総評"])
+    return review_intent or ("2e" in text) or ("2 e" in text)
+
 # ---------- prompts ----------
 SYSTEM = "あなたは電子書籍・電子リーダー専門メディアの熟練編集者として、日本語でSEOを意識しつつオリジナル記事を作成してください。あなたは世界一のブロガーです。"
 USER_TMPL = """\
@@ -303,6 +331,44 @@ CHECKLIST = """\
 6) トーンは丁寧で押し付けないか
 """
 TAG_SYSTEM = "あなたはSEOに詳しい編集者です。記事内容に沿うタグをJSON配列で返してください。"
+
+# Tag pages can easily become thin/duplicated if we let the model invent new tags every day.
+# Keep tags within a controlled set to reduce taxonomy bloat and improve topical clustering.
+ALLOWED_TAGS: List[str] = [
+    "電子書籍",
+    "Kindle",
+    "Kobo",
+    "電子書籍リーダー",
+    "比較レビュー",
+    "レビュー",
+    "端末選び",
+    "読書術",
+    "使い方",
+    "設定",
+    "EPUB",
+    "PDF",
+    "読み放題",
+    "サブスク",
+    "セール",
+    "Kindleセール",
+    "Amazon",
+    "楽天",
+    "KDP",
+    "出版",
+    "AI",
+    "ニュース",
+    "セキュリティ",
+    "プライバシー",
+]
+
+TAG_SYNONYMS: Dict[str, str] = {
+    "kindle本セール": "Kindleセール",
+    "kindleセール": "Kindleセール",
+    "amazonセール": "セール",
+    "楽天セール": "セール",
+    "楽天ポイント": "楽天",
+    "amazonポイント": "Amazon",
+}
 
 RAKUTEN_API_ENDPOINT = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601"
 PEXELS_API_ENDPOINT = "https://api.pexels.com/v1/search"
@@ -610,14 +676,100 @@ def expand_to_min_words(topic: str, draft: str, min_words: int, min_chars: int, 
     return draft
 
 
+def _normalize_allowed_tag(tag: str) -> str | None:
+    t = re.sub(r"\s+", " ", (tag or "").strip())
+    if not t:
+        return None
+    key = t.lower()
+    t = TAG_SYNONYMS.get(key, t)
+    if t not in set(ALLOWED_TAGS):
+        return None
+    return t
+
+
+def _infer_core_tags(topic: str, draft: str) -> List[str]:
+    text = f"{topic}\n{draft}".lower()
+    inferred: List[str] = ["電子書籍"]
+
+    if "kindle" in text:
+        inferred.append("Kindle")
+    if "kobo" in text:
+        inferred.append("Kobo")
+
+    if any(k in text for k in ["e-ink", "e ink", "電子ペーパー", "電子書籍リーダー", "端末", "デバイス"]):
+        inferred.append("電子書籍リーダー")
+
+    if any(k in text for k in ["比較", "違い", "どっち", "vs", "徹底比較"]):
+        inferred.append("比較レビュー")
+    if any(k in text for k in ["レビュー", "評判", "口コミ", "使ってみた", "実機", "感想", "評価"]):
+        inferred.append("レビュー")
+
+    if any(k in text for k in ["選び方", "おすすめ", "買う", "購入", "どれを選ぶ"]):
+        inferred.append("端末選び")
+
+    if any(k in text for k in ["読書術", "読書習慣", "集中", "目が疲れ", "快眠", "寝る前"]):
+        inferred.append("読書術")
+
+    if any(k in text for k in ["使い方", "手順", "方法", "コツ"]):
+        inferred.append("使い方")
+    if "設定" in text:
+        inferred.append("設定")
+
+    if "epub" in text:
+        inferred.append("EPUB")
+    if "pdf" in text:
+        inferred.append("PDF")
+
+    if any(k in text for k in ["読み放題", "unlimited", "kobo plus", "サブスク", "定額"]):
+        inferred.append("読み放題")
+        inferred.append("サブスク")
+
+    if any(k in text for k in ["セール", "キャンペーン", "クーポン", "ブラックフライデー", "プライムデー", "還元"]):
+        inferred.append("セール")
+        if "kindle" in text:
+            inferred.append("Kindleセール")
+
+    if any(k in text for k in ["kdp", "自費出版", "出版", "著者"]):
+        inferred.append("出版")
+        if "kdp" in text:
+            inferred.append("KDP")
+
+    if any(k in text for k in ["ai", "chatgpt", "gemini", "notebooklm"]):
+        inferred.append("AI")
+
+    if any(k in text for k in ["ニュース", "発表", "終了", "アップデート", "リリース"]):
+        inferred.append("ニュース")
+
+    if any(k in text for k in ["脆弱性", "セキュリティ", "不正", "攻撃"]):
+        inferred.append("セキュリティ")
+    if any(k in text for k in ["プライバシー", "個人情報"]):
+        inferred.append("プライバシー")
+
+    # Keep only allowed tags and preserve order.
+    out: List[str] = []
+    seen = set()
+    allowed = set(ALLOWED_TAGS)
+    for t in inferred:
+        if t in allowed and t not in seen:
+            out.append(t)
+            seen.add(t)
+    return out
+
+
 def generate_tags(topic: str, draft: str, max_tags: int = 5):
     fallback = ["電子書籍", "Kindle", "Kobo", "読書術"]
     preview = re.sub(r"\s+", " ", draft.strip())[:1200]
+    allowed_text = " / ".join(ALLOWED_TAGS)
     prompt = f"""テーマ: {topic}
 
 前文抜粋: {preview}
 
-記事内容に合う短いタグを{max_tags}個まで、日本語でJSON配列として返してください。10文字以内で汎用的でないものを優先。"""
+次のタグ候補の中から、記事内容に合うタグを{max_tags}個まで選び、JSON配列で返してください。
+タグ候補: {allowed_text}
+
+ルール:
+- 候補にないタグは作らない
+- できれば「電子書籍」「Kindle」「Kobo」など主要語を優先"""
     try:
         resp = openai.chat.completions.create(
             model="gpt-5.1",
@@ -628,26 +780,36 @@ def generate_tags(topic: str, draft: str, max_tags: int = 5):
             ],
         )
         tags = json.loads(resp.choices[0].message.content.strip())
-        cleaned = []
-        seen = set()
+        cleaned: List[str] = []
         for tag in tags:
             if not isinstance(tag, str):
                 continue
-            t = tag.strip()
-            if not t or len(t) > 12:
+            t = _normalize_allowed_tag(tag)
+            if not t:
                 continue
-            key = t.lower()
-            if key in seen:
-                continue
-            cleaned.append(t)
-            seen.add(key)
+            if t not in cleaned:
+                cleaned.append(t)
             if len(cleaned) >= max_tags:
                 break
-        if cleaned:
-            return cleaned
+
+        combined: List[str] = []
+        for t in _infer_core_tags(topic, draft) + cleaned:
+            if t not in combined:
+                combined.append(t)
+            if len(combined) >= max_tags:
+                break
+        if combined:
+            return combined
     except Exception:
         pass
-    return fallback[:max_tags]
+    combined: List[str] = []
+    for t in _infer_core_tags(topic, draft) + fallback:
+        t = _normalize_allowed_tag(t) or t
+        if t in set(ALLOWED_TAGS) and t not in combined:
+            combined.append(t)
+        if len(combined) >= max_tags:
+            break
+    return combined[:max_tags]
 
 
 def generate_seo_title(topic: str, draft: str) -> str:
@@ -1095,6 +1257,16 @@ def main():
             print(f"[skip] Topic '{topic_clean}' skipped because it targets the existing pillar /posts/kindle-vs-kobo/.")
             return False
 
+        # Avoid generating obvious duplicates of other pillar review pages.
+        if should_canonicalize_to_kindle_paperwhite_review(topic_clean) and (CONTENT_POSTS_DIR / "kindle-paperwhite-review.md").exists():
+            print(
+                f"[skip] Topic '{topic_clean}' skipped because it targets the existing pillar /posts/kindle-paperwhite-review/."
+            )
+            return False
+        if should_canonicalize_to_kobo_clara_review(topic_clean) and (CONTENT_POSTS_DIR / "kobo-clara-review.md").exists():
+            print(f"[skip] Topic '{topic_clean}' skipped because it targets the existing pillar /posts/kobo-clara-review/.")
+            return False
+
         if is_similar_topic(topic_clean, topic_pool, threshold=0.6):
             print(f"[skip] Topic '{topic_clean}' skipped because it is too similar to an existing or generated topic.")
             return False
@@ -1116,6 +1288,23 @@ def main():
 
         for tmpl in templates:
             slug, seo_title, content, word_count = make_post(topic_clean, slug_candidate, template=tmpl)
+
+            if should_canonicalize_to_kindle_vs_kobo(topic_clean, seo_title) and (CONTENT_POSTS_DIR / "kindle-vs-kobo.md").exists():
+                print(f"[skip] Draft '{seo_title}' skipped because it targets the existing pillar /posts/kindle-vs-kobo/.")
+                continue
+            if should_canonicalize_to_kindle_paperwhite_review(topic_clean, seo_title) and (
+                CONTENT_POSTS_DIR / "kindle-paperwhite-review.md"
+            ).exists():
+                print(
+                    f"[skip] Draft '{seo_title}' skipped because it targets the existing pillar /posts/kindle-paperwhite-review/."
+                )
+                continue
+            if should_canonicalize_to_kobo_clara_review(topic_clean, seo_title) and (
+                CONTENT_POSTS_DIR / "kobo-clara-review.md"
+            ).exists():
+                print(f"[skip] Draft '{seo_title}' skipped because it targets the existing pillar /posts/kobo-clara-review/.")
+                continue
+
             title_key = seo_title.strip().lower()
             if title_key in used_titles:
                 print(f"[skip] Draft '{seo_title}' skipped because title already exists.")

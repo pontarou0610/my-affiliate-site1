@@ -1,5 +1,6 @@
 {{- $current := . -}}
 {{- $posts := where site.RegularPages "Section" "posts" -}}
+{{- $posts = where $posts "Params.robotsNoIndex" "ne" true -}}
 {{- $others := where $posts "Permalink" "ne" $current.Permalink -}}
 {{- $seen := dict -}}
 {{- $candidates := slice -}}
