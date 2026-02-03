@@ -969,6 +969,10 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
             print("[warn] baseURL is not resolved; canonicalURL will not be set.")
         robots_no_index = True
 
+    # Python 3.11 does not allow backslashes inside f-string expressions.
+    # Keep newline escapes out of {...} so GitHub Actions (3.11) can parse this file.
+    sitemap_yaml = "sitemap:\n  disable: true" if robots_no_index else ""
+
     fm = dedent(
         f"""\
     ---
@@ -976,7 +980,7 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     date: {today.isoformat()}
     draft: false
     {"robotsNoIndex: true" if robots_no_index else ""}
-    {"sitemap:\n  disable: true" if robots_no_index else ""}
+    {sitemap_yaml}
     {f'canonicalURL: "{canonical_url}"' if canonical_url else ""}
     {f'images: ["{yaml_escape(hero_image_url)}"]' if hero_image_url else ""}
     tags: {tags}
