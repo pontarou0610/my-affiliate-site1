@@ -1,0 +1,66 @@
+{{- /* Shortcode: offerbox
+     Params:
+       title = "..."
+       note  = "..." (optional; HTML allowed)
+
+       b1_store/b1_url/b1_text
+       b2_store/b2_url/b2_text
+       b3_store/b3_url/b3_text
+
+     store: amazon|rakuten|yahoo (controls button color + affiliate wrapping)
+*/ -}}
+
+{{- $title := .Get "title" | default "購入先をチェック" -}}
+{{- $note := .Get "note" -}}
+{{- $amazonTag := or (.Page.Site.Params.amazonTag) (.Page.Site.Site.Params.amazonTag) (getenv "AMAZON_TAG") -}}
+{{- $rakutenId := or (.Page.Site.Params.rakutenAffiliateId) (.Page.Site.Site.Params.rakutenAffiliateId) (getenv "RAKUTEN_AFFILIATE_ID") -}}
+
+{{- $disclosure := "" -}}
+{{- with (relref .Page "/legal/disclosure/") -}}
+  {{- $disclosure = . -}}
+{{- end -}}
+{{- if not $note -}}
+  {{- $note = printf "※リンクにはプロモーション（アフィリエイトリンク）が含まれます。詳しくは<a href=\"%s\">広告/アフィリエイトポリシー</a>をご確認ください。" $disclosure -}}
+{{- end -}}
+
+{{- $buttons := slice
+  (dict "store" (.Get "b1_store") "url" (.Get "b1_url") "text" (.Get "b1_text"))
+  (dict "store" (.Get "b2_store") "url" (.Get "b2_url") "text" (.Get "b2_text"))
+  (dict "store" (.Get "b3_store") "url" (.Get "b3_url") "text" (.Get "b3_text"))
+-}}
+
+<div class="cta3 offerbox google-auto-ads-ignore">
+  <div class="offerbox-head">
+    <span class="offerbox-pr">PR</span>
+    <p class="cta3-title">{{ $title }}</p>
+  </div>
+
+  <div class="cta3-row">
+    {{- range $buttons -}}
+      {{- $url := .url -}}
+      {{- $text := .text -}}
+      {{- $store := (lower (.store | default "")) -}}
+      {{- if and $url $text -}}
+        {{- $class := cond (eq $store "amazon") "brand-amazon" (cond (eq $store "rakuten") "brand-rakuten" (cond (eq $store "yahoo") "brand-yahoo" "")) -}}
+
+        {{- if and (eq $store "amazon") $amazonTag (in $url "amazon.co.jp") (not (in $url "tag=")) -}}
+          {{- $sep := cond (in $url "?") "&" "?" -}}
+          {{- $url = printf "%s%stag=%s" $url $sep $amazonTag -}}
+        {{- end -}}
+
+        {{- if and (eq $store "rakuten") $rakutenId (not (hasPrefix $url "https://hb.afl.rakuten.co.jp/")) -}}
+          {{- $encoded := urlquery $url -}}
+          {{- $url = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $encoded $encoded -}}
+        {{- end -}}
+
+        {{- $isExternal := or (hasPrefix $url "http://") (hasPrefix $url "https://") (hasPrefix $url "//") -}}
+        <a class="btn {{ $class }}" href="{{ $url }}"
+           {{- if $isExternal }} target="_blank" rel="nofollow sponsored noopener"{{- end -}}
+           data-affiliate="{{ $store }}">{{ $text }}</a>
+      {{- end -}}
+    {{- end -}}
+  </div>
+
+  <p class="offerbox-note">{{ $note | safeHTML }}</p>
+</div>
+

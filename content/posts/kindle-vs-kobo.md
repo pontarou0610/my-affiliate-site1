@@ -26,6 +26,13 @@ hasRelatedProducts: false
 Kindleは「Amazon連携とコンテンツ量」、Koboは「EPUB対応と楽天ポイント」が強みです。  
 この記事では、端末・ストア・読み放題の違いを、迷いがちなポイントだけに絞って整理します（価格やラインナップは時期により変動します）。
 
+{{< offerbox
+  title="まずは価格をチェック（PR）"
+  b1_store="amazon" b1_url="https://amzn.to/48wNGzs" b1_text="Kindle Paperwhiteを見る"
+  b2_store="amazon" b2_url="https://amzn.to/4oyRBSx" b2_text="Kindle Unlimitedを試す"
+  b3_store="rakuten" b3_url="https://books.rakuten.co.jp/e-book/" b3_text="楽天Koboストアを見る"
+>}}
+
 ## 結論（用途別）
 
 - **コスパ＆軽量重視**: Kindle無印 or Kobo Claraシリーズ（防水が欲しければ防水モデル、最安を狙うならセール時期を優先）。

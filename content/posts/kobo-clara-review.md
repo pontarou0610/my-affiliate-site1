@@ -15,6 +15,12 @@ Kobo Clara 2Eは「軽さ・防水・EPUB対応」で、楽天経済圏ユーザ
 
 ※Koboはラインナップが更新されることがあります。購入前に現行モデルの仕様・価格を確認してください。
 
+{{< offerbox
+  title="Kobo端末をチェック（PR）"
+  b1_store="rakuten" b1_url="https://books.rakuten.co.jp/event/e-book/ereaders/" b1_text="Kobo端末ラインナップを見る"
+  b2_store="rakuten" b2_url="https://books.rakuten.co.jp/e-book/" b2_text="楽天Koboストアを見る"
+>}}
+
 ## 総評と結論
 
 - **強み**: 136g台の軽さ、防水IPX8、色温度調整、EPUBネイティブ対応、Pocket連携。6インチで最小・最軽量クラス。

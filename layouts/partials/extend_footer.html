@@ -1,0 +1,54 @@
+{{- /* Custom footer injections (PaperMod calls this partial) */ -}}
+
+{{- /* Affiliate click tracking (GA4) */ -}}
+{{- $ga := "" -}}
+{{- with site.Params.googleAnalytics }}{{ $ga = . }}{{ end -}}
+{{- if not $ga -}}
+  {{- with site.Params.google_analytics }}{{ $ga = . }}{{ end -}}
+{{- end -}}
+{{- if $ga -}}
+<script>
+  (function () {
+    function inferStore(href) {
+      try {
+        var url = new URL(href, window.location.href);
+        var host = (url.hostname || "").toLowerCase();
+        if (host.indexOf("amzn.to") !== -1 || host.indexOf("amazon.") !== -1) return "amazon";
+        if (host.indexOf("rakuten.") !== -1 || host.indexOf("hb.afl.rakuten.co.jp") !== -1) return "rakuten";
+        if (host.indexOf("valuecommerce.com") !== -1 || host.indexOf("ck.jp.ap.valuecommerce.com") !== -1) return "yahoo";
+        return host.replace(/^www\./, "") || "external";
+      } catch (e) {
+        return "external";
+      }
+    }
+
+    document.addEventListener(
+      "click",
+      function (ev) {
+        var a = ev.target && ev.target.closest ? ev.target.closest("a") : null;
+        if (!a) return;
+
+        var href = a.getAttribute("href");
+        if (!href) return;
+
+        var rel = (a.getAttribute("rel") || "").toLowerCase();
+        var isAffiliate = rel.indexOf("sponsored") !== -1 || rel.indexOf("nofollow") !== -1 || (a.dataset && a.dataset.affiliate);
+        if (!isAffiliate) return;
+
+        var store = (a.dataset && a.dataset.affiliate) ? a.dataset.affiliate : inferStore(href);
+        var text = (a.textContent || "").trim().slice(0, 120);
+
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "affiliate_click", {
+            affiliate_store: store,
+            link_url: href,
+            link_text: text,
+          });
+        }
+      },
+      { capture: true }
+    );
+  })();
+</script>
+{{- end -}}
+

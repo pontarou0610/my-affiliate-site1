@@ -39,6 +39,8 @@ canonifyURLs = true
   defaultRakutenWidget = false
   amazonTag = "naoto0610-22"
   rakutenAffiliateId = "0d62db60.7df6bee9.0d62db61.74fe29be"
+  # AdSense（必要なら設定。空なら読み込みません）
+  adsenseClient = ""
 
   # UI/UX
   ShowShareButtons = true
@@ -72,6 +74,11 @@ canonifyURLs = true
 # メニュー
 # =========================
 [menu]
+  [[menu.main]]
+    identifier = "recommend"
+    name = "おすすめ"
+    url = "recommend/"
+    weight = 1
   [[menu.main]]
     identifier = "posts"
     name = "記事一覧"

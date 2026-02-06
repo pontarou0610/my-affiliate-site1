@@ -3,6 +3,17 @@
 .cta3-title{margin:0 0 .5rem 0;font-weight:600}
 .cta3-row{display:flex;gap:.6rem;flex-wrap:wrap}
 
+/* PR付きボックス（offerbox） */
+.offerbox-head{display:flex;align-items:center;gap:.55rem;margin:0 0 .25rem 0}
+.offerbox-pr{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:.72rem;font-weight:800;letter-spacing:.03em;
+  padding:.15rem .5rem;border-radius:.4rem;
+  background:#9ca3af;color:#fff;
+}
+.offerbox-note{margin:.65rem 0 0;color:#6b7280;font-size:.85rem;line-height:1.5}
+.offerbox-note a{color:inherit;text-decoration:underline}
+
 /* 共通ボタン */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;
@@ -33,4 +44,6 @@
 /* ダークモード調整 */
 @media (prefers-color-scheme: dark){
   .cta3{background:#0f1115;border-color:#1f2430}
+  .offerbox-note{color:#cbd5e1}
+  .offerbox-pr{background:#6b7280}
 }

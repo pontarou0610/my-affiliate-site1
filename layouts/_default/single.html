@@ -50,16 +50,19 @@
       style="position:absolute;top:-12px;left:20px;background:#9ca3af;color:#fff;font-size:0.75rem;padding:2px 8px;border-radius:4px;">
       PR</div>
     <h2 style="margin-top:0;font-size:1.1rem;">電子書籍デバイスを検討中ならこちらもチェック</h2>
-    <p style="margin:8px 0 12px;font-size:0.9rem;color:#6b7280;">※このセクションにはプロモーション（アフィリエイトリンク）が含まれます。</p>
+    <p style="margin:8px 0 12px;font-size:0.9rem;color:#6b7280;">
+      ※このセクションにはプロモーション（アフィリエイトリンク）が含まれます。詳しくは
+      <a href="{{ relref . "/legal/disclosure/" }}">広告/アフィリエイトポリシー</a> をご確認ください。
+    </p>
     <div style="display:flex;flex-wrap:wrap;gap:12px;">
-      <a href="https://amzn.to/48wNGzs" class="cta-btn" target="_blank" rel="sponsored noopener noreferrer"
+      <a href="https://amzn.to/48wNGzs" class="cta-btn" target="_blank" rel="sponsored noopener noreferrer" data-affiliate="amazon"
         style="display:inline-block;padding:10px 16px;border-radius:8px;background:#ff9900;color:#111;font-weight:700;text-decoration:none;">Kindle
         Paperwhiteを見る</a>
-      <a href="https://amzn.to/4oyRBSx" class="cta-btn secondary" target="_blank" rel="sponsored noopener noreferrer"
+      <a href="https://amzn.to/4oyRBSx" class="cta-btn secondary" target="_blank" rel="sponsored noopener noreferrer" data-affiliate="amazon"
         style="display:inline-block;padding:10px 16px;border-radius:8px;background:#111827;color:#fff;font-weight:700;text-decoration:none;">Kindle
         Unlimitedを試す</a>
       <a href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F"
-        class="cta-btn" target="_blank" rel="sponsored noopener noreferrer"
+        class="cta-btn" target="_blank" rel="sponsored noopener noreferrer" data-affiliate="rakuten"
         style="display:inline-block;padding:10px 16px;border-radius:8px;background:#b60014;color:#fff;font-weight:700;text-decoration:none;">楽天Koboストアを見る</a>
     </div>
     <p style="margin:12px 0 0;font-size:0.95rem;color:#374151;">セール中かどうかは遷移先でご確認ください。</p>
@@ -77,6 +80,10 @@
   {{- if $showRakuten }}
   <section class="related-products google-auto-ads-ignore">
     <h2>関連アイテム</h2>
+    <p class="offerbox-note">
+      ※このセクションにはプロモーション（楽天アフィリエイト）が含まれます。詳しくは
+      <a href="{{ relref . "/legal/disclosure/" }}">広告/アフィリエイトポリシー</a> をご確認ください。
+    </p>
     {{- partial "rakuten-widget.html" . }}
   </section>
   {{- end }}

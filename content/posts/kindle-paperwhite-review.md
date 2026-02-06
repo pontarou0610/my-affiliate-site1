@@ -14,6 +14,12 @@ url: "/posts/kindle-paperwhite-review/"
 
 ※本記事は第11世代Paperwhiteの実使用ベースです。ラインナップや価格は時期により変動するため、購入前に販売ページでご確認ください。
 
+{{< offerbox
+  title="Kindle Paperwhiteをチェック（PR）"
+  b1_store="amazon" b1_url="https://amzn.to/48wNGzs" b1_text="Paperwhiteの価格を見る"
+  b2_store="amazon" b2_url="https://amzn.to/4oyRBSx" b2_text="Unlimitedを30日無料で試す"
+>}}
+
 ## 総評と結論
 - **結論**: 防水＋色温度＋USB-Cの“三種の神器”を最安で揃えるなら最有力。価格はセール前提で考えるのが賢い。
 - **向いている人**: Prime Reading/Kindle Unlimitedを活用するAmazonユーザー、テキスト中心の読書、風呂や寝室で読みたい人。

@@ -1,29 +1,46 @@
 {{- /* Shortcode: cta3
      Params:
+       title    = "..." (optional)
+       note     = "..." (optional; HTML allowed)
        amz      = "https://amzn.to/..."
        rakuten  = "https://hb.afl.rakuten.co.jp/..."
        yahoo    = "//ck.jp.ap.valuecommerce.com/servlet/referral?sid=...&pid=..."
        yahoo_px = "//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=...&pid=..."  (任意)
 */ -}}
-<div class="cta3">
-  <p class="cta3-title">最安で購入する</p>
+{{- $title := .Get "title" | default "最安で購入する" -}}
+{{- $note := .Get "note" -}}
+{{- $disclosure := "" -}}
+{{- with (relref .Page "/legal/disclosure/") -}}
+  {{- $disclosure = . -}}
+{{- end -}}
+{{- if not $note -}}
+  {{- $note = printf "※リンクにはプロモーション（アフィリエイトリンク）が含まれます。詳しくは<a href=\"%s\">広告/アフィリエイトポリシー</a>をご確認ください。" $disclosure -}}
+{{- end -}}
+
+<div class="cta3 google-auto-ads-ignore">
+  <div class="offerbox-head">
+    <span class="offerbox-pr">PR</span>
+    <p class="cta3-title">{{ $title }}</p>
+  </div>
   <div class="cta3-row">
     {{ with .Get "amz" }}
-      <a class="btn brand-amazon" href="{{ . }}" target="_blank" rel="nofollow sponsored noopener" aria-label="Amazonで購入">
+      <a class="btn brand-amazon" href="{{ . }}" target="_blank" rel="nofollow sponsored noopener" data-affiliate="amazon" aria-label="Amazonで購入">
         <span class="brand-bullet">a</span> Amazon
       </a>
     {{ end }}
     {{ with .Get "rakuten" }}
-      <a class="btn brand-rakuten" href="{{ . }}" target="_blank" rel="nofollow sponsored noopener" aria-label="楽天市場で購入">
+      <a class="btn brand-rakuten" href="{{ . }}" target="_blank" rel="nofollow sponsored noopener" data-affiliate="rakuten" aria-label="楽天市場で購入">
         <span class="brand-bullet">R</span> 楽天市場
       </a>
     {{ end }}
     {{ with .Get "yahoo" }}
-      <a class="btn brand-yahoo" href="{{ . }}" target="_blank" rel="nofollow sponsored noopener" aria-label="Yahoo!ショッピングで購入">
+      <a class="btn brand-yahoo" href="{{ . }}" target="_blank" rel="nofollow sponsored noopener" data-affiliate="yahoo" aria-label="Yahoo!ショッピングで購入">
         <span class="brand-bullet">Y!</span> Yahoo!ショッピング
       </a>
     {{ end }}
   </div>
+
+  <p class="offerbox-note">{{ $note | safeHTML }}</p>
 
   {{- /* Yahoo! 計測ピクセル（指定時のみ出力／1x1・非表示） */ -}}
   {{- with .Get "yahoo_px" -}}
