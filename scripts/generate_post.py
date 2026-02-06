@@ -140,31 +140,66 @@ CORE_KEYWORDS = [
 ]
 WHITELIST = list(CORE_KEYWORDS)
 
-FALLBACK_TOPICS = [
-    # 比較（カニバリ回避のため、柱記事ど真ん中は避ける）
-    "KindleとKoboを使い分けるコツ｜読む本・読む場所・予算で最適化する方法",
-    "電子書籍リーダーの選び方｜6インチ・7インチ・10インチで後悔しない基準",
-    "Kindle UnlimitedとKobo Plusの違いと選び方",
-    "KindleとKoboを子供向け読書デバイスとして使い分けるコツ",
+# NOTE:
+# Static fallback topics tend to get exhausted as the site grows. Keep a small set of
+# evergreen seeds and generate long-tail variations at runtime (filtered by existing
+# titles/slugs) so daily generation doesn't become a no-op.
+FALLBACK_TOPIC_SEEDS = [
+    "Kindle端末のストレージ整理：容量不足を防ぐ3ステップ（削除/アーカイブ/再DL）",
+    "KoboでEPUBをきれいに表示するための変換設定（Calibreの基本）",
+    "Send to KindleでPDFを送ると崩れる時のチェックリスト（余白/向き/サイズ）",
+    "Kindleのハイライトを後で探しやすくするコツ：タグ化・メモ・週1レビュー",
+    "電子ペーパー端末で目が疲れにくい設定：明るさ・色温度・リフレッシュの最適解",
+    "電子書籍のバックアップと移行：端末買い替えで詰まらない手順",
+    "電子書籍リーダーのロック設定：紛失時に困らないための最低限チェック",
+    "KDPのカテゴリとキーワードの決め方：小さく勝つための考え方（初心者向け）",
+]
 
-    # 使い方・ノウハウ
-    "EPUBやPDFをKindleで快適に読むための完全ガイド",
-    "電子書籍デバイスとスマホを併用するメリット",
-    "見開き表示・縦書き・横書きで読みやすさがどう変わるか",
-    "1日30分で読書習慣を作る15のアイデア",
-    "無料本でKindle生活をはじめる方法",
+FALLBACK_SCENARIOS = [
+    "通勤",
+    "寝る前",
+    "旅行・出張",
+    "スキマ時間",
+    "学習",
+]
+FALLBACK_READABILITY_KNOBS = [
+    "フォント・太字",
+    "余白・行間",
+    "明るさ・色温度",
+    "ページ更新（残像）",
+    "辞書・翻訳",
+]
+FALLBACK_FORMATS = [
+    "EPUB",
+    "PDF",
+    "固定レイアウト",
+    "マンガ",
+]
+FALLBACK_NOTE_TOOLS = [
+    "Notion",
+    "Obsidian",
+    "Googleドキュメント",
+]
+FALLBACK_KDP_AREAS = [
+    "カテゴリとキーワード",
+    "本文レイアウト",
+    "目次",
+    "表紙",
+    "販売ページの説明文",
+]
 
-    # デバイスケア
-    "E-Ink端末のバッテリーを長持ちさせる設定と使い方",
-    "防水モデルと普通モデルのどちらを選ぶべきか",
-    "暗所で読むときに最適なフロントライトの設定",
-    "ブルーライトを抑えて目を守る読書術",
-
-    # 購入・セール
-    "電子書籍のセールを効率よく追う方法",
-    "PCなしでKindle本を管理・整理する手順",
-    "買ってよかった電子書籍アクセサリーまとめ",
-    "読み放題サービスを最大化する本の探し方",
+FALLBACK_TOPIC_TEMPLATES = [
+    "Kindleの読みやすさ設定：{knob}を{scenario}向けに最適化する手順",
+    "Koboの読みやすさ設定：{knob}を{scenario}向けに最適化する手順",
+    "電子書籍リーダーの読みやすさ設定：{knob}を{scenario}向けに最適化する手順",
+    "Kindleで{format}を快適に読むためのチェックリスト（{scenario}編）",
+    "Koboで{format}を快適に読むためのチェックリスト（{scenario}編）",
+    "Send to Kindleで{format}を送ると崩れる時の対処法（余白/向き/サイズの調整）",
+    "Calibreで{format}を整える：Kindle/Koboで読める形にする最低限の設定",
+    "Kindleのハイライト/メモを{tool}に整理する運用（週1レビューで定着）",
+    "電子ペーパー端末のバッテリー節約：{scenario}でも電池を持たせる設定チェック",
+    "KDPで電子書籍を出版する前に確認したい「{area}」チェックリスト",
+    "NotebookLMで電子書籍の読書メモを育てる：ハイライト→要約→次の行動まで",
 ]
 
 QUALITY_MIN_WORDS = 200
@@ -555,9 +590,104 @@ def is_similar_topic(topic: str, existing: list[str], threshold: float = 0.6) ->
     """Avoid generating multiple posts on near-identical topics."""
     return is_similar_title(topic, existing, threshold=threshold)
 
+def _unique_preserve_order(items: list[str]) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for x in items:
+        if not x:
+            continue
+        key = x.strip()
+        if not key:
+            continue
+        low = key.lower()
+        if low in seen:
+            continue
+        out.append(key)
+        seen.add(low)
+    return out
 
-def collect_candidates(max_needed: int):
-    """RSSから候補を集め、足りなければFALLBACKで補う"""
+
+def generate_fallback_topic_candidates(seed: int) -> list[str]:
+    rng = random.Random(seed)
+    candidates: list[str] = list(FALLBACK_TOPIC_SEEDS)
+
+    for tpl in FALLBACK_TOPIC_TEMPLATES:
+        if "{knob}" in tpl:
+            for scenario in FALLBACK_SCENARIOS:
+                for knob in FALLBACK_READABILITY_KNOBS:
+                    candidates.append(tpl.format(scenario=scenario, knob=knob))
+        elif "{format}" in tpl:
+            for scenario in FALLBACK_SCENARIOS:
+                for fmt in FALLBACK_FORMATS:
+                    candidates.append(tpl.format(scenario=scenario, format=fmt))
+        elif "{tool}" in tpl:
+            for tool in FALLBACK_NOTE_TOOLS:
+                candidates.append(tpl.format(tool=tool))
+        elif "{area}" in tpl:
+            for area in FALLBACK_KDP_AREAS:
+                candidates.append(tpl.format(area=area))
+        else:
+            candidates.append(tpl)
+
+    candidates = _unique_preserve_order(candidates)
+    rng.shuffle(candidates)
+    return candidates
+
+
+def build_fallback_topic_pool(
+    existing_titles: list[str],
+    used_titles: set[str],
+    used_slugs: set[str],
+    recent_titles: set[str],
+    limit: int = 250,
+) -> list[str]:
+    seed = datetime.date.today().toordinal()
+    candidates = generate_fallback_topic_candidates(seed)
+
+    def accept(topic: str, check_similarity: bool) -> bool:
+        topic_clean = re.sub(r"\s+", " ", (topic or "").strip())
+        if not topic_clean:
+            return False
+        low = topic_clean.lower()
+        if low in used_titles or low in recent_titles:
+            return False
+        if not has_core_keyword(topic_clean):
+            return False
+        if should_canonicalize_to_kindle_vs_kobo(topic_clean) and (CONTENT_POSTS_DIR / "kindle-vs-kobo.md").exists():
+            return False
+        if should_canonicalize_to_kindle_paperwhite_review(topic_clean) and (CONTENT_POSTS_DIR / "kindle-paperwhite-review.md").exists():
+            return False
+        if should_canonicalize_to_kobo_clara_review(topic_clean) and (CONTENT_POSTS_DIR / "kobo-clara-review.md").exists():
+            return False
+
+        slug_base = slugify_lib(topic_clean, lowercase=True, max_length=60, separator="-")
+        if not slug_base or slug_base in used_slugs:
+            return False
+
+        if check_similarity and is_similar_topic(topic_clean, existing_titles, threshold=0.6):
+            return False
+        return True
+
+    pool: list[str] = []
+    for t in candidates:
+        if accept(t, check_similarity=True):
+            pool.append(t)
+        if len(pool) >= limit:
+            return pool
+
+    # If we got too few, relax similarity a bit (slug/title uniqueness is still enforced).
+    for t in candidates:
+        if t in pool:
+            continue
+        if accept(t, check_similarity=False):
+            pool.append(t)
+        if len(pool) >= limit:
+            break
+    return pool
+
+
+def collect_candidates(max_needed: int, fallback_topics: list[str] | None = None):
+    """RSSから候補を集め、足りなければfallbackで補う"""
     items = []
     try:
         import importlib.util
@@ -591,7 +721,8 @@ def collect_candidates(max_needed: int):
     seed = datetime.date.today().toordinal()
     random.Random(seed).shuffle(uniq)
 
-    for fb in FALLBACK_TOPICS:
+    fallback_list = fallback_topics or FALLBACK_TOPIC_SEEDS
+    for fb in fallback_list:
         if len(uniq) >= max_needed:
             break
         if fb not in seen:
@@ -1239,7 +1370,14 @@ def main():
     similar_title_pool: list[str] = list(existing_title_pool)
     topic_pool: list[str] = list(existing_title_pool)
 
-    raw_topics = collect_candidates(max(need * 3, need))
+    fallback_topics = build_fallback_topic_pool(
+        existing_titles=existing_title_pool,
+        used_titles=used_titles,
+        used_slugs=used_slugs,
+        recent_titles=recent_titles,
+        limit=300,
+    )
+    raw_topics = collect_candidates(max(need * 15, 30), fallback_topics=fallback_topics)
     scored = []
     for t in raw_topics:
         score = 0
@@ -1257,23 +1395,36 @@ def main():
     start_index = already + 1
     generated = 0
     index = start_index
-    fallback_queue = [t for t in FALLBACK_TOPICS if t.lower() not in recent_titles]
+    fallback_queue = [t for t in fallback_topics if t.lower() not in recent_titles]
+    attempted_fallback: set[str] = set()
     consecutive_fails = 0
 
     def next_fallback_topic() -> str | None:
         nonlocal fallback_queue
-        while fallback_queue:
-            candidate = fallback_queue.pop(0)
-            cand_lower = candidate.lower()
-            if cand_lower in used_titles or cand_lower in recent_titles:
-                continue
-            return candidate
-        for candidate in FALLBACK_TOPICS:
-            cand_lower = candidate.lower()
-            if cand_lower in used_titles or cand_lower in recent_titles:
-                continue
-            return candidate
-        return None
+        while True:
+            while fallback_queue:
+                candidate = fallback_queue.pop(0)
+                cand_lower = candidate.lower()
+                if cand_lower in attempted_fallback:
+                    continue
+                if cand_lower in used_titles or cand_lower in recent_titles:
+                    attempted_fallback.add(cand_lower)
+                    continue
+                attempted_fallback.add(cand_lower)
+                return candidate
+
+            # Refill once with remaining candidates (shuffled) to avoid repeating the same head element forever.
+            remaining = [
+                t
+                for t in fallback_topics
+                if (t.lower() not in attempted_fallback)
+                and (t.lower() not in used_titles)
+                and (t.lower() not in recent_titles)
+            ]
+            if not remaining:
+                return None
+            random.Random(datetime.date.today().toordinal() + len(attempted_fallback)).shuffle(remaining)
+            fallback_queue = remaining
 
     def generate_for_topic(raw_topic: str, allow_fallback=True, allow_final=False, use_failsafe=False) -> bool:
         nonlocal generated, index, similar_title_pool, topic_pool
@@ -1401,11 +1552,13 @@ def main():
 
     while generated < need:
         fb_topic = next_fallback_topic()
-        if not fb_topic or not generate_for_topic(fb_topic):
+        if not fb_topic:
             break
+        if generate_for_topic(fb_topic):
+            continue
 
     if generated < need:
-        suggest_topics = fetch_google_suggest_topics(need - generated)
+        suggest_topics = fetch_google_suggest_topics(max(need * 10, 20))
         if suggest_topics:
             print(f"[info] Using Googleサジェストで補充: {suggest_topics}")
         for t in suggest_topics:
@@ -1415,13 +1568,13 @@ def main():
 
     if generated == 0:
         print("[info] No articles generated from RSS; forcing ebook fallback.")
-        for fb_topic in FALLBACK_TOPICS:
+        for fb_topic in fallback_topics:
             if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True):
                 break
 
     if generated < need:
         print("[warn] Still insufficient articles. Applying failsafe ebook-only generation with relaxed thresholds.")
-        for fb_topic in FALLBACK_TOPICS:
+        for fb_topic in fallback_topics:
             if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True, use_failsafe=True):
                 if generated >= need:
                     break
@@ -1436,7 +1589,7 @@ def main():
 
     if generated < need:
         print("[warn] As a last resort, reusing fallback topics even if duplicates.")
-        for fb_topic in FALLBACK_TOPICS:
+        for fb_topic in fallback_topics:
             if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True, use_failsafe=True):
                 if generated >= need:
                     break
