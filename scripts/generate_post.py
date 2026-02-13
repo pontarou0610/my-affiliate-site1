@@ -989,21 +989,31 @@ def generate_seo_title(topic: str, draft: str) -> str:
 
 
 def build_search_keyword(topic: str, max_words: int = 6, max_chars: int = 60) -> str:
-    """Rakuten???????????????????????????????"""
+    """Build a compact, relevant Rakuten search keyword from a topic."""
     topic_lower = topic.lower()
     brand_keys = ["kindle", "paperwhite", "oasis", "scribe", "kobo", "clara", "libra", "sage", "elipsa"]
-    category_keys = ["????", "????????", "??????", "e ink", "?????", "???", "???", "?????"]
+    category_keys = [
+        "電子書籍リーダー",
+        "電子書籍",
+        "端末",
+        "e ink",
+        "e-ink",
+        "epub",
+        "pdf",
+        "カバー",
+        "保護フィルム",
+    ]
     picked_brand = next((b for b in brand_keys if b in topic_lower), "")
     picked_category = next((c for c in category_keys if c in topic_lower), "")
     if picked_brand and picked_category:
         base = f"{picked_brand} {picked_category}"
     elif picked_brand:
-        base = f"{picked_brand} ????????"
+        base = f"{picked_brand} 電子書籍リーダー"
     elif picked_category:
-        base = f"{picked_category} ????????"
+        base = f"{picked_category} 電子書籍リーダー"
     else:
-        base = "????????"
-    cleaned = re.sub(r"[?!??\[\]\(\)??]", " ", base)
+        base = "電子書籍リーダー"
+    cleaned = re.sub(r"[!?！？\[\]\(\)（）【】「」『』:：,，、。]", " ", base)
     words = [w for w in re.split(r"\s+", cleaned) if w]
     keyword = " ".join(words[:max_words]) or base
     return keyword[:max_chars]
@@ -1041,7 +1051,7 @@ def fetch_rakuten_items(topic: str, hits: int = 3) -> List[Dict[str, str]]:
             continue
         price_text = ""
         try:
-            price_text = f" ?{int(price):,}"
+            price_text = f"¥{int(price):,}"
         except Exception:
             price_text = ""
         items.append({"title": title, "url": url, "price_text": price_text})
@@ -1303,6 +1313,7 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     ---
     title: "{seo_title}"
     date: {today.isoformat()}
+    lastmod: {today.isoformat()}
     draft: false
     {"robotsNoIndex: true" if robots_no_index else ""}
     {sitemap_yaml}
