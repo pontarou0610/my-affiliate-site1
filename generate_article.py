@@ -6,6 +6,9 @@ from dotenv import load_dotenv
 # 環境変数の読み込み
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    raise SystemExit("OPENAI_API_KEY not set")
+model = (os.getenv("OPENAI_MODEL") or "gpt-5.2").strip() or "gpt-5.2"
 
 # OpenAIクライアント初期化
 client = OpenAI(api_key=api_key)
@@ -17,16 +20,19 @@ prompt = """
 日本語で、見出しと本文を含むブログ記事の形式でお願いします。
 """
 
-# ChatGPTに問い合わせ
-response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
+# Responses APIで問い合わせ
+response = client.responses.create(
+    model=model,
+    input=[
         {"role": "system", "content": "あなたはプロの日本語SEOブロガーです。"},
-        {"role": "user", "content": prompt}
-    ]
+        {"role": "user", "content": prompt},
+    ],
+    temperature=0.7,
 )
 
-article = response.choices[0].message.content
+article = (response.output_text or "").strip()
+if not article:
+    raise RuntimeError("OpenAI response did not include text output.")
 
 # ファイル出力
 today = datetime.now().strftime("%Y-%m-%d")

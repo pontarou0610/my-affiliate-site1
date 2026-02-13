@@ -23,7 +23,7 @@ import requests
 from textwrap import dedent
 from dotenv import load_dotenv
 from slugify import slugify as slugify_lib
-import openai
+from openai import OpenAI
 
 # ---------- paths / config ----------
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -58,7 +58,10 @@ BASE_URL = load_base_url()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     raise SystemExit("OPENAI_API_KEY not set")
-openai.api_key = OPENAI_API_KEY
+OPENAI_MODEL = (os.getenv("OPENAI_MODEL") or "gpt-5.2").strip() or "gpt-5.2"
+OPENAI_FALLBACK_MODELS = ["gpt-5.1", "gpt-5"]
+OPENAI_MODEL_CANDIDATES = [OPENAI_MODEL] + [m for m in OPENAI_FALLBACK_MODELS if m != OPENAI_MODEL]
+OPENAI_CLIENT = OpenAI(api_key=OPENAI_API_KEY)
 
 RAKUTEN_APP_ID = os.getenv("RAKUTEN_APP_ID")
 RAKUTEN_AFFILIATE_ID = os.getenv("RAKUTEN_AFFILIATE_ID")
@@ -441,6 +444,77 @@ RAKUTEN_FALLBACK_ITEMS: List[Dict[str, str]] = [
 ]
 
 
+def _is_model_availability_error(exc: Exception) -> bool:
+    msg = str(exc).lower()
+    if "model" not in msg:
+        return False
+    return any(
+        key in msg
+        for key in [
+            "not found",
+            "does not exist",
+            "not available",
+            "do not have access",
+            "insufficient permissions",
+            "unsupported",
+        ]
+    )
+
+
+def _extract_response_text(resp) -> str:
+    text = (getattr(resp, "output_text", None) or "").strip()
+    if text:
+        return text
+
+    chunks: list[str] = []
+    for item in (getattr(resp, "output", None) or []):
+        if getattr(item, "type", "") != "message":
+            continue
+        for content in (getattr(item, "content", None) or []):
+            if getattr(content, "type", "") not in ("output_text", "text"):
+                continue
+            piece = (getattr(content, "text", None) or "").strip()
+            if piece:
+                chunks.append(piece)
+    return "\n".join(chunks).strip()
+
+
+def generate_openai_text(system_prompt: str, user_prompt: str, temperature: float = 0.4) -> str:
+    last_error: Exception | None = None
+    for model in OPENAI_MODEL_CANDIDATES:
+        try:
+            resp = OPENAI_CLIENT.responses.create(
+                model=model,
+                input=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                temperature=temperature,
+            )
+            text = _extract_response_text(resp)
+            if text:
+                return text
+            raise RuntimeError(f"Empty response text from model '{model}'.")
+        except Exception as exc:
+            last_error = exc
+            if _is_model_availability_error(exc):
+                print(f"[warn] OpenAI model '{model}' unavailable. Trying fallback model.")
+                continue
+            raise
+    if last_error:
+        raise last_error
+    raise RuntimeError("OpenAI request failed with no explicit error.")
+
+
+def _strip_markdown_code_fence(text: str) -> str:
+    s = (text or "").strip()
+    if not s.startswith("```"):
+        return s
+    s = re.sub(r"^```[a-zA-Z0-9_-]*\s*", "", s)
+    s = re.sub(r"\s*```$", "", s)
+    return s.strip()
+
+
 def parse_frontmatter(md_text: str):
     m = re.search(r"^---\s*(.*?)\s*---", md_text, re.S | re.M)
     data = {}
@@ -809,15 +883,7 @@ def expand_to_min_words(topic: str, draft: str, min_words: int, min_chars: int, 
             --- draft ---
             """
         )
-        resp = openai.chat.completions.create(
-            model="gpt-5.1",
-            temperature=0.5,
-            messages=[
-                {"role": "system", "content": REWRITER_SYSTEM},
-                {"role": "user", "content": expand_prompt},
-            ],
-        )
-        draft = resp.choices[0].message.content.strip()
+        draft = generate_openai_text(REWRITER_SYSTEM, expand_prompt, temperature=0.5).strip()
     return draft
 
 
@@ -916,15 +982,10 @@ def generate_tags(topic: str, draft: str, max_tags: int = 5):
 - 候補にないタグは作らない
 - できれば「電子書籍」「Kindle」「Kobo」など主要語を優先"""
     try:
-        resp = openai.chat.completions.create(
-            model="gpt-5.1",
-            temperature=0.2,
-            messages=[
-                {"role": "system", "content": TAG_SYSTEM},
-                {"role": "user", "content": prompt},
-            ],
-        )
-        tags = json.loads(resp.choices[0].message.content.strip())
+        raw_tags = generate_openai_text(TAG_SYSTEM, prompt, temperature=0.2)
+        tags = json.loads(_strip_markdown_code_fence(raw_tags))
+        if not isinstance(tags, list):
+            raise ValueError("tag output is not a list")
         cleaned: List[str] = []
         for tag in tags:
             if not isinstance(tag, str):
@@ -971,15 +1032,12 @@ def generate_seo_title(topic: str, draft: str) -> str:
 - 読む理由が明確になる
 """
     try:
-        resp = openai.chat.completions.create(
-            model="gpt-5.1",
+        title = generate_openai_text(
+            "あなたはSEO編集者です。検索意図に合うタイトルを1本だけ返してください。",
+            prompt,
             temperature=0.4,
-            messages=[
-                {"role": "system", "content": "あなたはSEO編集者です。検索意図に合うタイトルを1本だけ返してください。"},
-                {"role": "user", "content": prompt},
-            ],
         )
-        title = resp.choices[0].message.content.strip()
+        title = title.strip()
         title = re.sub(r'["“”]', "", title)
         if 10 <= len(title) <= 80:
             return title
@@ -1203,12 +1261,7 @@ def downgrade_markdown_h1(markdown: str) -> str:
 def make_post(topic: str, slug: str, template: str = USER_TMPL):
     is_trend_template = template == TREND_USER_TMPL
     user = template.format(topic=topic)
-    resp = openai.chat.completions.create(
-        model="gpt-5.1",
-        temperature=0.7,
-        messages=[{"role": "system", "content": SYSTEM}, {"role": "user", "content": user}],
-    )
-    draft = resp.choices[0].message.content.strip()
+    draft = generate_openai_text(SYSTEM, user, temperature=0.7).strip()
     for _ in range(2):
         review_prompt = f"""以下の記事を校正し、重複や構成の乱れを直してください。
 必ず「修正後の完成稿（本文）」のみをMarkdownで返してください（前置き/解説/改善案は不要）。
@@ -1219,12 +1272,8 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
 {draft}
 --- candidate ---
 """
-        r = openai.chat.completions.create(
-            model="gpt-5.1",
-            temperature=0.4,
-            messages=[{"role": "system", "content": REVIEWER_SYSTEM}, {"role": "user", "content": review_prompt}],
-        )
-        draft = strip_unwanted_preface(r.choices[0].message.content.strip())
+        reviewed = generate_openai_text(REVIEWER_SYSTEM, review_prompt, temperature=0.4).strip()
+        draft = strip_unwanted_preface(reviewed)
 
     def ensure_min_length(current: str, min_words: int, min_chars: int, attempts: int) -> str:
         if attempts <= 0:
