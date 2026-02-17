@@ -1,0 +1,441 @@
+/* ==========================================================================
+   Modern Design Overrides for PaperMod
+   Theme: Intelligent & Trust (Deep Navy & Gold)
+   Font: Noto Sans JP
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Typography & Global Variables
+   -------------------------------------------------------------------------- */
+:root {
+    /* Font Family */
+    --font-family-sans-serif: 'Noto Sans JP', sans-serif;
+    --font-heading: 'Noto Sans JP', sans-serif;
+
+    /* Code block font */
+    --font-family-monospace: 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
+
+    /* Color Palette - Light Mode */
+    --theme: #f8fafc;
+    /* Light Gray Background for depth */
+    --entry: #ffffff;
+    /* White for cards */
+    --primary: #1e3a8a;
+    /* Deep Navy Blue - Main Text/Headers */
+    --secondary: #64748b;
+    /* Slate Gray - Secondary Text */
+    --tertiary: #cbd5e1;
+    /* Light Gray - Borders */
+    --content: #334155;
+    /* Dark Slate - Body Text */
+    --hljs-bg: #f1f5f9;
+    /* Code block bg */
+    --code-bg: #f1f5f9;
+    --border: #e2e8f0;
+
+    /* Brand Colors */
+    --brand-main: #1e3a8a;
+    /* Deep Navy */
+    --brand-accent: #f59e0b;
+    /* Gold/Orange */
+    --link-color: #2563eb;
+    /* Bright Blue for links */
+    --link-hover: #1d4ed8;
+
+    /* Spacing & Layout */
+    --gap: 24px;
+    --content-gap: 24px;
+    --radius: 12px;
+    /* More rounded corners */
+    --header-height: 60px;
+}
+
+/* Dark Mode Overrides */
+.dark {
+    --theme: #0f172a;
+    /* Dark Slate Background */
+    --entry: #1e293b;
+    /* Darker Slate for cards */
+    --primary: #e2e8f0;
+    /* Light Gray - Main Text */
+    --secondary: #94a3b8;
+    /* Slate - Secondary Text */
+    --tertiary: #334155;
+    /* Dark Gray - Borders */
+    --content: #cbd5e1;
+    /* Light Slate - Body Text */
+    --hljs-bg: #1e293b;
+    --code-bg: #1e293b;
+    --border: #334155;
+
+    --brand-main: #60a5fa;
+    /* Lighter Blue for Dark Mode */
+    --brand-accent: #fbbf24;
+    /* Lighter Gold */
+    --link-color: #60a5fa;
+    --link-hover: #93c5fd;
+}
+
+body {
+    font-family: var(--font-family-sans-serif);
+    line-height: 1.8;
+    color: var(--content);
+    background-color: var(--theme);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* padding-top removed as we use sticky now */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+a:not(.share-buttons a) {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:not(.share-buttons a):hover {
+    color: var(--link-hover);
+}
+
+/* --------------------------------------------------------------------------
+   2. Header & Navigation (Better Layout)
+   -------------------------------------------------------------------------- */
+.header {
+    background: rgba(255, 255, 255, 0.95) !important;
+    /* Higher opacity */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: sticky !important;
+    /* Back to sticky, much smoother if no overflow issues */
+    top: 0 !important;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border);
+    height: auto;
+    min-height: var(--header-height);
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.dark .header {
+    background: rgba(15, 23, 42, 0.95) !important;
+}
+
+/* Proper Nav Layout */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: calc(var(--nav-width) + var(--gap) * 2);
+    margin: 0 auto;
+    padding: 0 var(--gap);
+    flex-wrap: wrap;
+    /* Allow wrapping on small screens */
+    height: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.logo a {
+    font-weight: 800;
+    font-size: 1.25rem;
+    /* Slightly smaller for balance */
+    color: var(--brand-main);
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    white-space: nowrap;
+    /* Prevent breaking */
+}
+
+.dark .logo a {
+    color: var(--primary);
+}
+
+/* Menu Layout */
+#menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5rem;
+    align-items: center;
+    overflow-x: auto;
+    /* Allow Scroll on very small screens */
+}
+
+#menu li a {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--secondary);
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--radius);
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+#menu li a:hover,
+#menu li a.active {
+    color: var(--brand-main);
+    background: rgba(30, 58, 138, 0.08);
+}
+
+.dark #menu li a:hover,
+.dark #menu li a.active {
+    color: var(--primary);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   3. Article List (Modern Cards)
+   -------------------------------------------------------------------------- */
+.post-entry {
+    background: var(--entry);
+    border-radius: var(--radius);
+    padding: var(--gap);
+    margin-bottom: var(--gap);
+    border: 1px solid var(--border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+.post-entry:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+    border-color: var(--brand-accent);
+}
+
+.entry-header h2 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.entry-content {
+    font-size: 1rem;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+}
+
+.entry-footer {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    opacity: 0.8;
+}
+
+/* --------------------------------------------------------------------------
+   4. Single Post Design
+   -------------------------------------------------------------------------- */
+.post-single {
+    background: var(--entry);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+    .post-single {
+        padding: 20px;
+        margin-top: 1rem;
+        border-radius: 0;
+        box-shadow: none;
+    }
+}
+
+.post-title {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Content Typography */
+.post-content h2 {
+    font-size: 1.75rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--brand-accent);
+    display: inline-block;
+    padding-right: 1rem;
+}
+
+.post-content h3 {
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    border-left: 5px solid var(--brand-main);
+    padding-left: 0.75rem;
+}
+
+.post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.post-content blockquote {
+    border-left: 4px solid var(--brand-accent);
+    background: rgba(245, 158, 11, 0.1);
+    padding: 1rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    margin: 1.5rem 0;
+}
+
+.dark .post-content blockquote {
+    background: rgba(251, 191, 36, 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   5. Table of Contents (STATIC)
+   -------------------------------------------------------------------------- */
+.toc {
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    font-size: 0.9rem;
+    position: static !important;
+    /* FORCE STATIC */
+    top: auto !important;
+    max-height: none !important;
+}
+
+/* Ensure no media query overrides this */
+@media (min-width: 1024px) {
+    .toc {
+        position: static !important;
+        top: auto !important;
+    }
+}
+
+.toc summary {
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--primary);
+}
+
+.toc a {
+    color: var(--secondary);
+    display: block;
+    padding: 0.2rem 0;
+    transition: color 0.1s;
+}
+
+.toc a:hover {
+    color: var(--brand-accent);
+}
+
+/* --------------------------------------------------------------------------
+   6. Buttons & Interactive Elements
+   -------------------------------------------------------------------------- */
+button,
+input[type="button"],
+input[type="submit"],
+.button {
+    background: var(--brand-main);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+button:hover,
+.button:hover {
+    background: var(--link-hover);
+    transform: translateY(-1px);
+}
+
+/* Share buttons - reset to PaperMod defaults */
+.share-buttons {
+    background: var(--code-bg) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.share-buttons li,
+.share-buttons a {
+    display: inline-flex;
+}
+
+.share-buttons a {
+    color: var(--primary) !important;
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.share-buttons a:hover {
+    color: var(--brand-accent) !important;
+    background: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.share-buttons a svg {
+    fill: currentColor;
+}
+
+.pagination a {
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.pagination a:hover {
+    background: var(--brand-main);
+    color: #fff;
+    border-color: var(--brand-main);
+}
+
+.pagination .active a {
+    background: var(--brand-main);
+    color: #fff;
+    border-color: var(--brand-main);
+}
+
+/* --------------------------------------------------------------------------
+   7. Footer
+   -------------------------------------------------------------------------- */
+.footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    background: var(--entry);
+    text-align: center;
+    color: var(--secondary);
+}

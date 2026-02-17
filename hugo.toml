@@ -31,6 +31,7 @@ canonifyURLs = true
   env = "production"
   mainSections = ["posts"]
   defaultTheme = "auto"                 # "dark" | "light" | "auto"
+  
   description = "Kindle・Koboなど電子書籍リーダーの比較から、自費出版・AIライティング・自動化までを解説するブログ"
   images = ["images/ogp-default.jpg"]   # static/images/ogp-default.jpg を参照（project pagesでも崩れない相対パス）
   authorName = "ぽんたろう"
@@ -41,7 +42,7 @@ canonifyURLs = true
   rakutenAffiliateId = "0d62db60.7df6bee9.0d62db61.74fe29be"
   # AdSense（必要なら設定。空なら読み込みません）
   adsenseClient = ""
-
+  
   # UI/UX
   ShowShareButtons = true
   ShowReadingTime = true
@@ -51,10 +52,13 @@ canonifyURLs = true
   ShowRssButtonInSectionTermList = true
   ShowWordCount = true
   ShowToc = true                        # 目次を表示
-  TocOpen = true                        # 目次をデフォルト展開
+  TocOpen = false                       # 目次をデフォルト展開
 
   # Google Analytics
   googleAnalytics = "G-55FMB35LN0"
+
+  [params.label]
+    text = "電子書籍・未来研究所"
 
 [params.homeInfoParams]
   Title = "電子書籍リーダーの比較・レビュー"
