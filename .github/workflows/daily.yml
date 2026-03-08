@@ -45,11 +45,27 @@ jobs:
             echo "PEXELS_API_KEY=${{ secrets.PEXELS_API_KEY }}"
             echo "RAKUTEN_APP_ID=${{ secrets.RAKUTEN_APP_ID }}"
             echo "RAKUTEN_AFFILIATE_ID=${{ secrets.RAKUTEN_AFFILIATE_ID }}"
+            echo "BRAVE_SEARCH_API_KEY=${{ secrets.BRAVE_SEARCH_API_KEY }}"
+            echo "GOOGLE_CSE_API_KEY=${{ secrets.GOOGLE_CSE_API_KEY }}"
+            echo "GOOGLE_CSE_CX=${{ secrets.GOOGLE_CSE_CX }}"
+            echo "GSC_SITE_URL=${{ secrets.GSC_SITE_URL }}"
+            echo "CSE_DAILY_FREE_LIMIT=100"
+            echo "CSE_BUDGET=80"
           } >> .env
+
+          if [ -n "${{ secrets.GSC_SERVICE_ACCOUNT_JSON_B64 }}" ]; then
+            echo "${{ secrets.GSC_SERVICE_ACCOUNT_JSON_B64 }}" | base64 -d > .gsc-sa.json
+            echo "GSC_SERVICE_ACCOUNT_FILE=.gsc-sa.json" >> .env
+          fi
+
           echo "::add-mask::${{ secrets.OPENAI_API_KEY }}"
           echo "::add-mask::${{ secrets.PEXELS_API_KEY }}"
           echo "::add-mask::${{ secrets.RAKUTEN_APP_ID }}"
           echo "::add-mask::${{ secrets.RAKUTEN_AFFILIATE_ID }}"
+          echo "::add-mask::${{ secrets.BRAVE_SEARCH_API_KEY }}"
+          echo "::add-mask::${{ secrets.GOOGLE_CSE_API_KEY }}"
+          echo "::add-mask::${{ secrets.GOOGLE_CSE_CX }}"
+          echo "::add-mask::${{ secrets.GSC_SERVICE_ACCOUNT_JSON_B64 }}"
 
       - name: Install Hugo
         uses: peaceiris/actions-hugo@v3
@@ -70,7 +86,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           python -c "import importlib.util; print('feedparser installed:', importlib.util.find_spec('feedparser') is not None)"
-          python scripts/generate_post.py --count 1
+          python scripts/generate_post.py --count 1 --updates 1 --external-supply-check --serp-provider auto --cse-budget 80 --gsc-min-impressions 5 --gsc-min-position 10
 
       - name: Check duplicate titles/slugs (post-generation)
         run: python scripts/check_unique_posts.py

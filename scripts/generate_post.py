@@ -17,6 +17,9 @@ import random
 import argparse
 import json
 import unicodedata
+import math
+from collections import Counter
+from urllib.parse import urlparse
 from typing import List, Dict, Tuple, Set
 
 import requests
@@ -52,20 +55,41 @@ def load_base_url() -> str:
 
 BASE_URL = ""
 
+
+def _int_env(name: str, default: int) -> int:
+    raw = (os.getenv(name) or "").strip()
+    if not raw:
+        return default
+    try:
+        return int(raw)
+    except ValueError:
+        return default
+
 # ---------- env ----------
 load_dotenv()
 BASE_URL = load_base_url()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-if not OPENAI_API_KEY:
-    raise SystemExit("OPENAI_API_KEY not set")
 OPENAI_MODEL = (os.getenv("OPENAI_MODEL") or "gpt-5.2").strip() or "gpt-5.2"
 OPENAI_FALLBACK_MODELS = ["gpt-5.1", "gpt-5"]
 OPENAI_MODEL_CANDIDATES = [OPENAI_MODEL] + [m for m in OPENAI_FALLBACK_MODELS if m != OPENAI_MODEL]
-OPENAI_CLIENT = OpenAI(api_key=OPENAI_API_KEY)
+OPENAI_CLIENT = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
 
 RAKUTEN_APP_ID = os.getenv("RAKUTEN_APP_ID")
 RAKUTEN_AFFILIATE_ID = os.getenv("RAKUTEN_AFFILIATE_ID")
 PEXELS_API_KEY = os.getenv("PEXELS_API_KEY")
+GOOGLE_CSE_API_KEY = (os.getenv("GOOGLE_CSE_API_KEY") or "").strip()
+GOOGLE_CSE_CX = (os.getenv("GOOGLE_CSE_CX") or "").strip()
+BRAVE_SEARCH_API_KEY = (os.getenv("BRAVE_SEARCH_API_KEY") or "").strip()
+GSC_SERVICE_ACCOUNT_FILE = (os.getenv("GSC_SERVICE_ACCOUNT_FILE") or "").strip()
+GSC_SITE_URL = (os.getenv("GSC_SITE_URL") or BASE_URL or "").strip()
+EXTERNAL_SERP_PROVIDER = (os.getenv("EXTERNAL_SERP_PROVIDER") or "auto").strip().lower()
+
+CSE_DAILY_FREE_LIMIT = _int_env("CSE_DAILY_FREE_LIMIT", 100)
+DEFAULT_CSE_BUDGET = _int_env("CSE_BUDGET", 80)
+UPDATE_COOLDOWN_DAYS = _int_env("UPDATE_COOLDOWN_DAYS", 14)
+GSC_MAX_ROWS = _int_env("GSC_MAX_ROWS", 2000)
+BASE_URL_PATH = (urlparse(BASE_URL).path or "").rstrip("/")
+SUPPLY_AUDIT_PATH = REPO_ROOT / "data" / "supply_gap_report.json"
 
 # ---------- sources ----------
 RSS_SOURCES = [
@@ -227,6 +251,43 @@ MAX_RELAXED_EXPAND_ATTEMPTS_TREND = 2
 MAX_RELAXED_EXPAND_ATTEMPTS = 1
 MAX_CONSECUTIVE_FAILS = 3
 META_DESCRIPTION_MAX_CHARS = 120
+SUPPLY_GAP_MIN_SCORE = 55
+OPPORTUNITY_MIN_SCORE = 70
+OLD_CONTENT_YEAR_THRESHOLD = 2
+QUERY_PAGE_RELEVANCE_THRESHOLD = 0.55
+TOP_QUERIES_FOR_SUPPLY_CHECK = 40
+
+FORUM_DOMAIN_HINTS = [
+    "chiebukuro.yahoo.co.jp",
+    "okwave.jp",
+    "oshiete.goo.ne.jp",
+    "teratail.com",
+    "reddit.com",
+    "5ch.net",
+]
+PRIMARY_SOURCE_DOMAIN_HINTS = [
+    "amazon.co.jp",
+    "amazon.com",
+    "rakuten.co.jp",
+    "kobo.com",
+    "help",
+    "support",
+]
+HOWTO_HINTS = [
+    "手順",
+    "やり方",
+    "方法",
+    "設定",
+    "対処",
+    "解決",
+    "できない",
+    "直し方",
+]
+PAIN_SIGNAL_QUERIES = [
+    ("chiebukuro", "site:chiebukuro.yahoo.co.jp {query}"),
+    ("error", "{query} エラー"),
+    ("inquiry", "{query} 問い合わせ"),
+]
 
 RELEVANCE_KEYWORDS = [kw.lower() for kw in CORE_KEYWORDS] + [
     "reader",
@@ -361,6 +422,10 @@ REVIEWER_SYSTEM = (
     "前置き・見出し外の解説・箇条書きの改善案は書かないでください。"
 )
 REWRITER_SYSTEM = "あなたはSEOライターです。指定された記事を長文化し、重複を避け、自然な日本語に整えます。"
+UPDATE_SYSTEM = (
+    "あなたは電子書籍ブログの編集者です。既存記事に追記する補足セクションだけを"
+    "Markdownで返してください。前置き・解説・コードフェンスは不要です。"
+)
 CHECKLIST = """\
 以下の観点で修正してください
 1) 内容は最新かつ具体的か
@@ -480,6 +545,8 @@ def _extract_response_text(resp) -> str:
 
 
 def generate_openai_text(system_prompt: str, user_prompt: str, temperature: float = 0.4) -> str:
+    if OPENAI_CLIENT is None:
+        raise RuntimeError("OPENAI_API_KEY not set")
     last_error: Exception | None = None
     for model in OPENAI_MODEL_CANDIDATES:
         try:
@@ -534,7 +601,21 @@ def parse_frontmatter(md_text: str):
     data["title"] = pick("title")
     data["slug"] = pick("slug")
     data["date"] = pick("date")
+    data["lastmod"] = pick("lastmod")
     data["url"] = pick("url")
+
+    alias_list: list[str] = []
+    alias_block = re.search(r"(?ms)^aliases:\s*(.*?)(?=^[A-Za-z0-9_-]+:\s|\Z)", fm)
+    if alias_block:
+        for line in alias_block.group(1).splitlines():
+            mm = re.match(r"^\s*-\s*(.+?)\s*$", line)
+            if not mm:
+                continue
+            alias = mm.group(1).strip().strip('"').strip("'")
+            if alias:
+                alias_list.append(alias)
+    if alias_list:
+        data["aliases"] = alias_list
     return data
 
 
@@ -549,6 +630,7 @@ def list_existing_posts(out_dir: pathlib.Path):
         txt = p.read_text(encoding="utf-8", errors="ignore")
         fm = parse_frontmatter(txt)
         date = fm.get("date")
+        lastmod = fm.get("lastmod")
         slug = fm.get("slug")
         title = fm.get("title")
         if (not date or not slug) and re.match(r"\d{4}-\d{2}-\d{2}", p.name):
@@ -560,7 +642,18 @@ def list_existing_posts(out_dir: pathlib.Path):
         if not date or not slug:
             continue
         url = fm.get("url") or permalink_from(date, slug)
-        posts.append({"url": url, "title": title or slug, "date": date, "slug": slug})
+        aliases = fm.get("aliases") or []
+        posts.append(
+            {
+                "url": url,
+                "aliases": aliases,
+                "title": title or slug,
+                "date": date,
+                "lastmod": lastmod or date,
+                "slug": slug,
+                "file_path": str(p),
+            }
+        )
     return posts
 
 
@@ -663,6 +756,657 @@ def is_similar_title(title: str, existing: list[str], threshold: float = 0.65) -
 def is_similar_topic(topic: str, existing: list[str], threshold: float = 0.6) -> bool:
     """Avoid generating multiple posts on near-identical topics."""
     return is_similar_title(topic, existing, threshold=threshold)
+
+
+def parse_bool_arg(value):
+    if isinstance(value, bool):
+        return value
+    lowered = str(value).strip().lower()
+    if lowered in {"1", "true", "yes", "on"}:
+        return True
+    if lowered in {"0", "false", "no", "off"}:
+        return False
+    raise argparse.ArgumentTypeError("Expected true/false.")
+
+
+def normalize_site_path(value: str) -> str:
+    if not value:
+        return ""
+    parsed = urlparse(value)
+    path = parsed.path if (parsed.scheme or parsed.netloc) else str(value)
+    if not path:
+        return ""
+    path = "/" + path.lstrip("/")
+    if BASE_URL_PATH and (path == BASE_URL_PATH or path.startswith(BASE_URL_PATH + "/")):
+        path = path[len(BASE_URL_PATH) :] or "/"
+        if not path.startswith("/"):
+            path = "/" + path
+    if not path.endswith("/"):
+        path += "/"
+    return path
+
+
+def normalize_domain(url: str) -> str:
+    try:
+        domain = (urlparse(url).netloc or "").lower().strip()
+    except Exception:
+        domain = ""
+    if domain.startswith("www."):
+        domain = domain[4:]
+    return domain
+
+
+def has_domain_hint(domain: str, hints: list[str]) -> bool:
+    d = (domain or "").lower()
+    if not d:
+        return False
+    for hint in hints:
+        h = hint.lower()
+        if d == h or d.endswith("." + h) or h in d:
+            return True
+    return False
+
+
+def _safe_total_results(value) -> int:
+    try:
+        return int(value)
+    except Exception:
+        return 0
+
+
+class CSEBudget:
+    def __init__(self, daily_limit: int, budget: int):
+        self.max_calls = max(0, min(daily_limit, budget))
+        self.used_calls = 0
+        self.disabled_reason = ""
+
+    def consume(self) -> bool:
+        if self.disabled_reason:
+            return False
+        if self.used_calls >= self.max_calls:
+            self.disabled_reason = "budget_exhausted"
+            return False
+        self.used_calls += 1
+        return True
+
+    def disable(self, reason: str):
+        self.disabled_reason = reason
+
+
+def fetch_gsc_query_page_rows(days: int, max_rows: int = GSC_MAX_ROWS) -> list[dict]:
+    if not GSC_SERVICE_ACCOUNT_FILE:
+        print("[warn] GSC_SERVICE_ACCOUNT_FILE is not set. Skipping GSC demand fetch.")
+        return []
+    if not GSC_SITE_URL:
+        print("[warn] GSC_SITE_URL is not set. Skipping GSC demand fetch.")
+        return []
+    key_path = pathlib.Path(GSC_SERVICE_ACCOUNT_FILE)
+    if not key_path.exists():
+        raw_cred = (GSC_SERVICE_ACCOUNT_FILE or "").strip()
+        inline_like = raw_cred.startswith("{") or len(raw_cred) > 200
+        if inline_like:
+            print("[warn] GSC_SERVICE_ACCOUNT_FILE must be a JSON file path, but inline text was provided.")
+        else:
+            print(f"[warn] GSC credential file not found: {key_path}")
+        return []
+    try:
+        from google.oauth2 import service_account
+        from googleapiclient.discovery import build
+    except Exception:
+        print("[warn] Google API dependencies are missing. Skipping GSC demand fetch.")
+        return []
+
+    today = datetime.date.today()
+    start = today - datetime.timedelta(days=max(1, days))
+    all_rows: list[dict] = []
+    try:
+        creds = service_account.Credentials.from_service_account_file(
+            str(key_path),
+            scopes=["https://www.googleapis.com/auth/webmasters.readonly"],
+        )
+        service = build("searchconsole", "v1", credentials=creds, cache_discovery=False)
+        start_row = 0
+        while len(all_rows) < max_rows:
+            row_limit = min(25000, max_rows - len(all_rows))
+            body = {
+                "startDate": start.isoformat(),
+                "endDate": today.isoformat(),
+                "dimensions": ["query", "page"],
+                "rowLimit": row_limit,
+                "startRow": start_row,
+            }
+            resp = service.searchanalytics().query(siteUrl=GSC_SITE_URL, body=body).execute()
+            rows = resp.get("rows") or []
+            if not rows:
+                break
+            for row in rows:
+                keys = row.get("keys") or []
+                if len(keys) < 2:
+                    continue
+                query = re.sub(r"\s+", " ", str(keys[0]).strip())
+                page = str(keys[1]).strip()
+                if not query or not page:
+                    continue
+                all_rows.append(
+                    {
+                        "query": query,
+                        "page": page,
+                        "clicks": float(row.get("clicks") or 0.0),
+                        "impressions": float(row.get("impressions") or 0.0),
+                        "ctr": float(row.get("ctr") or 0.0),
+                        "position": float(row.get("position") or 0.0),
+                    }
+                )
+            if len(rows) < row_limit:
+                break
+            start_row += len(rows)
+    except Exception as exc:
+        print(f"[warn] Failed to fetch GSC data: {exc}")
+        return []
+    return all_rows
+
+
+def aggregate_gsc_queries(rows: list[dict], min_impressions: int, min_position: int, limit: int = TOP_QUERIES_FOR_SUPPLY_CHECK):
+    by_query: dict[str, dict] = {}
+    for row in rows:
+        query = re.sub(r"\s+", " ", (row.get("query") or "").strip())
+        if not query or not has_core_keyword(query):
+            continue
+        impressions = float(row.get("impressions") or 0.0)
+        if impressions <= 0:
+            continue
+        entry = by_query.setdefault(
+            query,
+            {
+                "query": query,
+                "impressions": 0.0,
+                "clicks": 0.0,
+                "position_sum": 0.0,
+                "page": "",
+                "page_impressions": 0.0,
+            },
+        )
+        entry["impressions"] += impressions
+        entry["clicks"] += float(row.get("clicks") or 0.0)
+        entry["position_sum"] += float(row.get("position") or 0.0) * impressions
+        if impressions > entry["page_impressions"]:
+            entry["page"] = row.get("page") or ""
+            entry["page_impressions"] = impressions
+
+    out: list[dict] = []
+    for query, entry in by_query.items():
+        impressions = entry["impressions"]
+        if impressions < min_impressions:
+            continue
+        position = entry["position_sum"] / impressions if impressions else 0.0
+        if position < min_position:
+            continue
+        ctr = (entry["clicks"] / impressions) if impressions else 0.0
+        out.append(
+            {
+                "query": query,
+                "page": entry["page"],
+                "impressions": impressions,
+                "position": position,
+                "ctr": ctr,
+            }
+        )
+    out.sort(key=lambda x: x["impressions"], reverse=True)
+    return out[:limit]
+
+
+def _extract_http_error_message(response: requests.Response | None) -> str:
+    if response is None:
+        return ""
+    try:
+        payload = response.json()
+        message = ((payload.get("error") or {}).get("message") or "").strip()
+        if message:
+            return message
+    except Exception:
+        pass
+    return (response.text or "").strip()[:300]
+
+
+def resolve_serp_provider(provider: str = "auto") -> tuple[str, str]:
+    target = (provider or EXTERNAL_SERP_PROVIDER or "auto").strip().lower()
+    if target not in {"auto", "brave", "cse"}:
+        target = "auto"
+
+    has_brave = bool(BRAVE_SEARCH_API_KEY)
+    has_cse = bool(GOOGLE_CSE_API_KEY and GOOGLE_CSE_CX)
+
+    if target == "brave":
+        return ("brave", "") if has_brave else ("", "missing_brave_search_credentials")
+    if target == "cse":
+        return ("cse", "") if has_cse else ("", "missing_google_cse_credentials")
+
+    if has_brave:
+        return "brave", ""
+    if has_cse:
+        return "cse", ""
+    return "", "missing_serp_credentials"
+
+
+def fetch_google_cse(query: str, budget: CSEBudget, num: int = 10) -> tuple[dict | None, str | None]:
+    if not GOOGLE_CSE_API_KEY or not GOOGLE_CSE_CX:
+        return None, "missing_credentials"
+    if not budget.consume():
+        return None, budget.disabled_reason or "budget_exhausted"
+    endpoint = "https://www.googleapis.com/customsearch/v1"
+    params = {
+        "key": GOOGLE_CSE_API_KEY,
+        "cx": GOOGLE_CSE_CX,
+        "q": query,
+        "num": max(1, min(10, num)),
+        "hl": "ja",
+        "safe": "off",
+    }
+    try:
+        resp = requests.get(endpoint, params=params, timeout=8)
+        resp.raise_for_status()
+        data = resp.json()
+        items = []
+        for item in data.get("items") or []:
+            link = item.get("link") or ""
+            title = item.get("title") or ""
+            snippet = item.get("snippet") or ""
+            if not link:
+                continue
+            items.append({"link": link, "title": title, "snippet": snippet})
+        total_results = _safe_total_results((data.get("searchInformation") or {}).get("totalResults"))
+        return {"items": items, "total_results": total_results}, None
+    except requests.HTTPError as exc:
+        status = exc.response.status_code if exc.response is not None else 0
+        message = _extract_http_error_message(exc.response).lower()
+        if status == 429:
+            budget.disable("quota_or_rate_limit")
+        elif status in (400, 403) and (
+            "api key not valid" in message
+            or "does not have the access to custom search json api" in message
+            or "access not configured" in message
+            or "forbidden" in message
+        ):
+            budget.disable("serp_access_denied")
+        elif status == 403:
+            budget.disable("quota_or_rate_limit")
+        return None, f"http_{status}"
+    except Exception as exc:
+        return None, f"request_error:{exc}"
+
+
+def fetch_brave_search(query: str, budget: CSEBudget, num: int = 10) -> tuple[dict | None, str | None]:
+    if not BRAVE_SEARCH_API_KEY:
+        return None, "missing_credentials"
+    if not budget.consume():
+        return None, budget.disabled_reason or "budget_exhausted"
+    endpoint = "https://api.search.brave.com/res/v1/web/search"
+    params = {
+        "q": query,
+        "count": max(1, min(20, num)),
+        "search_lang": "jp",
+        "safesearch": "off",
+    }
+    headers = {
+        "Accept": "application/json",
+        "X-Subscription-Token": BRAVE_SEARCH_API_KEY,
+    }
+    try:
+        resp = requests.get(endpoint, headers=headers, params=params, timeout=8)
+        resp.raise_for_status()
+        data = resp.json()
+        web = data.get("web") or {}
+        items = []
+        for item in web.get("results") or []:
+            link = item.get("url") or ""
+            title = item.get("title") or ""
+            snippet = item.get("description") or item.get("snippet") or ""
+            if not link:
+                continue
+            items.append({"link": link, "title": title, "snippet": snippet})
+        total_results = _safe_total_results(web.get("total"))
+        if total_results <= 0:
+            total_results = len(items)
+        return {"items": items, "total_results": total_results}, None
+    except requests.HTTPError as exc:
+        status = exc.response.status_code if exc.response is not None else 0
+        if status == 429:
+            budget.disable("quota_or_rate_limit")
+        elif status in (401, 403):
+            budget.disable("serp_access_denied")
+        return None, f"http_{status}"
+    except Exception as exc:
+        return None, f"request_error:{exc}"
+
+
+def fetch_external_serp(provider: str, query: str, budget: CSEBudget, num: int = 10) -> tuple[dict | None, str | None]:
+    if provider == "brave":
+        return fetch_brave_search(query, budget, num=num)
+    if provider == "cse":
+        return fetch_google_cse(query, budget, num=num)
+    return None, "unsupported_serp_provider"
+
+
+def compute_supply_gap_metrics(items: list[dict]) -> dict:
+    if not items:
+        return {
+            "old_content_ratio": 0.5,
+            "domain_concentration": 1.0,
+            "howto_lack_ratio": 1.0,
+            "primary_source_lack_ratio": 1.0,
+            "forum_pressure": 0.0,
+            "supply_gap_score": 60.0,
+        }
+
+    domain_counts: Counter[str] = Counter()
+    howto_hits = 0
+    primary_hits = 0
+    forum_hits = 0
+    old_hits = 0
+    dated_hits = 0
+    current_year = datetime.date.today().year
+
+    for item in items:
+        title = (item.get("title") or "").strip()
+        snippet = (item.get("snippet") or "").strip()
+        link = item.get("link") or ""
+        text = f"{title} {snippet}"
+        lower_text = text.lower()
+        domain = normalize_domain(link)
+        if domain:
+            domain_counts[domain] += 1
+
+        if any(k in text for k in HOWTO_HINTS):
+            howto_hits += 1
+        if "公式" in text or has_domain_hint(domain, PRIMARY_SOURCE_DOMAIN_HINTS):
+            primary_hits += 1
+        if has_domain_hint(domain, FORUM_DOMAIN_HINTS):
+            forum_hits += 1
+
+        years = [int(y) for y in re.findall(r"\b(20\d{2})\b", lower_text)]
+        if years:
+            dated_hits += 1
+            if max(years) <= current_year - OLD_CONTENT_YEAR_THRESHOLD:
+                old_hits += 1
+
+    total = max(len(items), 1)
+    old_content_ratio = (old_hits / dated_hits) if dated_hits else 0.5
+    domain_concentration = (max(domain_counts.values()) / total) if domain_counts else 1.0
+    howto_lack_ratio = 1.0 - (howto_hits / total)
+    primary_source_lack_ratio = 1.0 - (primary_hits / total)
+    forum_pressure = forum_hits / total
+
+    score = (
+        old_content_ratio * 20
+        + domain_concentration * 20
+        + howto_lack_ratio * 25
+        + primary_source_lack_ratio * 20
+        + forum_pressure * 15
+    )
+    supply_gap_score = max(0.0, min(100.0, score))
+    return {
+        "old_content_ratio": round(old_content_ratio, 4),
+        "domain_concentration": round(domain_concentration, 4),
+        "howto_lack_ratio": round(howto_lack_ratio, 4),
+        "primary_source_lack_ratio": round(primary_source_lack_ratio, 4),
+        "forum_pressure": round(forum_pressure, 4),
+        "supply_gap_score": round(supply_gap_score, 2),
+    }
+
+
+def compute_pain_signal_score(signal_totals: dict[str, int]) -> float:
+    def _norm(total: int) -> float:
+        return min(1.0, math.log10(total + 1) / 6.0)
+
+    score = (
+        _norm(signal_totals.get("chiebukuro", 0)) * 10
+        + _norm(signal_totals.get("error", 0)) * 10
+        + _norm(signal_totals.get("inquiry", 0)) * 10
+    )
+    return round(score, 2)
+
+
+def compute_demand_score(impressions: float, position: float) -> float:
+    return round(math.log10(max(impressions, 0.0) + 1.0) * 20.0 + min(max(position, 0.0), 30.0), 2)
+
+
+def query_post_relevance(query: str, post_title: str, post_slug: str) -> float:
+    query_tokens = _tokenize(query)
+    post_text = f"{post_title} {post_slug.replace('-', ' ')}".strip()
+    post_tokens = _tokenize(post_text)
+    token_jaccard = 0.0
+    if query_tokens and post_tokens:
+        token_jaccard = len(query_tokens & post_tokens) / max(len(query_tokens | post_tokens), 1)
+    seq = difflib.SequenceMatcher(None, _normalize_for_similarity(query), _normalize_for_similarity(post_text)).ratio()
+    return round((token_jaccard * 0.6) + (seq * 0.4), 4)
+
+
+def build_post_url_index(posts: list[dict]) -> dict[str, dict]:
+    index: dict[str, dict] = {}
+    for post in posts:
+        permalink_guess = ""
+        if post.get("date") and post.get("slug"):
+            try:
+                permalink_guess = permalink_from(post.get("date", ""), post.get("slug", ""))
+            except Exception:
+                permalink_guess = ""
+        candidates = [
+            post.get("url") or "",
+            permalink_guess,
+            f"/posts/{post.get('slug')}/" if post.get("slug") else "",
+        ]
+        aliases = post.get("aliases") or []
+        for alias in aliases:
+            candidates.append(alias)
+        for raw in candidates:
+            normalized = normalize_site_path(raw)
+            if normalized:
+                index.setdefault(normalized, post)
+    return index
+
+
+def find_best_post_match(query: str, posts: list[dict]) -> tuple[dict | None, float]:
+    best_post = None
+    best_score = 0.0
+    for post in posts:
+        score = query_post_relevance(query, post.get("title", ""), post.get("slug", ""))
+        if score > best_score:
+            best_score = score
+            best_post = post
+    return best_post, best_score
+
+
+def write_supply_audit_report(report_rows: list[dict], metadata: dict):
+    payload = {
+        "generated_at": datetime.datetime.now(datetime.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "metadata": metadata,
+        "rows": report_rows,
+    }
+    try:
+        SUPPLY_AUDIT_PATH.parent.mkdir(parents=True, exist_ok=True)
+        SUPPLY_AUDIT_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"[info] Supply audit report written: {SUPPLY_AUDIT_PATH}")
+    except Exception as exc:
+        print(f"[warn] Failed to write supply audit report: {exc}")
+
+
+def collect_external_supply_candidates(
+    existing_posts: list[dict],
+    gsc_days: int,
+    gsc_min_impressions: int,
+    gsc_min_position: int,
+    cse_budget: int,
+    serp_provider: str = "auto",
+) -> dict:
+    result = {
+        "new_topics": [],
+        "update_candidates": [],
+        "audit_rows": [],
+        "meta": {
+            "cse_budget": cse_budget,
+            "cse_used_calls": 0,
+            "serp_budget": cse_budget,
+            "serp_used_calls": 0,
+            "serp_provider": "",
+            "source": "gsc+serp",
+            "fallback_reason": "",
+            "evaluated_queries": 0,
+        },
+    }
+
+    provider, provider_err = resolve_serp_provider(serp_provider)
+    if not provider:
+        result["meta"]["fallback_reason"] = provider_err or "missing_serp_credentials"
+        return result
+    result["meta"]["serp_provider"] = provider
+    result["meta"]["source"] = f"gsc+{provider}"
+
+    gsc_rows = fetch_gsc_query_page_rows(days=gsc_days, max_rows=GSC_MAX_ROWS)
+    if not gsc_rows:
+        result["meta"]["fallback_reason"] = "gsc_data_unavailable"
+        return result
+
+    aggregated = aggregate_gsc_queries(gsc_rows, min_impressions=gsc_min_impressions, min_position=gsc_min_position)
+    if not aggregated:
+        result["meta"]["fallback_reason"] = "no_gsc_queries_after_filter"
+        return result
+
+    budget = CSEBudget(CSE_DAILY_FREE_LIMIT, cse_budget)
+    post_index = build_post_url_index(existing_posts)
+    accepted_new: list[str] = []
+    accepted_updates: list[dict] = []
+
+    for entry in aggregated:
+        query = entry["query"]
+        serp, serp_err = fetch_external_serp(provider, query, budget, num=10)
+        if serp is None:
+            result["audit_rows"].append(
+                {
+                    "query": query,
+                    "status": "skipped",
+                    "reason": serp_err or f"{provider}_fetch_failed",
+                    "impressions": round(entry["impressions"], 2),
+                    "position": round(entry["position"], 2),
+                }
+            )
+            if budget.disabled_reason in {"budget_exhausted", "quota_or_rate_limit", "serp_access_denied"}:
+                break
+            continue
+
+        supply_metrics = compute_supply_gap_metrics(serp.get("items") or [])
+        pain_totals: dict[str, int] = {}
+        pain_errors: dict[str, str] = {}
+        for label, query_tpl in PAIN_SIGNAL_QUERIES:
+            sub_query = query_tpl.format(query=query)
+            sub_resp, sub_err = fetch_external_serp(provider, sub_query, budget, num=10)
+            if sub_resp is None:
+                pain_totals[label] = 0
+                if sub_err:
+                    pain_errors[label] = sub_err
+            else:
+                pain_totals[label] = sub_resp.get("total_results") or 0
+        pain_score = compute_pain_signal_score(pain_totals)
+        demand_score = compute_demand_score(entry["impressions"], entry["position"])
+        opportunity_score = round(demand_score + supply_metrics["supply_gap_score"] + pain_score, 2)
+
+        match_method = "none"
+        match_relevance = 0.0
+        matched_post = None
+
+        page_path = normalize_site_path(entry.get("page") or "")
+        if page_path and page_path in post_index:
+            matched_post = post_index[page_path]
+            match_method = "gsc_page"
+            match_relevance = query_post_relevance(query, matched_post.get("title", ""), matched_post.get("slug", ""))
+        else:
+            best_post, best_score = find_best_post_match(query, existing_posts)
+            if best_post and best_score >= QUERY_PAGE_RELEVANCE_THRESHOLD:
+                matched_post = best_post
+                match_method = "similarity"
+                match_relevance = best_score
+
+        action = "new"
+        if matched_post and match_relevance >= QUERY_PAGE_RELEVANCE_THRESHOLD and entry["position"] >= gsc_min_position:
+            action = "update"
+
+        accepted = (
+            supply_metrics["supply_gap_score"] >= SUPPLY_GAP_MIN_SCORE
+            and opportunity_score >= OPPORTUNITY_MIN_SCORE
+        )
+        if accepted:
+            if action == "update" and matched_post and matched_post.get("file_path"):
+                accepted_updates.append(
+                    {
+                        "query": query,
+                        "opportunity_score": opportunity_score,
+                        "demand_score": demand_score,
+                        "supply_gap_score": supply_metrics["supply_gap_score"],
+                        "pain_signal_score": pain_score,
+                        "supply_metrics": supply_metrics,
+                        "match_method": match_method,
+                        "match_relevance": round(match_relevance, 4),
+                        "post_title": matched_post.get("title"),
+                        "post_slug": matched_post.get("slug"),
+                        "post_file_path": matched_post.get("file_path"),
+                        "page": entry.get("page"),
+                    }
+                )
+            else:
+                accepted_new.append(query)
+
+        result["audit_rows"].append(
+            {
+                "query": query,
+                "status": "accepted" if accepted else "rejected",
+                "action": action,
+                "reason": "",
+                "impressions": round(entry["impressions"], 2),
+                "position": round(entry["position"], 2),
+                "ctr": round(entry["ctr"], 4),
+                "gsc_page": entry.get("page"),
+                "scores": {
+                    "demand_score": demand_score,
+                    "supply_gap_score": supply_metrics["supply_gap_score"],
+                    "pain_signal_score": pain_score,
+                    "opportunity_score": opportunity_score,
+                },
+                "supply_metrics": {
+                    "old_content_ratio": supply_metrics["old_content_ratio"],
+                    "domain_concentration": supply_metrics["domain_concentration"],
+                    "howto_lack_ratio": supply_metrics["howto_lack_ratio"],
+                    "primary_source_lack_ratio": supply_metrics["primary_source_lack_ratio"],
+                    "forum_pressure": supply_metrics["forum_pressure"],
+                },
+                "pain_signal_totals": pain_totals,
+                "pain_signal_errors": pain_errors,
+                "match": {
+                    "method": match_method,
+                    "relevance": round(match_relevance, 4),
+                    "post_slug": matched_post.get("slug") if matched_post else "",
+                },
+            }
+        )
+        if budget.disabled_reason in {"budget_exhausted", "quota_or_rate_limit", "serp_access_denied"}:
+            break
+
+    unique_updates: list[dict] = []
+    seen_update_files: set[str] = set()
+    for item in sorted(accepted_updates, key=lambda x: x["opportunity_score"], reverse=True):
+        file_path = item.get("post_file_path") or ""
+        if not file_path or file_path in seen_update_files:
+            continue
+        seen_update_files.add(file_path)
+        unique_updates.append(item)
+
+    result["new_topics"] = _unique_preserve_order(accepted_new)
+    result["update_candidates"] = unique_updates
+    result["meta"]["cse_used_calls"] = budget.used_calls
+    result["meta"]["serp_used_calls"] = budget.used_calls
+    result["meta"]["evaluated_queries"] = len(result["audit_rows"])
+    if budget.disabled_reason and not result["meta"]["fallback_reason"]:
+        result["meta"]["fallback_reason"] = budget.disabled_reason
+    return result
+
 
 def _unique_preserve_order(items: list[str]) -> list[str]:
     seen: set[str] = set()
@@ -1393,19 +2137,213 @@ def pick_related_urls(out_dir: pathlib.Path, today_iso: str, k: int = 3):
     return [(p["title"], p["url"]) for p in picked[:k]]
 
 
-def main():
-    # Safety guard: disable accidental generation unless explicitly enabled.
-    if os.getenv("DISABLE_POST_GENERATION", "true").lower() != "false":
-        print("[info] Post generation is disabled. Set DISABLE_POST_GENERATION=false to enable.")
-        return
+def parse_iso_date(value: str | None) -> datetime.date | None:
+    if not value:
+        return None
+    text = str(value).strip().strip('"').strip("'")
+    if not text:
+        return None
+    if "T" in text:
+        text = text.split("T", 1)[0]
+    try:
+        return datetime.date.fromisoformat(text)
+    except Exception:
+        return None
 
+
+def split_yaml_frontmatter(md_text: str) -> tuple[str, str, str]:
+    m = re.match(r"^---\s*\r?\n(.*?)\r?\n---\s*\r?\n?", md_text, re.S)
+    if not m:
+        return "", "", md_text
+    return "---", m.group(1), md_text[m.end() :]
+
+
+def upsert_lastmod(frontmatter: str, today_iso: str) -> str:
+    if re.search(r"(?m)^lastmod:\s*.*$", frontmatter):
+        return re.sub(r"(?m)^lastmod:\s*.*$", f"lastmod: {today_iso}", frontmatter, count=1)
+    if re.search(r"(?m)^date:\s*.*$", frontmatter):
+        return re.sub(r"(?m)^date:\s*.*$", lambda m: m.group(0) + f"\nlastmod: {today_iso}", frontmatter, count=1)
+    lines = frontmatter.rstrip("\n").splitlines()
+    lines.append(f"lastmod: {today_iso}")
+    return "\n".join(lines)
+
+
+def ensure_update_section_shape(section: str, query: str, existing_h2: set[str]) -> str:
+    cleaned = _strip_markdown_code_fence(strip_unwanted_preface(section or "").strip())
+    cleaned = downgrade_markdown_h1(cleaned)
+    heading_match = re.match(r"(?m)^##\s+(.+)$", cleaned)
+    if not heading_match:
+        cleaned = f"## 追記: {query}\n\n{cleaned}".strip()
+        return cleaned
+    first_heading = re.sub(r"\s+", " ", heading_match.group(1)).strip()
+    if first_heading in existing_h2:
+        cleaned = re.sub(r"(?m)^##\s+.+$", f"## 追記: {query}", cleaned, count=1)
+    return cleaned.strip()
+
+
+def insert_update_section(body: str, section: str) -> str:
+    insert_patterns = [
+        r"(?m)^##\s*まとめ.*$",
+        r"(?m)^##\s*結論.*$",
+        r"(?m)^##\s*関連ガイド.*$",
+        r"(?m)^##\s*関連記事.*$",
+    ]
+    for pattern in insert_patterns:
+        m = re.search(pattern, body)
+        if not m:
+            continue
+        head = body[: m.start()].rstrip()
+        tail = body[m.start() :].lstrip()
+        return f"{head}\n\n{section.strip()}\n\n{tail}".strip() + "\n"
+    return body.rstrip() + "\n\n" + section.strip() + "\n"
+
+
+def build_update_section(
+    query: str,
+    current_title: str,
+    current_body: str,
+    score_payload: dict,
+) -> str | None:
+    snippet = re.sub(r"\s+", " ", current_body).strip()[:4200]
+    supply_metrics = score_payload.get("supply_metrics") or {}
+    prompt = dedent(
+        f"""\
+        既存記事に追記する補足セクションを作成してください。本文全体の書き直しは禁止です。
+
+        # 対象記事タイトル
+        {current_title}
+
+        # 追加で拾う検索意図
+        {query}
+
+        # 供給不足ヒント（外部SERP分析）
+        - old_content_ratio: {supply_metrics.get('old_content_ratio', '')}
+        - domain_concentration: {supply_metrics.get('domain_concentration', '')}
+        - howto_lack_ratio: {supply_metrics.get('howto_lack_ratio', '')}
+        - primary_source_lack_ratio: {supply_metrics.get('primary_source_lack_ratio', '')}
+        - forum_pressure: {supply_metrics.get('forum_pressure', '')}
+
+        # 現在本文（抜粋）
+        {snippet}
+
+        # 出力要件
+        - 追記セクションのみをMarkdownで返す
+        - H1は使わず、H2(##)から始める
+        - 手順や症状別の分岐を具体的に入れる
+        - 断定を避け、未確認情報は「要確認」と書く
+        - 誇大表現は禁止
+        - 重複しやすい定型文は避ける
+        """
+    )
+    try:
+        section = generate_openai_text(UPDATE_SYSTEM, prompt, temperature=0.4)
+    except Exception as exc:
+        print(f"[warn] Failed to generate update section for '{query}': {exc}")
+        return None
+    return section.strip()
+
+
+def apply_external_updates(
+    update_candidates: list[dict],
+    max_updates: int,
+    cooldown_days: int = UPDATE_COOLDOWN_DAYS,
+) -> int:
+    if max_updates <= 0:
+        return 0
+    if OPENAI_CLIENT is None:
+        print("[warn] OPENAI_API_KEY is not set. Skip update generation.")
+        return 0
+
+    today = datetime.date.today()
+    updated_count = 0
+
+    for candidate in sorted(update_candidates, key=lambda x: x.get("opportunity_score", 0), reverse=True):
+        if updated_count >= max_updates:
+            break
+        file_path = pathlib.Path(candidate.get("post_file_path") or "")
+        query = (candidate.get("query") or "").strip()
+        if not query or not file_path.exists():
+            continue
+
+        try:
+            md_text = file_path.read_text(encoding="utf-8")
+        except Exception as exc:
+            print(f"[warn] Failed to read update target '{file_path}': {exc}")
+            continue
+
+        fm_data = parse_frontmatter(md_text)
+        last_seen = parse_iso_date(fm_data.get("lastmod") or fm_data.get("date"))
+        if last_seen and (today - last_seen).days < cooldown_days:
+            print(f"[skip] Update skipped for '{file_path.name}' because it was updated recently.")
+            continue
+
+        delim, frontmatter, body = split_yaml_frontmatter(md_text)
+        if not delim:
+            print(f"[skip] Update skipped for '{file_path.name}' because YAML front matter was not found.")
+            continue
+
+        section = build_update_section(
+            query=query,
+            current_title=fm_data.get("title") or candidate.get("post_title") or file_path.stem,
+            current_body=body,
+            score_payload=candidate,
+        )
+        if not section:
+            continue
+
+        existing_h2 = extract_h2_headings(body)
+        section = ensure_update_section_shape(section, query, existing_h2)
+        new_body = insert_update_section(body, section)
+        new_frontmatter = upsert_lastmod(frontmatter, today.isoformat())
+        new_md = f"---\n{new_frontmatter.strip()}\n---\n\n{new_body.lstrip()}"
+
+        try:
+            file_path.write_text(new_md, encoding="utf-8")
+            updated_count += 1
+            print(f"updated: {file_path}")
+        except Exception as exc:
+            print(f"[warn] Failed to write updated post '{file_path}': {exc}")
+            continue
+    return updated_count
+
+
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--count", type=int, default=1, help="1〜3記事生成")
+    parser.add_argument("--updates", type=int, default=0, help="既存記事の更新数（0〜3）")
+    parser.add_argument(
+        "--external-supply-check",
+        type=parse_bool_arg,
+        nargs="?",
+        const=True,
+        default=True,
+        help="外部SERP供給不足チェックを使う (true/false)",
+    )
+    parser.add_argument("--supply-audit-only", action="store_true", help="供給不足判定レポートのみ出力して終了")
+    parser.add_argument("--cse-budget", type=int, default=DEFAULT_CSE_BUDGET, help="外部SERP API呼び出し予算")
+    parser.add_argument(
+        "--serp-provider",
+        type=str,
+        default=EXTERNAL_SERP_PROVIDER if EXTERNAL_SERP_PROVIDER in {"auto", "brave", "cse"} else "auto",
+        choices=["auto", "brave", "cse"],
+        help="外部SERPプロバイダ (auto/brave/cse)",
+    )
+    parser.add_argument("--gsc-days", type=int, default=28, help="GSC取得期間（日数）")
+    parser.add_argument("--gsc-min-impressions", type=int, default=50, help="GSCの最小表示回数")
+    parser.add_argument("--gsc-min-position", type=int, default=10, help="GSCの最小掲載順位")
     args = parser.parse_args()
+
+    # Safety guard: disable accidental generation unless explicitly enabled.
+    if os.getenv("DISABLE_POST_GENERATION", "true").lower() != "false" and not args.supply_audit_only:
+        print("[info] Post generation is disabled. Set DISABLE_POST_GENERATION=false to enable.")
+        return
 
     requested_count = max(1, min(3, args.count))
     if requested_count != args.count:
         print(f"[info] Adjusted count from {args.count} to {requested_count} (allowed range: 1-3).")
+    requested_updates = max(0, min(3, args.updates))
+    if requested_updates != args.updates:
+        print(f"[info] Adjusted updates from {args.updates} to {requested_updates} (allowed range: 0-3).")
 
     out_dir = CONTENT_POSTS_DIR
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -1416,11 +2354,44 @@ def main():
 
     need = max(0, requested_count - already)
     need = min(need, 3)
-    if need == 0:
+
+    existing_posts = list_existing_posts(out_dir)
+    external_result = {
+        "new_topics": [],
+        "update_candidates": [],
+        "audit_rows": [],
+        "meta": {"source": "disabled", "fallback_reason": ""},
+    }
+
+    if args.external_supply_check:
+        try:
+            external_result = collect_external_supply_candidates(
+                existing_posts=existing_posts,
+                gsc_days=max(1, args.gsc_days),
+                gsc_min_impressions=max(1, args.gsc_min_impressions),
+                gsc_min_position=max(1, args.gsc_min_position),
+                cse_budget=max(0, args.cse_budget),
+                serp_provider=args.serp_provider,
+            )
+        except Exception as exc:
+            print(f"[warn] External supply check failed; fallback to existing topic sources. ({exc})")
+            external_result["meta"]["fallback_reason"] = "external_check_exception"
+
+        write_supply_audit_report(external_result.get("audit_rows", []), external_result.get("meta", {}))
+        if external_result.get("meta", {}).get("fallback_reason"):
+            print(f"[warn] External supply check fallback reason: {external_result['meta']['fallback_reason']}")
+
+    if args.supply_audit_only:
+        print("[info] Supply audit only mode completed.")
+        return
+
+    if OPENAI_CLIENT is None:
+        raise SystemExit("OPENAI_API_KEY not set")
+
+    if need == 0 and requested_updates == 0:
         print(f"Already have {already} posts for {today}. Nothing to do.")
         return
 
-    existing_posts = list_existing_posts(out_dir)
     existing_title_pool = [(p.get("title") or "").strip() for p in existing_posts if p.get("title")]
     used_titles = {(p.get("title") or "").strip().lower() for p in existing_posts if p.get("title")}
     used_slugs = {p.get("slug") for p in existing_posts if p.get("slug")}
@@ -1437,7 +2408,15 @@ def main():
         recent_titles=recent_titles,
         limit=300,
     )
-    raw_topics = collect_candidates(max(need * 15, 30), fallback_topics=fallback_topics)
+    external_topics = external_result.get("new_topics") or []
+    if external_topics:
+        print(f"[info] External supply-gap candidates: {external_topics}")
+
+    raw_topics = list(external_topics)
+    fallback_raw_topics = collect_candidates(max(need * 15, 30), fallback_topics=fallback_topics)
+    for topic in fallback_raw_topics:
+        if topic not in raw_topics:
+            raw_topics.append(topic)
     scored = []
     for t in raw_topics:
         score = 0
@@ -1452,6 +2431,8 @@ def main():
     scored.sort(key=lambda x: x[0], reverse=True)
     filtered_topics = [t for s, t in scored if s > 0]
     topics = filtered_topics
+    if need == 0:
+        topics = []
     start_index = already + 1
     generated = 0
     index = start_index
@@ -1653,6 +2634,17 @@ def main():
             if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True, use_failsafe=True):
                 if generated >= need:
                     break
+
+    if requested_updates > 0:
+        update_candidates = external_result.get("update_candidates") or []
+        if not update_candidates:
+            print("[info] No external update candidates met thresholds.")
+        else:
+            updated = apply_external_updates(update_candidates, max_updates=requested_updates)
+            if updated == 0:
+                print("[info] No existing posts were updated.")
+            else:
+                print(f"[info] Updated existing posts: {updated}")
 
     if generated < need:
         msg = f"Unable to generate {need} unique posts (created {generated})."

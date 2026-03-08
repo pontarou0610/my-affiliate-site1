@@ -1,6 +1,10 @@
 public/
 
 .env
+.gsc-sa.json
+data/supply_gap_report.json
+.tmp-public-check/
+tmp_generate_post.pyc*
 
 # Python
 __pycache__/

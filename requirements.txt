@@ -4,3 +4,5 @@ feedparser
 python-slugify==8.*
 Unidecode==1.3.*
 requests>=2.31
+google-api-python-client>=2.170.0
+google-auth>=2.35.0
