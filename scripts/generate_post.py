@@ -69,8 +69,8 @@ def _int_env(name: str, default: int) -> int:
 load_dotenv()
 BASE_URL = load_base_url()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-OPENAI_MODEL = (os.getenv("OPENAI_MODEL") or "gpt-5.2").strip() or "gpt-5.2"
-OPENAI_FALLBACK_MODELS = ["gpt-5.1", "gpt-5"]
+OPENAI_MODEL = (os.getenv("OPENAI_MODEL") or "gpt-5.4").strip() or "gpt-5.4"
+OPENAI_FALLBACK_MODELS = ["gpt-5.2", "gpt-5.1", "gpt-5"]
 OPENAI_MODEL_CANDIDATES = [OPENAI_MODEL] + [m for m in OPENAI_FALLBACK_MODELS if m != OPENAI_MODEL]
 OPENAI_CLIENT = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
 
