@@ -10,6 +10,7 @@ categories: ["電子書籍"]
 description: "プログラミング関連書が安い！Python、Go、JavaScript、PHPなど、Amazonの「Kindle本年末年始セール」／「生成AIアプリ開発入門 Dify 徹底活用ガイド」が50％OFFの1,485円に関する実用的なガイドと最新情報をまとめました。"
 slug: "hurokuraminkuguan-lian-shu-kaan-i-python-go-javascript-phpna"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 ## いまプログラミング本を買うなら「Kindle本年末年始セール」が狙い目

@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/5745857/pexels-photo-5745857.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "電子書籍リーダーの辞書・翻訳機能は便利ですが、「調べられる」だけでは学習効率が上がりにくいことがあります。学習で効くのは、**調べる回数が増えても読書のテンポが落ちない設計**です。 具体的には、フォントや余白、行間といった読みやすさに加え。"
+description: "KindleやKoboの辞書・翻訳を学習向けに最適化し、調べても読書テンポを落としにくくする設定手順をまとめます。"
 slug: "dian-zi-shu-ji-ri-ta-nodu-miyasusashe-ding-ci-shu-fan-yi-wox"
 hasRelatedProducts: false
 showRakutenWidget: true

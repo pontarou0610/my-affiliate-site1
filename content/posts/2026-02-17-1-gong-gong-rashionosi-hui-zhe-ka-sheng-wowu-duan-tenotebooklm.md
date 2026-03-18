@@ -12,6 +12,7 @@ categories: ["電子書籍"]
 description: "公共ラジオの司会者が「自分の声が無断でAIに利用された」としてGoogleを提訴した、という報道は、生成AI時代の“素材”の境界線をはっきりさせる出来事として注目されています。焦点は、番組で放送された音声（あるいは声紋に近い特徴）が、本人の。"
 slug: "gong-gong-rashionosi-hui-zhe-ka-sheng-wowu-duan-tenotebooklm"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

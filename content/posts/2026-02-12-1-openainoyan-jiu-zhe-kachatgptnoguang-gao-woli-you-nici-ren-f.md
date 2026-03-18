@@ -11,6 +11,7 @@ categories: ["電子書籍"]
 description: "2024年初頭、OpenAIの安全チームに所属していた研究者らが、経営方針への懸念から相次いで退職したというニュースが話題になりました。 背景には、かつてのFacebook（現Meta）が「ユーザー体験より広告収益を優先した」ことで信頼を失。"
 slug: "openainoyan-jiu-zhe-kachatgptnoguang-gao-woli-you-nici-ren-f"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

@@ -12,6 +12,7 @@ categories: ["電子書籍"]
 description: "AIノートブック「NotebookLM」の動画概要（Video Overview）は、単なる要約動画ではなく「視聴体験として成立する短編」に近づいています。ポイントは、情報を短くするだけでなく、**理解の順番（脚本）→見せる素材（画面）→聞。"
 slug: "aino-tohutsuku-notebooklm-nodong-hua-gai-yao-kajin-hua-marut"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

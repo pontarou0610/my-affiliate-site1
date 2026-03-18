@@ -12,6 +12,7 @@ categories: ["電子書籍"]
 description: "「**MacBook Neo**」は、カラフルな筐体と**$599から**という価格で、教育用途やライトユーザーに強いChromebookの領域へAppleが踏み込む――という“コンセプト”として語られる新ラインです。ポイントは「安いMac。"
 slug: "meet-the-macbook-neo-apples-colorful-answer-to-the-chromeboo"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

@@ -19,6 +19,17 @@
       {{ .Description }}
     </div>
     {{- end }}
+    {{- with .Params.archiveNoticeURL }}
+    <div
+      style="margin-top:16px;padding:16px;border:1px solid #fdba74;border-radius:12px;background:#fff7ed;color:#9a3412;">
+      <strong style="display:block;margin-bottom:6px;">更新メモ</strong>
+      <p style="margin:0;">
+        この記事は公開時点の情報を含みます。最新の情報は
+        <a href="{{ . | relURL }}" style="color:inherit;text-decoration:underline;">{{ $.Params.archiveNoticeLabel | default "こちらの最新ガイド" }}</a>
+        を確認してください。
+      </p>
+    </div>
+    {{- end }}
     {{- if not (.Param "hideMeta") }}
     <div class="post-meta">
       {{- partial "post_meta.html" . -}}
@@ -33,6 +44,7 @@
   {{- if (.Param "ShowToc") }}
   {{- partial "toc.html" . }}
   {{- end }}
+  {{- partial "article_cta.html" (dict "page" . "position" "top") }}
 
   {{- if .Content }}
   <div class="post-content">
@@ -44,6 +56,9 @@
   {{- end }}
 
   {{- if eq .Type "posts" }}
+  {{- partial "article_cta.html" (dict "page" . "position" "bottom") }}
+  {{- end }}
+  {{- if false }}
   <section class="lp-cross-cta google-auto-ads-ignore"
     style="margin:40px 0;padding:20px;border:1px solid #eee;border-radius:12px;background:#f9fafb;position:relative;">
     <div

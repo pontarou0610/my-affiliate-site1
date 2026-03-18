@@ -12,6 +12,7 @@ categories: ["電子書籍"]
 description: "Amazonで開催中の「翔泳社40周年祭」は、IT・ビジネス・デザイン領域を中心に**Kindle本1,000点以上が50％OFF**になる大型セールです。たとえば定価3,000円の技術書なら**約1,500円**になり、2冊買っても3,0。"
 slug: "chatgpt2nian-sheng-pythonreheruatsuhutoriru-nato1000dian-yi"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

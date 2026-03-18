@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/30989485/pexels-photo-30989485.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Kindleでは、気になった一文にハイライトを引いたり、メモを残したりできます。便利な機能ですが、線を引いたまま見返さず、知識が定着しないまま終わってしまうこともあります。 そこで役立つのが、KindleのハイライトやメモをGoogleドキ。"
+description: "KindleハイライトとメモをGoogleドキュメントへ整理し、週1レビューで知識を定着させる手順を解説します。"
 slug: "kindlenohairaito-memowogoogletokiyumentonizheng-li-suruyun-y"
 hasRelatedProducts: false
 showRakutenWidget: true

@@ -73,6 +73,8 @@ OPENAI_MODEL = (os.getenv("OPENAI_MODEL") or "gpt-5.4").strip() or "gpt-5.4"
 OPENAI_FALLBACK_MODELS = ["gpt-5.2", "gpt-5.1", "gpt-5"]
 OPENAI_MODEL_CANDIDATES = [OPENAI_MODEL] + [m for m in OPENAI_FALLBACK_MODELS if m != OPENAI_MODEL]
 OPENAI_CLIENT = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
+OPENAI_QUOTA_EXHAUSTED = False
+OPENAI_QUOTA_WARNING_EMITTED = False
 
 RAKUTEN_APP_ID = os.getenv("RAKUTEN_APP_ID")
 RAKUTEN_AFFILIATE_ID = os.getenv("RAKUTEN_AFFILIATE_ID")
@@ -90,6 +92,32 @@ UPDATE_COOLDOWN_DAYS = _int_env("UPDATE_COOLDOWN_DAYS", 14)
 GSC_MAX_ROWS = _int_env("GSC_MAX_ROWS", 2000)
 BASE_URL_PATH = (urlparse(BASE_URL).path or "").rstrip("/")
 SUPPLY_AUDIT_PATH = REPO_ROOT / "data" / "supply_gap_report.json"
+
+
+class OpenAIQuotaExceeded(RuntimeError):
+    """Raised when the OpenAI API reports insufficient quota."""
+
+
+def _is_openai_quota_error(exc: Exception) -> bool:
+    message = str(exc).lower()
+    code = str(getattr(exc, "code", "") or "").lower()
+    status_code = getattr(exc, "status_code", None)
+    return (
+        code == "insufficient_quota"
+        or "insufficient_quota" in message
+        or "exceeded your current quota" in message
+        or ("check your plan and billing details" in message and status_code == 429)
+    )
+
+
+def emit_openai_quota_warning() -> None:
+    global OPENAI_QUOTA_WARNING_EMITTED
+    if OPENAI_QUOTA_WARNING_EMITTED:
+        return
+    msg = "OpenAI API quota is exhausted. Skip remaining AI generation/update steps and continue."
+    print(f"[warn] {msg}")
+    print(f"::warning::{msg}")
+    OPENAI_QUOTA_WARNING_EMITTED = True
 
 # ---------- sources ----------
 RSS_SOURCES = [
@@ -545,8 +573,12 @@ def _extract_response_text(resp) -> str:
 
 
 def generate_openai_text(system_prompt: str, user_prompt: str, temperature: float = 0.4) -> str:
+    global OPENAI_QUOTA_EXHAUSTED
     if OPENAI_CLIENT is None:
         raise RuntimeError("OPENAI_API_KEY not set")
+    if OPENAI_QUOTA_EXHAUSTED:
+        emit_openai_quota_warning()
+        raise OpenAIQuotaExceeded("OpenAI API quota is exhausted")
     last_error: Exception | None = None
     for model in OPENAI_MODEL_CANDIDATES:
         try:
@@ -564,6 +596,10 @@ def generate_openai_text(system_prompt: str, user_prompt: str, temperature: floa
             raise RuntimeError(f"Empty response text from model '{model}'.")
         except Exception as exc:
             last_error = exc
+            if _is_openai_quota_error(exc):
+                OPENAI_QUOTA_EXHAUSTED = True
+                emit_openai_quota_warning()
+                raise OpenAIQuotaExceeded("OpenAI API quota is exhausted") from exc
             if _is_model_availability_error(exc):
                 print(f"[warn] OpenAI model '{model}' unavailable. Trying fallback model.")
                 continue
@@ -2237,6 +2273,8 @@ def build_update_section(
     )
     try:
         section = generate_openai_text(UPDATE_SYSTEM, prompt, temperature=0.4)
+    except OpenAIQuotaExceeded:
+        raise
     except Exception as exc:
         print(f"[warn] Failed to generate update section for '{query}': {exc}")
         return None
@@ -2252,6 +2290,9 @@ def apply_external_updates(
         return 0
     if OPENAI_CLIENT is None:
         print("[warn] OPENAI_API_KEY is not set. Skip update generation.")
+        return 0
+    if OPENAI_QUOTA_EXHAUSTED:
+        emit_openai_quota_warning()
         return 0
 
     today = datetime.date.today()
@@ -2282,12 +2323,16 @@ def apply_external_updates(
             print(f"[skip] Update skipped for '{file_path.name}' because YAML front matter was not found.")
             continue
 
-        section = build_update_section(
-            query=query,
-            current_title=fm_data.get("title") or candidate.get("post_title") or file_path.stem,
-            current_body=body,
-            score_payload=candidate,
-        )
+        try:
+            section = build_update_section(
+                query=query,
+                current_title=fm_data.get("title") or candidate.get("post_title") or file_path.stem,
+                current_body=body,
+                score_payload=candidate,
+            )
+        except OpenAIQuotaExceeded:
+            emit_openai_quota_warning()
+            break
         if not section:
             continue
 
@@ -2469,6 +2514,8 @@ def main():
 
     def generate_for_topic(raw_topic: str, allow_fallback=True, allow_final=False, use_failsafe=False) -> bool:
         nonlocal generated, index, similar_title_pool, topic_pool
+        if OPENAI_QUOTA_EXHAUSTED:
+            return False
         topic_clean = re.sub(r"\s+", " ", raw_topic).strip()
         if not topic_clean:
             return False
@@ -2511,7 +2558,11 @@ def main():
             templates = [TREND_USER_TMPL, USER_TMPL]
 
         for tmpl in templates:
-            slug, seo_title, content, word_count = make_post(topic_clean, slug_candidate, template=tmpl)
+            try:
+                slug, seo_title, content, word_count = make_post(topic_clean, slug_candidate, template=tmpl)
+            except OpenAIQuotaExceeded:
+                emit_openai_quota_warning()
+                return False
 
             if should_canonicalize_to_kindle_vs_kobo(topic_clean, seo_title) and (CONTENT_POSTS_DIR / "kindle-vs-kobo.md").exists():
                 print(f"[skip] Draft '{seo_title}' skipped because it targets the existing pillar /posts/kindle-vs-kobo/.")
@@ -2568,7 +2619,7 @@ def main():
             else:
                 label = "trend" if tmpl == TREND_USER_TMPL else "default"
                 print(f"[skip] Draft '{seo_title}' too short with {label} template ({word_count} words / {char_count} chars).")
-        if allow_fallback:
+        if allow_fallback and not OPENAI_QUOTA_EXHAUSTED:
             fb_topic = next_fallback_topic()
             if fb_topic:
                 print(f"[info] Trying fallback topic '{fb_topic}'.")
@@ -2576,6 +2627,8 @@ def main():
         return False
 
     for topic in topics:
+        if OPENAI_QUOTA_EXHAUSTED:
+            break
         if generate_for_topic(topic):
             consecutive_fails = 0
             if generated >= need:
@@ -2591,14 +2644,14 @@ def main():
                 else:
                     consecutive_fails = 0
 
-    while generated < need:
+    while generated < need and not OPENAI_QUOTA_EXHAUSTED:
         fb_topic = next_fallback_topic()
         if not fb_topic:
             break
         if generate_for_topic(fb_topic):
             continue
 
-    if generated < need:
+    if generated < need and not OPENAI_QUOTA_EXHAUSTED:
         suggest_topics = fetch_google_suggest_topics(max(need * 10, 20))
         if suggest_topics:
             print(f"[info] Using Googleサジェストで補充: {suggest_topics}")
@@ -2607,20 +2660,20 @@ def main():
                 if generated >= need:
                     break
 
-    if generated == 0:
+    if generated == 0 and not OPENAI_QUOTA_EXHAUSTED:
         print("[info] No articles generated from RSS; forcing ebook fallback.")
         for fb_topic in fallback_topics:
             if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True):
                 break
 
-    if generated < need:
+    if generated < need and not OPENAI_QUOTA_EXHAUSTED:
         print("[warn] Still insufficient articles. Applying failsafe ebook-only generation with relaxed thresholds.")
         for fb_topic in fallback_topics:
             if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True, use_failsafe=True):
                 if generated >= need:
                     break
 
-    if generated < need:
+    if generated < need and not OPENAI_QUOTA_EXHAUSTED:
         print("[warn] Trying remaining fallback pool with failsafe thresholds.")
         remaining_fb = [t for t in fallback_queue if t.lower() not in used_titles]
         for fb_topic in remaining_fb:
@@ -2628,7 +2681,7 @@ def main():
                 if generated >= need:
                     break
 
-    if generated < need:
+    if generated < need and not OPENAI_QUOTA_EXHAUSTED:
         print("[warn] As a last resort, reusing fallback topics even if duplicates.")
         for fb_topic in fallback_topics:
             if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True, use_failsafe=True):
@@ -2636,8 +2689,13 @@ def main():
                     break
 
     if requested_updates > 0:
+        if OPENAI_QUOTA_EXHAUSTED:
+            print("[info] Skip update generation because OpenAI quota is exhausted.")
+            requested_updates = 0
         update_candidates = external_result.get("update_candidates") or []
-        if not update_candidates:
+        if requested_updates == 0:
+            pass
+        elif not update_candidates:
             print("[info] No external update candidates met thresholds.")
         else:
             updated = apply_external_updates(update_candidates, max_updates=requested_updates)
@@ -2646,7 +2704,7 @@ def main():
             else:
                 print(f"[info] Updated existing posts: {updated}")
 
-    if generated < need:
+    if generated < need and not OPENAI_QUOTA_EXHAUSTED:
         msg = f"Unable to generate {need} unique posts (created {generated})."
         # Avoid failing the whole workflow when we intentionally skip duplicates/cannibal content.
         print(f"[warn] {msg}")

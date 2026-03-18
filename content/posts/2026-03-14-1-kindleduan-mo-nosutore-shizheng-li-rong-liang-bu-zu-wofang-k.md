@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/36552400/pexels-photo-36552400.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Kindle端末の魅力は、数百冊規模の本を1台で持ち歩けることです。とはいえ、端末の保存容量は無限ではありません。特に容量を圧迫しやすいのは、マンガ、雑誌、写真や図版の多い実用書、Send to Kindleで送ったPDF、長めの個人ドキュ。"
+description: "Kindle端末の容量不足を防ぐために、削除、アーカイブ、再ダウンロードの3ステップを整理します。"
 slug: "kindleduan-mo-nosutore-shizheng-li-rong-liang-bu-zu-wofang-k"
 hasRelatedProducts: false
 showRakutenWidget: true

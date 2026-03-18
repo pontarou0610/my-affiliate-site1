@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/35202792/pexels-photo-35202792.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Koboは、文字の見やすさを細かく調整できる電子書籍リーダーです。とくに通勤では、自宅とはまったく違う光環境にさらされます。朝の屋外、蛍光灯が強いホーム、薄暗い地下鉄、夕方以降の車内では、同じ設定のままだと「白すぎてまぶしい」「文字のコント。"
+description: "Koboの明るさと色温度を通勤向けに調整し、屋外、ホーム、車内で疲れにくく読む設定をまとめます。"
 slug: "kobonodu-miyasusashe-ding-ming-rusa-se-wen-du-wotong-qin-xia"
 hasRelatedProducts: false
 showRakutenWidget: true

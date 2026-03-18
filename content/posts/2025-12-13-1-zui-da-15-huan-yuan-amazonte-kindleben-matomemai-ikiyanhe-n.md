@@ -8,6 +8,7 @@ categories: ["電子書籍"]
 description: "最大15％還元！Amazonで「Kindle本まとめ買いキャンペーン」が実施中／5週連続開催。購入したKindle本の点数に応じてAmazonポイント獲得に関する実用的なガイドと最新情報をまとめました。"
 slug: "zui-da-15-huan-yuan-amazonte-kindleben-matomemai-ikiyanhe-n"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 ![最大15％還元！Amazonで「Kindle本まとめ買いキャンペーン」が実施中／5週連続開催。購入したKindle本の点数に応じてAmazonポイント獲得のイメージ](https://images.pexels.com/photos/35167343/pexels-photo-35167343.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)

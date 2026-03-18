@@ -8,7 +8,7 @@ draft: false
 images: ["https://images.pexels.com/photos/7133949/pexels-photo-7133949.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "電子書籍リーダーの「ページ更新」や「残像（ゴースト）」は、E Ink（電子ペーパー）特有の現象です。 仕組みをざっくり押さえておくと、あとで設定を調整するときに迷いにくくなります。 **E Inkは紙に近い表示**：バックライトではなく、微。"
+description: "KindleやKoboの残像を減らすために、ページ更新頻度、文字サイズ、ライト設定をスキマ時間読書向けに調整する手順です。"
 slug: "dian-zi-shu-ji-ri-ta-nodu-miyasusashe-ding-he-shigeng-xin-ca"
 hasRelatedProducts: false
 showRakutenWidget: true

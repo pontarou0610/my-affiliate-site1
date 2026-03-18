@@ -11,6 +11,7 @@ categories: ["電子書籍"]
 description: "Amazonの「Kindle本 高価格タイトルセール」では、通常4,000〜10,000円台の専門書・技術書が、最大55％OFF前後で購入できます。 とくに、“動画・CG・フィギュア製作”ジャンルの本が充実しています。 Blender（3D。"
 slug: "blender-zbrush-affter-effects-natodong-hua-cg-huikiyuazhi-zu"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

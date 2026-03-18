@@ -11,6 +11,7 @@ categories: ["電子書籍"]
 description: "Amazonの「Kindle本 高価格帯タイトルセール」は、 もともと定価が高めの電子書籍（長編シリーズ・専門書・合本版など）を、期間限定で大幅値引きするキャンペーンです。 とくに小説・ライトノベルの**合本版**が狙い目になっていることが。"
 slug: "ji-chuan-ying-zhi-san-guo-zhi-quan-8juan-lang-toxiang-xin-li"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

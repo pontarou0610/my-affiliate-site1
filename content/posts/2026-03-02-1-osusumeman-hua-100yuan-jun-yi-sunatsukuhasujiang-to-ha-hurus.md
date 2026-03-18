@@ -12,6 +12,7 @@ categories: ["電子書籍"]
 description: "Kindleストアで、フォビドゥン澁川作品の期間限定セールが開催中です。『スナックバス江』『パープル式部』が**各巻100円**（※対象巻・価格はセールページで要確認）になっており、「気になるけどハマるか不安」「途中で読むのをやめたら損しそ。"
 slug: "osusumeman-hua-100yuan-jun-yi-sunatsukuhasujiang-to-ha-hurus"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/30989485/pexels-photo-30989485.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Calibreは電子書籍の管理・変換ツールですが、マンガ用途では「集める」よりも**端末で迷わず読める状態に整える**工程が重要です。主に次の作業を指します。 形式の方針決め（保管用と配信用を分けるか） メタデータ整備（タイトル、シリーズ、。"
+description: "CalibreでマンガをKindle/Kobo向けに整え、表紙、巻数、並び順の崩れを防ぐ最低限の設定をまとめます。"
 slug: "calibretemankawozheng-eru-kindle-kobotedu-meruxing-nisuruzui"
 hasRelatedProducts: false
 showRakutenWidget: true

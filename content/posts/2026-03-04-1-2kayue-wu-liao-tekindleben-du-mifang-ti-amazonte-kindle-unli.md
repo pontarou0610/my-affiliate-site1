@@ -12,6 +12,7 @@ categories: ["電子書籍"]
 description: "Amazonの電子書籍読み放題サービス「Kindle Unlimited」が、新生活セールとして**新規入会者向けに2か月無料**になるキャンペーンを実施しています（期間：**3月9日まで**）。対象のKindle本（電子書籍）を月額で読み。"
 slug: "2kayue-wu-liao-tekindleben-du-mifang-ti-amazonte-kindle-unli"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

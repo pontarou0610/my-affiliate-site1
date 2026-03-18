@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/35202792/pexels-photo-35202792.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Send to Kindleは便利ですが、マンガを送ると「余白が広い」「見開きの向きが不自然」「文字が小さくて読みにくい」といった表示崩れが起こることがあります。多くは故障ではなく、**元データの作り・送信形式・端末側の表示仕様**が合って。"
+description: "Send to Kindleでマンガが崩れる原因を整理し、余白、向き、サイズを改善する具体策を解説します。"
 slug: "send-to-kindletemankawosong-rutobeng-rerushi-nodui-chu-fa-yu"
 hasRelatedProducts: false
 showRakutenWidget: true

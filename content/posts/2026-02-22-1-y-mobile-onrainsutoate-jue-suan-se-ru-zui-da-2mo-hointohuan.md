@@ -12,6 +12,7 @@ categories: ["電子書籍"]
 description: "Y!mobile（ワイモバイル）のオンラインストアで実施される「決算セール」は、**端末値引き（いわゆる1円スマホ）**と**PayPayポイント還元（最大2万ポイント級）**が同時に出やすいのが特徴です。 一方で、店頭と違って「その場で説。"
 slug: "y-mobile-onrainsutoate-jue-suan-se-ru-zui-da-2mo-hointohuan"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

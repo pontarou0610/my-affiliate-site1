@@ -2,6 +2,11 @@
 .cta3{border:1px solid #e5e7eb;border-radius:.9rem;padding:1rem;margin:1.25rem 0;background:#fff}
 .cta3-title{margin:0 0 .5rem 0;font-weight:600}
 .cta3-row{display:flex;gap:.6rem;flex-wrap:wrap}
+.article-cta{margin:1.5rem 0}
+.article-cta .cta3{margin:0;box-shadow:0 10px 30px rgba(15,23,42,.05)}
+.article-cta .cta3-row .btn{flex:1 1 220px}
+.article-cta--top .cta3{background:linear-gradient(180deg,#fffdf7 0%,#ffffff 100%);border-color:#f3e8cf}
+.article-cta--bottom .cta3{background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%)}
 
 /* PR付きボックス（offerbox） */
 .offerbox-head{display:flex;align-items:center;gap:.55rem;margin:0 0 .25rem 0}
@@ -41,9 +46,17 @@
 .brand-yahoo{background:#ff0033; color:#fff; border-color:#d9002a}
 .brand-yahoo .brand-bullet{background:#fff;color:#ff0033}
 
+@media (max-width:640px){
+  .article-cta .cta3-row{flex-direction:column}
+  .article-cta .cta3-row .btn{min-width:0;width:100%}
+}
+
 /* ダークモード調整 */
 @media (prefers-color-scheme: dark){
   .cta3{background:#0f1115;border-color:#1f2430}
   .offerbox-note{color:#cbd5e1}
   .offerbox-pr{background:#6b7280}
+  .article-cta .cta3{box-shadow:none}
+  .article-cta--top .cta3,
+  .article-cta--bottom .cta3{background:#0f1115;border-color:#1f2430}
 }

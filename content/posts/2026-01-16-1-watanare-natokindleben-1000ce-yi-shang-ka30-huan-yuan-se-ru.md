@@ -10,6 +10,7 @@ categories: ["電子書籍"]
 description: "『わたなれ』などKindle本1,000冊以上が30％還元セール、『鬼滅の刃』スピンオフや北方謙三『水滸伝』合本版、『BLEACH』ノベライズも／Amazonで「集英社 冬デジ2026」開催中！に関する実用的なガイドと最新情報をまとめました。"
 slug: "watanare-natokindleben-1000ce-yi-shang-ka30-huan-yuan-se-ru"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 ## 『わたなれ』などKindle本1,000冊以上が30％還元セール──「集英社 冬デジ2026」をお得に楽しむ方法

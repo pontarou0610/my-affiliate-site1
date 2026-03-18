@@ -10,6 +10,7 @@ categories: ["電子書籍"]
 description: "TCL introduces its own take on a color Kindle Scribeに関する実用的なガイドと最新情報をまとめました。"
 slug: "tcl-introduces-its-own-take-on-a-color-kindle-scribe"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 ## TCLが「カラーKindle Scribe的」端末を投入——何がそんなに新しいのか？

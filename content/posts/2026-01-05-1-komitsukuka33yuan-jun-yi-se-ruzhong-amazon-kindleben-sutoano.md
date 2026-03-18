@@ -10,6 +10,7 @@ categories: ["電子書籍"]
 description: "コミックが33円均一セール中！Amazon Kindle本ストアの「カドカワ祭り2026」／『多重人格探偵サイコ』『テルマエ・ロマエ』『強殖装甲ガイバー』『涼宮ハルヒの憂鬱』などに関する実用的なガイドと最新情報をまとめました。"
 slug: "komitsukuka33yuan-jun-yi-se-ruzhong-amazon-kindleben-sutoano"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 ## カドカワ祭り2026とは？33円均一コミックの基本を整理

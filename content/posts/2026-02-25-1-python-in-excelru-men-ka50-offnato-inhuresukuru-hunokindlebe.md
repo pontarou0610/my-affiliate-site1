@@ -12,6 +12,7 @@ categories: ["電子書籍"]
 description: "インプレスグループのKindle本が大幅値引き（最大90％OFF）になり、『Python in Excel入門』が50％OFF、Excel VBA関連の解説書も手に取りやすい価格帯に入っています。中でも『VBAのエラーを直す本』が70％OF。"
 slug: "python-in-excelru-men-ka50-offnato-inhuresukuru-hunokindlebe"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

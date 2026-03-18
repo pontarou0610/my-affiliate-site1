@@ -11,6 +11,7 @@ categories: ["電子書籍"]
 description: "Amazonが不定期に実施している「Kindle本 高価格タイトルセール」は、その名の通り、定価が高めに設定されている専門書・技術書・実用書などを中心に、期間限定で大幅値引きするキャンペーンです。 とくにプログラミング関連書では、次のような。"
 slug: "cursorwan-quan-ru-men-natohurokuraminkuguan-lian-shu-ka50-of"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

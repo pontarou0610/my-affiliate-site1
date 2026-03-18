@@ -10,6 +10,7 @@ categories: ["電子書籍"]
 description: "ビジネス・経済書が最大50%OFF！Kindle本ストアでセール中／『Google Workspace 完全マニュアル』などコンピュータ・IT関連書も。に関する実用的なガイドと最新情報をまとめました。"
 slug: "hishinesu-jing-ji-shu-kazui-da-50-off-kindleben-sutoatese-ru"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 # ビジネス・経済書が最大50%OFF！Kindle本セールの「お得な活用術」とIT本の狙い目

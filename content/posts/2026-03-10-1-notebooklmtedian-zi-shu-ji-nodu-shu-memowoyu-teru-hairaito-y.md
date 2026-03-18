@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/35202792/pexels-photo-35202792.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "電子書籍のメモは、ハイライトが増えるほど「どこに何が書いてあったか」を探すコストが上がり、結果として見返されなくなりがちです。NotebookLMを使うと、ハイライト（根拠）を中心に**要約→問い→検証→更新**までを1つのノート内で回せま。"
+description: "NotebookLMでKindle/Koboのハイライトを要約し、読書メモを行動計画まで育てる実践フローを解説します。"
 slug: "notebooklmtedian-zi-shu-ji-nodu-shu-memowoyu-teru-hairaito-y"
 hasRelatedProducts: false
 showRakutenWidget: true

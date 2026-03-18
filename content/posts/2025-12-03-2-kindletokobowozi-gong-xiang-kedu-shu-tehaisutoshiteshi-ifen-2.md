@@ -8,6 +8,7 @@ categories: ["電子書籍"]
 description: "KindleとKoboを子供向け読書デバイスとして使い分けるコツに関する実用的なガイドと最新情報をまとめました。"
 slug: "kindletokobowozi-gong-xiang-kedu-shu-tehaisutoshiteshi-ifen-2"
 hasRelatedProducts: false
+robotsNoIndex: true
 ---
 # KindleとKoboを子供向け読書デバイスとして使い分けるコツ
 

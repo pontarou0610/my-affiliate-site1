@@ -8,6 +8,7 @@ categories: ["電子書籍"]
 description: "電子書籍デバイスとスマホを併用するメリットに関する実用的なガイドと最新情報をまとめました。"
 slug: "dian-zi-shu-ji-tehaisutosumahowobing-yong-surumeritsuto-2"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 # 電子書籍デバイスとスマホを併用するメリット

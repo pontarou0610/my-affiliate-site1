@@ -12,6 +12,7 @@ categories: ["電子書籍"]
 description: "インプレスグループの特集として、『技術の泉』シリーズを中心とした技術書のKindle版が990円で購入できるセールが開催されることがあります。VS Code、MCP、Linux、Docker、Python、PowerShellなど、学び始め。"
 slug: "ji-shu-noquan-shiri-sunoji-shu-shu-ka990yuan-se-ru-vs-code-m"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

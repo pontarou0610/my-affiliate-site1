@@ -10,6 +10,7 @@ categories: ["電子書籍"]
 description: "ビジネス書など2,000冊以上が50％還元で実質半額、『会社四季報』や『外資系金融のExcel作成術』『サイコパスから見た世界』など／Amazonで「Kindle本 冬のポイントフェア」！に関する実用的なガイドと最新情報をまとめました。"
 slug: "hishinesushu-nato2000ce-yi-shang-ka50-huan-yuan-teshi-zhi-ba"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 ## Amazon「Kindle本 冬のポイントフェア」とは？

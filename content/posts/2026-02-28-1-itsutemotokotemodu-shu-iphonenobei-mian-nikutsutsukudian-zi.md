@@ -12,6 +12,7 @@ categories: ["電子書籍"]
 description: "「スマホで読むと目が疲れる。でも専用リーダーをもう1台持ち歩くのも面倒」――そんな悩みを埋める発想が、iPhoneの背面に装着して持ち運べる“背面装着型”の電子書籍リーダーです。 MagSafe対応の固定（磁力＋位置決めリング等）を前提に、。"
 slug: "itsutemotokotemodu-shu-iphonenobei-mian-nikutsutsukudian-zi"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 

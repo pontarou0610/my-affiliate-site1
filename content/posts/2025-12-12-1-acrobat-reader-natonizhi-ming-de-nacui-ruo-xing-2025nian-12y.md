@@ -8,6 +8,7 @@ categories: ["電子書籍"]
 description: "「Acrobat Reader」などに致命的な脆弱性、2025年12月のAdobeセキュリティ情報／5製品で138件の脆弱性に対処に関する実用的なガイドと最新情報をまとめました。"
 slug: "acrobat-reader-natonizhi-ming-de-nacui-ruo-xing-2025nian-12y"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 ![「Acrobat Reader」などに致命的な脆弱性、2025年12月のAdobeセキュリティ情報／5製品で138件の脆弱性に対処のイメージ](https://images.pexels.com/photos/35153027/pexels-photo-35153027.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)

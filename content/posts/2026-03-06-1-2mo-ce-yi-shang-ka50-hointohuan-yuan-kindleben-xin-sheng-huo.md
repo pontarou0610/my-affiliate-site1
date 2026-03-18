@@ -12,6 +12,7 @@ categories: ["電子書籍"]
 description: "Kindleストアでは春の時期に合わせて「新生活フェア」が実施され、対象のKindle本が**50％ポイント還元**になることがあります。今回のように**2万冊以上**が対象規模だと、ビジネス書・実用書・学習書・IT・資格・語学など選択肢が。"
 slug: "2mo-ce-yi-shang-ka50-hointohuan-yuan-kindleben-xin-sheng-huo"
 hasRelatedProducts: false
+robotsNoIndex: true
 showRakutenWidget: true
 ---
 
