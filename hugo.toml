@@ -34,6 +34,7 @@ canonifyURLs = true
   
   description = "Kindle・Koboなど電子書籍リーダーの比較から、自費出版・AIライティング・自動化までを解説するブログ"
   images = ["images/ogp-default.jpg"]   # static/images/ogp-default.jpg を参照（project pagesでも崩れない相対パス）
+  author = "ぽんたろう"
   authorName = "ぽんたろう"
   publisherLogo = "images/ogp-default.jpg"
   breadcrumbHome = "ホーム"
@@ -65,6 +66,12 @@ canonifyURLs = true
   Content = "Kindle と Kobo を中心に、選び方・セール情報・使い方をわかりやすく解説"
 
   [[params.homeInfoParams.buttons]]
+    name = "目的別：購入先ガイド"
+    url = "recommend/"
+  [[params.homeInfoParams.buttons]]
+    name = "著者の小説"
+    url = "fiction/"
+  [[params.homeInfoParams.buttons]]
     name = "比較記事：Kindle vs Kobo"
     url = "posts/kindle-vs-kobo/"
   [[params.homeInfoParams.buttons]]
@@ -84,10 +91,15 @@ canonifyURLs = true
     url = "recommend/"
     weight = 1
   [[menu.main]]
+    identifier = "fiction"
+    name = "著者の小説"
+    url = "fiction/"
+    weight = 2
+  [[menu.main]]
     identifier = "posts"
     name = "記事一覧"
     url = "posts/"
-    weight = 2
+    weight = 3
   [[menu.main]]
     name = "運営者"
     url = "about/"

@@ -1,0 +1,24 @@
+{{- with site.Params.homeInfoParams }}
+<article class="first-entry home-info">
+    <header class="entry-header">
+        <h1>{{ .Title | markdownify }}</h1>
+    </header>
+    <div class="entry-content">
+        {{ .Content | markdownify }}
+    </div>
+    {{- with .buttons }}
+    <div class="buttons home-info-buttons">
+        {{- range . }}
+        <a class="button" href="{{ .url | strings.TrimPrefix "/" | absURL }}" rel="noopener" title="{{ .name }}">
+            <span class="button-inner">
+                {{ .name }}
+            </span>
+        </a>
+        {{- end }}
+    </div>
+    {{- end }}
+    <footer class="entry-footer">
+        {{ partial "social_icons.html" (dict "align" site.Params.homeInfoParams.AlignSocialIconsTo) }}
+    </footer>
+</article>
+{{- end -}}

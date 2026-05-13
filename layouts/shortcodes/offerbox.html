@@ -55,7 +55,7 @@
 
         {{- $isExternal := or (hasPrefix $url "http://") (hasPrefix $url "https://") (hasPrefix $url "//") -}}
         <a class="btn {{ $class }}" href="{{ $url }}"
-           {{- if $isExternal }} target="_blank" rel="nofollow sponsored noopener"{{- end -}}
+           {{- if $isExternal }} target="_blank" rel="nofollow sponsored noopener noreferrer"{{- end -}}
            data-affiliate="{{ $store }}" data-affiliate-slot="shortcode-offerbox">{{ $text }}</a>
       {{- end -}}
     {{- end -}}

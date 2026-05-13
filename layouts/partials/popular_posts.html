@@ -1,37 +1,28 @@
 {{- $current := . -}}
-{{- $posts := where site.RegularPages "Section" "posts" -}}
-{{- $posts = where $posts "Params.robotsNoIndex" "ne" true -}}
-{{- $others := where $posts "Permalink" "ne" $current.Permalink -}}
-{{- $seen := dict -}}
-{{- $candidates := slice -}}
-
-{{- range sort $others "Params.pageviews" "desc" -}}
-  {{- $perma := .Permalink -}}
-  {{- if not (index $seen $perma) -}}
-    {{- $candidates = $candidates | append . -}}
-    {{- $seen = merge $seen (dict $perma true) -}}
+{{- $currentRel := $current.RelPermalink -}}
+{{- $guides := slice
+  (dict "url" ("/recommend/" | relURL) "title" "目的別の購入先ガイド")
+  (dict "url" ("/posts/kindle-vs-kobo/" | relURL) "title" "KindleとKoboの違い")
+  (dict "url" ("/posts/kindle-paperwhite-review/" | relURL) "title" "Kindle Paperwhiteレビュー")
+  (dict "url" ("/posts/kobo-clara-review/" | relURL) "title" "Kobo Claraレビュー")
+  (dict "url" ("/posts/2025/11/kindle-unlimitedtokobo-plusnowei-itoxuan-hifang/" | relURL) "title" "Kindle UnlimitedとKobo Plusの違い")
+  (dict "url" ("/lp/kindle/" | relURL) "title" "Kindle活用ガイド")
+  (dict "url" ("/lp/kobo/" | relURL) "title" "楽天Kobo活用ガイド")
+-}}
+{{- $items := slice -}}
+{{- range $guides -}}
+  {{- if and (ne .url $currentRel) (lt (len $items) 3) -}}
+    {{- $items = $items | append . -}}
   {{- end -}}
 {{- end -}}
 
-{{- if lt (len $candidates) 3 -}}
-  {{- range sort $others "Date" "desc" -}}
-    {{- if ge (len $candidates) 3 -}}{{ break }}{{- end -}}
-    {{- $perma := .Permalink -}}
-    {{- if not (index $seen $perma) -}}
-      {{- $candidates = $candidates | append . -}}
-      {{- $seen = merge $seen (dict $perma true) -}}
-    {{- end -}}
-  {{- end -}}
-{{- end -}}
-
-{{- $top := first 3 $candidates -}}
-{{- if gt (len $top) 0 -}}
+{{- if gt (len $items) 0 -}}
 <section class="popular-posts" aria-labelledby="popular-posts-title">
-  <h2 id="popular-posts-title" class="popular-posts__title">人気記事ランキング TOP3</h2>
+  <h2 id="popular-posts-title" class="popular-posts__title">次に読むべきガイド</h2>
   <ol class="popular-posts__list">
-    {{- range $top }}
+    {{- range $items }}
     <li class="popular-posts__item">
-      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      <a href="{{ .url }}">{{ .title }}</a>
     </li>
     {{- end }}
   </ol>

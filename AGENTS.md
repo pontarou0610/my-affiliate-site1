@@ -22,6 +22,12 @@
 - H2/H3は「比較軸→結論→具体例→注意点→次アクション」の流れを基本に、重複見出しを避ける。
 - 重要な内部リンクは柱記事へ集約し、1記事内の内部リンクは多すぎないよう制御する。
 
+## 収益化の優先順位
+- 収益導線は `recommend/`、`/posts/kindle-vs-kobo/`、`/posts/kindle-paperwhite-review/`、`/posts/kobo-clara-review/`、読み放題比較記事、`/lp/kindle/`、`/lp/kobo/` へ集約する。
+- 日次セール記事を増やす前に、期限切れ後も検索意図を満たす常設ハブへ内部リンクを送る。
+- CTAは「向く人」「確認すべき条件」「買わない方がいいケース」を近くに置き、価格・キャンペーン条件の断定を避ける。
+- アフィリエイトリンクは `rel="nofollow sponsored noopener noreferrer"` とPR/広告開示を維持する。
+
 ## 実装・運用（Hugo/GitHub Pages）
 - `baseURL`、`canonical`、`robots`、`sitemap` の整合性を崩さない。
 - 生成スクリプト変更時は、既存記事への影響（重複/メタタグ/構造化データ）を確認する。

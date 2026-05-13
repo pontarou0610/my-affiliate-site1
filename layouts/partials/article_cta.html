@@ -45,6 +45,8 @@
   {{- $chips := slice -}}
   {{- $buttons := slice -}}
   {{- $guideLinks := slice -}}
+  {{- $fit := "この記事の内容を読んで、次に何を確認するか迷っている人" -}}
+  {{- $check := "価格、対象作品、キャンペーン条件はリンク先で再確認" -}}
 
   {{- if $isSubscription -}}
     {{- if eq $position "top" -}}
@@ -54,6 +56,8 @@
     {{- end -}}
     {{- $summary = "対象作品、無料体験、解約条件は変わるため、公式ページで現在の条件を確認してから判断すると失敗しにくいです。" -}}
     {{- $chips = slice "対象作品" "無料体験" "解約条件" -}}
+    {{- $fit = "月2冊以上読む人、読みたい本を先に検索してから試したい人" -}}
+    {{- $check = "無料体験の有無、対象作品、更新日、解約手順" -}}
     {{- $buttons = slice
       (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Kindle Unlimitedを確認" "primary" true)
       (dict "store" "rakuten" "url" "https://books.rakuten.co.jp/e-book/" "text" "楽天Koboストアを見る")
@@ -70,6 +74,8 @@
     {{- end -}}
     {{- $summary = "値引き率だけで決めず、サンプル、レビュー、読み放題対象の有無を見てから選ぶと積読や買い直しを減らせます。" -}}
     {{- $chips = slice "Kindle本検索" "読み放題" "Koboも比較" -}}
+    {{- $fit = "セール本を探しつつ、読み放題対象やストア違いも比べたい人" -}}
+    {{- $check = "対象期間、実質価格、サンプル、読み放題対象の有無" -}}
     {{- $buttons = slice
       (dict "store" "amazon" "url" $amazonBookSearch "text" "Kindle本を探す" "primary" true)
       (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Unlimited対象を確認")
@@ -87,6 +93,8 @@
     {{- end -}}
     {{- $summary = "Amazon中心ならKindle、楽天ポイントやEPUB重視ならKobo。端末、読み放題、ストアの順に見ると判断が早くなります。" -}}
     {{- $chips = slice "端末" "読み放題" "ポイント" -}}
+    {{- $fit = "KindleとKoboのどちらに寄せるか決めたい人" -}}
+    {{- $check = "普段使うストア、読みたい本、端末サイズ、ポイント還元" -}}
     {{- $buttons = slice
       (dict "store" "amazon" "url" "https://amzn.to/48wNGzs" "text" "Paperwhiteを見る" "primary" true)
       (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Unlimitedを確認")
@@ -104,6 +112,8 @@
     {{- end -}}
     {{- $summary = "端末は画面サイズと防水、ストアはポイント還元とクーポンを確認。楽天経済圏なら実質価格まで見るのが大事です。" -}}
     {{- $chips = slice "端末ラインナップ" "ポイント還元" "EPUB/PDF" -}}
+    {{- $fit = "楽天ポイント、EPUB/PDF、Kobo端末を重視する人" -}}
+    {{- $check = "ポイント倍率、クーポン、端末サイズ、カラー表示の必要性" -}}
     {{- $buttons = slice
       (dict "store" "rakuten" "url" "https://books.rakuten.co.jp/event/e-book/ereaders/" "text" "Kobo端末を見る" "primary" true)
       (dict "store" "rakuten" "url" "https://books.rakuten.co.jp/e-book/" "text" "楽天Koboストアを見る")
@@ -120,6 +130,8 @@
     {{- end -}}
     {{- $summary = "本体価格だけでなく、広告有無、容量、読み放題との相性まで見ると、買った後のミスマッチを減らせます。" -}}
     {{- $chips = slice "本体価格" "容量" "読み放題" -}}
+    {{- $fit = "小説、実用書、ビジネス書を長く読む標準機が欲しい人" -}}
+    {{- $check = "広告有無、容量、保証、セール価格、Unlimitedとの相性" -}}
     {{- $buttons = slice
       (dict "store" "amazon" "url" "https://amzn.to/48wNGzs" "text" "Paperwhiteの価格を見る" "primary" true)
       (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Unlimitedを確認")
@@ -136,6 +148,8 @@
     {{- end -}}
     {{- $summary = "端末だけで終わらせず、読み放題やセール本まで見ると、購入後すぐに読む本を用意しやすくなります。" -}}
     {{- $chips = slice "専用端末" "読み放題" "Kindle本" -}}
+    {{- $fit = "Amazon中心で読書環境をまとめたい人" -}}
+    {{- $check = "端末価格、読み放題対象、Send to Kindleの使い方" -}}
     {{- $buttons = slice
       (dict "store" "amazon" "url" "https://amzn.to/48wNGzs" "text" "Kindle Paperwhiteを見る" "primary" true)
       (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Kindle Unlimitedを確認")
@@ -152,6 +166,8 @@
     {{- end -}}
     {{- $summary = "迷ったときは、Kindle端末、読み放題、Kobo端末の順に確認すると、自分の読み方に近い選択肢を残せます。" -}}
     {{- $chips = slice "端末" "読み放題" "ストア" -}}
+    {{- $fit = "電子書籍の読み方をこれから整えたい人" -}}
+    {{- $check = "端末、読み放題、ストア、手持ちファイルの扱いやすさ" -}}
     {{- $buttons = slice
       (dict "store" "amazon" "url" "https://amzn.to/48wNGzs" "text" "Kindle Paperwhiteを見る" "primary" true)
       (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Kindle Unlimitedを確認")
@@ -163,7 +179,24 @@
     -}}
   {{- end -}}
 
-  {{- if and (eq $position "bottom") (not $isSubscription) (not $isBookSale) -}}
+  {{- with ($page.Param "ctaTitle") -}}{{- $title = . -}}{{- end -}}
+  {{- with ($page.Param "ctaSummary") -}}{{- $summary = . -}}{{- end -}}
+  {{- with ($page.Param "ctaFit") -}}{{- $fit = . -}}{{- end -}}
+  {{- with ($page.Param "ctaCheck") -}}{{- $check = . -}}{{- end -}}
+  {{- with ($page.Param "ctaChips") -}}{{- $chips = . -}}{{- end -}}
+
+  {{- $paramPrimaryUrl := $page.Param "ctaPrimaryUrl" -}}
+  {{- if $paramPrimaryUrl -}}
+    {{- $buttons = slice (dict "store" (($page.Param "ctaPrimaryStore") | default "amazon") "url" $paramPrimaryUrl "text" (($page.Param "ctaPrimaryText") | default "公式ページで条件を見る") "primary" true) -}}
+    {{- with ($page.Param "ctaSecondaryUrl") -}}
+      {{- $buttons = $buttons | append (dict "store" (($page.Param "ctaSecondaryStore") | default "amazon") "url" . "text" (($page.Param "ctaSecondaryText") | default "関連ページを見る")) -}}
+    {{- end -}}
+    {{- with ($page.Param "ctaTertiaryUrl") -}}
+      {{- $buttons = $buttons | append (dict "store" (($page.Param "ctaTertiaryStore") | default "rakuten") "url" . "text" (($page.Param "ctaTertiaryText") | default "別ストアも見る")) -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- if and (eq $position "bottom") (not $isSubscription) (not $isBookSale) (not $paramPrimaryUrl) -}}
     {{- $buttons = $buttons | append (dict "store" "yahoo" "url" $yahooDeviceUrl "text" "Yahoo!ショッピングで探す") -}}
   {{- end -}}
 
@@ -186,6 +219,17 @@
         </ul>
       {{- end -}}
 
+      <dl class="article-cta__decision">
+        <div>
+          <dt>向く人</dt>
+          <dd>{{ $fit }}</dd>
+        </div>
+        <div>
+          <dt>確認</dt>
+          <dd>{{ $check }}</dd>
+        </div>
+      </dl>
+
       <div class="cta3-row">
         {{- range $buttons -}}
           {{- $url := .url -}}
@@ -206,7 +250,7 @@
             {{- $url = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $encoded $encoded -}}
           {{- end -}}
 
-          <a class="{{ delimit $classes " " }}" href="{{ $url }}" target="_blank" rel="nofollow sponsored noopener" data-affiliate="{{ $store }}" data-affiliate-slot="article-{{ $position }}">{{ $text }}</a>
+          <a class="{{ delimit $classes " " }}" href="{{ $url }}" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="{{ $store }}" data-affiliate-slot="article-{{ $position }}">{{ $text }}</a>
           {{- with .pixel -}}
             <img src="{{ . }}" alt="" width="1" height="1" style="border:0;position:absolute;width:1px;height:1px;opacity:0;" />
           {{- end -}}

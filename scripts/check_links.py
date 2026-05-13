@@ -51,6 +51,10 @@ def parse_hugo_file_info(file_path):
                 url =PERMALINK_FORMAT.format(year=year, month=month, slug=slug)
             elif "lp" in file_path.parts:
                 url = f"/lp/{slug}/"
+            elif "legal" in file_path.parts:
+                url = f"/legal/{slug}/"
+            elif file_path.name == "_index.md" and len(file_path.parts) >= 2:
+                url = f"/{file_path.parent.name}/"
             else:
                 url = f"/{slug}/"
         
@@ -97,6 +101,7 @@ def find_broken_links():
     valid_urls.add("/about")
     valid_urls.add("/contact")
     valid_urls.add("/legal/disclosure")
+    valid_urls.add("/legal/privacy")
     valid_urls.add("/")
 
     print(f"Found {len(valid_urls)} valid internal URLs.")
