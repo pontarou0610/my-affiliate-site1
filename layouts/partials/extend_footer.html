@@ -36,11 +36,13 @@
         if (!isAffiliate) return;
 
         var store = (a.dataset && a.dataset.affiliate) ? a.dataset.affiliate : inferStore(href);
+        var slot = (a.dataset && a.dataset.affiliateSlot) ? a.dataset.affiliateSlot : "inline";
         var text = (a.textContent || "").trim().slice(0, 120);
 
         if (typeof window.gtag === "function") {
           window.gtag("event", "affiliate_click", {
             affiliate_store: store,
+            affiliate_slot: slot,
             link_url: href,
             link_text: text,
           });
@@ -51,4 +53,3 @@
   })();
 </script>
 {{- end -}}
-

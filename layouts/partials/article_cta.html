@@ -4,112 +4,187 @@
 {{- $categories := delimit ($page.Params.categories | default (slice)) " " -}}
 {{- $haystack := lower (printf "%s %s %s %s %s" $page.Title ($page.Slug | default "") $page.RelPermalink $tags $categories) -}}
 {{- $hasManualCta := gt (len (findRE "\\{\\{<\\s*(offerbox|cta3)" $page.RawContent)) 0 -}}
+{{- $hideAll := $page.Param "hideAutoCta" -}}
 {{- $hideTop := or ($page.Param "hideAutoCtaTop") (and (eq $position "top") $hasManualCta) -}}
 {{- $hideBottom := $page.Param "hideAutoCtaBottom" -}}
-{{- $isPaperwhite := or (in $haystack "paperwhite") (in $haystack "kindle-paperwhite") -}}
+{{- $isPaperwhite := or (in $haystack "paperwhite") (in $haystack "kindle paperwhite") (in $haystack "kindle-paperwhite") -}}
 {{- $isUnlimited := in $haystack "kindle unlimited" -}}
 {{- $isKoboPlus := in $haystack "kobo plus" -}}
 {{- $isKindle := or $isPaperwhite $isUnlimited (in $haystack "kindle") (in $haystack "scribe") (in $haystack "send to kindle") -}}
 {{- $isKobo := or $isKoboPlus (in $haystack "kobo") (in $haystack "clara") (in $haystack "libra") (in $haystack "sage") (in $haystack "elipsa") -}}
-{{- $isReading := or $isKindle $isKobo (in $haystack "電子書籍") (in $haystack "読書") (in $haystack "epub") -}}
 {{- $isComparison := or (and $isKindle $isKobo) (in $haystack "比較") (in $haystack "vs") (in $haystack "電子書籍リーダー") -}}
 {{- $isSubscription := or $isUnlimited $isKoboPlus (in $haystack "読み放題") -}}
+{{- $isProgramming := or (in $haystack "python") (in $haystack "javascript") (in $haystack "c#") (in $haystack "typescript") (in $haystack "go ") (in $haystack "php") (in $haystack "プログラミング") (in $haystack "技術書") -}}
+{{- $isCreator := or (in $haystack "blender") (in $haystack "comfyui") (in $haystack "premiere") (in $haystack "動画") (in $haystack "cg") (in $haystack "イラスト") -}}
+{{- $isAiLearning := or (in $haystack "chatgpt") (in $haystack "gemini") (in $haystack "notebooklm") (in $haystack "生成ai") (in $haystack "ai活用") -}}
+{{- $isBookSale := or (in $haystack "セール") (in $haystack "sale") (in $haystack "off") (in $haystack "割引") (in $haystack "還元") (in $haystack "無料") $isProgramming $isCreator $isAiLearning -}}
+{{- $isReading := or $isKindle $isKobo $isBookSale (in $haystack "電子書籍") (in $haystack "読書") (in $haystack "epub") (in $haystack "pdf") -}}
 {{- $amazonTag := or $page.Site.Params.amazonTag (getenv "AMAZON_TAG") -}}
 {{- $rakutenId := or $page.Site.Params.rakutenAffiliateId (getenv "RAKUTEN_AFFILIATE_ID") -}}
 {{- $yahooDeviceUrl := "https://yahoo.jp/33rgX2" -}}
 {{- $disclosure := "/legal/disclosure/" | relURL -}}
+{{- $kindleGuide := "/lp/kindle/" | relURL -}}
+{{- $koboGuide := "/lp/kobo/" | relURL -}}
+{{- $comparisonGuide := "/posts/kindle-vs-kobo/" | relURL -}}
+{{- $searchTerm := "Kindle本 セール" -}}
+{{- if $isProgramming -}}
+  {{- $searchTerm = "Python JavaScript C# Kindle本" -}}
+{{- else if $isCreator -}}
+  {{- $searchTerm = "Blender Premiere Pro Kindle本" -}}
+{{- else if $isAiLearning -}}
+  {{- $searchTerm = "生成AI Kindle本" -}}
+{{- else if $isKobo -}}
+  {{- $searchTerm = "楽天Kobo 電子書籍" -}}
+{{- end -}}
+{{- $amazonBookSearch := printf "https://www.amazon.co.jp/s?k=%s&i=digital-text" (urlquery $searchTerm) -}}
 
-{{- if and (eq $page.Type "posts") $isReading (not $hideTop) (not (and (eq $position "bottom") $hideBottom)) -}}
+{{- if and (eq $page.Type "posts") $isReading (not $hideAll) (not $hideTop) (not (and (eq $position "bottom") $hideBottom)) -}}
   {{- $title := "" -}}
+  {{- $summary := "" -}}
   {{- $note := "" -}}
+  {{- $chips := slice -}}
   {{- $buttons := slice -}}
+  {{- $guideLinks := slice -}}
 
   {{- if $isSubscription -}}
     {{- if eq $position "top" -}}
-      {{- $title = "読み放題は先に公式ページで確認する" -}}
-      {{- $note = printf "料金や対象作品は時期で変わるため、記事の要点を読んだあとに公式ページで確認できます。広告を含みます。<a href=\"%s\">開示事項</a>" $disclosure -}}
+      {{- $title = "読み放題は対象作品と無料体験を先に確認" -}}
     {{- else -}}
-      {{- $title = "比較したあとに試すならこの2つ" -}}
-      {{- $note = printf "Kindle Unlimitedは無料体験の有無、Kobo側はストアと端末の相性を見て決めると失敗しにくいです。広告を含みます。<a href=\"%s\">開示事項</a>" $disclosure -}}
+      {{- $title = "読み放題を試す前に見るべき2導線" -}}
     {{- end -}}
+    {{- $summary = "対象作品、無料体験、解約条件は変わるため、公式ページで現在の条件を確認してから判断すると失敗しにくいです。" -}}
+    {{- $chips = slice "対象作品" "無料体験" "解約条件" -}}
     {{- $buttons = slice
-      (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Kindle Unlimitedを試す")
+      (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Kindle Unlimitedを確認" "primary" true)
       (dict "store" "rakuten" "url" "https://books.rakuten.co.jp/e-book/" "text" "楽天Koboストアを見る")
+    -}}
+    {{- $guideLinks = slice
+      (dict "url" $kindleGuide "text" "Kindle活用ガイド")
+      (dict "url" $comparisonGuide "text" "KindleとKoboの違い")
+    -}}
+  {{- else if $isBookSale -}}
+    {{- if eq $position "top" -}}
+      {{- $title = "セール本は対象ページと読み方を先に確認" -}}
+    {{- else -}}
+      {{- $title = "買う前に価格と読み方をまとめて確認" -}}
+    {{- end -}}
+    {{- $summary = "値引き率だけで決めず、サンプル、レビュー、読み放題対象の有無を見てから選ぶと積読や買い直しを減らせます。" -}}
+    {{- $chips = slice "Kindle本検索" "読み放題" "Koboも比較" -}}
+    {{- $buttons = slice
+      (dict "store" "amazon" "url" $amazonBookSearch "text" "Kindle本を探す" "primary" true)
+      (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Unlimited対象を確認")
+      (dict "store" "rakuten" "url" "https://books.rakuten.co.jp/e-book/" "text" "楽天Koboも見る")
+    -}}
+    {{- $guideLinks = slice
+      (dict "url" $kindleGuide "text" "Kindle活用ガイド")
+      (dict "url" $koboGuide "text" "楽天Kobo活用ガイド")
     -}}
   {{- else if $isComparison -}}
     {{- if eq $position "top" -}}
-      {{- $title = "迷ったら人気の3導線だけ先に確認する" -}}
-      {{- $note = printf "端末と読み放題の候補を先に見ておくと、比較記事の内容が判断しやすくなります。広告を含みます。<a href=\"%s\">開示事項</a>" $disclosure -}}
+      {{- $title = "迷ったら比較軸を3つだけ先に決める" -}}
     {{- else -}}
       {{- $title = "比較したあとに選ぶならこの3つ" -}}
-      {{- $note = printf "Kindle中心ならPaperwhiteかUnlimited、EPUBや楽天ポイント重視ならKobo端末を起点に選ぶのがわかりやすいです。広告を含みます。<a href=\"%s\">開示事項</a>" $disclosure -}}
     {{- end -}}
+    {{- $summary = "Amazon中心ならKindle、楽天ポイントやEPUB重視ならKobo。端末、読み放題、ストアの順に見ると判断が早くなります。" -}}
+    {{- $chips = slice "端末" "読み放題" "ポイント" -}}
     {{- $buttons = slice
-      (dict "store" "amazon" "url" "https://amzn.to/48wNGzs" "text" "Kindle Paperwhiteを見る")
-      (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Kindle Unlimitedを試す")
+      (dict "store" "amazon" "url" "https://amzn.to/48wNGzs" "text" "Paperwhiteを見る" "primary" true)
+      (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Unlimitedを確認")
       (dict "store" "rakuten" "url" "https://books.rakuten.co.jp/event/e-book/ereaders/" "text" "Kobo端末を見る")
+    -}}
+    {{- $guideLinks = slice
+      (dict "url" $kindleGuide "text" "Kindle活用ガイド")
+      (dict "url" $koboGuide "text" "楽天Kobo活用ガイド")
     -}}
   {{- else if $isKobo -}}
     {{- if eq $position "top" -}}
-      {{- $title = "Koboは端末ラインナップから見ると選びやすい" -}}
-      {{- $note = printf "BWかColourかを先に確認してからストアを見ると、購入後のミスマッチを減らしやすいです。広告を含みます。<a href=\"%s\">開示事項</a>" $disclosure -}}
+      {{- $title = "Koboは端末とストアを分けて確認" -}}
     {{- else -}}
       {{- $title = "Koboで始めるならこの2つ" -}}
-      {{- $note = printf "端末選びとストア確認を続けて見ると、記事で読んだ設定や使い方をそのまま再現しやすくなります。広告を含みます。<a href=\"%s\">開示事項</a>" $disclosure -}}
     {{- end -}}
+    {{- $summary = "端末は画面サイズと防水、ストアはポイント還元とクーポンを確認。楽天経済圏なら実質価格まで見るのが大事です。" -}}
+    {{- $chips = slice "端末ラインナップ" "ポイント還元" "EPUB/PDF" -}}
     {{- $buttons = slice
-      (dict "store" "rakuten" "url" "https://books.rakuten.co.jp/event/e-book/ereaders/" "text" "Kobo端末ラインナップを見る")
+      (dict "store" "rakuten" "url" "https://books.rakuten.co.jp/event/e-book/ereaders/" "text" "Kobo端末を見る" "primary" true)
       (dict "store" "rakuten" "url" "https://books.rakuten.co.jp/e-book/" "text" "楽天Koboストアを見る")
+    -}}
+    {{- $guideLinks = slice
+      (dict "url" $koboGuide "text" "楽天Kobo活用ガイド")
+      (dict "url" $comparisonGuide "text" "KindleとKoboの違い")
     -}}
   {{- else if $isPaperwhite -}}
     {{- if eq $position "top" -}}
-      {{- $title = "Paperwhiteは価格と無料体験を先に確認する" -}}
-      {{- $note = printf "本体価格と読み放題の相性をまとめて見ると、買うかどうかの判断が早くなります。広告を含みます。<a href=\"%s\">開示事項</a>" $disclosure -}}
+      {{- $title = "Paperwhiteは価格と読書量で判断" -}}
     {{- else -}}
       {{- $title = "Paperwhiteから始めるならこの2つ" -}}
-      {{- $note = printf "端末だけで終わらせず、Kindle Unlimitedの対象本も一緒に見ておくと使い始めがスムーズです。広告を含みます。<a href=\"%s\">開示事項</a>" $disclosure -}}
     {{- end -}}
+    {{- $summary = "本体価格だけでなく、広告有無、容量、読み放題との相性まで見ると、買った後のミスマッチを減らせます。" -}}
+    {{- $chips = slice "本体価格" "容量" "読み放題" -}}
     {{- $buttons = slice
-      (dict "store" "amazon" "url" "https://amzn.to/48wNGzs" "text" "Paperwhiteの価格を見る")
-      (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Unlimitedを試す")
+      (dict "store" "amazon" "url" "https://amzn.to/48wNGzs" "text" "Paperwhiteの価格を見る" "primary" true)
+      (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Unlimitedを確認")
+    -}}
+    {{- $guideLinks = slice
+      (dict "url" $kindleGuide "text" "Kindle活用ガイド")
+      (dict "url" $comparisonGuide "text" "KindleとKoboの違い")
     -}}
   {{- else if $isKindle -}}
     {{- if eq $position "top" -}}
-      {{- $title = "Kindle環境をそろえるならこの2つ" -}}
-      {{- $note = printf "端末と読み放題を先に確認しておくと、記事の設定や使い方をそのまま実践しやすくなります。広告を含みます。<a href=\"%s\">開示事項</a>" $disclosure -}}
+      {{- $title = "Kindle環境は端末と本棚をセットで確認" -}}
     {{- else -}}
       {{- $title = "Kindleを始めるならこの2つ" -}}
-      {{- $note = printf "PaperwhiteとKindle Unlimitedをあわせて確認すると、最初の1台と最初の読み方を決めやすくなります。広告を含みます。<a href=\"%s\">開示事項</a>" $disclosure -}}
     {{- end -}}
+    {{- $summary = "端末だけで終わらせず、読み放題やセール本まで見ると、購入後すぐに読む本を用意しやすくなります。" -}}
+    {{- $chips = slice "専用端末" "読み放題" "Kindle本" -}}
     {{- $buttons = slice
-      (dict "store" "amazon" "url" "https://amzn.to/48wNGzs" "text" "Kindle Paperwhiteを見る")
-      (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Kindle Unlimitedを試す")
+      (dict "store" "amazon" "url" "https://amzn.to/48wNGzs" "text" "Kindle Paperwhiteを見る" "primary" true)
+      (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Kindle Unlimitedを確認")
+    -}}
+    {{- $guideLinks = slice
+      (dict "url" $kindleGuide "text" "Kindle活用ガイド")
+      (dict "url" $comparisonGuide "text" "KindleとKoboの違い")
     -}}
   {{- else -}}
     {{- if eq $position "top" -}}
-      {{- $title = "読書環境を整えるならこの3つから見る" -}}
-      {{- $note = printf "まず人気の端末と読み放題を見ておくと、この記事の内容を自分向けに置き換えやすくなります。広告を含みます。<a href=\"%s\">開示事項</a>" $disclosure -}}
+      {{- $title = "読書環境は3つの導線から絞る" -}}
     {{- else -}}
       {{- $title = "この記事を読んだあとに確認したい3導線" -}}
-      {{- $note = printf "端末比較だけで迷うと長引くため、Paperwhite、Unlimited、Kobo端末の3つだけ先に見ておくと判断が進みやすいです。広告を含みます。<a href=\"%s\">開示事項</a>" $disclosure -}}
     {{- end -}}
+    {{- $summary = "迷ったときは、Kindle端末、読み放題、Kobo端末の順に確認すると、自分の読み方に近い選択肢を残せます。" -}}
+    {{- $chips = slice "端末" "読み放題" "ストア" -}}
     {{- $buttons = slice
-      (dict "store" "amazon" "url" "https://amzn.to/48wNGzs" "text" "Kindle Paperwhiteを見る")
-      (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Kindle Unlimitedを試す")
+      (dict "store" "amazon" "url" "https://amzn.to/48wNGzs" "text" "Kindle Paperwhiteを見る" "primary" true)
+      (dict "store" "amazon" "url" "https://amzn.to/4oyRBSx" "text" "Kindle Unlimitedを確認")
       (dict "store" "rakuten" "url" "https://books.rakuten.co.jp/event/e-book/ereaders/" "text" "Kobo端末を見る")
+    -}}
+    {{- $guideLinks = slice
+      (dict "url" $kindleGuide "text" "Kindle活用ガイド")
+      (dict "url" $koboGuide "text" "楽天Kobo活用ガイド")
     -}}
   {{- end -}}
 
-  {{- if and (eq $position "bottom") (not $isSubscription) -}}
+  {{- if and (eq $position "bottom") (not $isSubscription) (not $isBookSale) -}}
     {{- $buttons = $buttons | append (dict "store" "yahoo" "url" $yahooDeviceUrl "text" "Yahoo!ショッピングで探す") -}}
   {{- end -}}
 
-  <section class="article-cta article-cta--{{ $position }} google-auto-ads-ignore">
+  {{- $note = printf "広告を含みます。価格、対象作品、キャンペーン条件は変わるため、最終条件はリンク先で確認してください。<a href=\"%s\">開示事項</a>" $disclosure -}}
+
+  <section class="article-cta article-cta--{{ $position }} google-auto-ads-ignore" aria-label="関連する購入先">
     <div class="cta3 offerbox">
       <div class="offerbox-head">
         <span class="offerbox-pr">PR</span>
         <p class="cta3-title">{{ $title }}</p>
       </div>
+
+      <p class="article-cta__summary">{{ $summary }}</p>
+
+      {{- if gt (len $chips) 0 -}}
+        <ul class="article-cta__chips" aria-label="確認ポイント">
+          {{- range $chips -}}
+            <li>{{ . }}</li>
+          {{- end -}}
+        </ul>
+      {{- end -}}
 
       <div class="cta3-row">
         {{- range $buttons -}}
@@ -117,6 +192,9 @@
           {{- $text := .text -}}
           {{- $store := lower .store -}}
           {{- $class := cond (eq $store "amazon") "brand-amazon" (cond (eq $store "rakuten") "brand-rakuten" (cond (eq $store "yahoo") "brand-yahoo" "")) -}}
+          {{- $classes := slice "btn" -}}
+          {{- with $class -}}{{- $classes = $classes | append . -}}{{- end -}}
+          {{- if (.primary | default false) -}}{{- $classes = $classes | append "article-cta__primary" -}}{{- end -}}
 
           {{- if and (eq $store "amazon") $amazonTag (in $url "amazon.co.jp") (not (in $url "tag=")) -}}
             {{- $sep := cond (in $url "?") "&" "?" -}}
@@ -128,12 +206,20 @@
             {{- $url = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $encoded $encoded -}}
           {{- end -}}
 
-          <a class="btn {{ $class }}" href="{{ $url }}" target="_blank" rel="nofollow sponsored noopener" data-affiliate="{{ $store }}">{{ $text }}</a>
+          <a class="{{ delimit $classes " " }}" href="{{ $url }}" target="_blank" rel="nofollow sponsored noopener" data-affiliate="{{ $store }}" data-affiliate-slot="article-{{ $position }}">{{ $text }}</a>
           {{- with .pixel -}}
             <img src="{{ . }}" alt="" width="1" height="1" style="border:0;position:absolute;width:1px;height:1px;opacity:0;" />
           {{- end -}}
         {{- end -}}
       </div>
+
+      {{- if gt (len $guideLinks) 0 -}}
+        <div class="article-cta__guide-links" aria-label="関連ガイド">
+          {{- range $guideLinks -}}
+            <a href="{{ .url }}">{{ .text }}</a>
+          {{- end -}}
+        </div>
+      {{- end -}}
 
       <p class="offerbox-note">{{ $note | safeHTML }}</p>
     </div>
