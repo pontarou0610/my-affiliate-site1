@@ -105,6 +105,15 @@
   background:#eef2ff;color:#3730a3;font-size:.78rem;font-weight:800;
 }
 .fiction-link{display:inline-flex;margin-top:.35rem;color:#111827;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.fiction-start,.comparison-choice-cta{
+  margin:1.25rem 0 1.75rem;padding:1rem;border:1px solid #e5e7eb;border-radius:8px;
+  background:#f8fafc;
+}
+.fiction-start p,.comparison-choice-cta p{margin:.45rem 0 0;color:#374151;line-height:1.7}
+.fiction-start__actions,.comparison-choice-cta__grid{display:flex;flex-wrap:wrap;gap:.6rem;margin:.85rem 0 0}
+.fiction-start__actions .btn,.comparison-choice-cta__grid .btn{flex:1 1 210px;min-width:0}
+.comparison-choice-cta{background:linear-gradient(180deg,#f8fafc 0%,#fff 100%)}
+.comparison-choice-cta--bottom{margin-top:2rem}
 
 @media (max-width:640px){
   .article-cta .cta3-row{flex-direction:column}
@@ -124,6 +133,9 @@
   .home-revenue-cta{padding:.9rem}
   .home-revenue-cta__actions{display:block}
   .home-revenue-cta__actions .btn{width:100%;margin:.45rem 0}
+  .fiction-start,.comparison-choice-cta{padding:.9rem}
+  .fiction-start__actions,.comparison-choice-cta__grid{display:block}
+  .fiction-start__actions .btn,.comparison-choice-cta__grid .btn{width:100%;margin:.45rem 0}
 }
 
 /* ダークモード調整 */
@@ -153,4 +165,6 @@
   .home-revenue-cta{background:#0f1115;border-color:#273244;box-shadow:none}
   .home-revenue-cta__copy p{color:#d1d5db}
   .home-revenue-cta__links a{color:#cbd5e1}
+  .fiction-start,.comparison-choice-cta{background:#0f1115;border-color:#273244}
+  .fiction-start p,.comparison-choice-cta p{color:#d1d5db}
 }
