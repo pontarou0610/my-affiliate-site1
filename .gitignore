@@ -2,8 +2,10 @@ public/
 
 .env
 .gsc-sa.json
+.ga4-*.json
 data/supply_gap_report.json
 .tmp-public-check/
+.tmp-*.log
 tmp_generate_post.pyc*
 
 # Python

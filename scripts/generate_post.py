@@ -406,7 +406,7 @@ USER_TMPL = """\
 - トーンは丁寧だが押し付けがましくしない
 - 記事の途中に「## 結論（一次情報からの洞察）」というH2を作り、一般論ではない独自の視点を入れる
 - 記事の後半に「## スペック比較表」というH2を作り、Markdownの表形式で競合や旧モデルとの違いを示す
-- 内部リンク: 最後に [読書ガイド](/posts/) を1回だけURL付きで入れる
+- 内部リンク: 本文中に手動で追加しない。末尾の関連ガイドはシステム側で追加する
 - まとめは簡潔に2〜3文
 
 # 禁止
@@ -460,7 +460,7 @@ CHECKLIST = """\
 2) 重複表現や冗長な文はないか
 3) 見出し: H2/H3が自然な流れか、近い見出しが続かないか
 4) 読者が次に取れる行動が明確か
-5) 内部リンクは末尾に1回だけ[読書ガイド]を入れる
+5) 内部リンクを本文中に手動追加しない（関連ガイドはシステム側で追加する）
 6) トーンは丁寧で押し付けないか
 7) 本文にH1（#）は使わない（見出しはH2/##から）
 """
@@ -639,6 +639,7 @@ def parse_frontmatter(md_text: str):
     data["date"] = pick("date")
     data["lastmod"] = pick("lastmod")
     data["url"] = pick("url")
+    data["robotsNoIndex"] = pick("robotsNoIndex")
 
     alias_list: list[str] = []
     alias_block = re.search(r"(?ms)^aliases:\s*(.*?)(?=^[A-Za-z0-9_-]+:\s|\Z)", fm)
@@ -687,6 +688,7 @@ def list_existing_posts(out_dir: pathlib.Path):
                 "date": date,
                 "lastmod": lastmod or date,
                 "slug": slug,
+                "robotsNoIndex": fm.get("robotsNoIndex"),
                 "file_path": str(p),
             }
         )
@@ -1615,6 +1617,8 @@ def generate_meta_description(topic: str, draft: str, max_chars: int = META_DESC
     text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
     text = re.sub(r"(?i)\bphoto by\b.*?\bon pexels\b", " ", text)
     text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(r"[*_`~]+", "", text)
+    text = re.sub(r"\|{2,}", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
 
     if not text:
@@ -1623,8 +1627,8 @@ def generate_meta_description(topic: str, draft: str, max_chars: int = META_DESC
 
     desc = text[:max_chars].rstrip()
     if desc and desc[-1] not in "。.!?！？":
-        desc += "。"
-    return desc
+        desc = desc[: max(max_chars - 1, 0)].rstrip() + "。"
+    return desc[:max_chars]
 
 
 def count_words(text: str) -> int:
@@ -2038,6 +2042,25 @@ def downgrade_markdown_h1(markdown: str) -> str:
     return "\n".join(out)
 
 
+def remove_prompted_reader_guide_links(markdown: str) -> str:
+    """Remove legacy model-inserted /posts/ reader-guide links and their orphan text."""
+    text = markdown or ""
+    text = re.sub(
+        r"(?ms)(?:^|\n)詳しい[^\n]{0,100}は\s*\n\s*\[読書ガイド\]\(/posts/?\)\s*\n\s*も参考にしてみてください。?",
+        "\n",
+        text,
+    )
+    text = re.sub(r"(?m)^\s*.*\[読書ガイド\]\(/posts/?\).*も参考にしてみてください。?\s*$\n?", "", text)
+    text = re.sub(r"(?m)^\s*\[読書ガイド\]\(/posts/?\)\s*$\n?", "", text)
+    text = re.sub(
+        r"(?ms)(?:^|\n)詳しい[^\n]{0,100}は\s*\n\s*も参考にしてみてください。?",
+        "\n",
+        text,
+    )
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
+
 def make_post(topic: str, slug: str, template: str = USER_TMPL):
     is_trend_template = template == TREND_USER_TMPL
     user = template.format(topic=topic)
@@ -2104,13 +2127,13 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     # 不要なラベルを除去
     draft = re.sub(r"(?m)^##\s*H2:\s*", "## ", draft)
     draft = re.sub(r"(?m)^###\s*H3:\s*", "### ", draft)
-    draft = re.sub(r"\n?\[読書ガイド\]\(/posts/?\)\s*", "\n", draft)
+    draft = remove_prompted_reader_guide_links(draft)
 
     rakuten_items = fetch_rakuten_items(topic)
     show_rakuten_widget = bool(rakuten_items)
 
     out_dir = CONTENT_POSTS_DIR
-    related = pick_related_urls(out_dir, today.isoformat(), k=3)
+    related = pick_related_urls(out_dir, today.isoformat(), topic=topic, draft=draft, k=3)
     related_block_lines = ["", "## 関連記事", ""]
     for title, url in related:
         related_block_lines.append(f"- [{title}]({url})")
@@ -2160,16 +2183,54 @@ def make_post(topic: str, slug: str, template: str = USER_TMPL):
     return slug, seo_title, fm + "\n" + draft + "\n", word_count
 
 
-def pick_related_urls(out_dir: pathlib.Path, today_iso: str, k: int = 3):
+def _is_truthy_frontmatter(value: object) -> bool:
+    return str(value or "").strip().strip('"').strip("'").lower() in {"true", "1", "yes", "on"}
+
+
+def _related_query(topic: str, draft: str) -> str:
+    headings = " ".join(re.findall(r"(?m)^#{2,3}\s+(.+)$", draft or "")[:8])
+    lead = re.sub(r"(?s)```.*?```", " ", draft or "")
+    lead = re.sub(r"!\[[^\]]*\]\([^)]+\)", " ", lead)
+    lead = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", lead)
+    lead = re.sub(r"(?m)^#+\s+", " ", lead)
+    lead = re.sub(r"\s+", " ", lead).strip()[:700]
+    return f"{topic} {headings} {lead}".strip()
+
+
+def _related_post_score(query: str, topic: str, post: dict) -> float:
+    title = post.get("title") or ""
+    slug = post.get("slug") or ""
+    score = query_post_relevance(topic or query, title, slug) * 0.7
+    score += query_post_relevance(query, title, slug) * 0.3
+
+    normalized_query = _normalize_for_similarity(query)
+    normalized_post = _normalize_for_similarity(f"{title} {slug}")
+    for keyword in RELEVANCE_KEYWORDS:
+        normalized_keyword = _normalize_for_similarity(keyword)
+        if normalized_keyword and normalized_keyword in normalized_query and normalized_keyword in normalized_post:
+            score += 0.08
+    return round(score, 4)
+
+
+def pick_related_urls(out_dir: pathlib.Path, today_iso: str, topic: str = "", draft: str = "", k: int = 3):
     all_posts = list_existing_posts(out_dir)
-    candidates = [p for p in all_posts if p["date"] != today_iso]
+    candidates = [
+        p
+        for p in all_posts
+        if p["date"] != today_iso and not _is_truthy_frontmatter(p.get("robotsNoIndex"))
+    ]
     if not candidates:
-        return [("読書ガイド", "/posts/")] * k
-    seed = datetime.date.today().toordinal()
-    random.Random(seed).shuffle(candidates)
-    picked = candidates[:k]
+        return PILLAR_LINKS[:k]
+
+    query = _related_query(topic, draft)
+    scored = [(_related_post_score(query, topic, p), p.get("lastmod") or p.get("date") or "", p) for p in candidates]
+    scored.sort(key=lambda item: (item[0], item[1]), reverse=True)
+    picked = [p for score, _lastmod, p in scored if score > 0]
+    if not picked:
+        picked = [p for _score, _lastmod, p in scored]
     while len(picked) < k:
-        picked.append({"title": "読書ガイド", "url": "/posts/", "date": "1900-01-01"})
+        fallback_title, fallback_url = PILLAR_LINKS[len(picked) % len(PILLAR_LINKS)]
+        picked.append({"title": fallback_title, "url": fallback_url, "date": "1900-01-01"})
     return [(p["title"], p["url"]) for p in picked[:k]]
 
 

@@ -1,11 +1,11 @@
-import os
 import re
 import frontmatter
 from pathlib import Path
 from datetime import date, datetime
 
 # Configuration
-CONTENT_DIR = r"c:\work\hugo-sites\my-affiliate-site1\content"
+REPO_ROOT = Path(__file__).resolve().parents[1]
+CONTENT_DIR = REPO_ROOT / "content"
 PERMALINK_FORMAT = "/posts/{year}/{month}/{slug}/"
 BASE_URL = "https://pontarou0610.github.io/my-affiliate-site1/"
 
@@ -177,5 +177,6 @@ if __name__ == "__main__":
             print(f"  Link: [{b['text']}]({b['link']})")
             print(f"  Target (normalized): {b['normalized']}")
             print("-" * 40)
+        raise SystemExit(1)
     else:
         print("\nNo broken links found!")

@@ -88,8 +88,12 @@ jobs:
           python -c "import importlib.util; print('feedparser installed:', importlib.util.find_spec('feedparser') is not None)"
           python scripts/generate_post.py --count 1 --updates 1 --external-supply-check --serp-provider auto --cse-budget 80 --gsc-min-impressions 5 --gsc-min-position 10
 
-      - name: Check duplicate titles/slugs (post-generation)
-        run: python scripts/check_unique_posts.py
+      - name: Quality gate generated post
+        run: |
+          python scripts/check_generated_post_quality.py --changed --min-chars 800 --max-description-chars 140
+          python scripts/check_unique_posts.py
+          python scripts/check_links.py
+          hugo --minify --destination .tmp-public-check --cleanDestinationDir
 
       - name: Commit generated post back to main
         if: github.ref == 'refs/heads/main'

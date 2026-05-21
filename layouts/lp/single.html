@@ -444,15 +444,17 @@
                     if (!href) return;
 
                     var rel = (a.getAttribute("rel") || "").toLowerCase();
-                    var isAffiliate = rel.indexOf("sponsored") !== -1 || rel.indexOf("nofollow") !== -1;
+                    var isAffiliate = rel.indexOf("sponsored") !== -1 || rel.indexOf("nofollow") !== -1 || (a.dataset && a.dataset.affiliate);
                     if (!isAffiliate) return;
 
-                    var store = inferStore(href);
+                    var store = (a.dataset && a.dataset.affiliate) ? a.dataset.affiliate : inferStore(href);
+                    var slot = (a.dataset && a.dataset.affiliateSlot) ? a.dataset.affiliateSlot : "lp-inline";
                     var text = (a.textContent || "").trim().slice(0, 120);
 
                     if (typeof window.gtag === "function") {
                         window.gtag("event", "affiliate_click", {
                             affiliate_store: store,
+                            affiliate_slot: slot,
                             link_url: href,
                             link_text: text,
                         });
