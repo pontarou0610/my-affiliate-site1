@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/59143/pexels-photo-59143.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "サポートが終了した古いKindleを見ると、「もう使い道はないのでは」と感じるかもしれません。たしかに、現行のKindle PaperwhiteやKobo Libra Colourのような高速表示、防水、ストア連携の快適さは期待しにくくなり。"
+description: "サポート終了後の古いKindleを読書専用機として活用する方法と、現行端末へ買い替える判断基準を整理します。"
 slug: "saho-tozhong-liao-nogu-ikindle-she-teruqian-nishi-shitai-di"
 hasRelatedProducts: false
 showRakutenWidget: true
@@ -119,6 +119,19 @@ showRakutenWidget: true
 | 防水 | 非対応が多い | 対応モデルがある | 対応モデルがある |
 | 判断の目安 | 役割を絞れば残す価値がある | メイン端末として有力 | 図版やカラー重視なら有力 |
 
+<section class="comparison-choice-cta google-auto-ads-ignore" aria-label="古いKindleからの買い替え確認">
+  <div class="offerbox-head">
+    <span class="offerbox-pr">PR</span>
+    <p class="cta3-title">買い替えるなら、まず現行端末と読み放題を確認</p>
+  </div>
+  <p>古いKindleを残すか迷う場合は、現行Paperwhiteの価格、防水や容量、読み放題の対象作品を見てから判断すると失敗しにくくなります。</p>
+  <div class="comparison-choice-cta__grid">
+    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="old-kindle-decision">Paperwhiteの価格を見る</a>
+    <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="old-kindle-decision">Unlimited対象を確認</a>
+    <a class="btn brand-rakuten" href="https://books.rakuten.co.jp/event/e-book/ereaders/" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="old-kindle-decision">Kobo端末も見る</a>
+  </div>
+</section>
+
 ## 残すか手放すかの判断基準
 
 古いKindleを残すかどうかは、使えるかどうかではなく、役割があるかどうかで考えると判断しやすくなります。
@@ -139,10 +152,9 @@ showRakutenWidget: true
 
 迷ったら、まずは用途を一つだけ決めて試してみてください。たとえば「寝室の読書専用」「レシピ閲覧専用」「暗記ノート専用」のように固定すると、使えるかどうかを短期間で判断しやすくなります。
 
-サポート終了の古いKindleは万能ではありません。ただし、役割を絞れば、今の生活に静かになじむ道具としてまだ活用できます。詳しい電子書籍端末の選び方は
-も参考にしてみてください。
+サポート終了の古いKindleは万能ではありません。ただし、役割を絞れば、今の生活に静かになじむ道具としてまだ活用できます。買い替えも含めて判断するなら、[KindleとKoboの違い](/posts/kindle-vs-kobo/) や [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/) を確認してください。
 
-## 関連ガイド
+## 関連リンク
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)

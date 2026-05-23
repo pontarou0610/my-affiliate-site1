@@ -8,7 +8,7 @@ draft: false
 images: ["https://images.pexels.com/photos/31145644/pexels-photo-31145644.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Kindle Scribe Colorsoft（以下 Colorsoft）は、Amazon初の「カラー対応・大画面・手書き対応」のKindleフラッグシップ機です。 モノクロの電子ペーパーに慣れている方ほど、「値段が高いけれど本当に必要？」。"
+description: "カラーE Inkや手書き対応端末を検討するときに、用途、価格、ノート機能、現行Kindle/Koboとの違いを整理します。"
 slug: "the-kindle-scribe-colorsoft-is-a-pricey-but-pretty-e-ink-col"
 archiveNoticeURL: "/posts/kindle-vs-kobo/"
 archiveNoticeLabel: "最新のKindle/Kobo比較"
@@ -303,10 +303,9 @@ Colorsoftは「タブレットの代わり」ではなく、「モノクロKindl
 Colorsoftは、「カラーで読めるKindle」というより、「AI付きのデジタルノート兼リーダー」として価値を発揮する端末です。  
 価格は高めですが、学習・仕事・趣味のノートと読書を一台に集約したい人にとっては、長期的に見れば十分検討に値する選択肢と言えます。
 
-電子リーダー選びや読書スタイル全体を見直したい方は、あわせて 
-も参考にしてみてください。
+電子リーダー選びや読書スタイル全体を見直したい方は、[KindleとKoboの違い](/posts/kindle-vs-kobo/) も参考にしてください。
 
-## 関連ガイド
+## 関連リンク
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
