@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/32417524/pexels-photo-32417524.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "2026年4月、Adobeは**Acrobat Readerの追加の脆弱性修正**を公開し、あわせて**Photoshop、Illustratorを含む複数製品のセキュリティ更新**を案内しました。今回の重要点は、単なる表示不具合や軽微な安。"
+description: "Acrobat ReaderやAdobe製品の更新情報を踏まえ、電子書籍PDFを安全に開くための確認手順を整理します。"
 slug: "acrobat-reader-nizhui-jia-nocui-ruo-xing-xiu-zheng-2026nian"
 hasRelatedProducts: false
 showRakutenWidget: true

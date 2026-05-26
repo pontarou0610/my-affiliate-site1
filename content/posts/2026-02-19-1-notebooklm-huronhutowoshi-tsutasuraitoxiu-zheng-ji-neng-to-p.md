@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/31987446/pexels-photo-31987446.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "gihyo.jpの報道のとおり、NotebookLMに**プロンプト（指示文）でスライドを修正する機能**と、**PowerPoint（.pptx）形式での出力機能**が加わる可能性が示されています。これまでのNotebookLMは「資料を。"
+description: "NotebookLMのスライド修正やPowerPoint出力の可能性を、資料作成フロー、Kindleでの学習導線、注意点から整理します。"
 slug: "notebooklm-huronhutowoshi-tsutasuraitoxiu-zheng-ji-neng-to-p"
 hasRelatedProducts: false
 showRakutenWidget: true

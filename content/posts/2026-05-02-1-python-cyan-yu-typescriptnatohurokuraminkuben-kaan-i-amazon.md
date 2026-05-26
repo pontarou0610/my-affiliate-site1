@@ -203,10 +203,9 @@ Kindle本GWセールは、プログラミング学習を始める人にとって
 
 迷ったときは、まず1冊だけ選び、あわせて「いつ読むか」も決めておくのがおすすめです。買う本と学習時間をセットで決めると、読み始めるハードルが下がります。
 
-詳しい電子書籍の選び方は
-も参考にしてみてください。
+詳しい電子書籍の選び方は、[KindleとKoboの違い](/posts/kindle-vs-kobo/) や [Kindle読み放題とは？](/posts/2026/04/kindle-du-mi-fang-ti/) も参考にしてください。
 
-## 関連ガイド
+## 関連リンク
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)

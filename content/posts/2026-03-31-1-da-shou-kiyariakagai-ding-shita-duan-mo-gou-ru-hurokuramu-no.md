@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/28919444/pexels-photo-28919444.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "大手キャリアの端末購入プログラムは、この数年で位置づけが変わってきました。以前は「高額なスマホを安く見せる仕組み」と受け取られがちでしたが、現在は**返却を前提に月々の負担を抑える方法**として理解するほうが実態に近いといえます。 あわせて。"
+description: "端末購入プログラムの返却条件や月額負担を確認し、Y!mobileやUQ mobileで読書用スマホを選ぶ考え方を整理します。"
 slug: "da-shou-kiyariakagai-ding-shita-duan-mo-gou-ru-hurokuramu-no"
 hasRelatedProducts: false
 showRakutenWidget: true

@@ -275,9 +275,9 @@ showRakutenWidget: true
 - 「1分間に何ページ読むか」を目安に、3〜5ページごとの更新を起点に調整すると、スキマ時間でもストレスなく読み進めやすくなります。  
 - 文字サイズ・行間・ライト・高速モードなどを組み合わせて、自分だけの「スキマ時間プロファイル」を一度作っておくと、以後はシーンに合わせて呼び出すだけで済みます。
 
-さらに電子書籍リーダーの活用法を深掘りしたい方は、こちらも参考にしてみてください。
+電子書籍リーダーの選び方まで見直すなら、[KindleとKoboの違い](/posts/kindle-vs-kobo/) や [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/) も参考にしてください。
 
-## 関連ガイド
+## 関連リンク
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)

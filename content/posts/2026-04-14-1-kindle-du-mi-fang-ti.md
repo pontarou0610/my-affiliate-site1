@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/2237799/pexels-photo-2237799.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "「kindle 読み 放題」と検索している方の多くが知りたいのは、Amazonの定額読み放題サービス**Kindle Unlimited**です。月額料金で対象本を追加料金なしで読める仕組みで、小説、ビジネス書、実用書、雑誌、マンガ、洋書ま。"
+description: "Kindle Unlimitedの仕組み、対象本の探し方、月額で読むメリットと注意点を、電子書籍初心者向けに整理します。"
 slug: "kindle-du-mi-fang-ti"
 hasRelatedProducts: false
 showRakutenWidget: true

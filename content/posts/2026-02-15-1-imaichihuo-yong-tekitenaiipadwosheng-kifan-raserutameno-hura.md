@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/4567138/pexels-photo-4567138.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "「買ったはいいけど、最近は動画を見るだけ」「スマホで足りてしまう」——iPadが活用できなくなる主因は、性能よりも**“取り出すまでの摩擦”**にあります。 具体的には、①置き場所が決まらない、②入力が面倒、③データの出し入れが詰まる、の3。"
+description: "使わなくなったiPadをKindle読書や学習用に戻すため、置き場所、入力、データ管理、スタンド選びを整理します。"
 slug: "imaichihuo-yong-tekitenaiipadwosheng-kifan-raserutameno-hura"
 hasRelatedProducts: false
 showRakutenWidget: true

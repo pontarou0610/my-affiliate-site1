@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/31727635/pexels-photo-31727635.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "電子書籍の移行でつまずきやすい理由は、「本のデータが端末の中にすべて入っている」と考えてしまうためです。実際には、購入した電子書籍の多くは**各ストアのアカウントにひも付いて管理**されています。 そのため、端末を買い替えても、同じアカウン。"
+description: "KindleやKoboの機種変更で本棚、アカウント、PDF、自炊データを失わないための引き継ぎ手順を整理します。"
 slug: "dian-zi-shu-ji-nohatsukuatsuhutoyi-xing-duan-mo-mai-iti-etej"
 hasRelatedProducts: false
 showRakutenWidget: true

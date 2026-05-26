@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/30397833/pexels-photo-30397833.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "「月刊DBマガジン」は、データベースの**運用・設計・チューニング・障害対応**を“現場の言葉”で扱ってきた技術誌です。今回の復刻で大きいのは、懐かしさではなく「当時の判断プロセス」を**検索できる形で手元に置ける**点にあります。Kind。"
+description: "月刊DBマガジン復刻版をKindleで読むメリットを、検索性、現場知識の再利用、技術書としての活用軸で整理します。"
 slug: "yue-kan-dbmakashin-kafu-ke-kindletedi-yi-dan-kafan-mai-kai-s"
 hasRelatedProducts: false
 showRakutenWidget: true

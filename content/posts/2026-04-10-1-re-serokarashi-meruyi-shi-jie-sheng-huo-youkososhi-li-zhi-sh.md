@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/31385486/pexels-photo-31385486.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "KADOKAWAのKindle本フェアは、コミック・ライトノベルを中心に、人気シリーズへ低コストで入れるのが最大の魅力です。とくに500冊以上が対象になる大型企画では、通常の値引きだけでなく、**99円セール**、**期間限定無料**、**。"
+description: "KADOKAWAのKindleフェアで、99円セールや期間限定無料を確認しながらコミック・ライトノベルを選ぶ方法を整理します。"
 slug: "re-serokarashi-meruyi-shi-jie-sheng-huo-youkososhi-li-zhi-sh"
 hasRelatedProducts: false
 showRakutenWidget: true

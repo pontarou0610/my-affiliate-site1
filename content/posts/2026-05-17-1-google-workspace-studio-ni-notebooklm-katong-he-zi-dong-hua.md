@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/67112/pexels-photo-67112.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Googleが**Google Workspace Studio**に**NotebookLM**を統合したことで、生成AIの使い方は「その場で質問する」段階から、「社内知識を使って業務を流れで回す」段階へ進みました。今回のポイントは、単に。"
+description: "Google Workspace StudioとNotebookLM統合を、社内知識の自動化、電子書籍制作、業務フロー改善の観点で整理します。"
 slug: "google-workspace-studio-ni-notebooklm-katong-he-zi-dong-hua"
 hasRelatedProducts: false
 showRakutenWidget: true

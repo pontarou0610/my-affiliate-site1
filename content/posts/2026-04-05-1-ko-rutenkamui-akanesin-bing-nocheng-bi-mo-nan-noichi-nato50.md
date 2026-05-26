@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/20895483/pexels-photo-20895483.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Kindleストアで、集英社作品を対象にした大型キャンペーン**「集英社 春マン!! 2026」**が開催中です。今回の注目点は、**『ゴールデンカムイ』『あかね噺』『氷の城壁』『魔男のイチ』など人気作で50％ポイント還元**が付くこと。し。"
+description: "集英社 春マン!! 2026のKindleセールで、対象作品、還元条件、まとめ買いの判断ポイントを整理します。"
 slug: "ko-rutenkamui-akanesin-bing-nocheng-bi-mo-nan-noichi-nato50"
 hasRelatedProducts: false
 showRakutenWidget: true
@@ -157,10 +157,9 @@ Kindleストアで、集英社作品を対象にした大型キャンペーン**
 「集英社 春マン!! 2026」は、人気作が並ぶだけのキャンペーンではありません。**50％ポイント還元をどう次の読書につなげるか**で、体感のお得さが変わるセールです。  
 『ゴールデンカムイ』のような完結済み大作を軸にするのも良いですし、『あかね噺』『氷の城壁』『魔男のイチ』のような話題作を少しずつ試すのも賢い選択です。
 
-4月5日までの3日間限定なので、まずは今日のうちに対象作品を確認し、**最初の1作品だけでも購入候補を決めておく**のがおすすめです。迷って終わるより、1冊でも動いた人のほうが、このタイプのセールでは確実に得をしやすくなります。関連する電子書籍の選び方は
-も参考にしてみてください。
+4月5日までの3日間限定なので、まずは今日のうちに対象作品を確認し、**最初の1作品だけでも購入候補を決めておく**のがおすすめです。迷って終わるより、1冊でも動いた人のほうが、このタイプのセールでは確実に得をしやすくなります。関連する電子書籍の選び方は、[KindleとKoboの違い](/posts/kindle-vs-kobo/) や [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/) も参考にしてください。
 
-## 関連ガイド
+## 関連リンク
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)

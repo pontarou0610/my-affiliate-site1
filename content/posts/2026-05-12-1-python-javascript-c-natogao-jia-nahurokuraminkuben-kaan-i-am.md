@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/32002857/pexels-photo-32002857.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Amazonの「Kindle本 高価格帯タイトルセール」は、価格が高くなりやすい専門書や実用書をまとめて値引きする企画です。プログラミング本は紙の大型本だと**3,000〜5,000円台**、内容によっては**6,000円超**になることも。"
+description: "Kindle高価格帯セールでPython、JavaScript、C#などの学習本を選ぶときの費用感と独学計画を整理します。"
 slug: "python-javascript-c-natogao-jia-nahurokuraminkuben-kaan-i-am"
 hasRelatedProducts: false
 showRakutenWidget: true

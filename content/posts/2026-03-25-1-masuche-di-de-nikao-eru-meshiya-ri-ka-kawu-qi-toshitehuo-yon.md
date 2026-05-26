@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/20726950/pexels-photo-20726950.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "メジャーリーグで長く活躍する選手には、筋力、技術、体格といったわかりやすい要素だけでは説明できない共通点があります。その一つが、**思考を整え、判断の質を上げるための読書習慣**です。MLBは年間162試合。移動距離はシーズンを通して数万キ。"
+description: "メジャーリーガーの読書習慣を題材に、電子書籍で思考力、判断力、集中力を鍛える読み方を整理します。"
 slug: "masuche-di-de-nikao-eru-meshiya-ri-ka-kawu-qi-toshitehuo-yon"
 hasRelatedProducts: false
 showRakutenWidget: true

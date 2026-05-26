@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/5686645/pexels-photo-5686645.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Kindle本のGWセールでは、小説やビジネス書に加えて、イラスト・動画・VTuber関連の実用書がまとまって値下がりすることがあります。なかでも注目したいのは、**読んで終わりではなく、CLIP STUDIO PAINTやアイビスペイント。"
+description: "Kindle本GWセールで探しやすいイラスト、動画、VTuber関連の実用書と、制作学習への活かし方を整理します。"
 slug: "irasuto-dong-hua-vtuberguan-lian-ben-kase-ruzhong-kindleben"
 hasRelatedProducts: false
 showRakutenWidget: true

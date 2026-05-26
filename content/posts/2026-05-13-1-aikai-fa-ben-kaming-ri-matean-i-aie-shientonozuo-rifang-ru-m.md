@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/16461434/pexels-photo-16461434.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "AI関連の実用書をまとめて買いやすい**「Kindle本 高価格帯タイトルセール」**が、**5月14日まで**開催されています。今回の見どころは、単なるAI解説本だけでなく、**AIエージェントの作り方入門**や、**知識ゼロからAIアプ。"
+description: "Kindle高価格帯セールのAI関連本を、AIエージェント入門、実務学習、購入前の確認ポイントから整理します。"
 slug: "aikai-fa-ben-kaming-ri-matean-i-aie-shientonozuo-rifang-ru-m"
 hasRelatedProducts: false
 showRakutenWidget: true

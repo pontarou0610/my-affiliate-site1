@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/37194547/pexels-photo-37194547.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "MozillaはFirefox向けに、**任意のコード実行につながるおそれがある致命的な脆弱性**を修正するアップデートを公開しました。加えて、一部のセキュリティソフトと組み合わせた環境で起きていた、**FacebookなどのWebサイトが。"
+description: "Firefoxの緊急更新と表示不具合の改善を踏まえ、Kindleや電子書籍ストア利用前に確認したい安全対策を整理します。"
 slug: "firefox-niren-yi-noko-towoshi-xing-sarerukong-rekaaruzhi-min"
 hasRelatedProducts: false
 showRakutenWidget: true

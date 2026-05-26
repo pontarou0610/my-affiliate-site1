@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/15092/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Adobe Readerのゼロデイ脆弱性とは、開発元が修正パッチを公開する前から、攻撃者に実際に悪用されている欠陥を指します。今回の論点で特に深刻なのは、「脆弱性が存在した」こと自体よりも、**数か月にわたって悪用が継続していた可能性**が。"
+description: "Adobe Readerのゼロデイ脆弱性を踏まえ、電子書籍やPDFを扱う人が更新、入手元、閲覧環境で確認すべき対策を整理します。"
 slug: "adobe-readernoseroteicui-ruo-xing-kashu-keyue-jian-e-yong-sa"
 hasRelatedProducts: false
 showRakutenWidget: true

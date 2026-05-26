@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/20869434/pexels-photo-20869434.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Koboで固定レイアウト（雑誌、写真集、図版の多い技術書、コミックの一部など）を読む場合、旅行・出張中は自宅より不利な条件が重なりやすくなります。たとえば、**片手操作が増える／照明が一定でない／通信が不安定／5〜15分単位で中断が入る**。"
+description: "Koboで雑誌、写真集、コミックなど固定レイアウト電子書籍を旅行や出張中に読む前の確認ポイントを整理します。"
 slug: "kobotegu-ding-reiautowokuai-shi-nidu-mutamenochietsukurisuto"
 hasRelatedProducts: false
 showRakutenWidget: true

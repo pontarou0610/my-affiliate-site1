@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '比較レビュー', 'レビュー']
 categories: ["電子書籍"]
-description: "Kindleストアで開催中の「Kindle本読書強化週間フェア」は、**1万冊以上のKindle電子書籍が最大75％OFF**になる大型セールです。コンピュータ・IT分野も対象が厚く、**『Pythonレベルアップドリル』**や**『セキュ。"
+description: "Kindle本読書強化週間フェアで、PythonやセキュリティなどIT学習本を選ぶときの確認ポイントを整理します。"
 slug: "pythonreheruatsuhutoriru-sekiyuritei1nian-sheng-kaban-e-kind"
 hasRelatedProducts: false
 showRakutenWidget: true

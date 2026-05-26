@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/1475272/pexels-photo-1475272.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Kindle電子書籍リーダーが大幅値下げとなり、読書専用端末を導入しやすい好機が来ています。今回の注目ポイントは、単に安くなったことではありません。**最大15,000円OFF**というインパクトのある値引きに加え、**カラー電子ペーパー搭。"
+description: "Kindle電子書籍リーダーのセール時に確認したい価格、カラー表示、容量、買い替え判断を整理します。"
 slug: "kindledian-zi-shu-ji-ri-ta-kazui-da-15000yuan-off-kara-dian"
 hasRelatedProducts: false
 showRakutenWidget: true

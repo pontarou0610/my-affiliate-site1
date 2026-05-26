@@ -202,10 +202,9 @@ PDFを確実に扱いたいなら「Adobe Acrobat Reader」は有力ですし、
 - 合わなければ戻し、合えば1週間継続する
 
 この進め方なら、情報を見るだけで終わらず、実際の改善につなげやすくなります。  
-最後に、ソフト選びとあわせて読書環境も見直したい方は
-も参考にしてみてください。
+最後に、ソフト選びとあわせて読書環境も見直したい方は、[KindleとKoboの違い](/posts/kindle-vs-kobo/) や [Kobo Claraレビュー](/posts/kobo-clara-review/) も参考にしてください。
 
-## 関連ガイド
+## 関連リンク
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
