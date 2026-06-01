@@ -5,10 +5,12 @@ from __future__ import annotations
 
 import argparse
 import os
+import sys
 from datetime import date, timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
+from google.auth.exceptions import RefreshError
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -30,7 +32,12 @@ def env_path(name: str) -> Path:
     return path
 
 
-def load_credentials(force_auth: bool = False) -> Credentials:
+def load_credentials(
+    force_auth: bool = False,
+    *,
+    open_browser: bool = True,
+    auth_timeout_seconds: int | None = 180,
+) -> Credentials:
     client_file = env_path("GA4_OAUTH_CLIENT_FILE")
     token_file = env_path("GA4_OAUTH_TOKEN_FILE")
 
@@ -39,11 +46,30 @@ def load_credentials(force_auth: bool = False) -> Credentials:
         creds = Credentials.from_authorized_user_file(str(token_file), SCOPES)
 
     if creds and creds.expired and creds.refresh_token:
-        creds.refresh(Request())
+        try:
+            creds.refresh(Request())
+        except RefreshError as exc:
+            print(
+                "Saved GA4 OAuth token is expired or revoked; starting OAuth again.",
+                file=sys.stderr,
+            )
+            token_file.unlink(missing_ok=True)
+            creds = None
 
     if not creds or not creds.valid:
         flow = InstalledAppFlow.from_client_secrets_file(str(client_file), SCOPES)
-        creds = flow.run_local_server(port=0, open_browser=True)
+        try:
+            creds = flow.run_local_server(
+                port=0,
+                open_browser=open_browser,
+                timeout_seconds=auth_timeout_seconds,
+            )
+        except (TimeoutError, AttributeError) as exc:
+            raise SystemExit(
+                "GA4 OAuth authorization did not complete in time. "
+                "Run again with --force-auth after approving the Google browser prompt, "
+                "or increase --auth-timeout-seconds."
+            ) from exc
 
     token_file.write_text(creds.to_json(), encoding="utf-8")
     return creds
@@ -189,6 +215,17 @@ def print_opportunity_pages(top_pages: list[dict], click_pages: dict[str, int], 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Report GA4 traffic and affiliate clicks.")
     parser.add_argument("--force-auth", action="store_true", help="Ignore saved token and run OAuth again")
+    parser.add_argument(
+        "--no-open-browser",
+        action="store_true",
+        help="Print the OAuth URL instead of opening a browser automatically",
+    )
+    parser.add_argument(
+        "--auth-timeout-seconds",
+        type=int,
+        default=180,
+        help="Seconds to wait for OAuth approval when a fresh token is needed",
+    )
     parser.add_argument("--top", type=int, default=10, help="Number of top pages to show")
     args = parser.parse_args()
 
@@ -197,7 +234,11 @@ def main() -> int:
     if not property_id:
         raise SystemExit("GA4_PROPERTY_ID is not set in .env")
 
-    creds = load_credentials(force_auth=args.force_auth)
+    creds = load_credentials(
+        force_auth=args.force_auth,
+        open_browser=not args.no_open_browser,
+        auth_timeout_seconds=args.auth_timeout_seconds,
+    )
     service = build("analyticsdata", "v1beta", credentials=creds, cache_discovery=False)
 
     end = date.today() - timedelta(days=1)
