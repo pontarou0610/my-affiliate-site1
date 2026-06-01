@@ -1,7 +1,7 @@
 ---
 title: "サポート終了の古いKindle活用術、電子書籍専用で目に優しく長く使える方法"
 date: 2026-05-11
-lastmod: 2026-05-11
+lastmod: 2026-06-01
 draft: false
 
 
@@ -25,6 +25,19 @@ showRakutenWidget: true
 一方で、古いKindleにはE Inkならではの強みがあります。目が疲れにくく、待機時の消費電力が少なく、通知に邪魔されません。最新機種の代わりとして考えるより、用途を絞った専用端末として使うほうが価値を引き出しやすくなります。
 
 この記事では、サポート終了の古いKindleを手放す前に試したい活用法と、使い続けるか買い替えるかを判断する基準を具体的に紹介します。
+
+<section class="comparison-choice-cta google-auto-ads-ignore" aria-label="古いKindleの使い続け判断">
+  <div class="offerbox-head">
+    <span class="offerbox-pr">PR</span>
+    <p class="cta3-title">先に結論を決めたい人向け</p>
+  </div>
+  <p>バッテリーやストア連携に不安がある場合は、無理に延命するより、現行端末・読み放題・Koboを並べて確認すると判断が早くなります。価格や対象作品はリンク先で確認してください。</p>
+  <div class="comparison-choice-cta__grid">
+    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="old-kindle-early-decision">Paperwhiteを確認</a>
+    <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="old-kindle-early-decision">Unlimited対象を見る</a>
+    <a class="btn brand-rakuten" href="https://books.rakuten.co.jp/event/e-book/ereaders/" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="old-kindle-early-decision">Kobo端末も比較</a>
+  </div>
+</section>
 
 ## 使い始める前に確認したいこと
 
