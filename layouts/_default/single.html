@@ -84,23 +84,20 @@
   </section>
   {{- end }}
 
-  {{- $showRakuten := site.Params.defaultRakutenWidget | default false -}}
+  {{- $isPost := eq .Type "posts" -}}
+  {{- $showProducts := site.Params.defaultProductRecommendations | default (site.Params.defaultRakutenWidget | default false) -}}
   {{- $hasRelated := .Params.hasRelatedProducts | default false -}}
-  {{- $explicit := .Param "showRakutenWidget" -}}
-  {{- if ne $explicit nil }}
-  {{- $showRakuten = $explicit -}}
-  {{- else if not $hasRelated }}
-  {{- $showRakuten = true -}}
+  {{- $explicitProducts := .Param "showProductRecommendations" -}}
+  {{- $legacyRakuten := .Param "showRakutenWidget" -}}
+  {{- if ne $explicitProducts nil }}
+  {{- $showProducts = $explicitProducts -}}
+  {{- else if ne $legacyRakuten nil }}
+  {{- $showProducts = $legacyRakuten -}}
+  {{- else if and $isPost (not $hasRelated) }}
+  {{- $showProducts = true -}}
   {{- end -}}
-  {{- if $showRakuten }}
-  <section class="related-products google-auto-ads-ignore">
-    <h2>関連アイテム</h2>
-    <p class="offerbox-note">
-      ※このセクションにはプロモーション（楽天アフィリエイト）が含まれます。詳しくは
-      <a href="{{ relref . "/legal/disclosure/" }}">広告/アフィリエイトポリシー</a> をご確認ください。
-    </p>
-    {{- partial "rakuten-widget.html" . }}
-  </section>
+  {{- if $showProducts }}
+    {{- partial "product_recommendations.html" . }}
   {{- end }}
 
   <footer class="post-footer google-auto-ads-ignore">

@@ -17,7 +17,7 @@
 {{- $isProgramming := or (in $haystack "python") (in $haystack "javascript") (in $haystack "c#") (in $haystack "typescript") (in $haystack "go ") (in $haystack "php") (in $haystack "プログラミング") (in $haystack "技術書") -}}
 {{- $isCreator := or (in $haystack "blender") (in $haystack "comfyui") (in $haystack "premiere") (in $haystack "動画") (in $haystack "cg") (in $haystack "イラスト") -}}
 {{- $isAiLearning := or (in $haystack "chatgpt") (in $haystack "gemini") (in $haystack "notebooklm") (in $haystack "生成ai") (in $haystack "ai活用") -}}
-{{- $isBookSale := or (in $haystack "セール") (in $haystack "sale") (in $haystack "off") (in $haystack "割引") (in $haystack "還元") (in $haystack "無料") $isProgramming $isCreator $isAiLearning -}}
+{{- $isBookSale := or (in $haystack "セール") (in $haystack "sale") (in $haystack "off") (in $haystack "割引") (in $haystack "還元") (in $haystack "無料本") (in $haystack "0円") $isProgramming $isCreator $isAiLearning -}}
 {{- $isReading := or $isKindle $isKobo $isBookSale (in $haystack "電子書籍") (in $haystack "読書") (in $haystack "epub") (in $haystack "pdf") -}}
 {{- $amazonTag := or $page.Site.Params.amazonTag (getenv "AMAZON_TAG") -}}
 {{- $rakutenId := or $page.Site.Params.rakutenAffiliateId (getenv "RAKUTEN_AFFILIATE_ID") -}}

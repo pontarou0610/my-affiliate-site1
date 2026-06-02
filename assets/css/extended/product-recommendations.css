@@ -1,0 +1,183 @@
+.product-recommendations {
+  margin: 2rem 0 1.5rem;
+  padding: 1rem;
+  border: 1px solid #dbe4f0;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.product-recommendations__head {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+}
+
+.product-recommendations__head h2 {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.45;
+}
+
+.product-recommendations__intro {
+  margin: .55rem 0 0;
+  color: #374151;
+  font-size: .94rem;
+  line-height: 1.7;
+}
+
+.product-recommendations__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: .75rem;
+  margin: 1rem 0 0;
+}
+
+.product-recommendations__card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: .9rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, .05);
+}
+
+.product-recommendations__card--primary {
+  border-color: #eadfcb;
+  background: linear-gradient(180deg, #fffdf7 0%, #fff 100%);
+}
+
+.product-recommendations__label {
+  align-self: flex-start;
+  margin: 0 0 .45rem;
+  padding: .12rem .45rem;
+  border-radius: 4px;
+  background: #eef2ff;
+  color: #3730a3;
+  font-size: .72rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.product-recommendations__card--rakuten .product-recommendations__label {
+  background: #fff1f2;
+  color: #9f1239;
+}
+
+.product-recommendations__card--yahoo .product-recommendations__label {
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.product-recommendations__card h3 {
+  margin: 0;
+  color: #111827;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.product-recommendations__card p {
+  margin: .45rem 0 0;
+  color: #374151;
+  font-size: .9rem;
+  line-height: 1.65;
+}
+
+.product-recommendations__card ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  margin: .7rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.product-recommendations__card li {
+  padding: .12rem .42rem;
+  border: 1px solid #dbe4f0;
+  border-radius: 999px;
+  color: #475569;
+  font-size: .74rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.product-recommendations__actions {
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  margin-top: auto;
+  padding-top: .85rem;
+}
+
+.product-recommendations__actions .btn {
+  width: 100%;
+  min-width: 0;
+}
+
+.product-recommendations__guide {
+  align-self: center;
+  color: #334155;
+  font-size: .84rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .product-recommendations {
+    padding: .9rem;
+  }
+
+  .product-recommendations__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-recommendations__head {
+    align-items: flex-start;
+  }
+
+  .product-recommendations__head h2 {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .product-recommendations {
+    background: #0f1115;
+    border-color: #273244;
+  }
+
+  .product-recommendations__intro,
+  .product-recommendations__card p {
+    color: #d1d5db;
+  }
+
+  .product-recommendations__card,
+  .product-recommendations__card--primary {
+    background: #151a23;
+    border-color: #273244;
+    box-shadow: none;
+  }
+
+  .product-recommendations__card h3 {
+    color: #f8fafc;
+  }
+
+  .product-recommendations__label,
+  .product-recommendations__card--rakuten .product-recommendations__label,
+  .product-recommendations__card--yahoo .product-recommendations__label {
+    background: #1e293b;
+    color: #dbeafe;
+  }
+
+  .product-recommendations__card li {
+    border-color: #334155;
+    color: #cbd5e1;
+  }
+
+  .product-recommendations__guide {
+    color: #cbd5e1;
+  }
+}

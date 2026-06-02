@@ -1,0 +1,132 @@
+{{- $page := . -}}
+{{- $topic := lower (printf "%s %s %s" $page.Title ($page.Slug | default "") $page.RelPermalink) -}}
+{{- $amazonTag := or $page.Site.Params.amazonTag (getenv "AMAZON_TAG") -}}
+{{- $rakutenId := or $page.Site.Params.rakutenAffiliateId (getenv "RAKUTEN_AFFILIATE_ID") -}}
+{{- $kindleGuide := "/lp/kindle/" | relURL -}}
+{{- $koboGuide := "/lp/kobo/" | relURL -}}
+{{- $comparisonGuide := "/posts/kindle-vs-kobo/" | relURL -}}
+{{- $disclosure := "/legal/disclosure/" | relURL -}}
+{{- $yahooDeviceUrl := "https://yahoo.jp/33rgX2" -}}
+{{- $isPaperwhite := or (in $topic "paperwhite") (in $topic "kindle paperwhite") (in $topic "kindle-paperwhite") -}}
+{{- $isUnlimited := in $topic "kindle unlimited" -}}
+{{- $isKoboPlus := in $topic "kobo plus" -}}
+{{- $isKindle := or $isPaperwhite $isUnlimited (in $topic "kindle") (in $topic "scribe") (in $topic "send to kindle") -}}
+{{- $isKobo := or $isKoboPlus (in $topic "kobo") (in $topic "clara") (in $topic "libra") (in $topic "sage") (in $topic "elipsa") (in $topic "epub") -}}
+{{- $isComparison := or (and $isKindle $isKobo) (in $topic "比較") (in $topic "vs") (in $topic "電子書籍リーダー") -}}
+{{- $isSubscription := or $isUnlimited $isKoboPlus (in $topic "読み放題") -}}
+{{- $isProgramming := or (in $topic "python") (in $topic "javascript") (in $topic "c#") (in $topic "typescript") (in $topic "go ") (in $topic "php") (in $topic "プログラミング") (in $topic "技術書") -}}
+{{- $isCreator := or (in $topic "blender") (in $topic "comfyui") (in $topic "premiere") (in $topic "動画") (in $topic "cg") (in $topic "イラスト") -}}
+{{- $isAiLearning := or (in $topic "chatgpt") (in $topic "gemini") (in $topic "notebooklm") (in $topic "生成ai") (in $topic "ai活用") -}}
+{{- $isBookSale := or (in $topic "セール") (in $topic "sale") (in $topic "off") (in $topic "割引") (in $topic "還元") (in $topic "無料本") (in $topic "0円") $isProgramming $isCreator $isAiLearning -}}
+{{- $amazonSearchTerm := "Kindle本 セール" -}}
+{{- $rakutenSearchTerm := "電子書籍" -}}
+{{- if $isProgramming -}}
+  {{- $amazonSearchTerm = "Python JavaScript C# Kindle本" -}}
+  {{- $rakutenSearchTerm = "プログラミング 電子書籍" -}}
+{{- else if $isCreator -}}
+  {{- $amazonSearchTerm = "Blender Premiere Pro Kindle本" -}}
+  {{- $rakutenSearchTerm = "動画制作 イラスト 電子書籍" -}}
+{{- else if $isAiLearning -}}
+  {{- $amazonSearchTerm = "生成AI Kindle本" -}}
+  {{- $rakutenSearchTerm = "生成AI 電子書籍" -}}
+{{- else if $isKobo -}}
+  {{- $amazonSearchTerm = "Kindle Kobo 電子書籍" -}}
+  {{- $rakutenSearchTerm = "楽天Kobo 電子書籍" -}}
+{{- end -}}
+{{- $amazonBookSearch := printf "https://www.amazon.co.jp/s?k=%s&i=digital-text" (urlquery $amazonSearchTerm) -}}
+{{- $rakutenBookSearch := printf "https://books.rakuten.co.jp/search?sitem=%s&g=101" (urlquery $rakutenSearchTerm) -}}
+{{- $intro := "記事を読み終えたあとに迷いやすい購入先だけを絞りました。価格、対象作品、キャンペーン条件は変わるため、最終条件はリンク先で確認してください。" -}}
+{{- $cards := slice -}}
+
+{{- if $isSubscription -}}
+  {{- $intro = "読み放題は対象作品と解約条件の確認が先です。読む量が多い人ほど、端末とストアを分けて見ると失敗しにくくなります。" -}}
+  {{- $cards = slice
+    (dict "label" "読み放題" "title" "Kindle Unlimited" "body" "月に複数冊読むなら、対象作品と現在の条件を先に確認。" "checks" (slice "対象作品" "体験条件" "解約手順") "store" "amazon" "url" "https://amzn.to/4oyRBSx" "button" "Unlimitedを確認" "slot" "related-unlimited" "primary" true "guideUrl" $kindleGuide "guideText" "Kindle活用ガイド")
+    (dict "label" "端末" "title" "Kindle Paperwhite" "body" "読書専用端末で長く読むなら、容量と広告有無まで確認。" "checks" (slice "容量" "広告有無" "保証") "store" "amazon" "url" "https://amzn.to/48wNGzs" "button" "Paperwhiteを見る" "slot" "related-kindle-paperwhite" "guideUrl" $comparisonGuide "guideText" "KindleとKoboの違い")
+    (dict "label" "別ストア" "title" "楽天Kobo" "body" "楽天ポイントやクーポンを使うなら、Kobo側の条件も比較。" "checks" (slice "ポイント" "クーポン" "対象本") "store" "rakuten" "url" "https://books.rakuten.co.jp/e-book/" "button" "楽天Koboを見る" "slot" "related-rakuten-kobo" "guideUrl" $koboGuide "guideText" "Kobo活用ガイド")
+  -}}
+{{- else if or $isBookSale $isProgramming $isCreator $isAiLearning -}}
+  {{- $intro = "セールや学習系の記事では、安さだけでなく読み放題対象と別ストアの在庫も見ると取りこぼしを減らせます。" -}}
+  {{- $cards = slice
+    (dict "label" "本を探す" "title" "Kindle本検索" "body" "気になるジャンルの電子書籍を、サンプルとレビュー込みで確認。" "checks" (slice "サンプル" "レビュー" "価格") "store" "amazon" "url" $amazonBookSearch "button" "Kindle本を探す" "slot" "related-kindle-books" "primary" true "guideUrl" $kindleGuide "guideText" "Kindle活用ガイド")
+    (dict "label" "読み放題" "title" "Kindle Unlimited" "body" "買う前に対象作品かどうかを確認すると、無駄な購入を減らせます。" "checks" (slice "対象作品" "体験条件" "解約手順") "store" "amazon" "url" "https://amzn.to/4oyRBSx" "button" "Unlimited対象を見る" "slot" "related-unlimited")
+    (dict "label" "別ストア" "title" "楽天Kobo" "body" "楽天ポイントを使う人は、Kobo側の実質価格も確認。" "checks" (slice "ポイント" "クーポン" "在庫") "store" "rakuten" "url" $rakutenBookSearch "button" "楽天Koboも見る" "slot" "related-rakuten-books" "guideUrl" $koboGuide "guideText" "Kobo活用ガイド")
+  -}}
+{{- else if $isComparison -}}
+  {{- $intro = "比較記事では、端末、読み放題、楽天Koboの3導線を同じ画面で見比べると判断しやすくなります。" -}}
+  {{- $cards = slice
+    (dict "label" "標準機" "title" "Kindle Paperwhite" "body" "Amazon中心で読むなら、最初に比較したい標準端末。" "checks" (slice "価格" "容量" "広告有無") "store" "amazon" "url" "https://amzn.to/48wNGzs" "button" "Paperwhiteを見る" "slot" "related-kindle-paperwhite" "primary" true "guideUrl" $kindleGuide "guideText" "Kindle活用ガイド")
+    (dict "label" "読み放題" "title" "Kindle Unlimited" "body" "読む量が多い人は、端末より先に対象本を確認。" "checks" (slice "対象本" "体験条件" "解約") "store" "amazon" "url" "https://amzn.to/4oyRBSx" "button" "Unlimitedを確認" "slot" "related-unlimited")
+    (dict "label" "楽天" "title" "Kobo端末" "body" "楽天ポイントやEPUB/PDF重視なら、Kobo端末も候補。" "checks" (slice "ポイント" "防水" "画面サイズ") "store" "rakuten" "url" "https://books.rakuten.co.jp/event/e-book/ereaders/" "button" "Kobo端末を見る" "slot" "related-kobo-device" "guideUrl" $koboGuide "guideText" "Kobo活用ガイド")
+  -}}
+{{- else if $isKobo -}}
+  {{- $intro = "Kobo系の記事では、端末、楽天Koboストア、Kindle比較の3つだけ見れば判断が早くなります。" -}}
+  {{- $cards = slice
+    (dict "label" "端末" "title" "Kobo端末" "body" "EPUB/PDFや楽天ポイント重視なら、画面サイズと防水を先に確認。" "checks" (slice "画面サイズ" "防水" "カラー表示") "store" "rakuten" "url" "https://books.rakuten.co.jp/event/e-book/ereaders/" "button" "Kobo端末を見る" "slot" "related-kobo-device" "primary" true "guideUrl" $koboGuide "guideText" "Kobo活用ガイド")
+    (dict "label" "ストア" "title" "楽天Koboストア" "body" "本の価格だけでなく、ポイント還元とクーポンの有無も確認。" "checks" (slice "ポイント" "クーポン" "対象本") "store" "rakuten" "url" $rakutenBookSearch "button" "Kobo本を探す" "slot" "related-rakuten-books" "guideUrl" $comparisonGuide "guideText" "KindleとKoboの違い")
+    (dict "label" "比較" "title" "Kindle Paperwhite" "body" "Amazon中心で読む可能性があるなら、Kindle側も一度比較。" "checks" (slice "端末価格" "Unlimited" "本棚") "store" "amazon" "url" "https://amzn.to/48wNGzs" "button" "Kindleも見る" "slot" "related-kindle-compare" "guideUrl" $kindleGuide "guideText" "Kindle活用ガイド")
+  -}}
+{{- else if or $isKindle $isPaperwhite -}}
+  {{- $intro = "Kindle系の記事では、本体、読み放題、別モール価格を分けて見ると購入判断がしやすくなります。" -}}
+  {{- $cards = slice
+    (dict "label" "端末" "title" "Kindle Paperwhite" "body" "長く読む前提なら、価格だけでなく容量と広告有無も確認。" "checks" (slice "価格" "容量" "広告有無") "store" "amazon" "url" "https://amzn.to/48wNGzs" "button" "Paperwhiteを見る" "slot" "related-kindle-paperwhite" "primary" true "guideUrl" $kindleGuide "guideText" "Kindle活用ガイド")
+    (dict "label" "読み放題" "title" "Kindle Unlimited" "body" "本体購入前に、読みたい本が対象かどうかを確認。" "checks" (slice "対象作品" "体験条件" "解約手順") "store" "amazon" "url" "https://amzn.to/4oyRBSx" "button" "Unlimitedを確認" "slot" "related-unlimited")
+    (dict "label" "価格比較" "title" "Yahoo!ショッピング" "body" "モール価格やポイント還元も見たい場合の比較用。" "checks" (slice "価格" "ポイント" "在庫") "store" "yahoo" "url" $yahooDeviceUrl "button" "Yahoo!でも探す" "slot" "related-yahoo-device" "guideUrl" $comparisonGuide "guideText" "KindleとKoboの違い")
+  -}}
+{{- else -}}
+  {{- $cards = slice
+    (dict "label" "標準機" "title" "Kindle Paperwhite" "body" "電子書籍を長く読むなら、まず確認したい標準端末。" "checks" (slice "価格" "容量" "広告有無") "store" "amazon" "url" "https://amzn.to/48wNGzs" "button" "Paperwhiteを見る" "slot" "related-kindle-paperwhite" "primary" true "guideUrl" $kindleGuide "guideText" "Kindle活用ガイド")
+    (dict "label" "読み放題" "title" "Kindle Unlimited" "body" "買う本が決まっていない人は、対象作品から探すのも有効。" "checks" (slice "対象本" "体験条件" "解約") "store" "amazon" "url" "https://amzn.to/4oyRBSx" "button" "Unlimitedを確認" "slot" "related-unlimited")
+    (dict "label" "楽天" "title" "楽天Kobo" "body" "楽天ポイントを使う人は、Kobo側の条件も比較。" "checks" (slice "ポイント" "クーポン" "対象本") "store" "rakuten" "url" "https://books.rakuten.co.jp/e-book/" "button" "楽天Koboを見る" "slot" "related-rakuten-kobo" "guideUrl" $koboGuide "guideText" "Kobo活用ガイド")
+  -}}
+{{- end -}}
+
+<section class="related-products product-recommendations google-auto-ads-ignore" aria-label="記事に関連する購入先">
+  <div class="product-recommendations__head">
+    <span class="offerbox-pr">PR</span>
+    <h2>この記事から次に確認する購入先</h2>
+  </div>
+  <p class="product-recommendations__intro">{{ $intro }}</p>
+
+  <div class="product-recommendations__grid">
+    {{- range $cards }}
+      {{- $store := lower .store -}}
+      {{- $url := .url -}}
+      {{- if and (eq $store "amazon") $amazonTag (in $url "amazon.co.jp") (not (in $url "tag=")) -}}
+        {{- $sep := cond (in $url "?") "&" "?" -}}
+        {{- $url = printf "%s%stag=%s" $url $sep $amazonTag -}}
+      {{- end -}}
+      {{- if and (eq $store "rakuten") $rakutenId (not (hasPrefix $url "https://hb.afl.rakuten.co.jp/")) -}}
+        {{- $encoded := urlquery $url -}}
+        {{- $url = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $encoded $encoded -}}
+      {{- end -}}
+      {{- $buttonClass := cond (eq $store "amazon") "brand-amazon" (cond (eq $store "rakuten") "brand-rakuten" (cond (eq $store "yahoo") "brand-yahoo" "")) -}}
+      {{- $cardClasses := slice "product-recommendations__card" -}}
+      {{- if (.primary | default false) -}}{{- $cardClasses = $cardClasses | append "product-recommendations__card--primary" -}}{{- end -}}
+      {{- $cardClasses = $cardClasses | append (printf "product-recommendations__card--%s" $store) -}}
+
+      <article class="{{ delimit $cardClasses " " }}">
+        {{- $guideText := .guideText | default "選び方を見る" -}}
+        <div class="product-recommendations__label">{{ .label }}</div>
+        <h3>{{ .title }}</h3>
+        <p>{{ .body }}</p>
+        <ul>
+          {{- range .checks }}
+            <li>{{ . }}</li>
+          {{- end }}
+        </ul>
+        <div class="product-recommendations__actions">
+          <a class="btn {{ $buttonClass }}" href="{{ $url }}" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="{{ $store }}" data-affiliate-slot="{{ .slot }}">{{ .button }}</a>
+          {{- with .guideUrl }}
+            <a class="product-recommendations__guide" href="{{ . }}">{{ $guideText }}</a>
+          {{- end }}
+        </div>
+      </article>
+    {{- end }}
+  </div>
+
+  <p class="offerbox-note">
+    広告を含みます。価格、対象作品、キャンペーン条件は変わるため、最終条件はリンク先で確認してください。
+    <a href="{{ $disclosure }}">開示事項</a>
+  </p>
+</section>
