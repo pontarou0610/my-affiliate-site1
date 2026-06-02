@@ -99,7 +99,7 @@
     <!-- Notice Bar -->
     <div class="notice-bar">
         {{ if eq $brand "kindle" }}
-        本ページにはプロモーション（アフィリエイトリンク）が含まれます。詳しくは<a href="{{ relref . "/legal/disclosure/" }}">広告/アフィリエイトポリシー</a>をご確認ください。Kindle Unlimitedは30日無料体験つきです。
+        本ページにはプロモーション（アフィリエイトリンク）が含まれます。詳しくは<a href="{{ relref . "/legal/disclosure/" }}">広告/アフィリエイトポリシー</a>をご確認ください。Kindle Unlimitedの料金・体験条件はAmazon側でご確認ください。
         {{ else if eq $brand "kobo" }}
         本ページにはプロモーション（アフィリエイトリンク）が含まれます。詳しくは<a href="{{ relref . "/legal/disclosure/" }}">広告/アフィリエイトポリシー</a>をご確認ください。楽天Koboは楽天ポイント還元・クーポンが適用される場合があります。
         {{ end }}
@@ -120,7 +120,7 @@
                 {{ if eq $brand "kindle" }}
                 <a href="#howto">使い方</a>
                 <a href="#faq">FAQ</a>
-                <a href="#cta" class="btn btn-sm">30日無料で試す</a>
+                <a href="#cta" class="btn btn-sm">読み放題を確認</a>
                 {{ else if eq $brand "kobo" }}
                 <a href="#comparison">比較</a>
                 <a href="#cta" class="btn btn-sm">今すぐチェック</a>
@@ -136,7 +136,7 @@
                 <div class="hero-content">
                     <span class="hero-badge">
                         {{ if eq $brand "kindle" }}
-                        30日無料体験 + いつでも解約OK
+                        読み放題・端末・資料管理をまとめて確認
                         {{ else if eq $brand "kobo" }}
                         楽天ポイントで買える・貯まる
                         {{ end }}
@@ -152,16 +152,16 @@
 
                     {{ if eq $brand "kindle" }}
                     <ul class="hero-points">
-                        <li>Paperwhite/無印の失敗しない選び方を1分で把握</li>
-                        <li>ベストセラー+マンガが読み放題、買い切りより圧倒的にお得</li>
-                        <li>Send to KindleでPDF/EPUBも一括管理し「読みたい本」を一元化</li>
+                        <li>Paperwhite/無印の選び方を用途別に整理</li>
+                        <li>読み放題は対象作品と条件を確認してから判断</li>
+                        <li>Send to KindleでPDF/EPUBもまとめて管理</li>
                     </ul>
                     {{ end }}
 
                     <div class="hero-cta">
                         {{ if eq $brand "kindle" }}
                         <a href="https://amzn.to/4oyRBSx" class="btn btn-primary btn-lg" target="_blank"
-                            rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="lp-hero">30日無料で読み放題を試す</a>
+                            rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="lp-hero">読み放題の条件を見る</a>
                         <a href="https://amzn.to/48wNGzs" class="btn btn-secondary btn-lg" target="_blank"
                             rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="lp-hero">Paperwhiteの詳細を見る</a>
                         {{ else if eq $brand "kobo" }}
@@ -245,8 +245,8 @@
                 <div class="howto-grid">
                     <div class="howto-card">
                         <div class="step-number">1</div>
-                        <h3>30日無料体験に登録</h3>
-                        <p>Amazonアカウントで Kindle Unlimitedに申し込むだけ。最初の30日は無料、解約も1分で完了します。</p>
+                        <h3>読み放題の条件を確認</h3>
+                        <p>Amazon公式ページで、料金、体験条件、対象作品を確認します。読みたいジャンルが対象に多いかを先に見ると失敗しにくくなります。</p>
                     </div>
                     <div class="howto-card">
                         <div class="step-number">2</div>
@@ -267,7 +267,7 @@
                 <h2>迷う前に押さえるチェックポイント</h2>
                 <ul class="value-list">
                     <li><strong>通勤・就寝前の15分読書</strong>：防眩のE-inkで目が疲れにくい。紙の本より軽く、片手で読める。</li>
-                    <li><strong>買い切りよりコスパ◎</strong>：Unlimitedは月額980円。ビジネス書2冊で元が取れる計算です。</li>
+                    <li><strong>読み放題は対象作品で判断</strong>：料金や体験条件は変わるため、登録前にAmazon側で確認します。</li>
                     <li><strong>紙+デジタルの併用</strong>：手持ちPDFをSend to Kindleに放り込めば、検索・ハイライト・メモが同期。</li>
                 </ul>
             </div>
@@ -354,12 +354,12 @@
             <div class="container">
                 <h2>よくある質問</h2>
                 <div class="faq-item">
-                    <h3>無料体験後はいくらかかる？</h3>
-                    <p>Kindle Unlimitedは月額980円。30日以内に解約すれば費用は発生しません。解約しても端末自体はそのまま使えます。</p>
+                    <h3>体験条件や料金はどこで確認する？</h3>
+                    <p>Kindle Unlimitedの料金、無料体験の有無、キャンペーン条件は変わることがあります。登録前にAmazon公式ページで現在の条件を確認してください。</p>
                 </div>
                 <div class="faq-item">
                     <h3>Prime Readingと何が違う？</h3>
-                    <p>Prime Readingはプライム会員向けの入門版（対象は数百冊）。Unlimitedは和書・マンガ・洋書など約200万冊が対象で選択肢が桁違いです。</p>
+                    <p>Prime Readingはプライム会員向け、Kindle Unlimitedは読み放題サービスとして提供されています。対象冊数やラインナップは時期によって変わるため、読みたい本が対象かを確認するのが近道です。</p>
                 </div>
                 <div class="faq-item">
                     <h3>Paperwhiteと無印どちらを買うべき？</h3>
@@ -381,7 +381,7 @@
                 </h2>
                 <p>
                     {{ if eq $brand "kindle" }}
-                    30日無料でUnlimitedを体験し、端末はPaperwhiteで快適読書。解約リスクゼロで今すぐ試せます。
+                    読み放題の条件を確認し、端末はPaperwhiteや無印Kindleから用途に合わせて選びます。価格・キャンペーンはリンク先で確認してください。
                     {{ else if eq $brand "kobo" }}
                     セール・クーポン・SPUで実質価格が下がることが多いKobo。気になる端末はキャンペーン中に押さえましょう。
                     {{ end }}
@@ -389,7 +389,7 @@
                 <div class="cta-buttons">
                     {{ if eq $brand "kindle" }}
                     <a href="https://amzn.to/4oyRBSx" class="btn btn-primary btn-xl" target="_blank"
-                        rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="lp-bottom">30日無料でUnlimitedを試す</a>
+                        rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="lp-bottom">読み放題の条件を見る</a>
                     <a href="https://amzn.to/48wNGzs" class="btn btn-secondary btn-xl" target="_blank"
                         rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="lp-bottom">Paperwhiteを見る</a>
                     {{ else if eq $brand "kobo" }}
