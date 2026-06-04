@@ -36,8 +36,18 @@ jobs:
           pip install -r requirements.txt
 
       - name: Quality gates
+        shell: bash
         run: |
-          python scripts/check_generated_post_quality.py --changed --min-chars 800 --max-description-chars 140
+          base="${{ github.event.before }}"
+          if [ -z "$base" ] || [[ "$base" =~ ^0+$ ]] || ! git cat-file -e "$base^{commit}" 2>/dev/null; then
+            base="$(git rev-parse HEAD^ 2>/dev/null || true)"
+          fi
+          mapfile -t changed_posts < <(git diff --name-only --diff-filter=ACMRTUXB "$base" HEAD -- 'content/posts/*.md' 2>/dev/null || true)
+          if [ "${#changed_posts[@]}" -gt 0 ]; then
+            python scripts/check_generated_post_quality.py "${changed_posts[@]}" --min-chars 800 --max-description-chars 140
+          else
+            echo "No post files changed in this deploy range."
+          fi
           python scripts/check_links.py
           python scripts/check_unique_posts.py
 
