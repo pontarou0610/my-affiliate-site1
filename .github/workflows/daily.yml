@@ -88,6 +88,12 @@ jobs:
           python -c "import importlib.util; print('feedparser installed:', importlib.util.find_spec('feedparser') is not None)"
           python scripts/site_publish_cycle.py --cycles 1 --count 1 --updates 1 --external-supply-check --serp-provider auto --cse-budget 80 --gsc-min-impressions 5 --gsc-min-position 10 --repair-attempts 1
 
+      - name: Check changed commercial claims
+        shell: bash
+        run: |
+          mapfile -t changed_commercial < <(git diff --name-only --diff-filter=ACMRTUXB HEAD -- 'content/**/*.md' 2>/dev/null || true)
+          python scripts/check_commercial_claims.py "${changed_commercial[@]}"
+
       - name: Commit generated post back to main
         if: github.ref == 'refs/heads/main'
         env:
@@ -116,6 +122,9 @@ jobs:
           hugo --minify
           touch public/.nojekyll
           ls -la public | head -n 50
+
+      - name: Check generated affiliate links
+        run: python scripts/check_affiliate_html.py public
 
       - name: Deploy to Pages
         uses: peaceiris/actions-gh-pages@v4.0.0

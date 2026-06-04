@@ -35,7 +35,7 @@ showRakutenWidget: true
   <div class="comparison-choice-cta__grid">
     <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="old-kindle-early-decision">Paperwhiteを確認</a>
     <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="old-kindle-early-decision">Unlimited対象を見る</a>
-    <a class="btn brand-rakuten" href="https://books.rakuten.co.jp/event/e-book/ereaders/" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="old-kindle-early-decision">Kobo端末も比較</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="old-kindle-early-decision">Kobo端末も比較</a>
   </div>
 </section>
 
@@ -141,7 +141,7 @@ showRakutenWidget: true
   <div class="comparison-choice-cta__grid">
     <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="old-kindle-decision">Paperwhiteの価格を見る</a>
     <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="old-kindle-decision">Unlimited対象を確認</a>
-    <a class="btn brand-rakuten" href="https://books.rakuten.co.jp/event/e-book/ereaders/" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="old-kindle-decision">Kobo端末も見る</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="old-kindle-decision">Kobo端末も見る</a>
   </div>
 </section>
 

@@ -27,7 +27,7 @@ author: "ぽんたろう"
 </div>
 
 <div class="value-section">
-  <h2>セールで損しないチェックリスト</h2>
+  <h2>セール前に確認したいチェックリスト</h2>
   <ul class="value-list">
     <li><strong>読み放題は対象作品で判断</strong>：料金や体験条件だけでなく、自分が読みたいジャンルがあるかを先に確認。</li>
     <li><strong>端末は使う場所で選ぶ</strong>：浴室や寝室で読むならPaperwhite、軽さと価格を重視するなら無印Kindleを比較。</li>

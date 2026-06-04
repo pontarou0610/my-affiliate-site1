@@ -17,6 +17,12 @@
         {{- end }}
     </div>
     {{- end }}
+    {{- $rakutenId := site.Params.rakutenAffiliateId -}}
+    {{- $koboStoreUrl := "https://books.rakuten.co.jp/e-book/" -}}
+    {{- if $rakutenId -}}
+        {{- $encodedKoboStore := urlquery $koboStoreUrl -}}
+        {{- $koboStoreUrl = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $encodedKoboStore $encodedKoboStore -}}
+    {{- end -}}
     <section class="home-revenue-cta google-auto-ads-ignore" aria-label="おすすめ購入導線">
         <div class="home-revenue-cta__copy">
             <span class="offerbox-pr">PR</span>
@@ -26,7 +32,7 @@
         <div class="home-revenue-cta__actions">
             <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="home-info">読み放題を確認</a>
             <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="home-info">Paperwhiteを比較</a>
-            <a class="btn brand-rakuten" href="https://books.rakuten.co.jp/e-book/" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="home-info">楽天Koboを確認</a>
+            <a class="btn brand-rakuten" href="{{ $koboStoreUrl }}" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="home-info">楽天Koboを確認</a>
         </div>
         <div class="home-revenue-cta__links">
             <a href="{{ "recommend/" | relURL }}">目的別購入ガイド</a>

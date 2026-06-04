@@ -8,7 +8,7 @@
 {{- $hasManualCta := or $hasShortcodeCta $hasHtmlCta -}}
 {{- $hideAll := $page.Param "hideAutoCta" -}}
 {{- $hideTop := or ($page.Param "hideAutoCtaTop") (and (eq $position "top") $hasManualCta) -}}
-{{- $hideBottom := $page.Param "hideAutoCtaBottom" -}}
+{{- $hideBottom := or ($page.Param "hideAutoCtaBottom") (and (eq $position "bottom") $hasManualCta) -}}
 {{- $isPaperwhite := or (in $haystack "paperwhite") (in $haystack "kindle paperwhite") (in $haystack "kindle-paperwhite") -}}
 {{- $isUnlimited := in $haystack "kindle unlimited" -}}
 {{- $isKoboPlus := in $haystack "kobo plus" -}}

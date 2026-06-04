@@ -7,7 +7,7 @@
        yahoo    = "//ck.jp.ap.valuecommerce.com/servlet/referral?sid=...&pid=..."
        yahoo_px = "//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=...&pid=..."  (任意)
 */ -}}
-{{- $title := .Get "title" | default "最安で購入する" -}}
+{{- $title := .Get "title" | default "購入条件を確認する" -}}
 {{- $note := .Get "note" -}}
 {{- $disclosure := "" -}}
 {{- with (relref .Page "/legal/disclosure/") -}}

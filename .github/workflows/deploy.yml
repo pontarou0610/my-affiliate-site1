@@ -48,6 +48,8 @@ jobs:
           else
             echo "No post files changed in this deploy range."
           fi
+          mapfile -t changed_commercial < <(git diff --name-only --diff-filter=ACMRTUXB "$base" HEAD -- 'content/**/*.md' 'layouts/**/*.html' 2>/dev/null || true)
+          python scripts/check_commercial_claims.py "${changed_commercial[@]}"
           python scripts/check_links.py
           python scripts/check_unique_posts.py
 
@@ -56,6 +58,9 @@ jobs:
           rm -rf public resources
           hugo --minify
           touch public/.nojekyll
+
+      - name: Check generated affiliate links
+        run: python scripts/check_affiliate_html.py public
 
       - name: Deploy to Pages
         uses: peaceiris/actions-gh-pages@v3
