@@ -126,6 +126,9 @@ jobs:
       - name: Check generated affiliate links
         run: python scripts/check_affiliate_html.py public
 
+      - name: Check generated JSON-LD
+        run: python scripts/check_jsonld.py public
+
       - name: Deploy to Pages
         uses: peaceiris/actions-gh-pages@v4.0.0
         with:

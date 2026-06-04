@@ -16,6 +16,14 @@ ctaSummary: "Clara BW/Colourだけでなく、Libra Colourや楽天Koboストア
 ctaFit: "楽天ポイント、EPUB/PDF、カラーE Inkを重視して電子書籍環境を整えたい人。"
 ctaCheck: "端末サイズ、白黒/カラー、物理ボタン、ポイント倍率、クーポン"
 ctaChips: ["Clara BW", "Clara Colour", "楽天ポイント", "EPUB/PDF"]
+schema:
+  faq:
+    - question: "Clara BWとClara Colourはどちらが無難ですか？"
+      answer: "小説や実用書が中心ならClara BWが無難です。図解、表紙、色つきハイライトまで見たいならClara Colourを検討してください。"
+    - question: "PaperwhiteとClaraで迷ったら？"
+      answer: "Amazon中心ならPaperwhite、楽天ポイントやEPUBを重視するならClaraです。すでに買っている電子書籍が多いストアを優先すると失敗しにくいです。"
+    - question: "Kobo Plusも一緒に見るべきですか？"
+      answer: "Kobo端末をメインにするならKobo Plusも候補に入ります。ただし、対象作品と料金表示は変わることがあるため、申し込み前に公式ページで確認してください。"
 ---
 このページは旧 `Clara 2E` レビューをベースに、2026年3月時点の現行 `Clara BW / Clara Colour` まで含めて更新したものです。  
 結論から言うと、文字中心ならClara BW、表紙や図解まで色で見たいならClara Colour、すでにClara 2Eを持っている人は急いで買い替えなくてもよい、という整理になります。
@@ -159,7 +167,7 @@ Amazon中心ならPaperwhite、楽天ポイントやEPUBを重視するならCla
 
 Kobo端末をメインにするなら候補に入ります。ただし、対象作品と料金表示は変わることがあるため、申し込み前に公式ページで確認してください。
 
-## 関連ガイド
+## 関連記事
 
 - [おすすめ購入先ガイド](/recommend/)
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
