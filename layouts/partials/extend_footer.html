@@ -22,6 +22,18 @@
       }
     }
 
+    function linkMeta(href, store, slot) {
+      try {
+        var url = new URL(href, window.location.href);
+        var domain = (url.hostname || "").toLowerCase().replace(/^www\./, "");
+        var path = (url.pathname || "").replace(/\/+$/, "").split("/").filter(Boolean).slice(0, 3).join("-");
+        var id = [store, slot, domain, path].filter(Boolean).join(":").replace(/[^a-z0-9:_-]+/gi, "-").toLowerCase();
+        return { domain: domain, id: id.slice(0, 140) };
+      } catch (e) {
+        return { domain: "", id: [store, slot].filter(Boolean).join(":") };
+      }
+    }
+
     document.addEventListener(
       "click",
       function (ev) {
@@ -38,13 +50,17 @@
         var store = (a.dataset && a.dataset.affiliate) ? a.dataset.affiliate : inferStore(href);
         var slot = (a.dataset && a.dataset.affiliateSlot) ? a.dataset.affiliateSlot : "inline";
         var text = (a.textContent || "").trim().slice(0, 120);
+        var meta = linkMeta(href, store, slot);
 
         if (typeof window.gtag === "function") {
           window.gtag("event", "affiliate_click", {
             affiliate_store: store,
             affiliate_slot: slot,
+            link_domain: meta.domain,
+            link_id: meta.id,
             link_url: href,
             link_text: text,
+            transport_type: "beacon",
           });
         }
       },

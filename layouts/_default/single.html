@@ -85,12 +85,15 @@
   {{- end }}
 
   {{- $isPost := eq .Type "posts" -}}
+  {{- $hasManualAffiliateBlock := gt (len (findRE "(comparison-choice-cta|offerbox-head|data-affiliate-slot=|\\{\\{<\\s*(offerbox|cta3|affbtn))" .RawContent)) 0 -}}
   {{- $showProducts := site.Params.defaultProductRecommendations | default (site.Params.defaultRakutenWidget | default false) -}}
   {{- $hasRelated := .Params.hasRelatedProducts | default false -}}
   {{- $explicitProducts := .Param "showProductRecommendations" -}}
   {{- $legacyRakuten := .Param "showRakutenWidget" -}}
   {{- if ne $explicitProducts nil }}
   {{- $showProducts = $explicitProducts -}}
+  {{- else if $hasManualAffiliateBlock }}
+  {{- $showProducts = false -}}
   {{- else if ne $legacyRakuten nil }}
   {{- $showProducts = $legacyRakuten -}}
   {{- else if and $isPost (not $hasRelated) }}

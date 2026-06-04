@@ -95,6 +95,17 @@
     {{ $brand := .Params.layout }}
     {{ $tag := .Site.Params.amazonTag }}
     {{ $rakutenId := .Site.Params.rakutenAffiliateId }}
+    {{ $koboStoreUrl := "https://books.rakuten.co.jp/e-book/" }}
+    {{ $koboDeviceUrl := "https://books.rakuten.co.jp/event/e-book/ereaders/" }}
+    {{ $koboAccessoryUrl := "https://search.rakuten.co.jp/search/mall/Kobo+%E9%9B%BB%E5%AD%90%E6%9B%B8%E7%B1%8D%E3%83%AA%E3%83%BC%E3%83%80%E3%83%BC/" }}
+    {{ if $rakutenId }}
+      {{ $encodedStore := urlquery $koboStoreUrl }}
+      {{ $encodedDevice := urlquery $koboDeviceUrl }}
+      {{ $encodedAccessory := urlquery $koboAccessoryUrl }}
+      {{ $koboStoreUrl = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $encodedStore $encodedStore }}
+      {{ $koboDeviceUrl = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $encodedDevice $encodedDevice }}
+      {{ $koboAccessoryUrl = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $encodedAccessory $encodedAccessory }}
+    {{ end }}
 
     <!-- Notice Bar -->
     <div class="notice-bar">
@@ -165,9 +176,9 @@
                         <a href="https://amzn.to/48wNGzs" class="btn btn-secondary btn-lg" target="_blank"
                             rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="lp-hero">Paperwhiteの詳細を見る</a>
                         {{ else if eq $brand "kobo" }}
-                        <a href="https://books.rakuten.co.jp/e-book/" class="btn btn-primary btn-lg" target="_blank"
+                        <a href="{{ $koboStoreUrl }}" class="btn btn-primary btn-lg" target="_blank"
                             rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="lp-hero">楽天Koboストアを見る</a>
-                        <a href="https://books.rakuten.co.jp/event/e-book/ereaders/" class="btn btn-secondary btn-lg"
+                        <a href="{{ $koboDeviceUrl }}" class="btn btn-secondary btn-lg"
                             target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="lp-hero">端末ラインナップを見る</a>
                         {{ end }}
                     </div>
@@ -393,9 +404,9 @@
                     <a href="https://amzn.to/48wNGzs" class="btn btn-secondary btn-xl" target="_blank"
                         rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="lp-bottom">Paperwhiteを見る</a>
                     {{ else if eq $brand "kobo" }}
-                    <a href="https://books.rakuten.co.jp/e-book/" class="btn btn-primary btn-xl" target="_blank"
+                    <a href="{{ $koboStoreUrl }}" class="btn btn-primary btn-xl" target="_blank"
                         rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="lp-bottom">楽天Koboストアへ</a>
-                    <a href="https://search.rakuten.co.jp/search/mall/Kobo+%E9%9B%BB%E5%AD%90%E6%9B%B8%E7%B1%8D%E3%83%AA%E3%83%BC%E3%83%80%E3%83%BC/"
+                    <a href="{{ $koboAccessoryUrl }}"
                         class="btn btn-secondary btn-xl" target="_blank"
                         rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="lp-bottom">アクセサリを探す</a>
                     {{ end }}
@@ -434,6 +445,18 @@
                 }
             }
 
+            function linkMeta(href, store, slot) {
+                try {
+                    var url = new URL(href, window.location.href);
+                    var domain = (url.hostname || "").toLowerCase().replace(/^www\./, "");
+                    var path = (url.pathname || "").replace(/\/+$/, "").split("/").filter(Boolean).slice(0, 3).join("-");
+                    var id = [store, slot, domain, path].filter(Boolean).join(":").replace(/[^a-z0-9:_-]+/gi, "-").toLowerCase();
+                    return { domain: domain, id: id.slice(0, 140) };
+                } catch (e) {
+                    return { domain: "", id: [store, slot].filter(Boolean).join(":") };
+                }
+            }
+
             document.addEventListener(
                 "click",
                 function (ev) {
@@ -450,13 +473,17 @@
                     var store = (a.dataset && a.dataset.affiliate) ? a.dataset.affiliate : inferStore(href);
                     var slot = (a.dataset && a.dataset.affiliateSlot) ? a.dataset.affiliateSlot : "lp-inline";
                     var text = (a.textContent || "").trim().slice(0, 120);
+                    var meta = linkMeta(href, store, slot);
 
                     if (typeof window.gtag === "function") {
                         window.gtag("event", "affiliate_click", {
                             affiliate_store: store,
                             affiliate_slot: slot,
+                            link_domain: meta.domain,
+                            link_id: meta.id,
                             link_url: href,
                             link_text: text,
+                            transport_type: "beacon",
                         });
                     }
                 },

@@ -3,7 +3,9 @@
 {{- $tags := delimit ($page.Params.tags | default (slice)) " " -}}
 {{- $categories := delimit ($page.Params.categories | default (slice)) " " -}}
 {{- $haystack := lower (printf "%s %s %s %s %s" $page.Title ($page.Slug | default "") $page.RelPermalink $tags $categories) -}}
-{{- $hasManualCta := gt (len (findRE "\\{\\{<\\s*(offerbox|cta3)" $page.RawContent)) 0 -}}
+{{- $hasShortcodeCta := gt (len (findRE "\\{\\{<\\s*(offerbox|cta3|affbtn)" $page.RawContent)) 0 -}}
+{{- $hasHtmlCta := gt (len (findRE "(comparison-choice-cta|offerbox-head|data-affiliate-slot=)" $page.RawContent)) 0 -}}
+{{- $hasManualCta := or $hasShortcodeCta $hasHtmlCta -}}
 {{- $hideAll := $page.Param "hideAutoCta" -}}
 {{- $hideTop := or ($page.Param "hideAutoCtaTop") (and (eq $position "top") $hasManualCta) -}}
 {{- $hideBottom := $page.Param "hideAutoCtaBottom" -}}

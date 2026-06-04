@@ -185,6 +185,9 @@ def print_affiliate_clicks(service, property_id: str, start: date, end: date) ->
         except HttpError:
             print(f"{dimension}: unavailable; register it as a GA4 custom definition first.")
             continue
+        except TimeoutError:
+            print(f"{dimension}: request timed out; rerun the report later to refresh this breakdown.")
+            continue
         print(f"\n{dimension}")
         for row in by_dimension.get("rows", []):
             value = row["dimensionValues"][0]["value"] or "(not set)"
