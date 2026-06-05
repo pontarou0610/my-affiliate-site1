@@ -230,7 +230,7 @@ def auto_repair_changed_posts(max_description_chars: int) -> None:
 
 
 def generate_posts(args: argparse.Namespace, cycle_index: int) -> None:
-    daily_target = min(3, max(1, args.count) * cycle_index)
+    daily_target = min(3, max(0, args.count) * cycle_index)
     cmd = [
         sys.executable,
         "scripts/generate_post.py",
@@ -351,7 +351,7 @@ def parse_args() -> argparse.Namespace:
         "--count",
         type=int,
         default=1,
-        help="Generated post increment per cycle. generate_post.py caps the daily target at 3.",
+        help="Generated post increment per cycle. Use 0 to skip new posts; generate_post.py caps the daily target at 3.",
     )
     parser.add_argument("--updates", type=int, default=1, help="Existing post update count per cycle.")
     parser.add_argument("--external-supply-check", action="store_true", help="Use external SERP/GSC supply checks.")

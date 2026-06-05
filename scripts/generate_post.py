@@ -2444,9 +2444,9 @@ def main():
         print("[info] Post generation is disabled. Set DISABLE_POST_GENERATION=false to enable.")
         return
 
-    requested_count = max(1, min(3, args.count))
+    requested_count = max(0, min(3, args.count))
     if requested_count != args.count:
-        print(f"[info] Adjusted count from {args.count} to {requested_count} (allowed range: 1-3).")
+        print(f"[info] Adjusted count from {args.count} to {requested_count} (allowed range: 0-3).")
     requested_updates = max(0, min(3, args.updates))
     if requested_updates != args.updates:
         print(f"[info] Adjusted updates from {args.updates} to {requested_updates} (allowed range: 0-3).")
