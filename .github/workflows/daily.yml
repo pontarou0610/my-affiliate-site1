@@ -123,3 +123,22 @@ jobs:
           path: .review-output
           if-no-files-found: error
           retention-days: 14
+
+      - name: Prepare failure diagnostics
+        if: failure()
+        run: |
+          mkdir -p .daily-diagnostics
+          git status --short > .daily-diagnostics/git-status.txt
+          git diff -- content data > .daily-diagnostics/content-data.patch || true
+          if [ -f data/supply_gap_report.json ]; then
+            cp data/supply_gap_report.json .daily-diagnostics/supply_gap_report.json
+          fi
+
+      - name: Upload failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-failure-diagnostics
+          path: .daily-diagnostics
+          if-no-files-found: ignore
+          retention-days: 7
