@@ -2491,12 +2491,12 @@ def main():
         print("[info] Supply audit only mode completed.")
         return
 
-    if OPENAI_CLIENT is None:
-        raise SystemExit("OPENAI_API_KEY not set")
-
     if need == 0 and requested_updates == 0:
         print(f"Already have {already} posts for {today}. Nothing to do.")
         return
+
+    if OPENAI_CLIENT is None:
+        raise SystemExit("OPENAI_API_KEY not set")
 
     existing_title_pool = [(p.get("title") or "").strip() for p in existing_posts if p.get("title")]
     used_titles = {(p.get("title") or "").strip().lower() for p in existing_posts if p.get("title")}
@@ -2721,7 +2721,7 @@ def main():
                 if generated >= need:
                     break
 
-    if generated == 0 and not OPENAI_QUOTA_EXHAUSTED:
+    if need > 0 and generated == 0 and not OPENAI_QUOTA_EXHAUSTED:
         print("[info] No articles generated from RSS; forcing ebook fallback.")
         for fb_topic in fallback_topics:
             if generate_for_topic(fb_topic, allow_fallback=False, allow_final=True):
