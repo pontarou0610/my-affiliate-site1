@@ -1,9 +1,23 @@
-name: Daily Post
+name: Article Review Candidates
 
 on:
   schedule:
-    - cron: '11 0 * * *' # UTC 00:11 = JST 09:11
+    - cron: '11 0 * * 1' # UTC Monday 00:11 = JST Monday 09:11
   workflow_dispatch:
+    inputs:
+      new_count:
+        description: "New article candidates to generate for review (0-3)"
+        required: false
+        default: "0"
+      update_count:
+        description: "Existing article update candidates to generate for review (0-3)"
+        required: false
+        default: "1"
+      run_ai:
+        description: "Run AI candidate generation before quality checks"
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -13,6 +27,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DISABLE_POST_GENERATION: "false"
+      REVIEW_NEW_COUNT: ${{ inputs.new_count || '0' }}
+      REVIEW_UPDATE_COUNT: ${{ inputs.update_count || '1' }}
+      RUN_AI_REVIEW: ${{ github.event_name != 'workflow_dispatch' || inputs.run_ai }}
     steps:
       - uses: actions/checkout@v6.0.2
         with:
@@ -81,18 +98,19 @@ jobs:
           git rev-parse HEAD
           sha1sum scripts/generate_post.py
 
-      - name: Generate, repair, and quality gate site
+      - name: Generate review candidates and quality gate site
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           python -c "import importlib.util; print('feedparser installed:', importlib.util.find_spec('feedparser') is not None)"
-          if grep -q '^OPENAI_API_KEY=.' .env; then
-            python scripts/site_publish_cycle.py --cycles 1 --count 0 --updates 1 --external-supply-check --serp-provider auto --cse-budget 80 --gsc-min-impressions 5 --gsc-min-position 10 --repair-attempts 1 || {
+          echo "Review candidate settings: new=${REVIEW_NEW_COUNT}, updates=${REVIEW_UPDATE_COUNT}, run_ai=${RUN_AI_REVIEW}"
+          if [ "${RUN_AI_REVIEW}" = "true" ] && grep -q '^OPENAI_API_KEY=.' .env; then
+            python scripts/site_publish_cycle.py --cycles 1 --count "${REVIEW_NEW_COUNT}" --updates "${REVIEW_UPDATE_COUNT}" --external-supply-check --serp-provider auto --cse-budget 20 --gsc-min-impressions 5 --gsc-min-position 10 --repair-attempts 1 || {
               echo "::warning::AI review candidate generation failed. Continuing with quality gates only."
-              python scripts/site_publish_cycle.py --skip-generate --repair-attempts 1
+              python scripts/site_publish_cycle.py --skip-generate --allow-dirty --repair-attempts 1
             }
           else
-            echo "::warning::OPENAI_API_KEY is not configured. Skipping AI candidate generation and running quality gates only."
+            echo "::warning::AI candidate generation is disabled or OPENAI_API_KEY is not configured. Running quality gates only."
             python scripts/site_publish_cycle.py --skip-generate --repair-attempts 1
           fi
 
@@ -122,7 +140,7 @@ jobs:
       - name: Upload review bundle
         uses: actions/upload-artifact@v4
         with:
-          name: daily-article-review
+          name: article-review-candidates
           path: .review-output
           if-no-files-found: error
           retention-days: 14
@@ -141,7 +159,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: daily-failure-diagnostics
+          name: article-review-failure-diagnostics
           path: .daily-diagnostics
           if-no-files-found: ignore
           retention-days: 7

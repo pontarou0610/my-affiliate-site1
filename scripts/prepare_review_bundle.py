@@ -61,7 +61,7 @@ def write_summary(paths: list[Path], output_dir: Path) -> None:
     updates = [path for path in paths if path not in posts]
 
     lines = [
-        "# Daily Article Review",
+        "# Article Review Candidates",
         "",
         "Generated or updated article candidates are not committed or deployed automatically.",
         "Review the files and patch in this artifact, then commit approved changes manually.",
@@ -105,8 +105,12 @@ def summarize_supply_report(path: Path) -> list[str]:
     except (OSError, json.JSONDecodeError):
         return []
 
-    meta = data.get("meta") if isinstance(data, dict) else {}
-    rows = data.get("audit_rows") if isinstance(data, dict) else []
+    if isinstance(data, dict):
+        meta = data.get("metadata") or data.get("meta") or {}
+        rows = data.get("rows") or data.get("audit_rows") or []
+    else:
+        meta = {}
+        rows = []
     lines = [
         "## Supply Audit",
         "",
