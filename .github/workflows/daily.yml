@@ -87,7 +87,10 @@ jobs:
           pip install -r requirements.txt
           python -c "import importlib.util; print('feedparser installed:', importlib.util.find_spec('feedparser') is not None)"
           if grep -q '^OPENAI_API_KEY=.' .env; then
-            python scripts/site_publish_cycle.py --cycles 1 --count 0 --updates 1 --external-supply-check --serp-provider auto --cse-budget 80 --gsc-min-impressions 5 --gsc-min-position 10 --repair-attempts 1
+            python scripts/site_publish_cycle.py --cycles 1 --count 0 --updates 1 --external-supply-check --serp-provider auto --cse-budget 80 --gsc-min-impressions 5 --gsc-min-position 10 --repair-attempts 1 || {
+              echo "::warning::AI review candidate generation failed. Continuing with quality gates only."
+              python scripts/site_publish_cycle.py --skip-generate --repair-attempts 1
+            }
           else
             echo "::warning::OPENAI_API_KEY is not configured. Skipping AI candidate generation and running quality gates only."
             python scripts/site_publish_cycle.py --skip-generate --repair-attempts 1
