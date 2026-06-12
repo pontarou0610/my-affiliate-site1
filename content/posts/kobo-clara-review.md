@@ -16,7 +16,18 @@ ctaSummary: "Clara BW/Colourだけでなく、Libra Colourや楽天Koboストア
 ctaFit: "楽天ポイント、EPUB/PDF、カラーE Inkを重視して電子書籍環境を整えたい人。"
 ctaCheck: "端末サイズ、白黒/カラー、物理ボタン、ポイント倍率、クーポン"
 ctaChips: ["Clara BW", "Clara Colour", "楽天ポイント", "EPUB/PDF"]
+showProductRecommendations: true
 schema:
+  products:
+    - name: "Kobo Clara BW"
+      brand: "楽天Kobo"
+      url: "https://books.rakuten.co.jp/event/e-book/ereaders/"
+    - name: "Kobo Clara Colour"
+      brand: "楽天Kobo"
+      url: "https://books.rakuten.co.jp/event/e-book/ereaders/"
+    - name: "楽天Koboストア"
+      brand: "楽天Kobo"
+      url: "https://books.rakuten.co.jp/e-book/"
   faq:
     - question: "Clara BWとClara Colourはどちらが無難ですか？"
       answer: "小説や実用書が中心ならClara BWが無難です。図解、表紙、色つきハイライトまで見たいならClara Colourを検討してください。"

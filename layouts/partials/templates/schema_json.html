@@ -1,5 +1,6 @@
 {{- $lang := site.Language.Lang | default "ja" -}}
 {{- $siteURL := site.Home.Permalink -}}
+{{- $pageTitle := .Title | plainify -}}
 
 {{- /* Publisher (Organization/Person) */ -}}
 {{- $publisherType := (site.Params.schema.publisherType | default "Organization") | title -}}
@@ -237,7 +238,7 @@
         {{- $itemListLD := dict
           "@context" "https://schema.org"
           "@type" "ItemList"
-          "name" (.Title | plainify)
+          "name" $pageTitle
           "itemListElement" $listItems
         -}}
 <script type="application/ld+json">

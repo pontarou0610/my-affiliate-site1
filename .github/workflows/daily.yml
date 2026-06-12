@@ -22,6 +22,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: article-review-candidates
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -113,6 +117,22 @@ jobs:
             echo "::warning::AI candidate generation is disabled or OPENAI_API_KEY is not configured. Running quality gates only."
             python scripts/site_publish_cycle.py --skip-generate --repair-attempts 1
           fi
+
+      - name: Verify requested review candidates were generated
+        shell: bash
+        run: |
+          expected=$((REVIEW_NEW_COUNT + REVIEW_UPDATE_COUNT))
+          if [ "${RUN_AI_REVIEW}" != "true" ] || [ "$expected" -le 0 ]; then
+            echo "Review candidate generation was not required for this run."
+            exit 0
+          fi
+          mapfile -t changed_candidates < <({ git diff --name-only --diff-filter=ACMRTUXB HEAD -- content data 2>/dev/null || true; git ls-files --others --exclude-standard -- content data 2>/dev/null || true; } | sort -u)
+          if [ "${#changed_candidates[@]}" -eq 0 ]; then
+            echo "::error::AI review candidate generation was requested (${expected}) but produced no content/data changes."
+            exit 1
+          fi
+          printf 'Generated review candidate changes:\n'
+          printf '%s\n' "${changed_candidates[@]}"
 
       - name: Check changed commercial claims
         shell: bash

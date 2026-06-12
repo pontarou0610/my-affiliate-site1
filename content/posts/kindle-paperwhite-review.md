@@ -15,7 +15,15 @@ ctaSummary: "本体だけで判断せず、広告有無、容量、保証、Kind
 ctaFit: "小説、実用書、ビジネス書を毎週読む人。スマホ読書で目や通知が気になる人。"
 ctaCheck: "広告有無、容量、保証、セール価格、読み放題対象本"
 ctaChips: ["7インチ", "防水", "暖色ライト", "Unlimited"]
+showProductRecommendations: true
 schema:
+  products:
+    - name: "Kindle Paperwhite"
+      brand: "Amazon"
+      url: "https://amzn.to/48wNGzs"
+    - name: "Kindle Unlimited"
+      brand: "Amazon"
+      url: "https://amzn.to/4oyRBSx"
   faq:
     - question: "Paperwhiteと無印Kindleはどちらが無難ですか？"
       answer: "長く読む前提ならPaperwhiteが無難です。防水、画面サイズ、暖色ライトの差が毎日の読書で効きます。価格重視でまず試したいなら無印Kindleでも十分です。"

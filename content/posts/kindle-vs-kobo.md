@@ -23,7 +23,18 @@ aliases:
   - "/posts/2025/12/kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-4/"
   - "/posts/2025/12/kindletokobonowei-iwo2025nian-ban-teche-di-jie-shuo-6/"
 hasRelatedProducts: false
+showProductRecommendations: true
 schema:
+  products:
+    - name: "Kindle Paperwhite"
+      brand: "Amazon"
+      url: "https://amzn.to/48wNGzs"
+    - name: "Kindle Unlimited"
+      brand: "Amazon"
+      url: "https://amzn.to/4oyRBSx"
+    - name: "楽天Kobo電子書籍リーダー"
+      brand: "楽天Kobo"
+      url: "https://books.rakuten.co.jp/event/e-book/ereaders/"
   faq:
     - question: "EPUBをそのまま扱いやすいのはどっち？"
       answer: "Koboです。KindleでもEPUBは扱えますが、基本はSend to Kindle経由の変換前提です。"
