@@ -32,6 +32,52 @@ def env_path(name: str) -> Path:
     return path
 
 
+def print_auth_status() -> int:
+    """Print GA4 OAuth configuration status without starting browser auth."""
+    load_dotenv(dotenv_path=REPO_ROOT / ".env")
+    property_id = (os.getenv("GA4_PROPERTY_ID") or "").strip()
+    missing = []
+    for name in ("GA4_PROPERTY_ID", "GA4_OAUTH_CLIENT_FILE", "GA4_OAUTH_TOKEN_FILE"):
+        if not (os.getenv(name) or "").strip():
+            missing.append(name)
+    if missing:
+        print("GA4 auth status: incomplete")
+        for name in missing:
+            print(f"- missing: {name}")
+        return 1
+
+    client_file = env_path("GA4_OAUTH_CLIENT_FILE")
+    token_file = env_path("GA4_OAUTH_TOKEN_FILE")
+    print("GA4 auth status")
+    print(f"- property_id: {property_id}")
+    print(f"- oauth_client_file: {client_file} ({'exists' if client_file.exists() else 'missing'})")
+    print(f"- oauth_token_file: {token_file} ({'exists' if token_file.exists() else 'missing'})")
+
+    if not client_file.exists():
+        print("- next: create/download the OAuth client JSON and update GA4_OAUTH_CLIENT_FILE")
+        return 1
+    if not token_file.exists():
+        print("- next: run `python scripts/report_ga4.py --force-auth` and approve the Google prompt")
+        return 1
+
+    try:
+        creds = Credentials.from_authorized_user_file(str(token_file), SCOPES)
+    except ValueError as exc:
+        print(f"- token: unreadable ({exc})")
+        print("- next: delete the token file and run `python scripts/report_ga4.py --force-auth`")
+        return 1
+
+    if creds.valid:
+        print("- token: valid")
+        return 0
+    if creds.expired and creds.refresh_token:
+        print("- token: expired but refreshable")
+        return 0
+    print("- token: invalid or missing refresh token")
+    print("- next: run `python scripts/report_ga4.py --force-auth` and approve the Google prompt")
+    return 1
+
+
 def load_credentials(
     force_auth: bool = False,
     *,
@@ -217,6 +263,11 @@ def print_opportunity_pages(top_pages: list[dict], click_pages: dict[str, int], 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Report GA4 traffic and affiliate clicks.")
+    parser.add_argument(
+        "--auth-status",
+        action="store_true",
+        help="Check GA4 OAuth configuration without opening a browser or querying GA4",
+    )
     parser.add_argument("--force-auth", action="store_true", help="Ignore saved token and run OAuth again")
     parser.add_argument(
         "--no-open-browser",
@@ -231,6 +282,9 @@ def main() -> int:
     )
     parser.add_argument("--top", type=int, default=10, help="Number of top pages to show")
     args = parser.parse_args()
+
+    if args.auth_status:
+        return print_auth_status()
 
     load_dotenv(dotenv_path=REPO_ROOT / ".env")
     property_id = (os.getenv("GA4_PROPERTY_ID") or "").strip()

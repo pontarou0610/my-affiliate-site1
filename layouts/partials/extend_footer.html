@@ -44,7 +44,7 @@
         if (!href) return;
 
         var rel = (a.getAttribute("rel") || "").toLowerCase();
-        var isAffiliate = rel.indexOf("sponsored") !== -1 || rel.indexOf("nofollow") !== -1 || (a.dataset && a.dataset.affiliate);
+        var isAffiliate = rel.indexOf("sponsored") !== -1 || (a.dataset && a.dataset.affiliate);
         if (!isAffiliate) return;
 
         var store = (a.dataset && a.dataset.affiliate) ? a.dataset.affiliate : inferStore(href);

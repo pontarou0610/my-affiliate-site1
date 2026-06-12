@@ -54,16 +54,9 @@
     <link rel="stylesheet" href="{{ $brandCSS.RelPermalink }}">
     {{ end }}
 
-    <!-- Google Analytics -->
-    {{ if .Site.Params.googleAnalytics }}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalytics }}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', '{{ .Site.Params.googleAnalytics }}');
-    </script>
-    {{ end }}
+    {{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+    {{- partial "google_analytics.html" . }}
+    {{- end }}
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -423,75 +416,9 @@
         </div>
     </footer>
 
-    {{- /* Affiliate click tracking (GA4) */ -}}
-    {{- $ga := "" -}}
-    {{- with site.Params.googleAnalytics }}{{ $ga = . }}{{ end -}}
-    {{- if not $ga -}}
-      {{- with site.Params.google_analytics }}{{ $ga = . }}{{ end -}}
-    {{- end -}}
-    {{- if $ga -}}
-    <script>
-        (function () {
-            function inferStore(href) {
-                try {
-                    var url = new URL(href, window.location.href);
-                    var host = (url.hostname || "").toLowerCase();
-                    if (host.indexOf("amzn.to") !== -1 || host.indexOf("amazon.") !== -1) return "amazon";
-                    if (host.indexOf("rakuten.") !== -1 || host.indexOf("hb.afl.rakuten.co.jp") !== -1) return "rakuten";
-                    if (host.indexOf("valuecommerce.com") !== -1 || host.indexOf("ck.jp.ap.valuecommerce.com") !== -1) return "yahoo";
-                    return host.replace(/^www\./, "") || "external";
-                } catch (e) {
-                    return "external";
-                }
-            }
-
-            function linkMeta(href, store, slot) {
-                try {
-                    var url = new URL(href, window.location.href);
-                    var domain = (url.hostname || "").toLowerCase().replace(/^www\./, "");
-                    var path = (url.pathname || "").replace(/\/+$/, "").split("/").filter(Boolean).slice(0, 3).join("-");
-                    var id = [store, slot, domain, path].filter(Boolean).join(":").replace(/[^a-z0-9:_-]+/gi, "-").toLowerCase();
-                    return { domain: domain, id: id.slice(0, 140) };
-                } catch (e) {
-                    return { domain: "", id: [store, slot].filter(Boolean).join(":") };
-                }
-            }
-
-            document.addEventListener(
-                "click",
-                function (ev) {
-                    var a = ev.target && ev.target.closest ? ev.target.closest("a") : null;
-                    if (!a) return;
-
-                    var href = a.getAttribute("href");
-                    if (!href) return;
-
-                    var rel = (a.getAttribute("rel") || "").toLowerCase();
-                    var isAffiliate = rel.indexOf("sponsored") !== -1 || rel.indexOf("nofollow") !== -1 || (a.dataset && a.dataset.affiliate);
-                    if (!isAffiliate) return;
-
-                    var store = (a.dataset && a.dataset.affiliate) ? a.dataset.affiliate : inferStore(href);
-                    var slot = (a.dataset && a.dataset.affiliateSlot) ? a.dataset.affiliateSlot : "lp-inline";
-                    var text = (a.textContent || "").trim().slice(0, 120);
-                    var meta = linkMeta(href, store, slot);
-
-                    if (typeof window.gtag === "function") {
-                        window.gtag("event", "affiliate_click", {
-                            affiliate_store: store,
-                            affiliate_slot: slot,
-                            link_domain: meta.domain,
-                            link_id: meta.id,
-                            link_url: href,
-                            link_text: text,
-                            transport_type: "beacon",
-                        });
-                    }
-                },
-                { capture: true }
-            );
-        })();
-    </script>
-    {{- end -}}
+    {{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+    {{- partial "extend_footer.html" . }}
+    {{- end }}
 </body>
 
 </html>
