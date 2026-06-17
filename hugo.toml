@@ -69,6 +69,12 @@ canonifyURLs = true
     name = "目的別：購入先ガイド"
     url = "recommend/"
   [[params.homeInfoParams.buttons]]
+    name = "Kindle活用ガイド"
+    url = "lp/kindle/"
+  [[params.homeInfoParams.buttons]]
+    name = "Kobo活用ガイド"
+    url = "lp/kobo/"
+  [[params.homeInfoParams.buttons]]
     name = "著者の小説"
     url = "fiction/"
   [[params.homeInfoParams.buttons]]
@@ -91,15 +97,25 @@ canonifyURLs = true
     url = "recommend/"
     weight = 1
   [[menu.main]]
+    identifier = "kindle-lp"
+    name = "Kindle"
+    url = "lp/kindle/"
+    weight = 2
+  [[menu.main]]
+    identifier = "kobo-lp"
+    name = "Kobo"
+    url = "lp/kobo/"
+    weight = 3
+  [[menu.main]]
     identifier = "fiction"
     name = "著者の小説"
     url = "fiction/"
-    weight = 2
+    weight = 4
   [[menu.main]]
     identifier = "posts"
     name = "記事一覧"
     url = "posts/"
-    weight = 3
+    weight = 5
   [[menu.main]]
     name = "運営者"
     url = "about/"

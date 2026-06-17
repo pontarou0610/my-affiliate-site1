@@ -12,6 +12,7 @@ slug: "tcl-introduces-its-own-take-on-a-color-kindle-scribe"
 hasRelatedProducts: false
 robotsNoIndex: true
 showRakutenWidget: true
+showProductRecommendations: true
 ---
 ## TCLが「カラーKindle Scribe的」端末を投入——何がそんなに新しいのか？
 
@@ -232,9 +233,9 @@ TCLの新しいカラー電子ノートは、
 
 ---
 
-電子書籍リーダーや電子ノート全般の選び方・活用法をもっと深く知りたい方は、下記の関連ガイドもあわせてご覧ください。
+電子書籍リーダーや電子ノート全般の選び方・活用法をもっと深く知りたい方は、下記の関連記事もあわせてご覧ください。
 
-## 関連ガイド
+## 関連記事
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)

@@ -2,7 +2,7 @@
 
 title: "Kobo Clara レビュー：Clara BW/Colourと旧Clara 2Eの違い"
 date: 2025-08-10T09:00:00+09:00
-lastmod: 2026-05-13T00:00:00+09:00
+lastmod: 2026-06-17T00:00:00+09:00
 draft: false
 tags: ["電子書籍", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
@@ -145,6 +145,12 @@ Kindle Paperwhiteは「Amazonで完結する標準機」、Claraは「EPUBと楽
 5. 物理ボタンが必要ならClaraではなくLibra系も見る
 
 「楽天ポイントがあるからKobo」と決める前に、読みたい本が楽天Kobo側にあるかも確認してください。ストアと端末が噛み合うほど、買った後の満足度が上がります。
+
+{{< offerbox
+  title="Koboの端末とストア条件を確認（PR）"
+  b1_store="rakuten" b1_url="https://books.rakuten.co.jp/event/e-book/ereaders/" b1_text="Kobo端末を見る"
+  b2_store="rakuten" b2_url="https://books.rakuten.co.jp/e-book/" b2_text="楽天Koboストアを見る"
+>}}
 
 ## こんな人に向く
 

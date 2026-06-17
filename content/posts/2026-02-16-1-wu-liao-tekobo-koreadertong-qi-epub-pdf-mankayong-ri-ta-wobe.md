@@ -13,6 +13,7 @@ description: "BookloreでEPUB・PDF・マンガを共有管理する方法と、
 slug: "wu-liao-tekobo-koreadertong-qi-epub-pdf-mankayong-ri-ta-wobe"
 hasRelatedProducts: false
 showRakutenWidget: true
+showProductRecommendations: true
 ---
 
 ## Bookloreとは？自宅の本棚をマルチユーザーで共有できるセルフホスト図書館

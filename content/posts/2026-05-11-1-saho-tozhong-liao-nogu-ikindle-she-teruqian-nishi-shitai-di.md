@@ -13,6 +13,7 @@ description: "サポート終了後の古いKindleを読書専用機として活
 slug: "saho-tozhong-liao-nogu-ikindle-she-teruqian-nishi-shitai-di"
 hasRelatedProducts: false
 showRakutenWidget: true
+showProductRecommendations: true
 ---
 
 ## サポート終了の古いKindleは、役割を絞ればまだ使えます

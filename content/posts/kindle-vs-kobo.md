@@ -2,7 +2,7 @@
 
 title: "KindleとKoboを徹底比較：電子書籍リーダーはどっちを選ぶ？（2026年3月版）"
 date: 2025-08-22T10:00:00+09:00
-lastmod: 2026-03-17T00:00:00+09:00
+lastmod: 2026-06-17T00:00:00+09:00
 draft: false
 tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
@@ -104,6 +104,8 @@ KindleはAZW系を中心にしつつ、Send to Kindleで `PDF / DOCX / EPUB / TX
 - Kindleアプリと端末をまたいで続きを読みたい
 - Amazonアカウントに読書を集約したい
 
+{{< affbtn store="amazon" url="https://amzn.to/48wNGzs" text="Kindle Paperwhiteの条件を見る" >}}
+
 ### KoboはEPUBとサイドロードがわかりやすい
 
 Koboは公式ヘルプでも `EPUB / EPUB3 / PDF / CBZ / CBR / TXT / HTML / RTF` など幅広い対応形式を案内しています。  
@@ -114,6 +116,8 @@ DRMなしEPUBや自炊寄りのファイルを整理しながら使うなら、K
 - EPUBをそのまま管理したい
 - 漫画や固定レイアウト本も扱いたい
 - 楽天Koboストアと手元ファイルを併用したい
+
+{{< affbtn store="rakuten" url="https://books.rakuten.co.jp/event/e-book/ereaders/" text="Kobo端末の条件を見る" >}}
 
 ## ストア、ポイント、セールの考え方
 
@@ -130,12 +134,16 @@ DRMなしEPUBや自炊寄りのファイルを整理しながら使うなら、K
 - Send to Kindleで資料やEPUBを送りたい
 - Kindle Unlimitedもあわせて試したい
 
+{{< affbtn store="amazon" url="https://amzn.to/4oyRBSx" text="Kindle Unlimited対象を確認" >}}
+
 ### Koboが向く人
 
 - 楽天ポイントを日常的に使う
 - EPUBを直接扱いたい
 - カラーE Inkや物理ボタンを重視する
 - 6インチ白黒から10.3インチノート機まで比較して選びたい
+
+{{< affbtn store="rakuten" url="https://books.rakuten.co.jp/e-book/" text="楽天Koboストアを見る" >}}
 
 ## 迷ったときの選び方
 

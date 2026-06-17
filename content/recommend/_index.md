@@ -2,7 +2,7 @@
 title: "おすすめ購入先ガイド：Kindle・Kobo・読み放題の選び方"
 description: "Kindle、楽天Kobo、読み放題サービスを目的別に整理。電子書籍リーダーやストア選びで迷ったときに、最初に確認する購入先ガイドです。"
 date: 2026-02-05
-lastmod: 2026-05-13
+lastmod: 2026-06-17
 draft: false
 tags: ["電子書籍", "Kindle", "Kobo", "読み放題", "購入ガイド"]
 categories: ["電子書籍"]
@@ -22,6 +22,19 @@ keywords: ["Kindle Kobo おすすめ", "電子書籍リーダー おすすめ", 
 | 端末選びで迷っている | [KindleとKoboの違い]({{< relref "/posts/kindle-vs-kobo/" >}}) | ストア、端末、対応形式、読み放題を同じ軸で比べられる |
 | 小説・実用書を長く読みたい | [Kindle Paperwhiteレビュー]({{< relref "/posts/kindle-paperwhite-review/" >}}) | 7インチ、防水、暖色ライトの標準機として判断しやすい |
 | EPUBや楽天Koboを使いたい | [Kobo Claraレビュー]({{< relref "/posts/kobo-clara-review/" >}}) | Clara BW/ColourとPaperwhiteの違いを確認できる |
+
+<section class="comparison-choice-cta google-auto-ads-ignore" aria-label="目的別の公式確認導線">
+  <div class="offerbox-head">
+    <span class="offerbox-pr">PR</span>
+    <p class="cta3-title">迷っている目的から公式条件を確認</p>
+  </div>
+  <p>端末、読み放題、楽天Koboは価格や対象作品が変わります。比較表で近い目的が見えたら、現在の条件をそのまま確認してください。</p>
+  <div class="comparison-choice-cta__grid">
+    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="recommend-table-kindle-device">Paperwhiteを見る</a>
+    <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="recommend-table-unlimited">Unlimited対象を確認</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="recommend-table-kobo-store">楽天Koboストアを見る</a>
+  </div>
+</section>
 
 {{< offerbox
   title="目的別に公式ページを確認（PR）"

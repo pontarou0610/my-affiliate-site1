@@ -13,6 +13,7 @@ description: "古いKindleを脱獄する前に確認したいリスク、改造
 slug: "users-turn-to-jailbreaking-their-older-kindles-as-amazon-end"
 hasRelatedProducts: false
 showRakutenWidget: true
+showProductRecommendations: true
 ---
 
 ## サポート終了で注目される古いKindleの延命
