@@ -2,7 +2,7 @@
 title: "おすすめ購入先ガイド：Kindle・Kobo・読み放題の選び方"
 description: "Kindle、楽天Kobo、読み放題サービスを目的別に整理。電子書籍リーダーやストア選びで迷ったときに、最初に確認する購入先ガイドです。"
 date: 2026-02-05
-lastmod: 2026-06-17
+lastmod: 2026-06-22
 draft: false
 tags: ["電子書籍", "Kindle", "Kobo", "読み放題", "購入ガイド"]
 categories: ["電子書籍"]
@@ -19,6 +19,7 @@ keywords: ["Kindle Kobo おすすめ", "電子書籍リーダー おすすめ", 
 |---|---|---|
 | Amazon中心で本棚をまとめたい | [Kindle活用ガイド]({{< relref "/lp/kindle/" >}}) | 端末、Kindle本、読み放題、Send to Kindleを一体で使いやすい |
 | 楽天ポイントやEPUBを重視したい | [楽天Kobo活用ガイド]({{< relref "/lp/kobo/" >}}) | Kobo端末、楽天Koboストア、ポイント還元をまとめて確認しやすい |
+| 通勤や家事の時間も読書に使いたい | [Audibleの選び方](/posts/2026/04/amazonnoting-kudu-shu-audible-huremiamuhuran-yue-e-99yuan-ki/) | 目や手を使えない時間を音声読書へ変えやすい |
 | 端末選びで迷っている | [KindleとKoboの違い]({{< relref "/posts/kindle-vs-kobo/" >}}) | ストア、端末、対応形式、読み放題を同じ軸で比べられる |
 | 小説・実用書を長く読みたい | [Kindle Paperwhiteレビュー]({{< relref "/posts/kindle-paperwhite-review/" >}}) | 7インチ、防水、暖色ライトの標準機として判断しやすい |
 | EPUBや楽天Koboを使いたい | [Kobo Claraレビュー]({{< relref "/posts/kobo-clara-review/" >}}) | Clara BW/ColourとPaperwhiteの違いを確認できる |
@@ -32,6 +33,7 @@ keywords: ["Kindle Kobo おすすめ", "電子書籍リーダー おすすめ", 
   <div class="comparison-choice-cta__grid">
     <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="recommend-table-kindle-device">Paperwhiteを見る</a>
     <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="recommend-table-unlimited">Unlimited対象を確認</a>
+    <a class="btn brand-amazon" href="https://www.amazon.co.jp/b/ref=adbl_JP_as_0068?ie=UTF8&node=7471076051&tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="recommend-table-audible">Audibleを確認</a>
     <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="recommend-table-kobo-store">楽天Koboストアを見る</a>
   </div>
 </section>

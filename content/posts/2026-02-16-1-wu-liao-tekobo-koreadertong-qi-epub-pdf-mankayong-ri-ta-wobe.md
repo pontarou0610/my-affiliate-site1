@@ -42,9 +42,9 @@ Bookloreは、EPUB・PDF・マンガ（画像ベースの書籍）をまとめ�
   </div>
   <p>Bookloreは整理の母艦です。実際に読む端末をKobo、Kindle、タブレットのどれに寄せるかを先に決めると、転送形式や保管ルールを迷いにくくなります。</p>
   <div class="comparison-choice-cta__grid">
-    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="booklore-reader-choice">Kobo端末を見る</a>
-    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="booklore-reader-choice">楽天Koboストアを見る</a>
-    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="booklore-reader-choice">Paperwhiteも比較</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="booklore-early-kobo-device">Kobo端末を見る</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="booklore-early-kobo-store">楽天Koboストアを見る</a>
+    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="booklore-early-paperwhite">Paperwhiteも比較</a>
   </div>
 </section>
 
@@ -121,9 +121,9 @@ Bookloreは、EPUB・PDF・マンガをまとめて扱いながら、マルチ�
   </div>
   <p>蔵書管理をBookloreに寄せる場合でも、長時間読む場所は端末側です。Kobo端末、楽天Koboストア、Kindle端末の違いを確認してから運用を固定すると失敗しにくくなります。</p>
   <div class="comparison-choice-cta__grid">
-    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="booklore-bottom-reader">Kobo端末を確認</a>
-    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="booklore-bottom-reader">楽天Koboストアを見る</a>
-    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="booklore-bottom-reader">Paperwhiteも比較</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="booklore-bottom-kobo-device">Kobo端末を確認</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="booklore-bottom-kobo-store">楽天Koboストアを見る</a>
+    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="booklore-bottom-paperwhite">Paperwhiteも比較</a>
   </div>
 </section>
 

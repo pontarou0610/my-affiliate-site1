@@ -54,6 +54,7 @@ jobs:
           fi
           mapfile -t changed_commercial < <(git diff --name-only --diff-filter=ACMRTUXB "$base" HEAD -- 'content/**/*.md' 'layouts/**/*.html' 2>/dev/null || true)
           python scripts/check_commercial_claims.py "${changed_commercial[@]}"
+          python scripts/check_expired_campaigns.py --report-only
           git diff --check "$base" HEAD --
           python scripts/check_links.py
           python scripts/check_unique_posts.py

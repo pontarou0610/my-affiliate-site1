@@ -5,6 +5,10 @@
 - GA4 traffic and affiliate-click report: `python scripts/report_ga4.py --top 20`
 - GA4 auth/config check without opening a browser: `python scripts/report_ga4.py --auth-status`
 - OAuth refresh when the token is missing or revoked: `python scripts/report_ga4.py --force-auth`
+- Monthly revenue target model: `python scripts/report_revenue_target.py --commercial-pageviews 173`
+- Expired campaign audit: `python scripts/check_expired_campaigns.py --report-only`
+
+The business target and milestone definitions are in `docs/monthly-100k-roadmap.md`.
 
 The GA4 report reads `.env` values:
 

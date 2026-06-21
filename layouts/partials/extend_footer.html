@@ -6,7 +6,7 @@
 {{- if not $ga -}}
   {{- with site.Params.google_analytics }}{{ $ga = . }}{{ end -}}
 {{- end -}}
-{{- if $ga -}}
+{{- if and hugo.IsProduction $ga -}}
 <script>
   (function () {
     function inferStore(href) {

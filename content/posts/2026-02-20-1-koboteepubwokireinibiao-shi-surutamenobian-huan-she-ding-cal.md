@@ -32,9 +32,9 @@ KoboはEPUB対応でも、同じファイルが端末や本によって「行間
   </div>
   <p>表示崩れを直しても、端末の画面サイズやストアの使い方が合わないと読書環境は安定しません。Koboで続けるか、Kindleも比較するかを先に確認しておくと判断しやすくなります。</p>
   <div class="comparison-choice-cta__grid">
-    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="kobo-epub-decision">Kobo端末を見る</a>
-    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="kobo-epub-decision">楽天Koboストアを見る</a>
-    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="kobo-epub-decision">Kindleも比較</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="kobo-epub-early-device">Kobo端末を見る</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="kobo-epub-early-store">楽天Koboストアを見る</a>
+    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="kobo-epub-early-paperwhite">Kindleも比較</a>
   </div>
 </section>
 
@@ -153,9 +153,9 @@ KoboのEPUB崩れは、Calibreで **EPUB→EPUB** 再変換し、(1)余白・行
   </div>
   <p>EPUBの崩れが減ったら、次は実際に読む端末とストアを整える段階です。Kobo端末、楽天Koboストア、Kindle端末を比較して、自分の本棚に合う環境を選んでください。</p>
   <div class="comparison-choice-cta__grid">
-    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="kobo-epub-bottom">Kobo端末を確認</a>
-    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="kobo-epub-bottom">楽天Koboストアを見る</a>
-    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="kobo-epub-bottom">Kindleも比較</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="kobo-epub-bottom-device">Kobo端末を確認</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="kobo-epub-bottom-store">楽天Koboストアを見る</a>
+    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="kobo-epub-bottom-paperwhite">Kindleも比較</a>
   </div>
 </section>
 

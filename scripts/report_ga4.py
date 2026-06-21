@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import posixpath
 import sys
 from datetime import date, timedelta
 from pathlib import Path
@@ -20,6 +21,7 @@ from googleapiclient.errors import HttpError
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCOPES = ["https://www.googleapis.com/auth/analytics.readonly"]
+SITE_PATH_PREFIX = "/my-affiliate-site1"
 
 
 def env_path(name: str) -> Path:
@@ -125,6 +127,18 @@ def run_report(service, property_id: str, body: dict) -> dict:
     return service.properties().runReport(property=f"properties/{property_id}", body=body).execute()
 
 
+def normalize_page_path(path: str) -> str:
+    raw = (path or "/").split("?", 1)[0].strip() or "/"
+    if raw == SITE_PATH_PREFIX:
+        raw = "/"
+    elif raw.startswith(f"{SITE_PATH_PREFIX}/"):
+        raw = raw[len(SITE_PATH_PREFIX) :]
+    normalized = posixpath.normpath(f"/{raw.lstrip('/')}")
+    if normalized != "/" and (path or "").split("?", 1)[0].endswith("/"):
+        normalized += "/"
+    return normalized
+
+
 def metric_totals(service, property_id: str, start: date, end: date) -> list[float]:
     resp = run_report(
         service,
@@ -163,19 +177,32 @@ def print_top_pages(service, property_id: str, start: date, end: date, limit: in
             "dimensions": [{"name": "pagePath"}],
             "metrics": [{"name": "screenPageViews"}, {"name": "activeUsers"}],
             "orderBys": [{"metric": {"metricName": "screenPageViews"}, "desc": True}],
-            "limit": limit,
+            "limit": max(limit * 3, 100),
         },
     )
-    print("\nTop pages 28d")
-    print("views\tusers\tpath")
-    pages = []
+    aggregated: dict[str, dict[str, int]] = {}
     for row in resp.get("rows", []):
-        path = row["dimensionValues"][0]["value"]
+        path = normalize_page_path(row["dimensionValues"][0]["value"])
         views = int(float(row["metricValues"][0]["value"]))
         users = int(float(row["metricValues"][1]["value"]))
-        pages.append({"path": path, "views": views, "users": users})
+        item = aggregated.setdefault(path, {"views": 0, "users": 0})
+        item["views"] += views
+        item["users"] += users
+
+    pages = [
+        {"path": path, "views": values["views"], "users": values["users"]}
+        for path, values in aggregated.items()
+    ]
+    pages.sort(key=lambda item: (-item["views"], -item["users"], item["path"]))
+
+    print("\nTop pages 28d")
+    print("views\tusers\tpath")
+    for page in pages[:limit]:
+        path = page["path"]
+        views = page["views"]
+        users = page["users"]
         print(f"{views}\t{users}\t{path}")
-    return pages
+    return pages[:limit]
 
 
 def print_affiliate_clicks(service, property_id: str, start: date, end: date) -> tuple[int, dict[str, int]]:
@@ -207,14 +234,19 @@ def print_affiliate_clicks(service, property_id: str, start: date, end: date) ->
     print("\nAffiliate click pages 28d")
     print("clicks\tpath")
     for row in by_page.get("rows", []):
-        path = row["dimensionValues"][0]["value"]
+        path = normalize_page_path(row["dimensionValues"][0]["value"])
         count = int(float(row["metricValues"][0]["value"]))
-        click_pages[path] = count
+        click_pages[path] = click_pages.get(path, 0) + count
+    for path, count in sorted(click_pages.items(), key=lambda item: (-item[1], item[0])):
         print(f"{count}\t{path}")
     if not click_pages:
         print("0\t(no affiliate click page rows yet)")
 
-    for dimension in ("customEvent:affiliate_store", "customEvent:affiliate_slot"):
+    for dimension in (
+        "customEvent:affiliate_store",
+        "customEvent:affiliate_slot",
+        "customEvent:link_id",
+    ):
         try:
             by_dimension = run_report(
                 service,

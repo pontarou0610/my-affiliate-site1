@@ -3,10 +3,12 @@
        url   = "https://..."
        text  = "ボタン文言"（必須）
        store = "amazon|rakuten|yahoo"（任意：色が変わる）
+       slot  = "cta-position-product"（任意：GA4内訳）
 */ -}}
 {{- $url := .Get "url" -}}
 {{- $text := .Get "text" | default "購入する" -}}
 {{- $store := (lower (.Get "store")) -}}
+{{- $slot := .Get "slot" | default "shortcode-affbtn" -}}
 {{- $class := cond (eq $store "amazon") "brand-amazon" (cond (eq $store "rakuten") "brand-rakuten" (cond (eq $store "yahoo") "brand-yahoo" "")) -}}
 
 {{- $amazonTag := or (.Page.Site.Params.amazonTag) (.Page.Site.Site.Params.amazonTag) (getenv "AMAZON_TAG") -}}
@@ -23,4 +25,4 @@
 {{- end -}}
 
 <a class="btn {{ $class }}" href="{{ $url }}"
-   target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="{{ $store }}" data-affiliate-slot="shortcode-affbtn">{{ $text }}</a>
+   target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="{{ $store }}" data-affiliate-slot="{{ $slot }}">{{ $text }}</a>

@@ -140,6 +140,17 @@ jobs:
           mapfile -t changed_commercial < <({ git diff --name-only --diff-filter=ACMRTUXB HEAD -- 'content/**/*.md' 2>/dev/null || true; git ls-files --others --exclude-standard -- 'content/**/*.md' 2>/dev/null || true; } | sort -u)
           python scripts/check_commercial_claims.py "${changed_commercial[@]}"
 
+      - name: Audit expired campaign posts
+        run: |
+          python scripts/check_expired_campaigns.py --report-only | tee expired-campaigns.txt
+          {
+            echo "## Expired campaign audit"
+            echo
+            echo '```text'
+            cat expired-campaigns.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Build review candidate
         run: |
           hugo --minify

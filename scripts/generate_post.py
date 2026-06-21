@@ -329,6 +329,23 @@ PILLAR_LINKS = [
     ("Kindle Paperwhiteレビュー", "/posts/kindle-paperwhite-review/"),
     ("Kobo Claraレビュー", "/posts/kobo-clara-review/"),
 ]
+REVENUE_PILLAR_LINKS = {
+    "recommend": ("おすすめ購入先ガイド", "/recommend/"),
+    "kindle_lp": ("Kindle活用ガイド", "/lp/kindle/"),
+    "kobo_lp": ("Kobo活用ガイド", "/lp/kobo/"),
+    "subscription": (
+        "Kindle UnlimitedとKobo Plusの違い",
+        "/posts/2025/11/kindle-unlimitedtokobo-plusnowei-itoxuan-hifang/",
+    ),
+    "audible": (
+        "AudibleとKindleの使い分け",
+        "/posts/2026/04/amazonnoting-kudu-shu-audible-huremiamuhuran-yue-e-99yuan-ki/",
+    ),
+    "sale_tracking": (
+        "電子書籍セールを効率よく追う方法",
+        "/posts/2025/12/dian-zi-shu-ji-nose-ruwoxiao-lu-yokuzhui-ufang-fa/",
+    ),
+}
 
 def should_canonicalize_to_kindle_vs_kobo(topic_text: str, title_text: str = "") -> bool:
     text = f"{topic_text}\n{title_text}".lower()
@@ -1588,10 +1605,26 @@ def collect_candidates(max_needed: int, fallback_topics: list[str] | None = None
     return uniq[:max_needed]
 
 
+def select_pillar_links(text: str) -> list[tuple[str, str]]:
+    normalized = (text or "").lower()
+    if any(key in normalized for key in ("audible", "オーディオブック", "聴く読書", "耳読")):
+        return [REVENUE_PILLAR_LINKS["audible"], REVENUE_PILLAR_LINKS["recommend"]]
+    if any(key in normalized for key in ("セール", "sale", "off", "還元", "割引", "無料本")):
+        return [REVENUE_PILLAR_LINKS["recommend"], REVENUE_PILLAR_LINKS["sale_tracking"]]
+    if any(key in normalized for key in ("kindle unlimited", "kobo plus", "読み放題", "サブスク")):
+        return [REVENUE_PILLAR_LINKS["subscription"], REVENUE_PILLAR_LINKS["kindle_lp"]]
+    if any(key in normalized for key in ("kobo", "epub", "clara", "libra", "elipsa")):
+        return [REVENUE_PILLAR_LINKS["kobo_lp"], PILLAR_LINKS[2]]
+    if any(key in normalized for key in ("kindle", "paperwhite", "scribe", "send to kindle")):
+        return [REVENUE_PILLAR_LINKS["kindle_lp"], PILLAR_LINKS[1]]
+    return [REVENUE_PILLAR_LINKS["recommend"], PILLAR_LINKS[0]]
+
+
 def ensure_pillar_links(text: str) -> str:
     heading = "## 関連ガイド"
     lower_text = text.lower()
-    missing = [(title, url) for title, url in PILLAR_LINKS if url.lower() not in lower_text]
+    selected = select_pillar_links(text)
+    missing = [(title, url) for title, url in selected if url.lower() not in lower_text]
     if not missing or heading in text:
         return text
     lines = ["", heading, ""]

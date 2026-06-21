@@ -104,7 +104,7 @@ KindleはAZW系を中心にしつつ、Send to Kindleで `PDF / DOCX / EPUB / TX
 - Kindleアプリと端末をまたいで続きを読みたい
 - Amazonアカウントに読書を集約したい
 
-{{< affbtn store="amazon" url="https://amzn.to/48wNGzs" text="Kindle Paperwhiteの条件を見る" >}}
+{{< affbtn store="amazon" slot="comparison-format-paperwhite" url="https://amzn.to/48wNGzs" text="Kindle Paperwhiteの条件を見る" >}}
 
 ### KoboはEPUBとサイドロードがわかりやすい
 
@@ -117,7 +117,7 @@ DRMなしEPUBや自炊寄りのファイルを整理しながら使うなら、K
 - 漫画や固定レイアウト本も扱いたい
 - 楽天Koboストアと手元ファイルを併用したい
 
-{{< affbtn store="rakuten" url="https://books.rakuten.co.jp/event/e-book/ereaders/" text="Kobo端末の条件を見る" >}}
+{{< affbtn store="rakuten" slot="comparison-format-kobo-device" url="https://books.rakuten.co.jp/event/e-book/ereaders/" text="Kobo端末の条件を見る" >}}
 
 ## ストア、ポイント、セールの考え方
 
@@ -134,7 +134,7 @@ DRMなしEPUBや自炊寄りのファイルを整理しながら使うなら、K
 - Send to Kindleで資料やEPUBを送りたい
 - Kindle Unlimitedもあわせて試したい
 
-{{< affbtn store="amazon" url="https://amzn.to/4oyRBSx" text="Kindle Unlimited対象を確認" >}}
+{{< affbtn store="amazon" slot="comparison-fit-unlimited" url="https://amzn.to/4oyRBSx" text="Kindle Unlimited対象を確認" >}}
 
 ### Koboが向く人
 
@@ -143,7 +143,7 @@ DRMなしEPUBや自炊寄りのファイルを整理しながら使うなら、K
 - カラーE Inkや物理ボタンを重視する
 - 6インチ白黒から10.3インチノート機まで比較して選びたい
 
-{{< affbtn store="rakuten" url="https://books.rakuten.co.jp/e-book/" text="楽天Koboストアを見る" >}}
+{{< affbtn store="rakuten" slot="comparison-fit-kobo-store" url="https://books.rakuten.co.jp/e-book/" text="楽天Koboストアを見る" >}}
 
 ## 迷ったときの選び方
 
