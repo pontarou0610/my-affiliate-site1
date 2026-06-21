@@ -95,7 +95,8 @@ Guardrails:
 ## Weekly Operating Loop
 
 1. Run `python scripts/report_ga4.py --top 40`.
-2. Export monthly partner revenue and calculate EPC by program.
+2. Export monthly partner revenue and run
+   `python scripts/report_business_kpis.py --month YYYY-MM`.
 3. Improve the highest-view zero-click page or the highest-click zero-revenue page.
 4. Audit expired campaigns with `python scripts/check_expired_campaigns.py --report-only`.
 5. Approve a new article only when it fills a measured search gap or supports a proven revenue page.

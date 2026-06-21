@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import posixpath
 import sys
@@ -127,6 +128,26 @@ def run_report(service, property_id: str, body: dict) -> dict:
     return service.properties().runReport(property=f"properties/{property_id}", body=body).execute()
 
 
+def realtime_affiliate_clicks(service, property_id: str) -> int:
+    response = (
+        service.properties()
+        .runRealtimeReport(
+            property=f"properties/{property_id}",
+            body={
+                "dimensions": [{"name": "eventName"}],
+                "metrics": [{"name": "eventCount"}],
+                "dimensionFilter": affiliate_click_filter(),
+                "limit": 10,
+            },
+        )
+        .execute()
+    )
+    return sum(
+        int(float(row["metricValues"][0]["value"]))
+        for row in response.get("rows", [])
+    )
+
+
 def normalize_page_path(path: str) -> str:
     raw = (path or "/").split("?", 1)[0].strip() or "/"
     if raw == SITE_PATH_PREFIX:
@@ -205,7 +226,12 @@ def print_top_pages(service, property_id: str, start: date, end: date, limit: in
     return pages[:limit]
 
 
-def print_affiliate_clicks(service, property_id: str, start: date, end: date) -> tuple[int, dict[str, int]]:
+def print_affiliate_clicks(
+    service,
+    property_id: str,
+    start: date,
+    end: date,
+) -> tuple[int, dict[str, int], dict[str, dict[str, int]]]:
     dimension_filter = affiliate_click_filter()
     body = {
         "dateRanges": [{"startDate": start.isoformat(), "endDate": end.isoformat()}],
@@ -242,6 +268,7 @@ def print_affiliate_clicks(service, property_id: str, start: date, end: date) ->
     if not click_pages:
         print("0\t(no affiliate click page rows yet)")
 
+    breakdowns: dict[str, dict[str, int]] = {}
     for dimension in (
         "customEvent:affiliate_store",
         "customEvent:affiliate_slot",
@@ -262,16 +289,21 @@ def print_affiliate_clicks(service, property_id: str, start: date, end: date) ->
             )
         except HttpError:
             print(f"{dimension}: unavailable; register it as a GA4 custom definition first.")
+            breakdowns[dimension] = {}
             continue
         except TimeoutError:
             print(f"{dimension}: request timed out; rerun the report later to refresh this breakdown.")
+            breakdowns[dimension] = {}
             continue
         print(f"\n{dimension}")
+        values: dict[str, int] = {}
         for row in by_dimension.get("rows", []):
             value = row["dimensionValues"][0]["value"] or "(not set)"
-            count = row["metricValues"][0]["value"]
+            count = int(float(row["metricValues"][0]["value"]))
+            values[value] = values.get(value, 0) + count
             print(f"{count}\t{value}")
-    return total, click_pages
+        breakdowns[dimension] = values
+    return total, click_pages, breakdowns
 
 
 def print_opportunity_pages(top_pages: list[dict], click_pages: dict[str, int], limit: int = 8) -> None:
@@ -313,6 +345,16 @@ def main() -> int:
         help="Seconds to wait for OAuth approval when a fresh token is needed",
     )
     parser.add_argument("--top", type=int, default=10, help="Number of top pages to show")
+    parser.add_argument(
+        "--json-output",
+        type=Path,
+        help="Write the report data as JSON for downstream KPI reporting",
+    )
+    parser.add_argument(
+        "--realtime-check",
+        action="store_true",
+        help="Also print affiliate_click events visible in the GA4 realtime window",
+    )
     args = parser.parse_args()
 
     if args.auth_status:
@@ -329,6 +371,10 @@ def main() -> int:
         auth_timeout_seconds=args.auth_timeout_seconds,
     )
     service = build("analyticsdata", "v1beta", credentials=creds, cache_discovery=False)
+    realtime_clicks = None
+    if args.realtime_check:
+        realtime_clicks = realtime_affiliate_clicks(service, property_id)
+        print(f"Realtime affiliate clicks: {realtime_clicks}")
 
     end = date.today() - timedelta(days=1)
     start28 = end - timedelta(days=27)
@@ -337,18 +383,65 @@ def main() -> int:
     print(f"GA4 property: {property_id}")
     print(f"28d range: {start28.isoformat()} to {end.isoformat()}")
 
-    last28_views = 0.0
+    totals_by_period: dict[str, dict[str, int]] = {}
     for label, start in (("Last 28 days", start28), ("Last 7 days", start7)):
         users, sessions, views, events = metric_totals(service, property_id, start, end)
-        if label == "Last 28 days":
-            last28_views = views
+        totals_by_period[label] = {
+            "active_users": int(users),
+            "sessions": int(sessions),
+            "pageviews": int(views),
+            "events": int(events),
+        }
         print(f"{label}: activeUsers={users:.0f}, sessions={sessions:.0f}, pageViews={views:.0f}, events={events:.0f}")
 
     top_pages = print_top_pages(service, property_id, start28, end, args.top)
-    total_clicks, click_pages = print_affiliate_clicks(service, property_id, start28, end)
+    total_clicks, click_pages, click_breakdowns = print_affiliate_clicks(
+        service,
+        property_id,
+        start28,
+        end,
+    )
+    last28_views = totals_by_period["Last 28 days"]["pageviews"]
     if last28_views:
         print(f"\nSite affiliate CTR 28d: {(total_clicks / last28_views * 100):.2f}%")
     print_opportunity_pages(top_pages, click_pages)
+
+    if args.json_output:
+        output_path = args.json_output
+        if not output_path.is_absolute():
+            output_path = REPO_ROOT / output_path
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        payload = {
+            "property_id": property_id,
+            "generated_on": date.today().isoformat(),
+            "range_28d": {"start": start28.isoformat(), "end": end.isoformat()},
+            "range_7d": {"start": start7.isoformat(), "end": end.isoformat()},
+            "totals_28d": totals_by_period["Last 28 days"],
+            "totals_7d": totals_by_period["Last 7 days"],
+            "affiliate_clicks_28d": total_clicks,
+            "affiliate_ctr_28d": (total_clicks / last28_views) if last28_views else 0,
+            "top_pages_28d": [
+                {
+                    **page,
+                    "affiliate_clicks": click_pages.get(page["path"], 0),
+                    "affiliate_ctr": (
+                        click_pages.get(page["path"], 0) / page["views"]
+                        if page["views"]
+                        else 0
+                    ),
+                }
+                for page in top_pages
+            ],
+            "affiliate_click_pages_28d": click_pages,
+            "affiliate_click_breakdowns_28d": click_breakdowns,
+        }
+        if realtime_clicks is not None:
+            payload["affiliate_clicks_realtime"] = realtime_clicks
+        output_path.write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        print(f"\nJSON report: {output_path}")
     return 0
 
 
