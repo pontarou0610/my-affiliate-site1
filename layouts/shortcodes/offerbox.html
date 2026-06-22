@@ -3,9 +3,9 @@
        title = "..."
        note  = "..." (optional; HTML allowed)
 
-       b1_store/b1_url/b1_text
-       b2_store/b2_url/b2_text
-       b3_store/b3_url/b3_text
+       b1_store/b1_program/b1_url/b1_text/b1_slot
+       b2_store/b2_program/b2_url/b2_text/b2_slot
+       b3_store/b3_program/b3_url/b3_text/b3_slot
 
      store: amazon|rakuten|yahoo (controls button color + affiliate wrapping)
 */ -}}
@@ -24,9 +24,9 @@
 {{- end -}}
 
 {{- $buttons := slice
-  (dict "store" (.Get "b1_store") "url" (.Get "b1_url") "text" (.Get "b1_text") "slot" (.Get "b1_slot"))
-  (dict "store" (.Get "b2_store") "url" (.Get "b2_url") "text" (.Get "b2_text") "slot" (.Get "b2_slot"))
-  (dict "store" (.Get "b3_store") "url" (.Get "b3_url") "text" (.Get "b3_text") "slot" (.Get "b3_slot"))
+  (dict "store" (.Get "b1_store") "program" (.Get "b1_program") "url" (.Get "b1_url") "text" (.Get "b1_text") "slot" (.Get "b1_slot"))
+  (dict "store" (.Get "b2_store") "program" (.Get "b2_program") "url" (.Get "b2_url") "text" (.Get "b2_text") "slot" (.Get "b2_slot"))
+  (dict "store" (.Get "b3_store") "program" (.Get "b3_program") "url" (.Get "b3_url") "text" (.Get "b3_text") "slot" (.Get "b3_slot"))
 -}}
 
 <div class="cta3 offerbox google-auto-ads-ignore">
@@ -41,6 +41,13 @@
       {{- $text := $button.text -}}
       {{- $store := (lower ($button.store | default "")) -}}
       {{- $slot := $button.slot | default (printf "shortcode-offerbox-%d-%s" (add $index 1) $store) -}}
+      {{- $program := $button.program | default $store -}}
+      {{- $signal := lower (printf "%s %s %s" $url $slot $text) -}}
+      {{- if and (eq $store "amazon") (or (in $signal "unlimited") (in $signal "4oyrbsx")) -}}
+        {{- $program = "kindle_unlimited" -}}
+      {{- else if and (eq $store "amazon") (or (in $signal "audible") (in $signal "7471076051")) -}}
+        {{- $program = "audible" -}}
+      {{- end -}}
       {{- if and $url $text -}}
         {{- $class := cond (eq $store "amazon") "brand-amazon" (cond (eq $store "rakuten") "brand-rakuten" (cond (eq $store "yahoo") "brand-yahoo" "")) -}}
 
@@ -57,7 +64,7 @@
         {{- $isExternal := or (hasPrefix $url "http://") (hasPrefix $url "https://") (hasPrefix $url "//") -}}
         <a class="btn {{ $class }}" href="{{ $url }}"
            {{- if $isExternal }} target="_blank" rel="nofollow sponsored noopener noreferrer"{{- end -}}
-           data-affiliate="{{ $store }}" data-affiliate-slot="{{ $slot }}">{{ $text }}</a>
+           data-affiliate="{{ $store }}" data-affiliate-program="{{ $program }}" data-affiliate-slot="{{ $slot }}">{{ $text }}</a>
       {{- end -}}
     {{- end -}}
   </div>
