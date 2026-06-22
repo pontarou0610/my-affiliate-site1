@@ -1,21 +1,34 @@
 ---
-title: "NotebookLMで自作PC仕様を整理、原因特定が速くなる電子書籍活用術"
+title: "NotebookLMをPCで使う方法｜自作PCの仕様書・ログを整理する手順"
 date: 2026-04-08
-lastmod: 2026-04-08
+lastmod: 2026-06-22
 draft: false
 
 
 
 images: ["https://images.pexels.com/photos/32002857/pexels-photo-32002857.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
-tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
+tags: ['NotebookLM', '自作PC', '生成AI', 'PC', '使い方']
 categories: ["電子書籍"]
-description: "自作PCのトラブルは、パーツ単体の故障だけでなく、組み合わせや設定の食い違いでも起こります。CPU、マザーボード、メモリ、SSD、電源、GPUがそれぞれ正常でも、相性や設定のずれによって不調になることは珍しくありません。 そこで役立つのがN。"
+description: "NotebookLMをPCのブラウザで使い、自作PCの構成表、PDFマニュアル、エラーログ、交換履歴を整理する手順を解説します。"
 slug: "notebooklmnizi-zuo-pcnoshi-yang-wodu-miip-masetara-torahurun"
 hasRelatedProducts: false
-showRakutenWidget: true
+showRakutenWidget: false
+showProductRecommendations: false
 ---
 
-## NotebookLMに自作PCの仕様を読み込ませると何が変わるのか
+## NotebookLMはPCへインストールせずブラウザで使う
+
+NotebookLMは、WindowsやMacへ専用ソフトをインストールしなくても、PCのブラウザから利用できます。
+
+1. [NotebookLM公式サイト](https://notebooklm.google.com/)を開く
+2. Googleアカウントでログインする
+3. 新しいノートブックを作る
+4. PDFマニュアル、構成表、テキスト化したログなどをソースとして追加する
+5. 参照するソースを選び、確認したい内容を具体的に質問する
+
+Google公式ヘルプでは、PDF、DOCX、TXT、Markdown、CSV、PPTX、Web URLなどをソースとして追加できると案内されています。対応形式や上限は変更される可能性があるため、[NotebookLM公式ヘルプ](https://support.google.com/notebooklm/answer/16215270?hl=ja)も確認してください。
+
+## 自作PCの仕様を読み込ませると何が変わるのか
 
 ![NotebookLMに自作PCの仕様を読み込ませたら、トラブルの悩みが一気に消えたのイメージ](https://images.pexels.com/photos/32002857/pexels-photo-32002857.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
 <small>Photo by [meinen ryu](https://www.pexels.com/@meinen-ryu-2148494554) on [Pexels](https://www.pexels.com/photo/suspension-bridge-over-seto-inland-sea-japan-32002857/)</small>
@@ -36,6 +49,8 @@ showRakutenWidget: true
 - ゲームや動画編集時の症状メモ
 
 単なるAIチャットとして使うのではなく、一次情報を自分でそろえて渡すことで、回答の精度は大きく変わります。
+
+ただし、NotebookLMは故障診断ツールではありません。電源ユニットの分解、通電中の配線変更、根拠のない電圧変更、非対応BIOSの適用などは行わず、メーカーのマニュアルとサポート情報を優先してください。AIの回答は確認順を整理する補助として使います。
 
 ## よくある自作PCトラブルをNotebookLMで整理する方法
 
@@ -235,6 +250,10 @@ NotebookLMと自作PCの相性が良いのは、次のような人です。
 3. BIOSバージョンとエラーログを保存する
 
 この状態でNotebookLMに読み込ませれば、確認すべき項目の優先順位を整理しやすくなります。自作PCの悩みが長引いている場合は、まず情報を集約するところから始めてみてください。
+
+自作PCの組み立てや切り分け手順そのものを学びたい場合は、NotebookLMの回答だけで進めず、図解付きの入門書も併用すると確認漏れを減らせます。
+
+{{< affbtn url="https://www.amazon.co.jp/s?k=%E8%87%AA%E4%BD%9CPC+%E5%85%A5%E9%96%80+%E6%9C%AC" text="自作PCの入門書を比較" store="amazon" slot="notebooklm-pc-books" >}}
 
 ## 関連ガイド
 

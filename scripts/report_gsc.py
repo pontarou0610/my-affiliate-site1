@@ -207,6 +207,24 @@ def query_opportunities(rows: list[dict], active_pages: set[str]) -> list[dict]:
     return opportunities
 
 
+def scale_candidates(pages: list[dict]) -> list[dict]:
+    candidates = [
+        row
+        for row in pages
+        if not row["active_experiment"]
+        and row["clicks"] > 0
+        and row["ctr"] >= expected_ctr(row["position"])
+    ]
+    candidates.sort(
+        key=lambda item: (
+            -item["clicks"],
+            -item["ctr"],
+            -item["impressions"],
+        )
+    )
+    return candidates
+
+
 def format_report(payload: dict, limit: int) -> str:
     meta = payload["meta"]
     lines = [
@@ -221,7 +239,9 @@ def format_report(payload: dict, limit: int) -> str:
         "| ---: | ---: | ---: | ---: | ---: | --- |",
     ]
     available_pages = [
-        row for row in payload["pages"] if not row["active_experiment"]
+        row
+        for row in payload["pages"]
+        if not row["active_experiment"] and row["potential_clicks"] > 0.01
     ][:limit]
     if not available_pages:
         lines.append("| 0 | 0 | 0.00% | 0.0 | 0.0 | No available pages |")
@@ -244,7 +264,9 @@ def format_report(payload: dict, limit: int) -> str:
     available_queries = [
         row
         for row in payload["queries"]
-        if not row["active_experiment"] and row["impressions"] >= 2
+        if not row["active_experiment"]
+        and row["impressions"] >= 2
+        and row["potential_clicks"] > 0.01
     ][:limit]
     if not available_queries:
         lines.append("| 0 | 0 | 0.00% | 0.0 | No available queries | - |")
@@ -253,6 +275,24 @@ def format_report(payload: dict, limit: int) -> str:
             f"| {row['impressions']:.0f} | {row['clicks']:.0f} | "
             f"{row['ctr']:.2%} | {row['position']:.1f} | "
             f"{row['query']} | `{row['page']}` |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Scale Candidates",
+            "",
+            "| Impressions | Clicks | CTR | Position | Page |",
+            "| ---: | ---: | ---: | ---: | --- |",
+        ]
+    )
+    candidates = payload["scale_candidates"][:limit]
+    if not candidates:
+        lines.append("| 0 | 0 | 0.00% | 0.0 | No proven pages yet |")
+    for row in candidates:
+        lines.append(
+            f"| {row['impressions']:.0f} | {row['clicks']:.0f} | "
+            f"{row['ctr']:.2%} | {row['position']:.1f} | `{row['page']}` |"
         )
 
     active_count = sum(1 for row in payload["pages"] if row["active_experiment"])
@@ -294,6 +334,7 @@ def main() -> int:
         "pages": aggregate_pages(rows, active_pages),
         "queries": query_opportunities(rows, active_pages),
     }
+    payload["scale_candidates"] = scale_candidates(payload["pages"])
     json_output = args.json_output if args.json_output.is_absolute() else REPO_ROOT / args.json_output
     markdown_output = (
         args.markdown_output

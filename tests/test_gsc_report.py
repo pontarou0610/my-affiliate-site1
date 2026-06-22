@@ -14,6 +14,7 @@ from report_gsc import (
     is_noise_query,
     normalize_page,
     query_opportunities,
+    scale_candidates,
 )
 
 
@@ -59,6 +60,29 @@ class GscReportTests(unittest.TestCase):
     def test_filters_search_audit_queries(self) -> None:
         self.assertTrue(is_noise_query('site:github.io "coupon" -site:amazon.com'))
         self.assertFalse(is_noise_query("notebooklm epub"))
+
+    def test_scale_candidates_require_proven_ctr(self) -> None:
+        pages = [
+            {
+                "page": "/winner/",
+                "clicks": 2.0,
+                "impressions": 6.0,
+                "ctr": 2 / 6,
+                "position": 7.0,
+                "potential_clicks": 0.0,
+                "active_experiment": False,
+            },
+            {
+                "page": "/loser/",
+                "clicks": 0.0,
+                "impressions": 20.0,
+                "ctr": 0.0,
+                "position": 7.0,
+                "potential_clicks": 0.6,
+                "active_experiment": False,
+            },
+        ]
+        self.assertEqual(scale_candidates(pages)[0]["page"], "/winner/")
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 ---
 title: "使わなくなったKindleをワープロ化する方法、目にやさしく執筆に集中できる再活用術"
 date: 2026-05-14
-lastmod: 2026-05-14
+lastmod: 2026-06-22
 draft: false
 
 
@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/59143/pexels-photo-59143.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "古いKindleがアップデート対象外になったり、ストア機能の使い勝手が落ちたりすると、「もう役目は終わりかもしれない」と感じるかもしれません。ですが、電子書籍リーダーの価値は読むことだけではありません。とくにE Ink端末は目にやさしく、通。"
+description: "使わなくなった古いKindleを、読書メモや原稿確認に集中できる単機能端末として再活用する方法と注意点を解説します。"
 slug: "shi-enakunarukindleha-wa-huronigai-zao-shiteminai"
 hasRelatedProducts: false
 showRakutenWidget: true
@@ -23,6 +23,8 @@ showRakutenWidget: true
 古いKindleがアップデート対象外になったり、ストア機能の使い勝手が落ちたりすると、「もう役目は終わりかもしれない」と感じるかもしれません。ですが、電子書籍リーダーの価値は読むことだけではありません。とくにE Ink端末は目にやさしく、通知にも邪魔されにくいため、文章の下書きやメモに向いています。
 
 注目したいのは、使わなくなったKindleを「ワープロのような専用機」として再活用する考え方です。もちろん、ノートPCのように高機能な文章作成機になるわけではありません。しかし、機能が限られているからこそ、執筆・メモ・構成づくりに集中しやすい環境を作れます。
+
+文章入力よりも、読書、学習、レシピ表示、原稿確認へ再利用したい場合は、[サポート終了後の古いKindle活用術](/posts/2026/05/saho-tozhong-liao-nogu-ikindle-she-teruqian-nishi-shitai-di/)に用途別の判断基準をまとめています。
 
 近年は、通知の少ない執筆環境やデジタルデトックスへの関心も高まっています。古いKindleの再活用は、そうした流れとも相性の良い方法です。
 
