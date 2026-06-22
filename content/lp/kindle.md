@@ -36,6 +36,6 @@ author: "ぽんたろう"
 </div>
 
 <div class="cta-section">
-  {{< affbtn store="amazon" url="https://amzn.to/4oyRBSx" text="読み放題の条件を見る" >}}
-  {{< affbtn store="amazon" url="https://amzn.to/48wNGzs" text="Paperwhiteを確認" >}}
+  {{< affbtn store="amazon" slot="lp-content-unlimited" url="https://amzn.to/4oyRBSx" text="読み放題の条件を見る" >}}
+  {{< affbtn store="amazon" slot="lp-content-paperwhite" url="https://amzn.to/48wNGzs" text="Paperwhiteを確認" >}}
 </div>

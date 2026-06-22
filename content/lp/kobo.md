@@ -40,6 +40,6 @@ author: "ぽんたろう"
 </div>
 
 <div class="cta-section">
-  {{< affbtn store="rakuten" url="https://books.rakuten.co.jp/e-book/" text="楽天Koboストアを見る" >}}
-  {{< affbtn store="rakuten" url="https://books.rakuten.co.jp/event/e-book/ereaders/" text="Kobo端末ラインナップを見る" >}}
+  {{< affbtn store="rakuten" slot="lp-content-kobo-store" url="https://books.rakuten.co.jp/e-book/" text="楽天Koboストアを見る" >}}
+  {{< affbtn store="rakuten" slot="lp-content-kobo-device" url="https://books.rakuten.co.jp/event/e-book/ereaders/" text="Kobo端末ラインナップを見る" >}}
 </div>

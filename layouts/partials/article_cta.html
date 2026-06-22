@@ -233,14 +233,15 @@
       </dl>
 
       <div class="cta3-row">
-        {{- range $buttons -}}
-          {{- $url := .url -}}
-          {{- $text := .text -}}
-          {{- $store := lower .store -}}
+        {{- range $index, $button := $buttons -}}
+          {{- $url := $button.url -}}
+          {{- $text := $button.text -}}
+          {{- $store := lower $button.store -}}
+          {{- $slot := $button.slot | default (printf "article-%s-%s-%d" $position $store (add $index 1)) -}}
           {{- $class := cond (eq $store "amazon") "brand-amazon" (cond (eq $store "rakuten") "brand-rakuten" (cond (eq $store "yahoo") "brand-yahoo" "")) -}}
           {{- $classes := slice "btn" -}}
           {{- with $class -}}{{- $classes = $classes | append . -}}{{- end -}}
-          {{- if (.primary | default false) -}}{{- $classes = $classes | append "article-cta__primary" -}}{{- end -}}
+          {{- if ($button.primary | default false) -}}{{- $classes = $classes | append "article-cta__primary" -}}{{- end -}}
 
           {{- if and (eq $store "amazon") $amazonTag (in $url "amazon.co.jp") (not (in $url "tag=")) -}}
             {{- $sep := cond (in $url "?") "&" "?" -}}
@@ -252,8 +253,8 @@
             {{- $url = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $encoded $encoded -}}
           {{- end -}}
 
-          <a class="{{ delimit $classes " " }}" href="{{ $url }}" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="{{ $store }}" data-affiliate-slot="article-{{ $position }}">{{ $text }}</a>
-          {{- with .pixel -}}
+          <a class="{{ delimit $classes " " }}" href="{{ $url }}" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="{{ $store }}" data-affiliate-slot="{{ $slot }}">{{ $text }}</a>
+          {{- with $button.pixel -}}
             <img src="{{ . }}" alt="" width="1" height="1" style="border:0;position:absolute;width:1px;height:1px;opacity:0;" />
           {{- end -}}
         {{- end -}}

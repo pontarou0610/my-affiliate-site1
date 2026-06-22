@@ -94,6 +94,9 @@ Avoid reporting directly on `link_url` and `link_text` unless needed for debuggi
 - Top pages with high views and zero affiliate clicks are CTA-improvement candidates.
 - Pages with clicks but low traffic are SEO/internal-link candidates.
 - `affiliate_slot` shows which CTA positions actually get clicked.
+- Shared CTA components use button-specific slot names such as
+  `lp-hero-unlimited` and `article-top-amazon-1`; do not reuse one slot name
+  for different offers in the same CTA block.
 - `affiliate_store` shows whether Amazon, Rakuten, or Yahoo links are getting traction.
 
 The report's opportunity list is based on the selected `--top` page count, not every page on the site. Increase `--top` when doing a broader audit.
