@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import os
 import posixpath
@@ -23,6 +24,8 @@ from googleapiclient.errors import HttpError
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCOPES = ["https://www.googleapis.com/auth/analytics.readonly"]
 SITE_PATH_PREFIX = "/my-affiliate-site1"
+COMMERCIAL_PAGES_PATH = REPO_ROOT / "data" / "commercial-pages.csv"
+EXPERIMENTS_PATH = REPO_ROOT / "data" / "optimization-experiments.csv"
 
 
 def env_path(name: str) -> Path:
@@ -128,6 +131,11 @@ def run_report(service, property_id: str, body: dict) -> dict:
     return service.properties().runReport(property=f"properties/{property_id}", body=body).execute()
 
 
+def response_complete(response: dict) -> bool:
+    rows = response.get("rows") or []
+    return int(response.get("rowCount", len(rows))) <= len(rows)
+
+
 def realtime_affiliate_clicks(service, property_id: str) -> int:
     response = (
         service.properties()
@@ -155,9 +163,107 @@ def normalize_page_path(path: str) -> str:
     elif raw.startswith(f"{SITE_PATH_PREFIX}/"):
         raw = raw[len(SITE_PATH_PREFIX) :]
     normalized = posixpath.normpath(f"/{raw.lstrip('/')}")
-    if normalized != "/" and (path or "").split("?", 1)[0].endswith("/"):
+    if normalized != "/":
         normalized += "/"
     return normalized
+
+
+def load_commercial_page_rules(
+    rules_path: Path = COMMERCIAL_PAGES_PATH,
+    experiments_path: Path = EXPERIMENTS_PATH,
+) -> list[dict[str, str]]:
+    rules: list[dict[str, str]] = []
+    if rules_path.exists():
+        with rules_path.open(encoding="utf-8-sig", newline="") as handle:
+            for row in csv.DictReader(handle):
+                raw_path = (row.get("path") or "").strip()
+                if not raw_path or not raw_path.startswith("/"):
+                    raise SystemExit(
+                        f"Commercial page path must be a non-empty absolute path: `{raw_path}`"
+                    )
+                path = normalize_page_path(raw_path)
+                match_type = (row.get("match_type") or "exact").strip().lower()
+                if match_type not in {"exact", "prefix"}:
+                    raise SystemExit(
+                        f"Invalid commercial page match_type `{match_type}` for {path}"
+                    )
+                rules.append(
+                    {
+                        "path": path,
+                        "match_type": match_type,
+                        "reason": (row.get("reason") or "").strip(),
+                    }
+                )
+    if experiments_path.exists():
+        with experiments_path.open(encoding="utf-8-sig", newline="") as handle:
+            for row in csv.DictReader(handle):
+                if (
+                    (row.get("status") or "").strip().lower() != "active"
+                    or (row.get("commercial_intent") or "").strip().lower()
+                    not in {"true", "yes", "1"}
+                ):
+                    continue
+                raw_page = (row.get("page") or "").strip()
+                if not raw_page or not raw_page.startswith("/"):
+                    raise SystemExit(
+                        f"Active commercial experiment has invalid page: `{raw_page}`"
+                    )
+                rules.append(
+                    {
+                        "path": normalize_page_path(raw_page),
+                        "match_type": "exact",
+                        "reason": f"Active experiment: {row.get('experiment_id') or ''}",
+                    }
+                )
+    unique: dict[tuple[str, str], dict[str, str]] = {}
+    for rule in rules:
+        unique[(rule["path"], rule["match_type"])] = rule
+    return list(unique.values())
+
+
+def is_commercial_page(path: str, rules: list[dict[str, str]]) -> bool:
+    normalized = normalize_page_path(path)
+    for rule in rules:
+        rule_path = rule["path"]
+        if rule["match_type"] == "exact" and normalized == rule_path:
+            return True
+        if rule["match_type"] == "prefix" and normalized.startswith(rule_path):
+            return True
+    return False
+
+
+def commercial_metrics(
+    daily_pages: list[dict],
+    click_pages: dict[str, int],
+    rules: list[dict[str, str]],
+    *,
+    complete: bool = True,
+) -> dict:
+    pageviews: dict[str, int] = {}
+    for row in daily_pages:
+        path = normalize_page_path(row.get("path") or "")
+        if is_commercial_page(path, rules):
+            pageviews[path] = pageviews.get(path, 0) + int(row.get("views") or 0)
+    pages = [
+        {
+            "path": path,
+            "views": views,
+            "affiliate_clicks": int(click_pages.get(path, 0)),
+            "affiliate_ctr": (int(click_pages.get(path, 0)) / views) if views else 0,
+        }
+        for path, views in pageviews.items()
+    ]
+    pages.sort(key=lambda item: (-item["views"], item["path"]))
+    views = sum(item["views"] for item in pages)
+    clicks = sum(int(click_pages.get(item["path"], 0)) for item in pages)
+    return {
+        "pageviews": views,
+        "affiliate_clicks": clicks,
+        "affiliate_ctr": (clicks / views) if views else 0,
+        "pages": pages,
+        "rule_count": len(rules),
+        "complete": complete,
+    }
 
 
 def metric_totals(service, property_id: str, start: date, end: date) -> list[float]:
@@ -231,7 +337,7 @@ def print_affiliate_clicks(
     property_id: str,
     start: date,
     end: date,
-) -> tuple[int, dict[str, int], dict[str, dict[str, int]]]:
+) -> tuple[int, dict[str, int], dict[str, dict[str, int]], bool]:
     dimension_filter = affiliate_click_filter()
     body = {
         "dateRanges": [{"startDate": start.isoformat(), "endDate": end.isoformat()}],
@@ -257,6 +363,7 @@ def print_affiliate_clicks(
             "limit": 10_000,
         },
     )
+    click_pages_complete = response_complete(by_page)
     print("\nAffiliate click pages 28d")
     print("clicks\tpath")
     for row in by_page.get("rows", []):
@@ -304,7 +411,7 @@ def print_affiliate_clicks(
             if index < 20:
                 print(f"{count}\t{value}")
         breakdowns[dimension] = values
-    return total, click_pages, breakdowns
+    return total, click_pages, breakdowns, click_pages_complete
 
 
 def daily_experiment_metrics(
@@ -333,7 +440,10 @@ def daily_experiment_metrics(
     ]
 
     daily_slots: list[dict] = []
-    status = {"page_views": True, "page_slot_clicks": True}
+    status = {
+        "page_views": response_complete(page_response),
+        "page_slot_clicks": True,
+    }
     try:
         slot_response = run_report(
             service,
@@ -359,6 +469,7 @@ def daily_experiment_metrics(
             }
             for row in slot_response.get("rows", [])
         ]
+        status["page_slot_clicks"] = response_complete(slot_response)
     except (HttpError, TimeoutError):
         status["page_slot_clicks"] = False
     return daily_pages, daily_slots, status
@@ -453,7 +564,7 @@ def main() -> int:
         print(f"{label}: activeUsers={users:.0f}, sessions={sessions:.0f}, pageViews={views:.0f}, events={events:.0f}")
 
     top_pages = print_top_pages(service, property_id, start28, end, args.top)
-    total_clicks, click_pages, click_breakdowns = print_affiliate_clicks(
+    total_clicks, click_pages, click_breakdowns, click_pages_complete = print_affiliate_clicks(
         service,
         property_id,
         start28,
@@ -465,10 +576,27 @@ def main() -> int:
         start28,
         end,
     )
+    experiment_data_status["affiliate_click_pages"] = click_pages_complete
+    commercial_rules = load_commercial_page_rules()
+    commercial = commercial_metrics(
+        daily_pages,
+        click_pages,
+        commercial_rules,
+        complete=(
+            experiment_data_status["page_views"]
+            and experiment_data_status["affiliate_click_pages"]
+        ),
+    )
     last28_views = totals_by_period["Last 28 days"]["pageviews"]
     if last28_views:
         print(f"\nSite affiliate CTR 28d: {(total_clicks / last28_views * 100):.2f}%")
     print_opportunity_pages(top_pages, click_pages)
+    print(
+        "\nCommercial-intent pages 28d: "
+        f"pageViews={commercial['pageviews']}, "
+        f"affiliateClicks={commercial['affiliate_clicks']}, "
+        f"CTR={commercial['affiliate_ctr']:.2%}"
+    )
 
     if args.json_output:
         output_path = args.json_output
@@ -501,6 +629,7 @@ def main() -> int:
             "daily_page_metrics_28d": daily_pages,
             "daily_affiliate_page_slots_28d": daily_slots,
             "experiment_data_status": experiment_data_status,
+            "commercial_metrics_28d": commercial,
         }
         if realtime_clicks is not None:
             payload["affiliate_clicks_realtime"] = realtime_clicks

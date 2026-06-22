@@ -1,0 +1,7 @@
+path,match_type,reason
+/recommend/,exact,Primary purchase decision guide
+/lp/,prefix,Kindle and Kobo conversion landing pages
+/fiction/,exact,Owned Kindle book catalog
+/posts/kindle-paperwhite-review/,exact,Kindle device review
+/posts/kobo-clara-review/,exact,Kobo device review
+/posts/kindle-vs-kobo/,exact,Device and ecosystem comparison

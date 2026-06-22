@@ -13,11 +13,12 @@ x earnings per click
 = monthly revenue
 ```
 
-Run the planning model:
+Run the planning model after reading `commercial_metrics_28d.pageviews` from
+the latest GA4 JSON:
 
 ```powershell
 python scripts/report_revenue_target.py `
-  --commercial-pageviews 173 `
+  --commercial-pageviews <commercial_metrics_28d.pageviews> `
   --affiliate-ctr 0.08 `
   --epc-yen 40
 ```
@@ -52,7 +53,8 @@ Always verify current conditions before publishing a numerical claim.
 Primary outcomes:
 
 1. Monthly confirmed revenue from partner/KDP reports
-2. Commercial-intent pageviews
+2. Commercial-intent pageviews, defined by `data/commercial-pages.csv` plus
+   active experiment pages
 3. Affiliate clicks and affiliate CTR
 
 Drivers:

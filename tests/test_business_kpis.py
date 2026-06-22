@@ -27,6 +27,15 @@ class BusinessKpiReportTests(unittest.TestCase):
             "totals_28d": {"pageviews": 1_000},
             "affiliate_clicks_28d": 50,
             "affiliate_ctr_28d": 0.05,
+            "commercial_metrics_28d": {
+                "pageviews": 200,
+                "affiliate_clicks": 20,
+                "affiliate_ctr": 0.10,
+                "complete": True,
+                "pages": [
+                    {"path": "/recommend/", "views": 200, "affiliate_clicks": 0},
+                ],
+            },
             "affiliate_click_breakdowns_28d": {
                 "customEvent:affiliate_store": {
                     "Amazon": 40,
@@ -46,10 +55,38 @@ class BusinessKpiReportTests(unittest.TestCase):
         report = build_report(ga4, rows, "2026-06", 100_000)
 
         self.assertIn("| Confirmed revenue | 4,000 yen | 100,000 yen |", report)
-        self.assertIn("| Confirmed EPC | 80 yen | 40 yen planning baseline |", report)
+        self.assertIn("| Commercial-intent pageviews (28d) | 200 |", report)
+        self.assertIn("| Commercial-intent affiliate CTR (28d) | 10.00% |", report)
+        self.assertIn("| Confirmed commercial EPC | 200 yen | 40 yen planning baseline |", report)
         self.assertIn("`rakuten` has 10 clicks but no confirmed revenue", report)
         self.assertIn("current highest-EPC program (100 yen/click)", report)
         self.assertIn("`/recommend/` (200 views, zero clicks)", report)
+
+    def test_requires_complete_commercial_metrics(self) -> None:
+        ga4 = {
+            "totals_28d": {"pageviews": 1_000},
+            "affiliate_clicks_28d": 50,
+            "commercial_metrics_28d": {"pageviews": 200},
+        }
+
+        with self.assertRaisesRegex(ValueError, "commercial_metrics_28d"):
+            build_report(ga4, [], "2026-06", 100_000)
+
+    def test_rejects_truncated_commercial_metrics(self) -> None:
+        ga4 = {
+            "totals_28d": {"pageviews": 1_000},
+            "affiliate_clicks_28d": 50,
+            "commercial_metrics_28d": {
+                "pageviews": 200,
+                "affiliate_clicks": 20,
+                "affiliate_ctr": 0.10,
+                "pages": [],
+                "complete": False,
+            },
+        }
+
+        with self.assertRaisesRegex(ValueError, "truncated"):
+            build_report(ga4, [], "2026-06", 100_000)
 
     def test_realtime_click_count(self) -> None:
         class Request:

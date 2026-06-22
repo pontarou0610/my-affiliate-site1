@@ -107,6 +107,20 @@ def format_yen(value: float) -> str:
     return f"{value:,.0f}"
 
 
+def validated_commercial_metrics(ga4: dict) -> dict:
+    commercial = ga4.get("commercial_metrics_28d")
+    required = {"pageviews", "affiliate_clicks", "affiliate_ctr", "pages", "complete"}
+    if not isinstance(commercial, dict) or not required.issubset(commercial):
+        raise ValueError(
+            "GA4 JSON is missing complete commercial_metrics_28d data; rerun report_ga4.py."
+        )
+    if not commercial["complete"]:
+        raise ValueError(
+            "GA4 commercial_metrics_28d is truncated; increase report limits or paginate before KPI reporting."
+        )
+    return commercial
+
+
 def build_report(ga4: dict, rows: list[RevenueRow], month: str, target_yen: int) -> str:
     selected = [row for row in rows if row.month == month]
     revenue_by_program: dict[str, dict[str, float]] = defaultdict(
@@ -121,9 +135,17 @@ def build_report(ga4: dict, rows: list[RevenueRow], month: str, target_yen: int)
     total_revenue = sum(item["revenue"] for item in revenue_by_program.values())
     total_orders = int(sum(item["orders"] for item in revenue_by_program.values()))
     total_clicks = int(ga4.get("affiliate_clicks_28d", 0))
-    pageviews = int(ga4.get("totals_28d", {}).get("pageviews", 0))
-    ctr = float(ga4.get("affiliate_ctr_28d", 0))
-    epc = total_revenue / total_clicks if total_clicks else 0
+    total_pageviews = int(ga4.get("totals_28d", {}).get("pageviews", 0))
+    commercial = validated_commercial_metrics(ga4)
+    pageviews = int(commercial["pageviews"])
+    commercial_clicks = int(commercial["affiliate_clicks"])
+    ctr = float(commercial["affiliate_ctr"])
+    click_attributable_revenue = sum(
+        item["revenue"]
+        for program, item in revenue_by_program.items()
+        if program != "kdp"
+    )
+    epc = click_attributable_revenue / commercial_clicks if commercial_clicks else 0
     progress = total_revenue / target_yen if target_yen else 0
 
     lines = [
@@ -139,10 +161,12 @@ def build_report(ga4: dict, rows: list[RevenueRow], month: str, target_yen: int)
         f"| Confirmed revenue | {format_yen(total_revenue)} yen | {target_yen:,} yen |",
         f"| Revenue progress | {progress:.1%} | 100.0% |",
         f"| Orders/conversions | {total_orders:,} | - |",
-        f"| Pageviews (28d) | {pageviews:,} | 31,250 planning baseline |",
-        f"| Affiliate clicks (28d) | {total_clicks:,} | 2,500 planning baseline |",
-        f"| Affiliate CTR (28d) | {ctr:.2%} | 8.00% planning baseline |",
-        f"| Confirmed EPC | {format_yen(epc)} yen | 40 yen planning baseline |",
+        f"| All pageviews (28d) | {total_pageviews:,} | - |",
+        f"| Commercial-intent pageviews (28d) | {pageviews:,} | 31,250 planning baseline |",
+        f"| Affiliate clicks (28d) | {total_clicks:,} | - |",
+        f"| Commercial-intent affiliate clicks (28d) | {commercial_clicks:,} | 2,500 planning baseline |",
+        f"| Commercial-intent affiliate CTR (28d) | {ctr:.2%} | 8.00% planning baseline |",
+        f"| Confirmed commercial EPC | {format_yen(epc)} yen | 40 yen planning baseline |",
         "",
         "## Program Performance",
         "",
@@ -188,9 +212,10 @@ def build_report(ga4: dict, rows: list[RevenueRow], month: str, target_yen: int)
             f"the current highest-EPC program ({format_yen(best_epc)} yen/click)."
         )
 
+    commercial_pages = commercial["pages"]
     zero_click_pages = [
         page
-        for page in ga4.get("top_pages_28d", [])
+        for page in commercial_pages
         if int(page.get("affiliate_clicks", 0)) == 0
     ]
     if zero_click_pages:

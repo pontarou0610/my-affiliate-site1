@@ -62,6 +62,15 @@ pages with active CTA experiments. The experiment report identifies the review
 date and prevents rolling windows that still include baseline data from being
 treated as post-change results.
 
+Commercial-intent traffic is defined by `data/commercial-pages.csv` plus active
+experiment rows whose `commercial_intent` value is `true`. Add an `exact`
+or `prefix` rule only for pages whose primary purpose includes a product,
+subscription, store, or owned-book decision. The business KPI report uses this
+traffic, rather than all site pageviews, for the 31,250-PV and 8%-CTR model.
+SEO and internal-link experiments must remain `commercial_intent=false` unless
+the page's primary purpose is a product, subscription, store, or owned-book
+decision.
+
 ## CTA Experiment Discipline
 
 Record revenue-page changes in `data/optimization-experiments.csv`.
