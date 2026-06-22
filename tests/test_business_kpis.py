@@ -8,7 +8,13 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from report_business_kpis import RevenueRow, build_report, normalize_program, store_clicks
+from report_business_kpis import (
+    RevenueRow,
+    build_report,
+    normalize_program,
+    read_revenue,
+    store_clicks,
+)
 from report_ga4 import normalize_page_path, realtime_affiliate_clicks
 
 
@@ -87,6 +93,40 @@ class BusinessKpiReportTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "truncated"):
             build_report(ga4, [], "2026-06", 100_000)
+
+    def test_reports_unknown_revenue_without_treating_it_as_zero(self) -> None:
+        ga4 = {
+            "range_28d": {"start": "2026-05-25", "end": "2026-06-21"},
+            "totals_28d": {"pageviews": 100},
+            "affiliate_clicks_28d": 2,
+            "commercial_metrics_28d": {
+                "pageviews": 50,
+                "affiliate_clicks": 2,
+                "affiliate_ctr": 0.04,
+                "pages": [],
+                "complete": True,
+            },
+            "affiliate_click_breakdowns_28d": {
+                "customEvent:affiliate_store": {"Amazon": 2}
+            },
+        }
+
+        report = build_report(
+            ga4,
+            [],
+            "2026-06",
+            100_000,
+            revenue_available=False,
+        )
+
+        self.assertIn("| Confirmed revenue | Not entered |", report)
+        self.assertIn("| amazon | 2 | - | Not entered | - |", report)
+        self.assertNotIn("has 2 clicks but no confirmed revenue", report)
+        self.assertIn("conclusions are intentionally withheld", report)
+
+    def test_allows_missing_revenue_file(self) -> None:
+        rows = read_revenue(REPO_ROOT / "data" / "revenue" / "missing.csv", allow_missing=True)
+        self.assertEqual(rows, [])
 
     def test_realtime_click_count(self) -> None:
         class Request:

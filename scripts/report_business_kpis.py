@@ -44,8 +44,10 @@ def normalize_program(value: str) -> str:
     return PROGRAM_ALIASES.get(cleaned, cleaned.replace(" ", "_"))
 
 
-def read_revenue(path: Path) -> list[RevenueRow]:
+def read_revenue(path: Path, *, allow_missing: bool = False) -> list[RevenueRow]:
     if not path.exists():
+        if allow_missing:
+            return []
         raise SystemExit(
             f"Revenue CSV not found: {path}\n"
             "Create it from data/revenue/partner-revenue.example.csv."
@@ -121,7 +123,14 @@ def validated_commercial_metrics(ga4: dict) -> dict:
     return commercial
 
 
-def build_report(ga4: dict, rows: list[RevenueRow], month: str, target_yen: int) -> str:
+def build_report(
+    ga4: dict,
+    rows: list[RevenueRow],
+    month: str,
+    target_yen: int,
+    *,
+    revenue_available: bool = True,
+) -> str:
     selected = [row for row in rows if row.month == month]
     revenue_by_program: dict[str, dict[str, float]] = defaultdict(
         lambda: {"orders": 0, "revenue": 0.0}
@@ -147,6 +156,10 @@ def build_report(ga4: dict, rows: list[RevenueRow], month: str, target_yen: int)
     )
     epc = click_attributable_revenue / commercial_clicks if commercial_clicks else 0
     progress = total_revenue / target_yen if target_yen else 0
+    revenue_actual = f"{format_yen(total_revenue)} yen" if revenue_available else "Not entered"
+    progress_actual = f"{progress:.1%}" if revenue_available else "Not available"
+    orders_actual = f"{total_orders:,}" if revenue_available else "Not entered"
+    epc_actual = f"{format_yen(epc)} yen" if revenue_available else "Not available"
 
     lines = [
         f"# Business KPI Report: {month}",
@@ -158,15 +171,15 @@ def build_report(ga4: dict, rows: list[RevenueRow], month: str, target_yen: int)
         "",
         "| KPI | Actual | Target |",
         "| --- | ---: | ---: |",
-        f"| Confirmed revenue | {format_yen(total_revenue)} yen | {target_yen:,} yen |",
-        f"| Revenue progress | {progress:.1%} | 100.0% |",
-        f"| Orders/conversions | {total_orders:,} | - |",
+        f"| Confirmed revenue | {revenue_actual} | {target_yen:,} yen |",
+        f"| Revenue progress | {progress_actual} | 100.0% |",
+        f"| Orders/conversions | {orders_actual} | - |",
         f"| All pageviews (28d) | {total_pageviews:,} | - |",
         f"| Commercial-intent pageviews (28d) | {pageviews:,} | 31,250 planning baseline |",
         f"| Affiliate clicks (28d) | {total_clicks:,} | - |",
         f"| Commercial-intent affiliate clicks (28d) | {commercial_clicks:,} | 2,500 planning baseline |",
         f"| Commercial-intent affiliate CTR (28d) | {ctr:.2%} | 8.00% planning baseline |",
-        f"| Confirmed commercial EPC | {format_yen(epc)} yen | 40 yen planning baseline |",
+        f"| Confirmed commercial EPC | {epc_actual} | 40 yen planning baseline |",
         "",
         "## Program Performance",
         "",
@@ -179,12 +192,21 @@ def build_report(ga4: dict, rows: list[RevenueRow], month: str, target_yen: int)
             program_orders = int(revenue_by_program[program]["orders"])
             program_revenue = revenue_by_program[program]["revenue"]
             program_epc = program_revenue / program_clicks if program_clicks else 0
+            orders_cell = f"{program_orders:,}" if revenue_available else "-"
+            revenue_cell = (
+                f"{format_yen(program_revenue)} yen" if revenue_available else "Not entered"
+            )
+            epc_cell = f"{format_yen(program_epc)} yen" if revenue_available else "-"
             lines.append(
-                f"| {program} | {program_clicks:,} | {program_orders:,} | "
-                f"{format_yen(program_revenue)} yen | {format_yen(program_epc)} yen |"
+                f"| {program} | {program_clicks:,} | {orders_cell} | "
+                f"{revenue_cell} | {epc_cell} |"
             )
     else:
-        lines.append("| No data | 0 | 0 | 0 yen | 0 yen |")
+        lines.append(
+            "| Revenue CSV not entered | 0 | - | Not entered | - |"
+            if not revenue_available
+            else "| No data | 0 | 0 | 0 yen | 0 yen |"
+        )
 
     lines.extend(["", "## Priority Actions", ""])
     actions: list[str] = []
@@ -192,25 +214,26 @@ def build_report(ga4: dict, rows: list[RevenueRow], month: str, target_yen: int)
         actions.append(
             "1. Verify a real production affiliate click in GA4 DebugView and inspect the highest-view CTA page."
         )
-    for program in all_programs:
-        program_clicks = clicks.get(program, 0)
-        program_revenue = revenue_by_program[program]["revenue"]
-        if program_clicks > 0 and program_revenue == 0:
+    if revenue_available:
+        for program in all_programs:
+            program_clicks = clicks.get(program, 0)
+            program_revenue = revenue_by_program[program]["revenue"]
+            if program_clicks > 0 and program_revenue == 0:
+                actions.append(
+                    f"{len(actions) + 1}. `{program}` has {program_clicks} clicks but no confirmed revenue; "
+                    "verify partner-report attribution and landing-page offer fit."
+                )
+        profitable = [
+            (revenue_by_program[program]["revenue"] / clicks[program], program)
+            for program in all_programs
+            if clicks.get(program, 0) > 0 and revenue_by_program[program]["revenue"] > 0
+        ]
+        if profitable:
+            best_epc, best_program = max(profitable)
             actions.append(
-                f"{len(actions) + 1}. `{program}` has {program_clicks} clicks but no confirmed revenue; "
-                "verify partner-report attribution and landing-page offer fit."
+                f"{len(actions) + 1}. Scale pages and CTA slots for `{best_program}`, "
+                f"the current highest-EPC program ({format_yen(best_epc)} yen/click)."
             )
-    profitable = [
-        (revenue_by_program[program]["revenue"] / clicks[program], program)
-        for program in all_programs
-        if clicks.get(program, 0) > 0 and revenue_by_program[program]["revenue"] > 0
-    ]
-    if profitable:
-        best_epc, best_program = max(profitable)
-        actions.append(
-            f"{len(actions) + 1}. Scale pages and CTA slots for `{best_program}`, "
-            f"the current highest-EPC program ({format_yen(best_epc)} yen/click)."
-        )
 
     commercial_pages = commercial["pages"]
     zero_click_pages = [
@@ -224,7 +247,7 @@ def build_report(ga4: dict, rows: list[RevenueRow], month: str, target_yen: int)
             f"{len(actions) + 1}. Improve the CTA and search-intent match on "
             f"`{page.get('path', '/')}` ({int(page.get('views', 0))} views, zero clicks)."
         )
-    if not selected:
+    if not revenue_available or not selected:
         actions.append(
             f"{len(actions) + 1}. Enter confirmed {month} partner/KDP results in the revenue CSV."
         )
@@ -234,8 +257,13 @@ def build_report(ga4: dict, rows: list[RevenueRow], month: str, target_yen: int)
     lines.extend(
         [
             "",
-            "Revenue is controlled by partner and KDP reports. GA4 click counts are directional "
-            "and may use a different date window.",
+            (
+                "Revenue status: not entered. Traffic and click KPIs remain usable, but conversion, "
+                "revenue, and EPC conclusions are intentionally withheld."
+                if not revenue_available
+                else "Revenue is controlled by partner and KDP reports. GA4 click counts are directional "
+                "and may use a different date window."
+            ),
         ]
     )
     return "\n".join(lines) + "\n"
@@ -263,14 +291,23 @@ def main() -> int:
     args = parser.parse_args()
 
     ga4 = read_ga4(resolve_path(args.ga4_json))
-    rows = read_revenue(resolve_path(args.revenue_csv))
-    month = args.month or max((row.month for row in rows), default="")
+    revenue_path = resolve_path(args.revenue_csv)
+    revenue_available = revenue_path.exists()
+    rows = read_revenue(revenue_path, allow_missing=True)
+    generated_month = str(ga4.get("generated_on") or "")[:7]
+    month = args.month or max((row.month for row in rows), default=generated_month)
     if not month:
-        raise SystemExit("Revenue CSV has no data rows; provide --month and at least one zero row.")
+        raise SystemExit("Provide --month when GA4 generated_on and revenue rows are unavailable.")
     if args.target_yen <= 0:
         raise SystemExit("--target-yen must be greater than 0")
 
-    report = build_report(ga4, rows, month, args.target_yen)
+    report = build_report(
+        ga4,
+        rows,
+        month,
+        args.target_yen,
+        revenue_available=revenue_available,
+    )
     output = resolve_path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(report, encoding="utf-8")

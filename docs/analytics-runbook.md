@@ -25,23 +25,24 @@ If `--auth-status` reports `oauth_token_file: missing`, run `--force-auth` and a
 
 ## Weekly KPI Report
 
-1. Export confirmed monthly results from Amazon Associates, Rakuten Affiliate,
-   Yahoo/ValueCommerce, and KDP.
-2. Copy `data/revenue/partner-revenue.example.csv` to
-   `data/revenue/partner-revenue.csv` and enter the confirmed totals.
-3. Save the latest GA4 data:
+1. Save the latest GA4 data:
 
    ```powershell
    python scripts/report_ga4.py --top 40 `
      --json-output reports/analytics/ga4-latest.json
    ```
 
-4. Build the action report:
+2. Build the action report. This works even before revenue has been entered:
 
    ```powershell
    python scripts/report_business_kpis.py --month 2026-06
    ```
 
+3. Export confirmed monthly results from Amazon Associates, Rakuten Affiliate,
+   Yahoo/ValueCommerce, and KDP when available.
+4. Copy `data/revenue/partner-revenue.example.csv` to
+   `data/revenue/partner-revenue.csv` and enter the confirmed totals. Re-run the
+   action report to unlock conversion, revenue, and EPC conclusions.
 5. Build the Search Console opportunity report:
 
    ```powershell
@@ -57,6 +58,8 @@ If `--auth-status` reports `oauth_token_file: missing`, run `--force-auth` and a
 The generated files under `reports/analytics/` and the real revenue CSV are
 ignored by Git. The report identifies zero-click traffic pages, clicked
 programs with no confirmed revenue, and the highest-EPC program to scale.
+When the revenue CSV is absent, it reports revenue as `Not entered` rather than
+zero and continues producing the traffic and click sections.
 The Search Console report ranks query and page opportunities while excluding
 pages with active CTA experiments. The experiment report identifies the review
 date and prevents rolling windows that still include baseline data from being
