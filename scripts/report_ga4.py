@@ -266,6 +266,26 @@ def commercial_metrics(
     }
 
 
+def commercial_program_clicks(
+    rows: list[dict],
+    rules: list[dict[str, str]],
+    *,
+    complete: bool,
+    reason: str = "",
+) -> dict:
+    values: dict[str, int] = {}
+    for row in rows:
+        if not is_commercial_page(row.get("path") or "", rules):
+            continue
+        program = (row.get("program") or "(not set)").strip().lower()
+        values[program] = values.get(program, 0) + int(row.get("clicks") or 0)
+    return {
+        "values": dict(sorted(values.items())),
+        "complete": complete,
+        "reason": reason,
+    }
+
+
 def metric_totals(service, property_id: str, start: date, end: date) -> list[float]:
     resp = run_report(
         service,
@@ -378,6 +398,7 @@ def print_affiliate_clicks(
     breakdowns: dict[str, dict[str, int]] = {}
     for dimension in (
         "customEvent:affiliate_store",
+        "customEvent:affiliate_program",
         "customEvent:affiliate_slot",
         "customEvent:link_id",
     ):
@@ -412,6 +433,42 @@ def print_affiliate_clicks(
                 print(f"{count}\t{value}")
         breakdowns[dimension] = values
     return total, click_pages, breakdowns, click_pages_complete
+
+
+def affiliate_program_rows(
+    service,
+    property_id: str,
+    start: date,
+    end: date,
+) -> tuple[list[dict], bool, str]:
+    try:
+        response = run_report(
+            service,
+            property_id,
+            {
+                "dateRanges": [{"startDate": start.isoformat(), "endDate": end.isoformat()}],
+                "dimensions": [
+                    {"name": "pagePath"},
+                    {"name": "customEvent:affiliate_program"},
+                ],
+                "metrics": [{"name": "eventCount"}],
+                "dimensionFilter": affiliate_click_filter(),
+                "limit": 100_000,
+            },
+        )
+    except HttpError:
+        return [], False, "Register affiliate_program as an event-scoped GA4 custom dimension."
+    except TimeoutError:
+        return [], False, "GA4 affiliate_program request timed out."
+    rows = [
+        {
+            "path": normalize_page_path(row["dimensionValues"][0]["value"]),
+            "program": row["dimensionValues"][1]["value"] or "(not set)",
+            "clicks": int(float(row["metricValues"][0]["value"])),
+        }
+        for row in response.get("rows", [])
+    ]
+    return rows, response_complete(response), ""
 
 
 def daily_experiment_metrics(
@@ -576,6 +633,12 @@ def main() -> int:
         start28,
         end,
     )
+    program_rows, program_rows_complete, program_reason = affiliate_program_rows(
+        service,
+        property_id,
+        start28,
+        end,
+    )
     experiment_data_status["affiliate_click_pages"] = click_pages_complete
     commercial_rules = load_commercial_page_rules()
     commercial = commercial_metrics(
@@ -586,6 +649,12 @@ def main() -> int:
             experiment_data_status["page_views"]
             and experiment_data_status["affiliate_click_pages"]
         ),
+    )
+    commercial_programs = commercial_program_clicks(
+        program_rows,
+        commercial_rules,
+        complete=program_rows_complete,
+        reason=program_reason,
     )
     last28_views = totals_by_period["Last 28 days"]["pageviews"]
     if last28_views:
@@ -630,6 +699,7 @@ def main() -> int:
             "daily_affiliate_page_slots_28d": daily_slots,
             "experiment_data_status": experiment_data_status,
             "commercial_metrics_28d": commercial,
+            "commercial_program_clicks_28d": commercial_programs,
         }
         if realtime_clicks is not None:
             payload["affiliate_clicks_realtime"] = realtime_clicks

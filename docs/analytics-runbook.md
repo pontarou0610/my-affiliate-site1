@@ -95,6 +95,7 @@ Register these event-scoped custom dimensions in GA4 so affiliate clicks can be 
 | Custom dimension name | Event parameter | Use |
 | --- | --- | --- |
 | affiliate_store | `affiliate_store` | Amazon, Rakuten, Yahoo, or other store grouping |
+| affiliate_program | `affiliate_program` | Amazon, Kindle Unlimited, Audible, Rakuten, Yahoo, or owned KDP grouping |
 | affiliate_slot | `affiliate_slot` | CTA placement such as hero, bottom, offerbox, related products |
 | link_domain | `link_domain` | Destination domain sanity check |
 | link_id | `link_id` | Stable low-cardinality link identifier for repeated CTA analysis |
@@ -110,5 +111,9 @@ Avoid reporting directly on `link_url` and `link_text` unless needed for debuggi
   `lp-hero-unlimited` and `article-top-amazon-1`; do not reuse one slot name
   for different offers in the same CTA block.
 - `affiliate_store` shows whether Amazon, Rakuten, or Yahoo links are getting traction.
+- `affiliate_program` separates Amazon store clicks from Kindle Unlimited,
+  Audible, and owned Kindle book clicks. Until this custom definition is
+  registered, the KPI report keeps overall traffic/click reporting active but
+  withholds program-level EPC conclusions.
 
 The report's opportunity list is based on the selected `--top` page count, not every page on the site. Increase `--top` when doing a broader audit.

@@ -9,6 +9,13 @@
 {{- $text := .Get "text" | default "購入する" -}}
 {{- $store := (lower (.Get "store")) -}}
 {{- $slot := .Get "slot" | default "shortcode-affbtn" -}}
+{{- $program := .Get "program" | default $store -}}
+{{- $signal := lower (printf "%s %s %s" $url $slot $text) -}}
+{{- if and (eq $store "amazon") (or (in $signal "unlimited") (in $signal "4oyrbsx")) -}}
+  {{- $program = "kindle_unlimited" -}}
+{{- else if and (eq $store "amazon") (or (in $signal "audible") (in $signal "7471076051")) -}}
+  {{- $program = "audible" -}}
+{{- end -}}
 {{- $class := cond (eq $store "amazon") "brand-amazon" (cond (eq $store "rakuten") "brand-rakuten" (cond (eq $store "yahoo") "brand-yahoo" "")) -}}
 
 {{- $amazonTag := or (.Page.Site.Params.amazonTag) (.Page.Site.Site.Params.amazonTag) (getenv "AMAZON_TAG") -}}
@@ -25,4 +32,4 @@
 {{- end -}}
 
 <a class="btn {{ $class }}" href="{{ $url }}"
-   target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="{{ $store }}" data-affiliate-slot="{{ $slot }}">{{ $text }}</a>
+   target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="{{ $store }}" data-affiliate-program="{{ $program }}" data-affiliate-slot="{{ $slot }}">{{ $text }}</a>

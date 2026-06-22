@@ -10,6 +10,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from report_ga4 import (
+    commercial_program_clicks,
     commercial_metrics,
     is_commercial_page,
     load_commercial_page_rules,
@@ -84,6 +85,19 @@ class Ga4CommercialMetricsTests(unittest.TestCase):
     def test_detects_truncated_ga4_response(self) -> None:
         self.assertFalse(response_complete({"rowCount": 2, "rows": [{}]}))
         self.assertTrue(response_complete({"rowCount": 1, "rows": [{}]}))
+
+    def test_aggregates_program_clicks_only_on_commercial_pages(self) -> None:
+        rules = [{"path": "/lp/", "match_type": "prefix", "reason": ""}]
+        result = commercial_program_clicks(
+            [
+                {"path": "/lp/kindle/", "program": "kindle_unlimited", "clicks": 3},
+                {"path": "/posts/news/", "program": "kindle_unlimited", "clicks": 7},
+            ],
+            rules,
+            complete=True,
+        )
+
+        self.assertEqual(result["values"], {"kindle_unlimited": 3})
 
 
 if __name__ == "__main__":

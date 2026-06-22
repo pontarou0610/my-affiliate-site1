@@ -31,10 +31,10 @@ keywords: ["Kindle Kobo おすすめ", "電子書籍リーダー おすすめ", 
   </div>
   <p>端末、読み放題、楽天Koboは価格や対象作品が変わります。比較表で近い目的が見えたら、現在の条件をそのまま確認してください。</p>
   <div class="comparison-choice-cta__grid">
-    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="recommend-table-kindle-device">Paperwhiteを見る</a>
-    <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="recommend-table-unlimited">Unlimited対象を確認</a>
-    <a class="btn brand-amazon" href="https://www.amazon.co.jp/b/ref=adbl_JP_as_0068?ie=UTF8&node=7471076051&tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="recommend-table-audible">Audibleを確認</a>
-    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="recommend-table-kobo-store">楽天Koboストアを見る</a>
+    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="amazon" data-affiliate-slot="recommend-table-kindle-device">Paperwhiteを見る</a>
+    <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="kindle_unlimited" data-affiliate-slot="recommend-table-unlimited">Unlimited対象を確認</a>
+    <a class="btn brand-amazon" href="https://www.amazon.co.jp/b/ref=adbl_JP_as_0068?ie=UTF8&node=7471076051&tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="audible" data-affiliate-slot="recommend-table-audible">Audibleを確認</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fe-book%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-program="rakuten" data-affiliate-slot="recommend-table-kobo-store">楽天Koboストアを見る</a>
   </div>
 </section>
 

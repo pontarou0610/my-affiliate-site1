@@ -11,6 +11,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from report_business_kpis import (
     RevenueRow,
     build_report,
+    commercial_program_clicks,
     normalize_program,
     read_revenue,
     store_clicks,
@@ -48,6 +49,11 @@ class BusinessKpiReportTests(unittest.TestCase):
                     "Rakuten": 10,
                 }
             },
+            "commercial_program_clicks_28d": {
+                "complete": True,
+                "reason": "",
+                "values": {"amazon": 10, "rakuten": 10},
+            },
             "top_pages_28d": [
                 {"path": "/recommend/", "views": 200, "affiliate_clicks": 0},
             ],
@@ -65,7 +71,7 @@ class BusinessKpiReportTests(unittest.TestCase):
         self.assertIn("| Commercial-intent affiliate CTR (28d) | 10.00% |", report)
         self.assertIn("| Confirmed commercial EPC | 200 yen | 40 yen planning baseline |", report)
         self.assertIn("`rakuten` has 10 clicks but no confirmed revenue", report)
-        self.assertIn("current highest-EPC program (100 yen/click)", report)
+        self.assertIn("current highest-EPC program (400 yen/click)", report)
         self.assertIn("`/recommend/` (200 views, zero clicks)", report)
 
     def test_requires_complete_commercial_metrics(self) -> None:
@@ -109,6 +115,11 @@ class BusinessKpiReportTests(unittest.TestCase):
             "affiliate_click_breakdowns_28d": {
                 "customEvent:affiliate_store": {"Amazon": 2}
             },
+            "commercial_program_clicks_28d": {
+                "complete": True,
+                "reason": "",
+                "values": {"amazon": 2},
+            },
         }
 
         report = build_report(
@@ -127,6 +138,19 @@ class BusinessKpiReportTests(unittest.TestCase):
     def test_allows_missing_revenue_file(self) -> None:
         rows = read_revenue(REPO_ROOT / "data" / "revenue" / "missing.csv", allow_missing=True)
         self.assertEqual(rows, [])
+
+    def test_program_attribution_can_be_unavailable(self) -> None:
+        clicks, reason = commercial_program_clicks(
+            {
+                "commercial_program_clicks_28d": {
+                    "complete": False,
+                    "reason": "Register affiliate_program.",
+                    "values": {},
+                }
+            }
+        )
+        self.assertEqual(clicks, {})
+        self.assertIn("Register", reason)
 
     def test_realtime_click_count(self) -> None:
         class Request:

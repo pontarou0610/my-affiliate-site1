@@ -105,6 +105,21 @@ def store_clicks(ga4: dict) -> dict[str, int]:
     return dict(clicks)
 
 
+def commercial_program_clicks(ga4: dict) -> tuple[dict[str, int], str]:
+    payload = ga4.get("commercial_program_clicks_28d")
+    if not isinstance(payload, dict) or not payload.get("complete"):
+        reason = (
+            payload.get("reason", "")
+            if isinstance(payload, dict)
+            else "Run the latest GA4 report."
+        )
+        return {}, reason or "Program attribution is unavailable."
+    return {
+        normalize_program(program): int(count)
+        for program, count in payload.get("values", {}).items()
+    }, ""
+
+
 def format_yen(value: float) -> str:
     return f"{value:,.0f}"
 
@@ -139,7 +154,8 @@ def build_report(
         revenue_by_program[row.program]["orders"] += row.orders
         revenue_by_program[row.program]["revenue"] += row.revenue_yen
 
-    clicks = store_clicks(ga4)
+    clicks, program_attribution_reason = commercial_program_clicks(ga4)
+    program_attribution_available = not program_attribution_reason
     all_programs = sorted(set(revenue_by_program) | set(clicks))
     total_revenue = sum(item["revenue"] for item in revenue_by_program.values())
     total_orders = int(sum(item["orders"] for item in revenue_by_program.values()))
@@ -203,10 +219,13 @@ def build_report(
             )
     else:
         lines.append(
-            "| Revenue CSV not entered | 0 | - | Not entered | - |"
-            if not revenue_available
-            else "| No data | 0 | 0 | 0 yen | 0 yen |"
+            (
+                f"| Program attribution unavailable | - | - | "
+                f"{'Not entered' if not revenue_available else '-'} | - |"
+            )
         )
+    if not program_attribution_available:
+        lines.extend(["", f"Program attribution: {program_attribution_reason}"])
 
     lines.extend(["", "## Priority Actions", ""])
     actions: list[str] = []
@@ -214,7 +233,7 @@ def build_report(
         actions.append(
             "1. Verify a real production affiliate click in GA4 DebugView and inspect the highest-view CTA page."
         )
-    if revenue_available:
+    if revenue_available and program_attribution_available:
         for program in all_programs:
             program_clicks = clicks.get(program, 0)
             program_revenue = revenue_by_program[program]["revenue"]

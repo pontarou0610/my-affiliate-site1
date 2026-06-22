@@ -22,6 +22,19 @@
       }
     }
 
+    function inferProgram(href, store, slot, text) {
+      var signal = [href, slot, text].join(" ").toLowerCase();
+      if (store === "amazon") {
+        if (signal.indexOf("audible") !== -1 || signal.indexOf("7471076051") !== -1) return "audible";
+        if (signal.indexOf("unlimited") !== -1 || signal.indexOf("4oyrbsx") !== -1) return "kindle_unlimited";
+        if (signal.indexOf("fiction") !== -1 || signal.indexOf("ぽんたろう") !== -1) return "kdp";
+        return "amazon";
+      }
+      if (store === "rakuten") return "rakuten";
+      if (store === "yahoo") return "yahoo";
+      return store || "external";
+    }
+
     function linkMeta(href, store, slot) {
       try {
         var url = new URL(href, window.location.href);
@@ -50,11 +63,15 @@
         var store = (a.dataset && a.dataset.affiliate) ? a.dataset.affiliate : inferStore(href);
         var slot = (a.dataset && a.dataset.affiliateSlot) ? a.dataset.affiliateSlot : "inline";
         var text = (a.textContent || "").trim().slice(0, 120);
+        var program = (a.dataset && a.dataset.affiliateProgram)
+          ? a.dataset.affiliateProgram
+          : inferProgram(href, store, slot, text);
         var meta = linkMeta(href, store, slot);
 
         if (typeof window.gtag === "function") {
           window.gtag("event", "affiliate_click", {
             affiliate_store: store,
+            affiliate_program: program,
             affiliate_slot: slot,
             link_domain: meta.domain,
             link_id: meta.id,
