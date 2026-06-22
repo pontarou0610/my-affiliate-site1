@@ -32,23 +32,24 @@ If `--auth-status` reports `oauth_token_file: missing`, run `--force-auth` and a
      --json-output reports/analytics/ga4-latest.json
    ```
 
-2. Build the action report. This works even before revenue has been entered:
-
-   ```powershell
-   python scripts/report_business_kpis.py --month 2026-06
-   ```
-
-3. Export confirmed monthly results from Amazon Associates, Rakuten Affiliate,
-   Yahoo/ValueCommerce, and KDP when available.
-4. Copy `data/revenue/partner-revenue.example.csv` to
-   `data/revenue/partner-revenue.csv` and enter the confirmed totals. Re-run the
-   action report to unlock conversion, revenue, and EPC conclusions.
-5. Build the Search Console opportunity report:
+2. Build the Search Console report:
 
    ```powershell
    python scripts/report_gsc.py --days 28 --top 20
    ```
 
+3. Build the action report. This works even before revenue has been entered
+   and combines commercial Search Console stages with GA4:
+
+   ```powershell
+   python scripts/report_business_kpis.py --month 2026-06
+   ```
+
+4. Export confirmed monthly results from Amazon Associates, Rakuten Affiliate,
+   Yahoo/ValueCommerce, and KDP when available.
+5. Copy `data/revenue/partner-revenue.example.csv` to
+   `data/revenue/partner-revenue.csv` and enter the confirmed totals. Re-run the
+   action report to unlock conversion, revenue, and EPC conclusions.
 6. Build the experiment status report:
 
    ```powershell
@@ -64,6 +65,9 @@ The Search Console report ranks query and page opportunities while excluding
 pages with active CTA experiments. The experiment report identifies the review
 date and prevents rolling windows that still include baseline data from being
 treated as post-change results.
+The business KPI report adds a commercial search funnel: page-level Search
+Console impressions and clicks, GA4 commercial pageviews, affiliate clicks,
+then confirmed orders and revenue when supplied.
 
 Commercial-intent traffic is defined by `data/commercial-pages.csv` plus active
 experiment rows whose `commercial_intent` value is `true`. Add an `exact`

@@ -39,7 +39,7 @@ def normalize_page(value: str) -> str:
     elif path.startswith(f"{prefix}/"):
         path = path[len(prefix) :]
     normalized = posixpath.normpath(f"/{path.lstrip('/')}")
-    if normalized != "/" and path.endswith("/"):
+    if normalized != "/":
         normalized += "/"
     return normalized
 
@@ -78,7 +78,7 @@ def is_noise_query(query: str) -> bool:
     )
 
 
-def fetch_rows(days: int, max_rows: int) -> tuple[list[dict], dict]:
+def fetch_rows(days: int, max_rows: int) -> tuple[list[dict], list[dict], dict]:
     load_dotenv(REPO_ROOT / ".env")
     site_url = (os.getenv("GSC_SITE_URL") or "").strip()
     if not site_url:
@@ -140,12 +140,37 @@ def fetch_rows(days: int, max_rows: int) -> tuple[list[dict], dict]:
         start_row += len(batch)
     if len(rows) >= max_rows:
         truncated = True
-    return rows, {
+    page_response = (
+        service.searchanalytics()
+        .query(
+            siteUrl=site_url,
+            body={
+                "startDate": start.isoformat(),
+                "endDate": end.isoformat(),
+                "dimensions": ["page"],
+                "rowLimit": 25_000,
+                "dataState": "final",
+            },
+        )
+        .execute()
+    )
+    page_rows = [
+        {
+            "page": normalize_page(str((row.get("keys") or ["/"])[0])),
+            "clicks": float(row.get("clicks") or 0),
+            "impressions": float(row.get("impressions") or 0),
+            "ctr": float(row.get("ctr") or 0),
+            "position": float(row.get("position") or 0),
+        }
+        for row in (page_response.get("rows") or [])
+    ]
+    return rows, page_rows, {
         "site_url": site_url,
         "start": start.isoformat(),
         "end": end.isoformat(),
         "days": days,
         "daily_rows_truncated": truncated,
+        "page_rows_truncated": len(page_rows) >= 25_000,
     }
 
 
@@ -348,11 +373,11 @@ def main() -> int:
     if args.days <= 0 or args.max_rows <= 0 or args.top <= 0:
         raise SystemExit("--days, --max-rows, and --top must be greater than 0")
 
-    rows, meta = fetch_rows(args.days, args.max_rows)
+    rows, page_rows, meta = fetch_rows(args.days, args.max_rows)
     active_pages = active_experiment_pages()
     payload = {
         "meta": {**meta, "row_count": len(rows)},
-        "pages": aggregate_pages(rows, active_pages),
+        "pages": aggregate_pages(page_rows, active_pages),
         "queries": query_opportunities(rows, active_pages),
         "daily_rows": rows,
     }

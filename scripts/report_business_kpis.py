@@ -10,6 +10,8 @@ from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 
+from report_ga4 import is_commercial_page, load_commercial_page_rules
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 STORE_DIMENSION = "customEvent:affiliate_store"
@@ -97,6 +99,15 @@ def read_ga4(path: Path) -> dict:
         raise SystemExit(f"GA4 JSON is invalid: {path}") from exc
 
 
+def read_optional_json(path: Path) -> dict | None:
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise SystemExit(f"JSON is invalid: {path}") from exc
+
+
 def store_clicks(ga4: dict) -> dict[str, int]:
     raw = ga4.get("affiliate_click_breakdowns_28d", {}).get(STORE_DIMENSION, {})
     clicks: dict[str, int] = defaultdict(int)
@@ -138,6 +149,67 @@ def validated_commercial_metrics(ga4: dict) -> dict:
     return commercial
 
 
+def commercial_search_metrics(gsc: dict | None) -> tuple[dict | None, str]:
+    if gsc is None:
+        return None, "Run report_gsc.py before the business KPI report."
+    meta = gsc.get("meta", {})
+    if meta.get("page_rows_truncated"):
+        return None, "Search Console page totals are truncated."
+    pages = gsc.get("pages")
+    if not isinstance(pages, list):
+        return None, "Search Console page totals are unavailable."
+    rules = load_commercial_page_rules()
+    selected = [
+        row for row in pages if is_commercial_page(row.get("page") or "", rules)
+    ]
+    impressions = int(sum(float(row.get("impressions") or 0) for row in selected))
+    clicks = int(sum(float(row.get("clicks") or 0) for row in selected))
+    return {
+        "impressions": impressions,
+        "clicks": clicks,
+        "ctr": (clicks / impressions) if impressions else 0,
+        "period": {
+            "start": meta.get("start", "?"),
+            "end": meta.get("end", "?"),
+        },
+        "pages": selected,
+    }, ""
+
+
+def commercial_page_funnel(search: dict | None, commercial: dict) -> list[dict]:
+    search_pages = {
+        row.get("page") or "/": row
+        for row in ((search or {}).get("pages") or [])
+    }
+    ga4_pages = {
+        row.get("path") or "/": row
+        for row in commercial.get("pages", [])
+    }
+    paths = set(search_pages) | set(ga4_pages)
+    rows = []
+    for path in paths:
+        search_row = search_pages.get(path, {})
+        ga4_row = ga4_pages.get(path, {})
+        rows.append(
+            {
+                "path": path,
+                "impressions": int(float(search_row.get("impressions") or 0)),
+                "search_clicks": int(float(search_row.get("clicks") or 0)),
+                "pageviews": int(ga4_row.get("views") or 0),
+                "affiliate_clicks": int(ga4_row.get("affiliate_clicks") or 0),
+                "active_experiment": bool(search_row.get("active_experiment")),
+            }
+        )
+    rows.sort(
+        key=lambda row: (
+            -row["impressions"],
+            -row["pageviews"],
+            row["path"],
+        )
+    )
+    return rows
+
+
 def build_report(
     ga4: dict,
     rows: list[RevenueRow],
@@ -145,6 +217,7 @@ def build_report(
     target_yen: int,
     *,
     revenue_available: bool = True,
+    gsc: dict | None = None,
 ) -> str:
     selected = [row for row in rows if row.month == month]
     revenue_by_program: dict[str, dict[str, float]] = defaultdict(
@@ -176,6 +249,8 @@ def build_report(
     progress_actual = f"{progress:.1%}" if revenue_available else "Not available"
     orders_actual = f"{total_orders:,}" if revenue_available else "Not entered"
     epc_actual = f"{format_yen(epc)} yen" if revenue_available else "Not available"
+    search, search_reason = commercial_search_metrics(gsc)
+    page_funnel = commercial_page_funnel(search, commercial)
 
     lines = [
         f"# Business KPI Report: {month}",
@@ -197,11 +272,56 @@ def build_report(
         f"| Commercial-intent affiliate CTR (28d) | {ctr:.2%} | 8.00% planning baseline |",
         f"| Confirmed commercial EPC | {epc_actual} | 40 yen planning baseline |",
         "",
+        "## Commercial Search Funnel",
+        "",
+        "| Stage | 28-day value | Rate |",
+        "| --- | ---: | ---: |",
+    ]
+    if search:
+        lines.extend(
+            [
+                f"| Search impressions | {search['impressions']:,} | - |",
+                f"| Search clicks | {search['clicks']:,} | {search['ctr']:.2%} search CTR |",
+                f"| GA4 pageviews | {pageviews:,} | - |",
+                f"| Affiliate clicks | {commercial_clicks:,} | {ctr:.2%} pageview-to-affiliate CTR |",
+            ]
+        )
+    else:
+        lines.extend(
+            [
+                f"| Search Console unavailable | - | {search_reason} |",
+                f"| GA4 pageviews | {pageviews:,} | - |",
+                f"| Affiliate clicks | {commercial_clicks:,} | {ctr:.2%} pageview-to-affiliate CTR |",
+            ]
+        )
+    lines.extend(
+        [
+        "",
+        "## Commercial Page Funnel",
+        "",
+        "| Search impressions | Search clicks | GA4 PV | Affiliate clicks | Experiment | Page |",
+        "| ---: | ---: | ---: | ---: | --- | --- |",
+        ]
+    )
+    if page_funnel:
+        for row in page_funnel[:12]:
+            experiment = "active" if row["active_experiment"] else "-"
+            lines.append(
+                f"| {row['impressions']:,} | {row['search_clicks']:,} | "
+                f"{row['pageviews']:,} | {row['affiliate_clicks']:,} | "
+                f"{experiment} | `{row['path']}` |"
+            )
+    else:
+        lines.append("| 0 | 0 | 0 | 0 | - | No commercial page rows |")
+    lines.extend(
+        [
+        "",
         "## Program Performance",
         "",
         "| Program | Clicks (28d) | Orders | Revenue | EPC |",
         "| --- | ---: | ---: | ---: | ---: |",
-    ]
+        ]
+    )
     if all_programs:
         for program in all_programs:
             program_clicks = clicks.get(program, 0)
@@ -283,6 +403,12 @@ def build_report(
                 else "Revenue is controlled by partner and KDP reports. GA4 click counts are directional "
                 "and may use a different date window."
             ),
+            (
+                f"Search Console period: {search['period']['start']} to {search['period']['end']}. "
+                "GA4 and Search Console periods differ by reporting delay, so compare stages directionally."
+                if search
+                else f"Search funnel status: {search_reason}"
+            ),
         ]
     )
     return "\n".join(lines) + "\n"
@@ -300,6 +426,11 @@ def main() -> int:
         type=Path,
         default=Path("data/revenue/partner-revenue.csv"),
     )
+    parser.add_argument(
+        "--gsc-json",
+        type=Path,
+        default=Path("reports/analytics/gsc-latest.json"),
+    )
     parser.add_argument("--month", help="Revenue month in YYYY-MM; defaults to latest CSV month")
     parser.add_argument("--target-yen", type=int, default=100_000)
     parser.add_argument(
@@ -310,6 +441,7 @@ def main() -> int:
     args = parser.parse_args()
 
     ga4 = read_ga4(resolve_path(args.ga4_json))
+    gsc = read_optional_json(resolve_path(args.gsc_json))
     revenue_path = resolve_path(args.revenue_csv)
     revenue_available = revenue_path.exists()
     rows = read_revenue(revenue_path, allow_missing=True)
@@ -326,6 +458,7 @@ def main() -> int:
         month,
         args.target_yen,
         revenue_available=revenue_available,
+        gsc=gsc,
     )
     output = resolve_path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)

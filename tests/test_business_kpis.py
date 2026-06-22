@@ -12,6 +12,8 @@ from report_business_kpis import (
     RevenueRow,
     build_report,
     commercial_program_clicks,
+    commercial_page_funnel,
+    commercial_search_metrics,
     normalize_program,
     read_revenue,
     store_clicks,
@@ -62,9 +64,20 @@ class BusinessKpiReportTests(unittest.TestCase):
             RevenueRow("2026-06", "amazon", 4, 4_000, ""),
             RevenueRow("2026-06", "rakuten", 0, 0, ""),
         ]
+        gsc = {
+            "meta": {
+                "start": "2026-05-24",
+                "end": "2026-06-20",
+                "page_rows_truncated": False,
+            },
+            "pages": [
+                {"page": "/recommend/", "clicks": 10, "impressions": 200},
+                {"page": "/posts/news/", "clicks": 90, "impressions": 900},
+            ],
+        }
 
         self.assertEqual(store_clicks(ga4), {"amazon": 40, "rakuten": 10})
-        report = build_report(ga4, rows, "2026-06", 100_000)
+        report = build_report(ga4, rows, "2026-06", 100_000, gsc=gsc)
 
         self.assertIn("| Confirmed revenue | 4,000 yen | 100,000 yen |", report)
         self.assertIn("| Commercial-intent pageviews (28d) | 200 |", report)
@@ -73,6 +86,9 @@ class BusinessKpiReportTests(unittest.TestCase):
         self.assertIn("`rakuten` has 10 clicks but no confirmed revenue", report)
         self.assertIn("current highest-EPC program (400 yen/click)", report)
         self.assertIn("`/recommend/` (200 views, zero clicks)", report)
+        self.assertIn("| Search impressions | 200 |", report)
+        self.assertIn("| Search clicks | 10 | 5.00% search CTR |", report)
+        self.assertIn("| 200 | 10 | 200 | 0 | - | `/recommend/` |", report)
 
     def test_requires_complete_commercial_metrics(self) -> None:
         ga4 = {
@@ -151,6 +167,54 @@ class BusinessKpiReportTests(unittest.TestCase):
         )
         self.assertEqual(clicks, {})
         self.assertIn("Register", reason)
+
+    def test_commercial_search_metrics_exclude_noncommercial_pages(self) -> None:
+        metrics, reason = commercial_search_metrics(
+            {
+                "meta": {"page_rows_truncated": False},
+                "pages": [
+                    {"page": "/lp/kindle/", "clicks": 2, "impressions": 20},
+                    {"page": "/posts/news/", "clicks": 8, "impressions": 80},
+                ],
+            }
+        )
+        self.assertEqual(reason, "")
+        self.assertEqual(metrics["impressions"], 20)
+        self.assertEqual(metrics["clicks"], 2)
+
+    def test_commercial_search_metrics_reject_truncated_pages(self) -> None:
+        metrics, reason = commercial_search_metrics(
+            {"meta": {"page_rows_truncated": True}, "pages": []}
+        )
+        self.assertIsNone(metrics)
+        self.assertIn("truncated", reason)
+
+    def test_commercial_page_funnel_joins_gsc_and_ga4(self) -> None:
+        rows = commercial_page_funnel(
+            {
+                "pages": [
+                    {
+                        "page": "/recommend/",
+                        "impressions": 20,
+                        "clicks": 2,
+                        "active_experiment": True,
+                    }
+                ]
+            },
+            {
+                "pages": [
+                    {
+                        "path": "/recommend/",
+                        "views": 5,
+                        "affiliate_clicks": 1,
+                    }
+                ]
+            },
+        )
+        self.assertEqual(rows[0]["impressions"], 20)
+        self.assertEqual(rows[0]["pageviews"], 5)
+        self.assertEqual(rows[0]["affiliate_clicks"], 1)
+        self.assertTrue(rows[0]["active_experiment"])
 
     def test_realtime_click_count(self) -> None:
         class Request:
