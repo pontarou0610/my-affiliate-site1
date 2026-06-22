@@ -4,6 +4,7 @@
 
 - GA4 traffic and affiliate-click report: `python scripts/report_ga4.py --top 20`
 - Production click verification: `python scripts/report_ga4.py --realtime-check --top 20`
+- Search Console SEO opportunities: `python scripts/report_gsc.py --top 20`
 - GA4 auth/config check without opening a browser: `python scripts/report_ga4.py --auth-status`
 - OAuth refresh when the token is missing or revoked: `python scripts/report_ga4.py --force-auth`
 - Monthly revenue target model: `python scripts/report_revenue_target.py --commercial-pageviews 173`
@@ -40,9 +41,17 @@ If `--auth-status` reports `oauth_token_file: missing`, run `--force-auth` and a
    python scripts/report_business_kpis.py --month 2026-06
    ```
 
+5. Build the Search Console opportunity report:
+
+   ```powershell
+   python scripts/report_gsc.py --days 28 --top 20
+   ```
+
 The generated files under `reports/analytics/` and the real revenue CSV are
 ignored by Git. The report identifies zero-click traffic pages, clicked
 programs with no confirmed revenue, and the highest-EPC program to scale.
+The Search Console report ranks query and page opportunities while excluding
+pages with active CTA experiments.
 
 ## CTA Experiment Discipline
 
