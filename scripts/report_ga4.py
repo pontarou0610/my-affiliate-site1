@@ -254,7 +254,7 @@ def print_affiliate_clicks(
             "metrics": [{"name": "eventCount"}],
             "dimensionFilter": dimension_filter,
             "orderBys": [{"metric": {"metricName": "eventCount"}, "desc": True}],
-            "limit": 20,
+            "limit": 10_000,
         },
     )
     print("\nAffiliate click pages 28d")
@@ -284,7 +284,7 @@ def print_affiliate_clicks(
                     "metrics": [{"name": "eventCount"}],
                     "dimensionFilter": dimension_filter,
                     "orderBys": [{"metric": {"metricName": "eventCount"}, "desc": True}],
-                    "limit": 10,
+                    "limit": 100,
                 },
             )
         except HttpError:
@@ -297,13 +297,71 @@ def print_affiliate_clicks(
             continue
         print(f"\n{dimension}")
         values: dict[str, int] = {}
-        for row in by_dimension.get("rows", []):
+        for index, row in enumerate(by_dimension.get("rows", [])):
             value = row["dimensionValues"][0]["value"] or "(not set)"
             count = int(float(row["metricValues"][0]["value"]))
             values[value] = values.get(value, 0) + count
-            print(f"{count}\t{value}")
+            if index < 20:
+                print(f"{count}\t{value}")
         breakdowns[dimension] = values
     return total, click_pages, breakdowns
+
+
+def daily_experiment_metrics(
+    service,
+    property_id: str,
+    start: date,
+    end: date,
+) -> tuple[list[dict], list[dict], dict[str, bool]]:
+    page_response = run_report(
+        service,
+        property_id,
+        {
+            "dateRanges": [{"startDate": start.isoformat(), "endDate": end.isoformat()}],
+            "dimensions": [{"name": "date"}, {"name": "pagePath"}],
+            "metrics": [{"name": "screenPageViews"}],
+            "limit": 100_000,
+        },
+    )
+    daily_pages = [
+        {
+            "date": row["dimensionValues"][0]["value"],
+            "path": normalize_page_path(row["dimensionValues"][1]["value"]),
+            "views": int(float(row["metricValues"][0]["value"])),
+        }
+        for row in page_response.get("rows", [])
+    ]
+
+    daily_slots: list[dict] = []
+    status = {"page_views": True, "page_slot_clicks": True}
+    try:
+        slot_response = run_report(
+            service,
+            property_id,
+            {
+                "dateRanges": [{"startDate": start.isoformat(), "endDate": end.isoformat()}],
+                "dimensions": [
+                    {"name": "date"},
+                    {"name": "pagePath"},
+                    {"name": "customEvent:affiliate_slot"},
+                ],
+                "metrics": [{"name": "eventCount"}],
+                "dimensionFilter": affiliate_click_filter(),
+                "limit": 100_000,
+            },
+        )
+        daily_slots = [
+            {
+                "date": row["dimensionValues"][0]["value"],
+                "path": normalize_page_path(row["dimensionValues"][1]["value"]),
+                "slot": row["dimensionValues"][2]["value"] or "(not set)",
+                "clicks": int(float(row["metricValues"][0]["value"])),
+            }
+            for row in slot_response.get("rows", [])
+        ]
+    except (HttpError, TimeoutError):
+        status["page_slot_clicks"] = False
+    return daily_pages, daily_slots, status
 
 
 def print_opportunity_pages(top_pages: list[dict], click_pages: dict[str, int], limit: int = 8) -> None:
@@ -401,6 +459,12 @@ def main() -> int:
         start28,
         end,
     )
+    daily_pages, daily_slots, experiment_data_status = daily_experiment_metrics(
+        service,
+        property_id,
+        start28,
+        end,
+    )
     last28_views = totals_by_period["Last 28 days"]["pageviews"]
     if last28_views:
         print(f"\nSite affiliate CTR 28d: {(total_clicks / last28_views * 100):.2f}%")
@@ -434,6 +498,9 @@ def main() -> int:
             ],
             "affiliate_click_pages_28d": click_pages,
             "affiliate_click_breakdowns_28d": click_breakdowns,
+            "daily_page_metrics_28d": daily_pages,
+            "daily_affiliate_page_slots_28d": daily_slots,
+            "experiment_data_status": experiment_data_status,
         }
         if realtime_clicks is not None:
             payload["affiliate_clicks_realtime"] = realtime_clicks

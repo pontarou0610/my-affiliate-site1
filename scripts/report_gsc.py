@@ -96,6 +96,7 @@ def fetch_rows(days: int, max_rows: int) -> tuple[list[dict], dict]:
     service = build("searchconsole", "v1", credentials=credentials, cache_discovery=False)
     rows: list[dict] = []
     start_row = 0
+    truncated = False
     while len(rows) < max_rows:
         row_limit = min(25_000, max_rows - len(rows))
         response = (
@@ -105,7 +106,7 @@ def fetch_rows(days: int, max_rows: int) -> tuple[list[dict], dict]:
                 body={
                     "startDate": start.isoformat(),
                     "endDate": end.isoformat(),
-                    "dimensions": ["query", "page"],
+                    "dimensions": ["date", "query", "page"],
                     "rowLimit": row_limit,
                     "startRow": start_row,
                     "dataState": "final",
@@ -118,15 +119,16 @@ def fetch_rows(days: int, max_rows: int) -> tuple[list[dict], dict]:
             break
         for row in batch:
             keys = row.get("keys") or []
-            if len(keys) < 2:
+            if len(keys) < 3:
                 continue
-            query = " ".join(str(keys[0]).split())
+            query = " ".join(str(keys[1]).split())
             if is_noise_query(query):
                 continue
             rows.append(
                 {
                     "query": query,
-                    "page": normalize_page(str(keys[1])),
+                    "page": normalize_page(str(keys[2])),
+                    "date": str(keys[0]),
                     "clicks": float(row.get("clicks") or 0),
                     "impressions": float(row.get("impressions") or 0),
                     "ctr": float(row.get("ctr") or 0),
@@ -136,11 +138,14 @@ def fetch_rows(days: int, max_rows: int) -> tuple[list[dict], dict]:
         if len(batch) < row_limit:
             break
         start_row += len(batch)
+    if len(rows) >= max_rows:
+        truncated = True
     return rows, {
         "site_url": site_url,
         "start": start.isoformat(),
         "end": end.isoformat(),
         "days": days,
+        "daily_rows_truncated": truncated,
     }
 
 
@@ -184,17 +189,33 @@ def aggregate_pages(rows: list[dict], active_pages: set[str]) -> list[dict]:
 
 
 def query_opportunities(rows: list[dict], active_pages: set[str]) -> list[dict]:
-    opportunities = []
+    grouped: dict[tuple[str, str], dict] = defaultdict(
+        lambda: {"clicks": 0.0, "impressions": 0.0, "position_sum": 0.0}
+    )
     for row in rows:
-        potential_clicks = max(
-            expected_ctr(row["position"]) * row["impressions"] - row["clicks"],
-            0,
-        )
+        key = (row["query"], row["page"])
+        item = grouped[key]
+        item["clicks"] += row["clicks"]
+        item["impressions"] += row["impressions"]
+        item["position_sum"] += row["position"] * row["impressions"]
+
+    opportunities = []
+    for (query, page), item in grouped.items():
+        impressions = item["impressions"]
+        clicks = item["clicks"]
+        position = item["position_sum"] / impressions if impressions else 0
+        ctr = clicks / impressions if impressions else 0
+        potential_clicks = max(expected_ctr(position) * impressions - clicks, 0)
         opportunities.append(
             {
-                **row,
+                "query": query,
+                "page": page,
+                "clicks": clicks,
+                "impressions": impressions,
+                "ctr": ctr,
+                "position": position,
                 "potential_clicks": potential_clicks,
-                "active_experiment": row["page"] in active_pages,
+                "active_experiment": page in active_pages,
             }
         )
     opportunities.sort(
@@ -333,6 +354,7 @@ def main() -> int:
         "meta": {**meta, "row_count": len(rows)},
         "pages": aggregate_pages(rows, active_pages),
         "queries": query_opportunities(rows, active_pages),
+        "daily_rows": rows,
     }
     payload["scale_candidates"] = scale_candidates(payload["pages"])
     json_output = args.json_output if args.json_output.is_absolute() else REPO_ROOT / args.json_output
