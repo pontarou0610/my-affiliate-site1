@@ -44,6 +44,17 @@ The generated files under `reports/analytics/` and the real revenue CSV are
 ignored by Git. The report identifies zero-click traffic pages, clicked
 programs with no confirmed revenue, and the highest-EPC program to scale.
 
+## CTA Experiment Discipline
+
+Record revenue-page changes in `data/optimization-experiments.csv`.
+
+- Keep one primary CTA metric per experiment.
+- Do not rewrite the same active experiment page for at least 28 days unless
+  the link or page is broken.
+- If the page reaches 100 views earlier, it can be reviewed at that point.
+- Compare the new slot's clicks and CTR with the recorded baseline before
+  marking the experiment `won`, `lost`, or `inconclusive`.
+
 ## GA4 Custom Definitions
 
 Register these event-scoped custom dimensions in GA4 so affiliate clicks can be analyzed by CTA placement:
