@@ -78,6 +78,34 @@ def is_noise_query(query: str) -> bool:
     )
 
 
+def fetch_page_rows(service, site_url: str, start: date, end: date) -> tuple[list[dict], bool]:
+    response = (
+        service.searchanalytics()
+        .query(
+            siteUrl=site_url,
+            body={
+                "startDate": start.isoformat(),
+                "endDate": end.isoformat(),
+                "dimensions": ["page"],
+                "rowLimit": 25_000,
+                "dataState": "final",
+            },
+        )
+        .execute()
+    )
+    rows = [
+        {
+            "page": normalize_page(str((row.get("keys") or ["/"])[0])),
+            "clicks": float(row.get("clicks") or 0),
+            "impressions": float(row.get("impressions") or 0),
+            "ctr": float(row.get("ctr") or 0),
+            "position": float(row.get("position") or 0),
+        }
+        for row in (response.get("rows") or [])
+    ]
+    return rows, len(rows) >= 25_000
+
+
 def fetch_rows(days: int, max_rows: int) -> tuple[list[dict], list[dict], dict]:
     load_dotenv(REPO_ROOT / ".env")
     site_url = (os.getenv("GSC_SITE_URL") or "").strip()
@@ -140,37 +168,26 @@ def fetch_rows(days: int, max_rows: int) -> tuple[list[dict], list[dict], dict]:
         start_row += len(batch)
     if len(rows) >= max_rows:
         truncated = True
-    page_response = (
-        service.searchanalytics()
-        .query(
-            siteUrl=site_url,
-            body={
-                "startDate": start.isoformat(),
-                "endDate": end.isoformat(),
-                "dimensions": ["page"],
-                "rowLimit": 25_000,
-                "dataState": "final",
-            },
-        )
-        .execute()
+    page_rows, page_rows_truncated = fetch_page_rows(service, site_url, start, end)
+    previous_end = start - timedelta(days=1)
+    previous_start = previous_end - timedelta(days=max(1, days) - 1)
+    previous_page_rows, previous_page_rows_truncated = fetch_page_rows(
+        service,
+        site_url,
+        previous_start,
+        previous_end,
     )
-    page_rows = [
-        {
-            "page": normalize_page(str((row.get("keys") or ["/"])[0])),
-            "clicks": float(row.get("clicks") or 0),
-            "impressions": float(row.get("impressions") or 0),
-            "ctr": float(row.get("ctr") or 0),
-            "position": float(row.get("position") or 0),
-        }
-        for row in (page_response.get("rows") or [])
-    ]
     return rows, page_rows, {
         "site_url": site_url,
         "start": start.isoformat(),
         "end": end.isoformat(),
         "days": days,
         "daily_rows_truncated": truncated,
-        "page_rows_truncated": len(page_rows) >= 25_000,
+        "page_rows_truncated": page_rows_truncated,
+        "previous_start": previous_start.isoformat(),
+        "previous_end": previous_end.isoformat(),
+        "previous_page_rows_truncated": previous_page_rows_truncated,
+        "previous_page_rows": previous_page_rows,
     }
 
 
@@ -375,9 +392,11 @@ def main() -> int:
 
     rows, page_rows, meta = fetch_rows(args.days, args.max_rows)
     active_pages = active_experiment_pages()
+    previous_page_rows = meta.pop("previous_page_rows")
     payload = {
         "meta": {**meta, "row_count": len(rows)},
         "pages": aggregate_pages(page_rows, active_pages),
+        "previous_pages": aggregate_pages(previous_page_rows, active_pages),
         "queries": query_opportunities(rows, active_pages),
         "daily_rows": rows,
     }

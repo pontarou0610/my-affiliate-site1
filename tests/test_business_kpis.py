@@ -14,6 +14,7 @@ from report_business_kpis import (
     commercial_program_clicks,
     commercial_page_funnel,
     commercial_search_metrics,
+    delta_rate,
     normalize_program,
     read_revenue,
     store_clicks,
@@ -45,6 +46,12 @@ class BusinessKpiReportTests(unittest.TestCase):
                     {"path": "/recommend/", "views": 200, "affiliate_clicks": 0},
                 ],
             },
+            "previous_commercial_metrics_28d": {
+                "pageviews": 100,
+                "affiliate_clicks": 5,
+                "affiliate_ctr": 0.05,
+                "complete": True,
+            },
             "affiliate_click_breakdowns_28d": {
                 "customEvent:affiliate_store": {
                     "Amazon": 40,
@@ -74,6 +81,9 @@ class BusinessKpiReportTests(unittest.TestCase):
                 {"page": "/recommend/", "clicks": 10, "impressions": 200},
                 {"page": "/posts/news/", "clicks": 90, "impressions": 900},
             ],
+            "previous_pages": [
+                {"page": "/recommend/", "clicks": 5, "impressions": 100},
+            ],
         }
 
         self.assertEqual(store_clicks(ga4), {"amazon": 40, "rakuten": 10})
@@ -88,6 +98,8 @@ class BusinessKpiReportTests(unittest.TestCase):
         self.assertIn("`/recommend/` (200 views, zero clicks)", report)
         self.assertIn("| Search impressions | 200 |", report)
         self.assertIn("| Search clicks | 10 | 5.00% search CTR |", report)
+        self.assertIn("| Commercial search impressions | 200 | 100 | +100.0% |", report)
+        self.assertIn("| Commercial pageviews | 200 | 100 | +100.0% |", report)
         self.assertIn("| 200 | 10 | 200 | 0 | - | `/recommend/` |", report)
 
     def test_requires_complete_commercial_metrics(self) -> None:
@@ -215,6 +227,10 @@ class BusinessKpiReportTests(unittest.TestCase):
         self.assertEqual(rows[0]["pageviews"], 5)
         self.assertEqual(rows[0]["affiliate_clicks"], 1)
         self.assertTrue(rows[0]["active_experiment"])
+
+    def test_delta_rate_handles_zero_baseline(self) -> None:
+        self.assertEqual(delta_rate(1, 0), "new")
+        self.assertEqual(delta_rate(0, 0), "0.0%")
 
     def test_realtime_click_count(self) -> None:
         class Request:

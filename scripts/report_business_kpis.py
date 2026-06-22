@@ -176,6 +176,38 @@ def commercial_search_metrics(gsc: dict | None) -> tuple[dict | None, str]:
     }, ""
 
 
+def previous_commercial_search_metrics(gsc: dict | None) -> tuple[dict | None, str]:
+    if gsc is None:
+        return None, "Run report_gsc.py before the business KPI report."
+    meta = gsc.get("meta", {})
+    if meta.get("previous_page_rows_truncated"):
+        return None, "Previous Search Console page totals are truncated."
+    pages = gsc.get("previous_pages")
+    if not isinstance(pages, list):
+        return None, "Previous Search Console page totals are unavailable."
+    rules = load_commercial_page_rules()
+    selected = [
+        row for row in pages if is_commercial_page(row.get("page") or "", rules)
+    ]
+    impressions = int(sum(float(row.get("impressions") or 0) for row in selected))
+    clicks = int(sum(float(row.get("clicks") or 0) for row in selected))
+    return {
+        "impressions": impressions,
+        "clicks": clicks,
+        "ctr": (clicks / impressions) if impressions else 0,
+        "period": {
+            "start": meta.get("previous_start", "?"),
+            "end": meta.get("previous_end", "?"),
+        },
+    }, ""
+
+
+def delta_rate(current: float, previous: float) -> str:
+    if previous == 0:
+        return "new" if current > 0 else "0.0%"
+    return f"{((current - previous) / previous):+.1%}"
+
+
 def commercial_page_funnel(search: dict | None, commercial: dict) -> list[dict]:
     search_pages = {
         row.get("page") or "/": row
@@ -250,6 +282,12 @@ def build_report(
     orders_actual = f"{total_orders:,}" if revenue_available else "Not entered"
     epc_actual = f"{format_yen(epc)} yen" if revenue_available else "Not available"
     search, search_reason = commercial_search_metrics(gsc)
+    previous_search, previous_search_reason = previous_commercial_search_metrics(gsc)
+    previous_commercial = ga4.get("previous_commercial_metrics_28d")
+    previous_commercial_available = (
+        isinstance(previous_commercial, dict)
+        and previous_commercial.get("complete")
+    )
     page_funnel = commercial_page_funnel(search, commercial)
 
     lines = [
@@ -294,6 +332,50 @@ def build_report(
                 f"| Affiliate clicks | {commercial_clicks:,} | {ctr:.2%} pageview-to-affiliate CTR |",
             ]
         )
+    lines.extend(
+        [
+        "",
+        "## Previous 28-Day Trend",
+        "",
+        "| KPI | Current | Previous | Change |",
+        "| --- | ---: | ---: | ---: |",
+        ]
+    )
+    if search and previous_search:
+        lines.extend(
+            [
+                f"| Commercial search impressions | {search['impressions']:,} | "
+                f"{previous_search['impressions']:,} | "
+                f"{delta_rate(search['impressions'], previous_search['impressions'])} |",
+                f"| Commercial search clicks | {search['clicks']:,} | "
+                f"{previous_search['clicks']:,} | "
+                f"{delta_rate(search['clicks'], previous_search['clicks'])} |",
+                f"| Commercial search CTR | {search['ctr']:.2%} | "
+                f"{previous_search['ctr']:.2%} | "
+                f"{(search['ctr'] - previous_search['ctr']):+.2%} pt |",
+            ]
+        )
+    else:
+        lines.append(
+            f"| Search metrics | - | - | "
+            f"{search_reason or previous_search_reason} |"
+        )
+    if previous_commercial_available:
+        previous_views = int(previous_commercial.get("pageviews", 0))
+        previous_clicks = int(previous_commercial.get("affiliate_clicks", 0))
+        previous_ctr = float(previous_commercial.get("affiliate_ctr", 0))
+        lines.extend(
+            [
+                f"| Commercial pageviews | {pageviews:,} | {previous_views:,} | "
+                f"{delta_rate(pageviews, previous_views)} |",
+                f"| Affiliate clicks | {commercial_clicks:,} | {previous_clicks:,} | "
+                f"{delta_rate(commercial_clicks, previous_clicks)} |",
+                f"| Pageview-to-affiliate CTR | {ctr:.2%} | {previous_ctr:.2%} | "
+                f"{(ctr - previous_ctr):+.2%} pt |",
+            ]
+        )
+    else:
+        lines.append("| GA4 commercial metrics | - | - | Previous period unavailable |")
     lines.extend(
         [
         "",

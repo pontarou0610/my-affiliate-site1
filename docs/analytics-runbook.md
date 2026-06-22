@@ -68,6 +68,9 @@ treated as post-change results.
 The business KPI report adds a commercial search funnel: page-level Search
 Console impressions and clicks, GA4 commercial pageviews, affiliate clicks,
 then confirmed orders and revenue when supplied.
+It also compares the latest 28 days with the immediately preceding 28 days for
+commercial search impressions, search clicks, pageviews, affiliate clicks, and
+both CTR stages.
 
 Commercial-intent traffic is defined by `data/commercial-pages.csv` plus active
 experiment rows whose `commercial_intent` value is `true`. Add an `exact`

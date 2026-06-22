@@ -286,6 +286,57 @@ def commercial_program_clicks(
     }
 
 
+def commercial_period_snapshot(
+    service,
+    property_id: str,
+    start: date,
+    end: date,
+    rules: list[dict[str, str]],
+) -> dict:
+    page_response = run_report(
+        service,
+        property_id,
+        {
+            "dateRanges": [{"startDate": start.isoformat(), "endDate": end.isoformat()}],
+            "dimensions": [{"name": "pagePath"}],
+            "metrics": [{"name": "screenPageViews"}],
+            "limit": 100_000,
+        },
+    )
+    page_rows = [
+        {
+            "path": normalize_page_path(row["dimensionValues"][0]["value"]),
+            "views": int(float(row["metricValues"][0]["value"])),
+        }
+        for row in page_response.get("rows", [])
+    ]
+    click_response = run_report(
+        service,
+        property_id,
+        {
+            "dateRanges": [{"startDate": start.isoformat(), "endDate": end.isoformat()}],
+            "dimensions": [{"name": "pagePath"}],
+            "metrics": [{"name": "eventCount"}],
+            "dimensionFilter": affiliate_click_filter(),
+            "limit": 100_000,
+        },
+    )
+    click_pages = {
+        normalize_page_path(row["dimensionValues"][0]["value"]): int(
+            float(row["metricValues"][0]["value"])
+        )
+        for row in click_response.get("rows", [])
+    }
+    result = commercial_metrics(
+        page_rows,
+        click_pages,
+        rules,
+        complete=response_complete(page_response) and response_complete(click_response),
+    )
+    result["range"] = {"start": start.isoformat(), "end": end.isoformat()}
+    return result
+
+
 def metric_totals(service, property_id: str, start: date, end: date) -> list[float]:
     resp = run_report(
         service,
@@ -604,6 +655,8 @@ def main() -> int:
 
     end = date.today() - timedelta(days=1)
     start28 = end - timedelta(days=27)
+    previous_end = start28 - timedelta(days=1)
+    previous_start = previous_end - timedelta(days=27)
     start7 = end - timedelta(days=6)
 
     print(f"GA4 property: {property_id}")
@@ -656,6 +709,13 @@ def main() -> int:
         complete=program_rows_complete,
         reason=program_reason,
     )
+    previous_commercial = commercial_period_snapshot(
+        service,
+        property_id,
+        previous_start,
+        previous_end,
+        commercial_rules,
+    )
     last28_views = totals_by_period["Last 28 days"]["pageviews"]
     if last28_views:
         print(f"\nSite affiliate CTR 28d: {(total_clicks / last28_views * 100):.2f}%")
@@ -699,6 +759,7 @@ def main() -> int:
             "daily_affiliate_page_slots_28d": daily_slots,
             "experiment_data_status": experiment_data_status,
             "commercial_metrics_28d": commercial,
+            "previous_commercial_metrics_28d": previous_commercial,
             "commercial_program_clicks_28d": commercial_programs,
         }
         if realtime_clicks is not None:
