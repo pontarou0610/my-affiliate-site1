@@ -261,6 +261,7 @@ def build_report(
 
     clicks, program_attribution_reason = commercial_program_clicks(ga4)
     program_attribution_available = not program_attribution_reason
+    store_click_breakdown = store_clicks(ga4)
     all_programs = sorted(set(revenue_by_program) | set(clicks))
     total_revenue = sum(item["revenue"] for item in revenue_by_program.values())
     total_orders = int(sum(item["orders"] for item in revenue_by_program.values()))
@@ -428,6 +429,29 @@ def build_report(
         )
     if not program_attribution_available:
         lines.extend(["", f"Program attribution: {program_attribution_reason}"])
+        if store_click_breakdown:
+            lines.extend(
+                [
+                    "",
+                    "## Store Click Fallback",
+                    "",
+                    "| Store | Clicks (28d) |",
+                    "| --- | ---: |",
+                ]
+            )
+            for store, count in sorted(
+                store_click_breakdown.items(),
+                key=lambda item: (-item[1], item[0]),
+            ):
+                lines.append(f"| {store} | {count:,} |")
+            lines.extend(
+                [
+                    "",
+                    "Store attribution remains usable, but Amazon clicks cannot be split into "
+                    "standard products, Kindle Unlimited, and Audible until `affiliate_program` "
+                    "is registered.",
+                ]
+            )
 
     lines.extend(["", "## Priority Actions", ""])
     actions: list[str] = []
@@ -455,6 +479,11 @@ def build_report(
                 f"{len(actions) + 1}. Scale pages and CTA slots for `{best_program}`, "
                 f"the current highest-EPC program ({format_yen(best_epc)} yen/click)."
             )
+    if total_clicks > 0 and not program_attribution_available:
+        actions.append(
+            f"{len(actions) + 1}. Register `affiliate_program` as an event-scoped GA4 custom "
+            "dimension so the observed clicks can be separated by revenue program."
+        )
 
     commercial_pages = commercial["pages"]
     zero_click_pages = [

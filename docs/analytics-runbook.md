@@ -121,6 +121,8 @@ Avoid reporting directly on `link_url` and `link_text` unless needed for debuggi
 - `affiliate_program` separates Amazon store clicks from Kindle Unlimited,
   Audible, and owned Kindle book clicks. Until this custom definition is
   registered, the KPI report keeps overall traffic/click reporting active but
-  withholds program-level EPC conclusions.
+  shows a store-level fallback and withholds program-level EPC conclusions.
+  The fallback cannot split Amazon clicks into standard products, Kindle
+  Unlimited, and Audible.
 
 The report's opportunity list is based on the selected `--top` page count, not every page on the site. Increase `--top` when doing a broader audit.

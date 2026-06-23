@@ -180,6 +180,41 @@ class BusinessKpiReportTests(unittest.TestCase):
         self.assertEqual(clicks, {})
         self.assertIn("Register", reason)
 
+    def test_uses_store_clicks_when_program_dimension_is_unavailable(self) -> None:
+        ga4 = {
+            "range_28d": {"start": "2026-05-26", "end": "2026-06-22"},
+            "totals_28d": {"pageviews": 180},
+            "affiliate_clicks_28d": 1,
+            "commercial_metrics_28d": {
+                "pageviews": 61,
+                "affiliate_clicks": 1,
+                "affiliate_ctr": 1 / 61,
+                "pages": [],
+                "complete": True,
+            },
+            "affiliate_click_breakdowns_28d": {
+                "customEvent:affiliate_store": {"Amazon": 1}
+            },
+            "commercial_program_clicks_28d": {
+                "complete": False,
+                "reason": "Register affiliate_program.",
+                "values": {},
+            },
+        }
+
+        report = build_report(
+            ga4,
+            [],
+            "2026-06",
+            100_000,
+            revenue_available=False,
+        )
+
+        self.assertIn("## Store Click Fallback", report)
+        self.assertIn("| amazon | 1 |", report)
+        self.assertIn("Amazon clicks cannot be split", report)
+        self.assertIn("Register `affiliate_program`", report)
+
     def test_commercial_search_metrics_exclude_noncommercial_pages(self) -> None:
         metrics, reason = commercial_search_metrics(
             {
