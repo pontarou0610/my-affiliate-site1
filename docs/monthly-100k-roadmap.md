@@ -97,9 +97,11 @@ Guardrails:
 ## Weekly Operating Loop
 
 1. Run `python scripts/report_ga4.py --top 40`.
-2. Export monthly partner revenue and run
+2. Run `python scripts/report_gsc.py --days 28 --top 20`, then
+   `python scripts/record_kpi_snapshot.py` to preserve the weekly baseline.
+3. Export monthly partner revenue and run
    `python scripts/report_business_kpis.py --month YYYY-MM`.
-3. Improve the highest-view zero-click page or the highest-click zero-revenue page.
-4. Audit expired campaigns with `python scripts/check_expired_campaigns.py --report-only`.
-5. Approve a new article only when it fills a measured search gap or supports a proven revenue page.
-6. Keep active CTA experiments unchanged for 28 days or 100 pageviews unless a link is broken.
+4. Improve the highest-view zero-click page or the highest-click zero-revenue page.
+5. Audit expired campaigns with `python scripts/check_expired_campaigns.py --report-only`.
+6. Approve a new article only when it fills a measured search gap or supports a proven revenue page.
+7. Keep active CTA experiments unchanged for 28 days or 100 pageviews unless a link is broken.

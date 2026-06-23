@@ -6,6 +6,7 @@
 - Production click verification: `python scripts/report_ga4.py --realtime-check --top 20`
 - Search Console SEO opportunities: `python scripts/report_gsc.py --top 20`
 - Active experiment progress: `python scripts/report_experiments.py`
+- Versioned aggregate KPI history: `python scripts/record_kpi_snapshot.py`
 - GA4 auth/config check without opening a browser: `python scripts/report_ga4.py --auth-status`
 - OAuth refresh when the token is missing or revoked: `python scripts/report_ga4.py --force-auth`
 - Monthly revenue target model: `python scripts/report_revenue_target.py --commercial-pageviews 173`
@@ -38,19 +39,29 @@ If `--auth-status` reports `oauth_token_file: missing`, run `--force-auth` and a
    python scripts/report_gsc.py --days 28 --top 20
    ```
 
-3. Build the action report. This works even before revenue has been entered
+3. Record the aggregate KPI snapshot:
+
+   ```powershell
+   python scripts/record_kpi_snapshot.py
+   ```
+
+   This updates the current report date in
+   `data/analytics-kpi-history.csv`. The file contains aggregate counts only
+   and is committed so weekly decisions remain auditable.
+
+4. Build the action report. This works even before revenue has been entered
    and combines commercial Search Console stages with GA4:
 
    ```powershell
    python scripts/report_business_kpis.py --month 2026-06
    ```
 
-4. Export confirmed monthly results from Amazon Associates, Rakuten Affiliate,
+5. Export confirmed monthly results from Amazon Associates, Rakuten Affiliate,
    Yahoo/ValueCommerce, and KDP when available.
-5. Copy `data/revenue/partner-revenue.example.csv` to
+6. Copy `data/revenue/partner-revenue.example.csv` to
    `data/revenue/partner-revenue.csv` and enter the confirmed totals. Re-run the
    action report to unlock conversion, revenue, and EPC conclusions.
-6. Build the experiment status report:
+7. Build the experiment status report:
 
    ```powershell
    python scripts/report_experiments.py
@@ -59,6 +70,9 @@ If `--auth-status` reports `oauth_token_file: missing`, run `--force-auth` and a
 The generated files under `reports/analytics/` and the real revenue CSV are
 ignored by Git. The report identifies zero-click traffic pages, clicked
 programs with no confirmed revenue, and the highest-EPC program to scale.
+`data/analytics-kpi-history.csv` is intentionally tracked. Weekly runs append
+one aggregate row per report date; rerunning on the same date replaces that
+date's row instead of creating a duplicate.
 When the revenue CSV is absent, it reports revenue as `Not entered` rather than
 zero and continues producing the traffic and click sections.
 The Search Console report ranks query and page opportunities while excluding
