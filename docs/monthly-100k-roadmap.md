@@ -31,6 +31,10 @@ The default planning case requires about 31,250 commercial-intent pageviews:
 
 EPC must be replaced with actual Amazon, Rakuten, Yahoo, and KDP results. GA4 measures clicks; partner reports control revenue and conversions.
 
+The unified business KPI report also shows the remaining PV, click, and CTR gap
+for Stage 2, Stage 3, and Stage 4. These rows use 40 yen EPC only as a planning
+assumption and never replace confirmed partner revenue.
+
 ## Official Revenue Anchors
 
 As of June 22, 2026:

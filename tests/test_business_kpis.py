@@ -16,6 +16,7 @@ from report_business_kpis import (
     commercial_search_metrics,
     delta_rate,
     normalize_program,
+    planning_milestones,
     read_revenue,
     store_clicks,
 )
@@ -100,6 +101,8 @@ class BusinessKpiReportTests(unittest.TestCase):
         self.assertIn("| Search clicks | 10 | 5.00% search CTR |", report)
         self.assertIn("| Commercial search impressions | 200 | 100 | +100.0% |", report)
         self.assertIn("| Commercial pageviews | 200 | 100 | +100.0% |", report)
+        self.assertIn("## Growth Milestones", report)
+        self.assertIn("| Stage 2 | 1,000 | 3.00% | 30 |", report)
         self.assertIn("| 200 | 10 | 200 | 0 | - | `/recommend/` |", report)
 
     def test_requires_complete_commercial_metrics(self) -> None:
@@ -272,6 +275,17 @@ class BusinessKpiReportTests(unittest.TestCase):
     def test_delta_rate_handles_zero_baseline(self) -> None:
         self.assertEqual(delta_rate(1, 0), "new")
         self.assertEqual(delta_rate(0, 0), "0.0%")
+
+    def test_planning_milestones_show_next_stage_gap(self) -> None:
+        rows = planning_milestones(61, 1, target_yen=100_000)
+
+        self.assertEqual(rows[0]["target_pageviews"], 1_000)
+        self.assertEqual(rows[0]["target_clicks"], 30)
+        self.assertEqual(rows[0]["pageview_gap"], 939)
+        self.assertEqual(rows[0]["click_gap"], 29)
+        self.assertAlmostEqual(rows[0]["ctr_gap"], 0.03 - (1 / 61))
+        self.assertEqual(rows[-1]["target_pageviews"], 31_250)
+        self.assertEqual(rows[-1]["modeled_revenue"], 100_000)
 
     def test_realtime_click_count(self) -> None:
         class Request:

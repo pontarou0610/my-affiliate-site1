@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import math
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
@@ -221,6 +222,42 @@ def delta_rate(current: float, previous: float) -> str:
     return f"{((current - previous) / previous):+.1%}"
 
 
+def planning_milestones(
+    pageviews: int,
+    clicks: int,
+    *,
+    target_yen: int,
+    planning_epc: float = 40.0,
+) -> list[dict]:
+    stages = [
+        ("Stage 2", 1_000, 0.03),
+        ("Stage 3", 10_000, 0.05),
+        (
+            "Stage 4",
+            math.ceil((target_yen / planning_epc) / 0.08),
+            0.08,
+        ),
+    ]
+    current_ctr = (clicks / pageviews) if pageviews else 0
+    rows = []
+    for name, target_views, target_ctr in stages:
+        target_clicks = math.ceil(target_views * target_ctr)
+        rows.append(
+            {
+                "stage": name,
+                "target_pageviews": target_views,
+                "target_ctr": target_ctr,
+                "target_clicks": target_clicks,
+                "modeled_revenue": target_clicks * planning_epc,
+                "pageview_gap": max(target_views - pageviews, 0),
+                "click_gap": max(target_clicks - clicks, 0),
+                "ctr_gap": max(target_ctr - current_ctr, 0),
+                "reached": pageviews >= target_views and current_ctr >= target_ctr,
+            }
+        )
+    return rows
+
+
 def commercial_page_funnel(search: dict | None, commercial: dict) -> list[dict]:
     search_pages = {
         row.get("page") or "/": row
@@ -304,6 +341,11 @@ def build_report(
         and previous_commercial.get("complete")
     )
     page_funnel = commercial_page_funnel(search, commercial)
+    milestones = planning_milestones(
+        pageviews,
+        commercial_clicks,
+        target_yen=target_yen,
+    )
 
     lines = [
         f"# Business KPI Report: {month}",
@@ -391,6 +433,36 @@ def build_report(
         )
     else:
         lines.append("| GA4 commercial metrics | - | - | Previous period unavailable |")
+    lines.extend(
+        [
+            "",
+            "## Growth Milestones",
+            "",
+            "| Stage | Target commercial PV | Target CTR | Target clicks | Current gap | Modeled revenue at 40 yen EPC |",
+            "| --- | ---: | ---: | ---: | --- | ---: |",
+        ]
+    )
+    for row in milestones:
+        gap = (
+            "reached"
+            if row["reached"]
+            else (
+                f"{row['pageview_gap']:,} PV, {row['click_gap']:,} clicks, "
+                f"{row['ctr_gap']:.2%} pt CTR"
+            )
+        )
+        lines.append(
+            f"| {row['stage']} | {row['target_pageviews']:,} | "
+            f"{row['target_ctr']:.2%} | {row['target_clicks']:,} | "
+            f"{gap} | {format_yen(row['modeled_revenue'])} yen |"
+        )
+    lines.extend(
+        [
+            "",
+            "Milestone revenue is a planning model, not confirmed revenue. Replace the "
+            "40 yen EPC assumption with partner-report results before using it for forecasts.",
+        ]
+    )
     lines.extend(
         [
         "",
