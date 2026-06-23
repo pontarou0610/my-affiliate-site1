@@ -45,6 +45,7 @@ class BusinessKpiReportTests(unittest.TestCase):
                 "complete": True,
                 "pages": [
                     {"path": "/recommend/", "views": 200, "affiliate_clicks": 0},
+                    {"path": "/fiction/", "views": 50, "affiliate_clicks": 0},
                 ],
             },
             "previous_commercial_metrics_28d": {
@@ -79,7 +80,12 @@ class BusinessKpiReportTests(unittest.TestCase):
                 "page_rows_truncated": False,
             },
             "pages": [
-                {"page": "/recommend/", "clicks": 10, "impressions": 200},
+                {
+                    "page": "/recommend/",
+                    "clicks": 10,
+                    "impressions": 200,
+                    "active_experiment": True,
+                },
                 {"page": "/posts/news/", "clicks": 90, "impressions": 900},
             ],
             "previous_pages": [
@@ -96,14 +102,15 @@ class BusinessKpiReportTests(unittest.TestCase):
         self.assertIn("| Confirmed commercial EPC | 200 yen | 40 yen planning baseline |", report)
         self.assertIn("`rakuten` has 10 clicks but no confirmed revenue", report)
         self.assertIn("current highest-EPC program (400 yen/click)", report)
-        self.assertIn("`/recommend/` (200 views, zero clicks)", report)
+        self.assertIn("`/fiction/` (50 views, zero clicks)", report)
+        self.assertNotIn("`/recommend/` (200 views, zero clicks)", report)
         self.assertIn("| Search impressions | 200 |", report)
         self.assertIn("| Search clicks | 10 | 5.00% search CTR |", report)
         self.assertIn("| Commercial search impressions | 200 | 100 | +100.0% |", report)
         self.assertIn("| Commercial pageviews | 200 | 100 | +100.0% |", report)
         self.assertIn("## Growth Milestones", report)
         self.assertIn("| Stage 2 | 1,000 | 3.00% | 30 |", report)
-        self.assertIn("| 200 | 10 | 200 | 0 | - | `/recommend/` |", report)
+        self.assertIn("| 200 | 10 | 200 | 0 | active | `/recommend/` |", report)
 
     def test_requires_complete_commercial_metrics(self) -> None:
         ga4 = {

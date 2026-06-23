@@ -7,6 +7,8 @@
 - Search Console SEO opportunities: `python scripts/report_gsc.py --top 20`
 - Active experiment progress: `python scripts/report_experiments.py`
 - Versioned aggregate KPI history: `python scripts/record_kpi_snapshot.py`
+- Confirmed partner revenue input gate:
+  `python scripts/revenue_status.py --month 2026-06`
 - GA4 auth/config check without opening a browser: `python scripts/report_ga4.py --auth-status`
 - OAuth refresh when the token is missing or revoked: `python scripts/report_ga4.py --force-auth`
 - Monthly revenue target model: `python scripts/report_revenue_target.py --commercial-pageviews 173`
@@ -62,6 +64,9 @@ If `--auth-status` reports `oauth_token_file: missing`, run `--force-auth` and a
 6. Copy `data/revenue/partner-revenue.example.csv` to
    `data/revenue/partner-revenue.csv` and enter the confirmed totals. Re-run the
    action report to unlock conversion, revenue, and EPC conclusions.
+   Then run `python scripts/revenue_status.py --month 2026-06`; if it reports
+   `missing_file`, `missing_month`, or `placeholder_zero`, do not use EPC or
+   conversion conclusions yet.
 7. Build the experiment status report:
 
    ```powershell
@@ -76,6 +81,8 @@ one aggregate row per report date; rerunning on the same date replaces that
 date's row instead of creating a duplicate.
 When the revenue CSV is absent, it reports revenue as `Not entered` rather than
 zero and continues producing the traffic and click sections.
+When the revenue CSV exists but every selected-month row is zero, it is treated
+as `placeholder_zero` until the partner dashboards have been checked and noted.
 The Search Console report ranks query and page opportunities while excluding
 pages with active CTA experiments. The experiment report identifies the review
 date and prevents rolling windows that still include baseline data from being

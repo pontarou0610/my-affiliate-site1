@@ -4,88 +4,27 @@
 from __future__ import annotations
 
 import argparse
-import csv
 import json
 import math
 from collections import defaultdict
-from dataclasses import dataclass
 from pathlib import Path
 
 from report_ga4 import is_commercial_page, load_commercial_page_rules
+from revenue_status import (
+    RevenueRow,
+    RevenueStatus,
+    evaluate_revenue_status,
+    normalize_program,
+    read_revenue,
+)
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 STORE_DIMENSION = "customEvent:affiliate_store"
-PROGRAM_ALIASES = {
-    "amazon": "amazon",
-    "amazon associates": "amazon",
-    "audible": "audible",
-    "kindle unlimited": "kindle_unlimited",
-    "kdp": "kdp",
-    "rakuten": "rakuten",
-    "楽天": "rakuten",
-    "yahoo": "yahoo",
-    "yahoo shopping": "yahoo",
-}
-
-
-@dataclass
-class RevenueRow:
-    month: str
-    program: str
-    orders: int
-    revenue_yen: float
-    notes: str
 
 
 def resolve_path(raw: Path) -> Path:
     return raw if raw.is_absolute() else REPO_ROOT / raw
-
-
-def normalize_program(value: str) -> str:
-    cleaned = " ".join(value.strip().lower().replace("_", " ").split())
-    return PROGRAM_ALIASES.get(cleaned, cleaned.replace(" ", "_"))
-
-
-def read_revenue(path: Path, *, allow_missing: bool = False) -> list[RevenueRow]:
-    if not path.exists():
-        if allow_missing:
-            return []
-        raise SystemExit(
-            f"Revenue CSV not found: {path}\n"
-            "Create it from data/revenue/partner-revenue.example.csv."
-        )
-
-    rows: list[RevenueRow] = []
-    with path.open(encoding="utf-8-sig", newline="") as handle:
-        reader = csv.DictReader(handle)
-        required = {"month", "program", "orders", "revenue_yen", "notes"}
-        missing = required - set(reader.fieldnames or [])
-        if missing:
-            raise SystemExit(f"Revenue CSV is missing columns: {', '.join(sorted(missing))}")
-        for line_number, raw in enumerate(reader, start=2):
-            if not any((value or "").strip() for value in raw.values()):
-                continue
-            try:
-                orders = int((raw["orders"] or "0").replace(",", ""))
-                revenue = float((raw["revenue_yen"] or "0").replace(",", ""))
-            except ValueError as exc:
-                raise SystemExit(f"Invalid numeric value on revenue CSV line {line_number}") from exc
-            if orders < 0 or revenue < 0:
-                raise SystemExit(f"Negative values are not allowed on revenue CSV line {line_number}")
-            month = (raw["month"] or "").strip()
-            if len(month) != 7 or month[4] != "-":
-                raise SystemExit(f"month must use YYYY-MM on revenue CSV line {line_number}")
-            rows.append(
-                RevenueRow(
-                    month=month,
-                    program=normalize_program(raw["program"] or ""),
-                    orders=orders,
-                    revenue_yen=revenue,
-                    notes=(raw["notes"] or "").strip(),
-                )
-            )
-    return rows
 
 
 def read_ga4(path: Path) -> dict:
@@ -299,6 +238,7 @@ def build_report(
     target_yen: int,
     *,
     revenue_available: bool = True,
+    revenue_status: RevenueStatus | None = None,
     gsc: dict | None = None,
 ) -> str:
     selected = [row for row in rows if row.month == month]
@@ -367,11 +307,38 @@ def build_report(
         f"| Commercial-intent affiliate CTR (28d) | {ctr:.2%} | 8.00% planning baseline |",
         f"| Confirmed commercial EPC | {epc_actual} | 40 yen planning baseline |",
         "",
+        "## Revenue Input Gate",
+        "",
+        "| Item | Status |",
+        "| --- | --- |",
+    ]
+    if revenue_status:
+        lines.extend(
+            [
+                f"| Revenue CSV state | {revenue_status.status} |",
+                f"| EPC/conversion decisions | "
+                f"{'blocked' if revenue_status.blocks_epc_decisions else 'usable'} |",
+                f"| Revenue rows for {month} | {revenue_status.rows} |",
+                f"| Partner/KDP input note | {revenue_status.message} |",
+            ]
+        )
+        if revenue_status.missing_programs:
+            lines.append(
+                f"| Missing programs | {', '.join(revenue_status.missing_programs)} |"
+            )
+    else:
+        lines.append(
+            "| Revenue CSV state | not checked by this report invocation |"
+        )
+    lines.extend(
+        [
+        "",
         "## Commercial Search Funnel",
         "",
         "| Stage | 28-day value | Rate |",
         "| --- | ---: | ---: |",
-    ]
+        ]
+    )
     if search:
         lines.extend(
             [
@@ -597,11 +564,15 @@ def build_report(
             "dimension so the observed clicks can be separated by revenue program."
         )
 
+    active_experiment_paths = {
+        row["path"] for row in page_funnel if row.get("active_experiment")
+    }
     commercial_pages = commercial["pages"]
     zero_click_pages = [
         page
         for page in commercial_pages
         if int(page.get("affiliate_clicks", 0)) == 0
+        and (page.get("path") or "/") not in active_experiment_paths
     ]
     if zero_click_pages:
         page = max(zero_click_pages, key=lambda item: int(item.get("views", 0)))
@@ -609,7 +580,20 @@ def build_report(
             f"{len(actions) + 1}. Improve the CTA and search-intent match on "
             f"`{page.get('path', '/')}` ({int(page.get('views', 0))} views, zero clicks)."
         )
-    if not revenue_available or not selected:
+    elif active_experiment_paths:
+        actions.append(
+            f"{len(actions) + 1}. Keep zero-click active experiment pages unchanged until their review date; use `report_experiments.py` before selecting another page."
+        )
+    if revenue_status and revenue_status.status == "placeholder_zero":
+        actions.append(
+            f"{len(actions) + 1}. Replace the all-zero {month} revenue placeholder with confirmed partner/KDP results, or add a note that the dashboards were checked and revenue was truly zero."
+        )
+    elif revenue_status and revenue_status.status == "partial":
+        actions.append(
+            f"{len(actions) + 1}. Complete missing {month} partner rows before treating EPC as final: "
+            f"{', '.join(revenue_status.missing_programs)}."
+        )
+    elif not revenue_available or not selected:
         actions.append(
             f"{len(actions) + 1}. Enter confirmed {month} partner/KDP results in the revenue CSV."
         )
@@ -666,7 +650,6 @@ def main() -> int:
     ga4 = read_ga4(resolve_path(args.ga4_json))
     gsc = read_optional_json(resolve_path(args.gsc_json))
     revenue_path = resolve_path(args.revenue_csv)
-    revenue_available = revenue_path.exists()
     rows = read_revenue(revenue_path, allow_missing=True)
     generated_month = str(ga4.get("generated_on") or "")[:7]
     month = args.month or max((row.month for row in rows), default=generated_month)
@@ -674,6 +657,8 @@ def main() -> int:
         raise SystemExit("Provide --month when GA4 generated_on and revenue rows are unavailable.")
     if args.target_yen <= 0:
         raise SystemExit("--target-yen must be greater than 0")
+    revenue_status = evaluate_revenue_status(revenue_path, month)
+    revenue_available = not revenue_status.blocks_epc_decisions
 
     report = build_report(
         ga4,
@@ -681,6 +666,7 @@ def main() -> int:
         month,
         args.target_yen,
         revenue_available=revenue_available,
+        revenue_status=revenue_status,
         gsc=gsc,
     )
     output = resolve_path(args.output)
