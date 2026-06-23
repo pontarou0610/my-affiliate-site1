@@ -12,6 +12,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from check_affiliate_html import (
     find_ambiguous_affiliate_slots,
     find_direct_rakuten_links,
+    find_missing_affiliate_programs,
 )
 
 
@@ -63,6 +64,31 @@ class AffiliateHtmlTests(unittest.TestCase):
             findings = find_direct_rakuten_links(Path(directory))
 
         self.assertEqual(len(findings), 1)
+
+    def test_detects_missing_affiliate_program(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "index.html"
+            path.write_text(
+                '<a data-affiliate="amazon" data-affiliate-slot="hero-paperwhite">Buy</a>',
+                encoding="utf-8",
+            )
+
+            findings = find_missing_affiliate_programs(Path(directory))
+
+        self.assertEqual(findings[0][1], "hero-paperwhite")
+
+    def test_accepts_explicit_affiliate_program(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "index.html"
+            path.write_text(
+                '<a data-affiliate="amazon" data-affiliate-program="amazon" '
+                'data-affiliate-slot="hero-paperwhite">Buy</a>',
+                encoding="utf-8",
+            )
+
+            findings = find_missing_affiliate_programs(Path(directory))
+
+        self.assertEqual(findings, [])
 
 
 if __name__ == "__main__":

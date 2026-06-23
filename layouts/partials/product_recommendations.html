@@ -101,6 +101,11 @@
         {{- $url = printf "https://hb.afl.rakuten.co.jp/hgc/%s/?pc=%s&m=%s" $rakutenId $encoded $encoded -}}
       {{- end -}}
       {{- $buttonClass := cond (eq $store "amazon") "brand-amazon" (cond (eq $store "rakuten") "brand-rakuten" (cond (eq $store "yahoo") "brand-yahoo" "")) -}}
+      {{- $slot := .slot -}}
+      {{- $program := $store -}}
+      {{- if and (eq $store "amazon") (in $slot "unlimited") -}}
+        {{- $program = "kindle_unlimited" -}}
+      {{- end -}}
       {{- $cardClasses := slice "product-recommendations__card" -}}
       {{- if (.primary | default false) -}}{{- $cardClasses = $cardClasses | append "product-recommendations__card--primary" -}}{{- end -}}
       {{- $cardClasses = $cardClasses | append (printf "product-recommendations__card--%s" $store) -}}
@@ -116,7 +121,7 @@
           {{- end }}
         </ul>
         <div class="product-recommendations__actions">
-          <a class="btn {{ $buttonClass }}" href="{{ $url }}" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="{{ $store }}" data-affiliate-slot="{{ .slot }}">{{ .button }}</a>
+          <a class="btn {{ $buttonClass }}" href="{{ $url }}" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="{{ $store }}" data-affiliate-program="{{ $program }}" data-affiliate-slot="{{ $slot }}">{{ .button }}</a>
           {{- with .guideUrl }}
             <a class="product-recommendations__guide" href="{{ . }}">{{ $guideText }}</a>
           {{- end }}

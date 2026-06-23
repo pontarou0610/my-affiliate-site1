@@ -141,5 +141,8 @@ Avoid reporting directly on `link_url` and `link_text` unless needed for debuggi
 - When the store and CTA slot identify one program unambiguously, the report
   also shows an explicitly labeled inferred-program table. Inferred values are
   diagnostic only and are never used for EPC or winner decisions.
+- Every generated link carrying `data-affiliate` must also carry an explicit
+  `data-affiliate-program`. `check_affiliate_html.py` enforces this during
+  deployment so program attribution cannot silently regress.
 
 The report's opportunity list is based on the selected `--top` page count, not every page on the site. Increase `--top` when doing a broader audit.

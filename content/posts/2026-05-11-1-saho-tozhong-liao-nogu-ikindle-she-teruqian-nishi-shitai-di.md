@@ -34,9 +34,9 @@ showProductRecommendations: true
   </div>
   <p>バッテリーやストア連携に不安がある場合は、無理に延命するより、現行端末・読み放題・Koboを並べて確認すると判断が早くなります。価格や対象作品はリンク先で確認してください。</p>
   <div class="comparison-choice-cta__grid">
-    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="old-kindle-early-decision">Paperwhiteを確認</a>
-    <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="old-kindle-early-decision">Unlimited対象を見る</a>
-    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="old-kindle-early-decision">Kobo端末も比較</a>
+    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="amazon" data-affiliate-slot="old-kindle-early-paperwhite">Paperwhiteを確認</a>
+    <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="kindle_unlimited" data-affiliate-slot="old-kindle-early-unlimited">Unlimited対象を見る</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-program="rakuten" data-affiliate-slot="old-kindle-early-kobo">Kobo端末も比較</a>
   </div>
 </section>
 
@@ -140,9 +140,9 @@ showProductRecommendations: true
   </div>
   <p>古いKindleを残すか迷う場合は、現行Paperwhiteの価格、防水や容量、読み放題の対象作品を見てから判断すると失敗しにくくなります。</p>
   <div class="comparison-choice-cta__grid">
-    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="old-kindle-decision">Paperwhiteの価格を見る</a>
-    <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="old-kindle-decision">Unlimited対象を確認</a>
-    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="old-kindle-decision">Kobo端末も見る</a>
+    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="amazon" data-affiliate-slot="old-kindle-bottom-paperwhite">Paperwhiteの価格を見る</a>
+    <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="kindle_unlimited" data-affiliate-slot="old-kindle-bottom-unlimited">Unlimited対象を確認</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-program="rakuten" data-affiliate-slot="old-kindle-bottom-kobo">Kobo端末も見る</a>
   </div>
 </section>
 

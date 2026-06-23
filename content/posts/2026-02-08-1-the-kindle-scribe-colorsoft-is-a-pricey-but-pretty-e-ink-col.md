@@ -39,9 +39,9 @@ Colorsoftのポイントを整理すると、次の4つです。
   </div>
   <p>Colorsoftは高価格帯の端末です。カラー手書きやPDF注釈が必要か、通常ScribeやPaperwhiteで足りるかを公式ページで確認してから選ぶと失敗しにくくなります。</p>
   <div class="comparison-choice-cta__grid">
-    <a class="btn brand-amazon" href="https://www.amazon.co.jp/kindlescribecolorsoft?tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="scribe-colorsoft-decision">Colorsoftを見る</a>
-    <a class="btn brand-amazon" href="https://www.amazon.co.jp/kindlescribe2026?tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="scribe-colorsoft-decision">通常Scribeを見る</a>
-    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="scribe-colorsoft-decision">Paperwhiteも比較</a>
+    <a class="btn brand-amazon" href="https://www.amazon.co.jp/kindlescribecolorsoft?tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="amazon" data-affiliate-slot="scribe-colorsoft-colorsoft">Colorsoftを見る</a>
+    <a class="btn brand-amazon" href="https://www.amazon.co.jp/kindlescribe2026?tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="amazon" data-affiliate-slot="scribe-colorsoft-scribe">通常Scribeを見る</a>
+    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="amazon" data-affiliate-slot="scribe-colorsoft-paperwhite">Paperwhiteも比較</a>
   </div>
 </section>
 

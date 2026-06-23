@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import re
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
 
 
@@ -18,6 +19,28 @@ AMBIGUOUS_AFFILIATE_SLOT = re.compile(
     r"""data-affiliate-slot=(?P<quote>["']?)(?P<slot>article-(?:top|bottom)|lp-(?:hero|bottom)|home-info|shortcode-(?:affbtn|cta3|offerbox))(?P=quote)(?=[\s>])""",
     re.I,
 )
+
+
+class AffiliateLinkParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.missing_programs: list[str] = []
+
+    def handle_starttag(
+        self,
+        tag: str,
+        attrs: list[tuple[str, str | None]],
+    ) -> None:
+        if tag.lower() != "a":
+            return
+        values = dict(attrs)
+        if "data-affiliate" not in values:
+            return
+        if (values.get("data-affiliate-program") or "").strip():
+            return
+        self.missing_programs.append(
+            (values.get("data-affiliate-slot") or "(missing slot)").strip()
+        )
 
 
 def find_direct_rakuten_links(root: Path) -> list[tuple[Path, str]]:
@@ -35,6 +58,15 @@ def find_ambiguous_affiliate_slots(root: Path) -> list[tuple[Path, str]]:
         text = path.read_text(encoding="utf-8", errors="ignore")
         for match in AMBIGUOUS_AFFILIATE_SLOT.finditer(text):
             findings.append((path, match.group("slot")))
+    return findings
+
+
+def find_missing_affiliate_programs(root: Path) -> list[tuple[Path, str]]:
+    findings: list[tuple[Path, str]] = []
+    for path in sorted(root.rglob("*.html")):
+        parser = AffiliateLinkParser()
+        parser.feed(path.read_text(encoding="utf-8", errors="ignore"))
+        findings.extend((path, slot) for slot in parser.missing_programs)
     return findings
 
 
@@ -71,6 +103,18 @@ def main() -> int:
             rel = path.relative_to(REPO_ROOT) if path.is_relative_to(REPO_ROOT) else path
             print(f"  - {rel}: {slot}")
         print("Use a button-specific affiliate_slot so GA4 can identify the clicked offer.")
+        return 1
+
+    missing_programs = find_missing_affiliate_programs(root)
+    if missing_programs:
+        print(
+            "Affiliate links missing data-affiliate-program "
+            f"({len(missing_programs)}):"
+        )
+        for path, slot in missing_programs:
+            rel = path.relative_to(REPO_ROOT) if path.is_relative_to(REPO_ROOT) else path
+            print(f"  - {rel}: {slot}")
+        print("Set an explicit revenue program before deploying.")
         return 1
 
     print(f"Affiliate HTML check passed for {root}.")

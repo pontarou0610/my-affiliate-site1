@@ -43,5 +43,26 @@
 {{- $rel = $rel | append "nofollow" | append "sponsored" -}}
 {{- end -}}
 {{- $rel = uniq $rel -}}
+{{- $store := "" -}}
+{{- $program := "" -}}
+{{- $slot := "" -}}
+{{- if $isAff -}}
+  {{- if or (in $href "amzn.to") (in $href "amazon.co.jp") -}}
+    {{- $store = "amazon" -}}
+    {{- $program = "amazon" -}}
+    {{- if or (in (lower $href) "4oyrbsx") (in (lower (plainify .Text)) "unlimited") -}}
+      {{- $program = "kindle_unlimited" -}}
+    {{- else if or (in (lower $href) "7471076051") (in (lower (plainify .Text)) "audible") -}}
+      {{- $program = "audible" -}}
+    {{- end -}}
+  {{- else if in $href "rakuten" -}}
+    {{- $store = "rakuten" -}}
+    {{- $program = "rakuten" -}}
+  {{- else -}}
+    {{- $store = "yahoo" -}}
+    {{- $program = "yahoo" -}}
+  {{- end -}}
+  {{- $slot = printf "inline-%s" $program -}}
+{{- end -}}
 <a href="{{ $href }}" {{ with .Title }}title="{{ . }}" {{ end }} {{ if $isExternal }}target="_blank" {{ end }} {{ if gt
-  (len $rel) 0 }}rel="{{ delimit $rel " " }}" {{ end }}>{{ .Text }}</a>
+  (len $rel) 0 }}rel="{{ delimit $rel " " }}" {{ end }}{{ if $isAff }}data-affiliate="{{ $store }}" data-affiliate-program="{{ $program }}" data-affiliate-slot="{{ $slot }}" {{ end }}>{{ .Text }}</a>

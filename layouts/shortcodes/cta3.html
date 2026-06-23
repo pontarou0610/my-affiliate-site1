@@ -24,17 +24,21 @@
   </div>
   <div class="cta3-row">
     {{ with .Get "amz" }}
-      <a class="btn brand-amazon" href="{{ . }}" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-slot="shortcode-cta3-amazon" aria-label="Amazonで購入">
+      {{- $amazonProgram := "amazon" -}}
+      {{- if or (in (lower .) "unlimited") (in (lower .) "4oyrbsx") -}}
+        {{- $amazonProgram = "kindle_unlimited" -}}
+      {{- end -}}
+      <a class="btn brand-amazon" href="{{ . }}" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="{{ $amazonProgram }}" data-affiliate-slot="shortcode-cta3-amazon" aria-label="Amazonで購入">
         <span class="brand-bullet">a</span> Amazon
       </a>
     {{ end }}
     {{ with .Get "rakuten" }}
-      <a class="btn brand-rakuten" href="{{ . }}" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-slot="shortcode-cta3-rakuten" aria-label="楽天市場で購入">
+      <a class="btn brand-rakuten" href="{{ . }}" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-program="rakuten" data-affiliate-slot="shortcode-cta3-rakuten" aria-label="楽天市場で購入">
         <span class="brand-bullet">R</span> 楽天市場
       </a>
     {{ end }}
     {{ with .Get "yahoo" }}
-      <a class="btn brand-yahoo" href="{{ . }}" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="yahoo" data-affiliate-slot="shortcode-cta3-yahoo" aria-label="Yahoo!ショッピングで購入">
+      <a class="btn brand-yahoo" href="{{ . }}" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="yahoo" data-affiliate-program="yahoo" data-affiliate-slot="shortcode-cta3-yahoo" aria-label="Yahoo!ショッピングで購入">
         <span class="brand-bullet">Y!</span> Yahoo!ショッピング
       </a>
     {{ end }}
