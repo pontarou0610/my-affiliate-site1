@@ -131,6 +131,19 @@ def commercial_program_clicks(ga4: dict) -> tuple[dict[str, int], str]:
     }, ""
 
 
+def inferred_commercial_program_clicks(ga4: dict) -> tuple[dict[str, int], int]:
+    payload = ga4.get("inferred_commercial_program_clicks_28d")
+    if not isinstance(payload, dict) or not payload.get("complete"):
+        return {}, 0
+    return (
+        {
+            normalize_program(program): int(count)
+            for program, count in payload.get("values", {}).items()
+        },
+        int(payload.get("unattributed_clicks") or 0),
+    )
+
+
 def format_yen(value: float) -> str:
     return f"{value:,.0f}"
 
@@ -261,6 +274,7 @@ def build_report(
 
     clicks, program_attribution_reason = commercial_program_clicks(ga4)
     program_attribution_available = not program_attribution_reason
+    inferred_program_clicks, inferred_unattributed = inferred_commercial_program_clicks(ga4)
     store_click_breakdown = store_clicks(ga4)
     all_programs = sorted(set(revenue_by_program) | set(clicks))
     total_revenue = sum(item["revenue"] for item in revenue_by_program.values())
@@ -429,6 +443,32 @@ def build_report(
         )
     if not program_attribution_available:
         lines.extend(["", f"Program attribution: {program_attribution_reason}"])
+        if inferred_program_clicks:
+            lines.extend(
+                [
+                    "",
+                    "## Inferred Program Clicks",
+                    "",
+                    "| Program | Inferred clicks (28d) |",
+                    "| --- | ---: |",
+                ]
+            )
+            for program, count in sorted(
+                inferred_program_clicks.items(),
+                key=lambda item: (-item[1], item[0]),
+            ):
+                lines.append(f"| {program} | {count:,} |")
+            lines.extend(
+                [
+                    "",
+                    "These values are inferred only when the registered store and CTA slot "
+                    "identify one program unambiguously. They are not used for EPC decisions.",
+                ]
+            )
+            if inferred_unattributed:
+                lines.append(
+                    f"Unattributed commercial clicks: {inferred_unattributed:,}."
+                )
         if store_click_breakdown:
             lines.extend(
                 [

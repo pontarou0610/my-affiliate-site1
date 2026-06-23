@@ -200,6 +200,11 @@ class BusinessKpiReportTests(unittest.TestCase):
                 "reason": "Register affiliate_program.",
                 "values": {},
             },
+            "inferred_commercial_program_clicks_28d": {
+                "complete": True,
+                "values": {"amazon": 1},
+                "unattributed_clicks": 0,
+            },
         }
 
         report = build_report(
@@ -211,6 +216,7 @@ class BusinessKpiReportTests(unittest.TestCase):
         )
 
         self.assertIn("## Store Click Fallback", report)
+        self.assertIn("## Inferred Program Clicks", report)
         self.assertIn("| amazon | 1 |", report)
         self.assertIn("Amazon clicks cannot be split", report)
         self.assertIn("Register `affiliate_program`", report)

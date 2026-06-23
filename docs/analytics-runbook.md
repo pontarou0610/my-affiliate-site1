@@ -124,5 +124,8 @@ Avoid reporting directly on `link_url` and `link_text` unless needed for debuggi
   shows a store-level fallback and withholds program-level EPC conclusions.
   The fallback cannot split Amazon clicks into standard products, Kindle
   Unlimited, and Audible.
+- When the store and CTA slot identify one program unambiguously, the report
+  also shows an explicitly labeled inferred-program table. Inferred values are
+  diagnostic only and are never used for EPC or winner decisions.
 
 The report's opportunity list is based on the selected `--top` page count, not every page on the site. Increase `--top` when doing a broader audit.

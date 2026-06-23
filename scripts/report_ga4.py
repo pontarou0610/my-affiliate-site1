@@ -286,6 +286,62 @@ def commercial_program_clicks(
     }
 
 
+def infer_affiliate_program(store: str, slot: str) -> str:
+    normalized_store = (store or "").strip().lower()
+    normalized_slot = (slot or "").strip().lower()
+    if "unlimited" in normalized_slot:
+        return "kindle_unlimited"
+    if "audible" in normalized_slot:
+        return "audible"
+    if normalized_slot.startswith("fiction-"):
+        return "kdp"
+    if normalized_store in {"rakuten", "yahoo"}:
+        return normalized_store
+    if normalized_store != "amazon":
+        return ""
+    standard_amazon_signals = (
+        "paperwhite",
+        "kindle-device",
+        "kindle-book",
+        "post-europe-kindle",
+        "redmi",
+        "tablet",
+        "mini-pc",
+        "storage",
+    )
+    if any(signal in normalized_slot for signal in standard_amazon_signals):
+        return "amazon"
+    return ""
+
+
+def inferred_commercial_program_clicks(
+    rows: list[dict],
+    rules: list[dict[str, str]],
+    *,
+    complete: bool,
+) -> dict:
+    values: dict[str, int] = {}
+    unattributed_clicks = 0
+    for row in rows:
+        if not is_commercial_page(row.get("path") or "", rules):
+            continue
+        clicks = int(row.get("clicks") or 0)
+        program = infer_affiliate_program(
+            row.get("store") or "",
+            row.get("slot") or "",
+        )
+        if not program:
+            unattributed_clicks += clicks
+            continue
+        values[program] = values.get(program, 0) + clicks
+    return {
+        "values": dict(sorted(values.items())),
+        "complete": complete,
+        "unattributed_clicks": unattributed_clicks,
+        "method": "inferred_from_affiliate_store_and_slot",
+    }
+
+
 def commercial_period_snapshot(
     service,
     property_id: str,
@@ -561,6 +617,7 @@ def daily_experiment_metrics(
                 "dimensions": [
                     {"name": "date"},
                     {"name": "pagePath"},
+                    {"name": "customEvent:affiliate_store"},
                     {"name": "customEvent:affiliate_slot"},
                 ],
                 "metrics": [{"name": "eventCount"}],
@@ -572,7 +629,8 @@ def daily_experiment_metrics(
             {
                 "date": row["dimensionValues"][0]["value"],
                 "path": normalize_page_path(row["dimensionValues"][1]["value"]),
-                "slot": row["dimensionValues"][2]["value"] or "(not set)",
+                "store": row["dimensionValues"][2]["value"] or "(not set)",
+                "slot": row["dimensionValues"][3]["value"] or "(not set)",
                 "clicks": int(float(row["metricValues"][0]["value"])),
             }
             for row in slot_response.get("rows", [])
@@ -709,6 +767,11 @@ def main() -> int:
         complete=program_rows_complete,
         reason=program_reason,
     )
+    inferred_commercial_programs = inferred_commercial_program_clicks(
+        daily_slots,
+        commercial_rules,
+        complete=experiment_data_status["page_slot_clicks"],
+    )
     previous_commercial = commercial_period_snapshot(
         service,
         property_id,
@@ -761,6 +824,7 @@ def main() -> int:
             "commercial_metrics_28d": commercial,
             "previous_commercial_metrics_28d": previous_commercial,
             "commercial_program_clicks_28d": commercial_programs,
+            "inferred_commercial_program_clicks_28d": inferred_commercial_programs,
         }
         if realtime_clicks is not None:
             payload["affiliate_clicks_realtime"] = realtime_clicks

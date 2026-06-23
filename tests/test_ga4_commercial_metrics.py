@@ -12,6 +12,8 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from report_ga4 import (
     commercial_program_clicks,
     commercial_metrics,
+    infer_affiliate_program,
+    inferred_commercial_program_clicks,
     is_commercial_page,
     load_commercial_page_rules,
     normalize_page_path,
@@ -98,6 +100,46 @@ class Ga4CommercialMetricsTests(unittest.TestCase):
         )
 
         self.assertEqual(result["values"], {"kindle_unlimited": 3})
+
+    def test_infers_only_unambiguous_program_slots(self) -> None:
+        self.assertEqual(
+            infer_affiliate_program("amazon", "tablet-early-paperwhite"),
+            "amazon",
+        )
+        self.assertEqual(
+            infer_affiliate_program("amazon", "lp-hero-unlimited"),
+            "kindle_unlimited",
+        )
+        self.assertEqual(infer_affiliate_program("amazon", "article-top-amazon-2"), "")
+        self.assertEqual(infer_affiliate_program("rakuten", "generic-slot"), "rakuten")
+
+        result = inferred_commercial_program_clicks(
+            [
+                {
+                    "path": "/lp/kindle/",
+                    "store": "amazon",
+                    "slot": "tablet-early-paperwhite",
+                    "clicks": 1,
+                },
+                {
+                    "path": "/lp/kindle/",
+                    "store": "amazon",
+                    "slot": "article-top-amazon-2",
+                    "clicks": 2,
+                },
+                {
+                    "path": "/posts/news/",
+                    "store": "rakuten",
+                    "slot": "generic-slot",
+                    "clicks": 7,
+                },
+            ],
+            [{"path": "/lp/", "match_type": "prefix", "reason": ""}],
+            complete=True,
+        )
+
+        self.assertEqual(result["values"], {"amazon": 1})
+        self.assertEqual(result["unattributed_clicks"], 2)
 
 
 if __name__ == "__main__":
