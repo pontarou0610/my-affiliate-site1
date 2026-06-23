@@ -13,8 +13,9 @@ slug: "tekunoroshi-toshi-cun-de-nixiang-kihe-utamenobi-du-shu-yuku"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-# “テクノロジー”と実存的に向き合うための必読書  
-ユク・ホイ最新刊『ポストヨーロッパ』徹底解題
+## 「テクノロジー」と実存的に向き合うための必読書
+
+ユク・ホイ『ポストヨーロッパ』を、初めて技術哲学に触れる人向けに読み解きます。
 
 ![“テクノロジー”と実存的に向き合うための必読書｜ユク・ホイ最新刊『ポストヨーロッパ』徹底解題のイメージ](https://images.pexels.com/photos/5745040/pexels-photo-5745040.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
 <small>Photo by [Ryutaro Tsukata](https://www.pexels.com/@ryutaro) on [Pexels](https://www.pexels.com/photo/signage-with-inscriptions-and-pictures-5745040/)</small>
@@ -283,7 +284,7 @@ DXや新規事業に関わる人にとって、『ポストヨーロッパ』は
 
 テクノロジーと実存の関係をさらに深めたい方は、下記の比較・端末ガイドも併せて活用してください。
 
-## 関連ガイド
+## 関連記事
 
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
