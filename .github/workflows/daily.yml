@@ -163,6 +163,9 @@ jobs:
       - name: Check generated JSON-LD
         run: python scripts/check_jsonld.py public
 
+      - name: Check search indexing signals
+        run: python scripts/check_search_indexing.py public
+
       - name: Prepare review bundle
         run: |
           python scripts/prepare_review_bundle.py --output-dir .review-output

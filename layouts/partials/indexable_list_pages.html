@@ -1,0 +1,8 @@
+{{- $page := . -}}
+{{- $pages := union $page.RegularPages $page.Sections -}}
+{{- if $page.IsHome -}}
+  {{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections -}}
+  {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" -}}
+{{- end -}}
+{{- $pages = where $pages "Params.robotsNoIndex" "ne" true -}}
+{{- return $pages -}}

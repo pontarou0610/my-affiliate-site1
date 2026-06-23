@@ -71,6 +71,9 @@ jobs:
       - name: Check generated JSON-LD
         run: python scripts/check_jsonld.py public
 
+      - name: Check search indexing signals
+        run: python scripts/check_search_indexing.py public
+
       - name: Upload built site
         uses: actions/upload-artifact@v4
         with:

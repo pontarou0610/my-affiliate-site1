@@ -38,17 +38,11 @@
 </div>
 {{- end }}
 
-{{- $pages := union .RegularPages .Sections }}
-
-{{- if .IsHome }}
-{{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
-{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
-{{- end }}
-
-{{- /* Keep navigation lists focused on indexable content */ -}}
-{{- $pages = where $pages "Params.robotsNoIndex" "ne" true -}}
-
-{{- $paginator := .Paginate $pages }}
+{{- $paginator := .Scratch.Get "indexablePaginator" -}}
+{{- if not $paginator -}}
+  {{- $pages := partial "indexable_list_pages.html" . -}}
+  {{- $paginator = .Paginate $pages -}}
+{{- end -}}
 
 {{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
 {{- partial "home_info.html" . }}

@@ -11,6 +11,11 @@
     <meta name="keywords" content="{{ delimit .Params.keywords " , " }}">
     {{ with .Params.author }}
     <meta name="author" content="{{ . }}">{{ end }}
+    {{- if or hugo.IsProduction (eq site.Params.env "production") }}
+    <meta name="robots" content="{{ if eq .Params.robotsNoIndex true }}noindex, follow{{ else }}index, follow{{ end }}">
+    {{- else }}
+    <meta name="robots" content="noindex, nofollow">
+    {{- end }}
     <link rel="canonical" href="{{ .Permalink }}">
 
     <!-- Open Graph / Facebook -->

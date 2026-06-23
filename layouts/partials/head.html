@@ -48,7 +48,17 @@
 {{- end -}}
 <meta name="description" content="{{ $metaDescription | plainify | htmlUnescape | truncate 180 }}">
 <meta name="author" content="{{ (partial "author.html" . ) }}">
-<link rel="canonical" href="{{ if .Params.canonicalURL -}} {{ trim .Params.canonicalURL " " }} {{- else -}} {{ .Permalink }} {{- end }}">
+{{- $canonical := .Permalink -}}
+{{- with .Params.canonicalURL -}}
+  {{- $canonical = trim . " " -}}
+{{- else -}}
+  {{- with (.Scratch.Get "indexablePaginator") -}}
+    {{- if gt .PageNumber 1 -}}
+      {{- $canonical = .URL | strings.TrimPrefix "/" | absURL -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+<link rel="canonical" href="{{ $canonical }}">
 {{- if site.Params.analytics.google.SiteVerificationTag }}
 <meta name="google-site-verification" content="{{ site.Params.analytics.google.SiteVerificationTag }}">
 {{- end }}

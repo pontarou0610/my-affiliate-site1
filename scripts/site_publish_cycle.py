@@ -271,6 +271,7 @@ def run_quality_gates(args: argparse.Namespace) -> None:
     run(["git", "diff", "--check"])
     if not args.skip_hugo:
         run(["hugo", "--minify", "--destination", TMP_BUILD_DIR, "--cleanDestinationDir"])
+        run([sys.executable, "scripts/check_search_indexing.py", TMP_BUILD_DIR])
 
 
 def run_repair_and_checks(args: argparse.Namespace) -> None:

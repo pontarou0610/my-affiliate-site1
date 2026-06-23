@@ -11,6 +11,7 @@
 - OAuth refresh when the token is missing or revoked: `python scripts/report_ga4.py --force-auth`
 - Monthly revenue target model: `python scripts/report_revenue_target.py --commercial-pageviews 173`
 - Expired campaign audit: `python scripts/check_expired_campaigns.py --report-only`
+- Search indexing consistency: `python scripts/check_search_indexing.py public`
 - Combined traffic, click, conversion, and revenue report:
   `python scripts/report_business_kpis.py --month 2026-06`
 
