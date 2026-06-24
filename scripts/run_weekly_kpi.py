@@ -30,6 +30,17 @@ def existing_required_report(path: Path, label: str) -> None:
 def build_commands(args: argparse.Namespace) -> list[list[str]]:
     py = sys.executable
     commands: list[list[str]] = []
+    if not args.skip_freshness:
+        commands.append(
+            [
+                py,
+                "scripts/check_analytics_freshness.py",
+                "--ga4-json",
+                args.ga4_json.as_posix(),
+                "--gsc-json",
+                args.gsc_json.as_posix(),
+            ]
+        )
     if not args.skip_experiments:
         commands.append(
             [
@@ -73,6 +84,11 @@ def parse_args() -> argparse.Namespace:
         "--skip-experiments",
         action="store_true",
         help="Skip report_experiments.py when experiment-status.json is already fresh.",
+    )
+    parser.add_argument(
+        "--skip-freshness",
+        action="store_true",
+        help="Skip analytics freshness checks.",
     )
     return parser.parse_args()
 

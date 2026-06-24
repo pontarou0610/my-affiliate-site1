@@ -14,6 +14,8 @@
 - Monthly revenue target model: `python scripts/report_revenue_target.py --commercial-pageviews 173`
 - Expired campaign audit: `python scripts/check_expired_campaigns.py --report-only`
 - Search indexing consistency: `python scripts/check_search_indexing.py public`
+- Analytics freshness gate:
+  `python scripts/check_analytics_freshness.py`
 - Combined traffic, click, conversion, and revenue report:
   `python scripts/report_business_kpis.py --month 2026-06`
 - Weekly KPI sequence:
@@ -55,7 +57,8 @@ If `--auth-status` reports `oauth_token_file: missing`, run `--force-auth` and a
    and is committed so weekly decisions remain auditable.
 
 4. Build the experiment status, business KPI report, JSON summary, and concise
-   weekly decision in the required order:
+   weekly decision in the required order. This starts by checking that the
+   saved GA4 and GSC JSON files are fresh enough for a weekly decision:
 
    ```powershell
    python scripts/run_weekly_kpi.py --month 2026-06
