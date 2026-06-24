@@ -21,6 +21,7 @@ from revenue_status import (
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 STORE_DIMENSION = "customEvent:affiliate_store"
+MIN_ZERO_CLICK_ACTION_VIEWS = 10
 
 
 def resolve_path(raw: Path) -> Path:
@@ -563,27 +564,6 @@ def build_report(
             f"{len(actions) + 1}. Register `affiliate_program` as an event-scoped GA4 custom "
             "dimension so the observed clicks can be separated by revenue program."
         )
-
-    active_experiment_paths = {
-        row["path"] for row in page_funnel if row.get("active_experiment")
-    }
-    commercial_pages = commercial["pages"]
-    zero_click_pages = [
-        page
-        for page in commercial_pages
-        if int(page.get("affiliate_clicks", 0)) == 0
-        and (page.get("path") or "/") not in active_experiment_paths
-    ]
-    if zero_click_pages:
-        page = max(zero_click_pages, key=lambda item: int(item.get("views", 0)))
-        actions.append(
-            f"{len(actions) + 1}. Improve the CTA and search-intent match on "
-            f"`{page.get('path', '/')}` ({int(page.get('views', 0))} views, zero clicks)."
-        )
-    elif active_experiment_paths:
-        actions.append(
-            f"{len(actions) + 1}. Keep zero-click active experiment pages unchanged until their review date; use `report_experiments.py` before selecting another page."
-        )
     if revenue_status and revenue_status.status == "placeholder_zero":
         actions.append(
             f"{len(actions) + 1}. Replace the all-zero {month} revenue placeholder with confirmed partner/KDP results, or add a note that the dashboards were checked and revenue was truly zero."
@@ -596,6 +576,32 @@ def build_report(
     elif not revenue_available or not selected:
         actions.append(
             f"{len(actions) + 1}. Enter confirmed {month} partner/KDP results in the revenue CSV."
+        )
+
+    active_experiment_paths = {
+        row["path"] for row in page_funnel if row.get("active_experiment")
+    }
+    commercial_pages = commercial["pages"]
+    zero_click_pages = [
+        page
+        for page in commercial_pages
+        if int(page.get("affiliate_clicks", 0)) == 0
+        and (page.get("path") or "/") not in active_experiment_paths
+        and int(page.get("views", 0)) >= MIN_ZERO_CLICK_ACTION_VIEWS
+    ]
+    if zero_click_pages:
+        page = max(zero_click_pages, key=lambda item: int(item.get("views", 0)))
+        actions.append(
+            f"{len(actions) + 1}. Improve the CTA and search-intent match on "
+            f"`{page.get('path', '/')}` ({int(page.get('views', 0))} views, zero clicks)."
+        )
+    elif active_experiment_paths:
+        actions.append(
+            f"{len(actions) + 1}. Keep zero-click active experiment pages unchanged until their review date; use `report_experiments.py` before selecting another page."
+        )
+    elif commercial_pages:
+        actions.append(
+            f"{len(actions) + 1}. Do not spend this cycle on low-volume zero-click pages; wait for at least {MIN_ZERO_CLICK_ACTION_VIEWS} views or improve search/internal links first."
         )
     if not actions:
         actions.append("1. Preserve the current winners and test one CTA or internal-link change this week.")

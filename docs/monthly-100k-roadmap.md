@@ -109,3 +109,4 @@ Guardrails:
 5. Audit expired campaigns with `python scripts/check_expired_campaigns.py --report-only`.
 6. Approve a new article only when it fills a measured search gap or supports a proven revenue page.
 7. Keep active CTA experiments unchanged for 28 days or 100 pageviews unless a link is broken.
+8. Do not spend the weekly edit on zero-click pages below 10 commercial-intent pageviews; improve search/internal links first or wait for enough observations.

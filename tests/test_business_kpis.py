@@ -173,6 +173,33 @@ class BusinessKpiReportTests(unittest.TestCase):
         self.assertNotIn("has 2 clicks but no confirmed revenue", report)
         self.assertIn("conclusions are intentionally withheld", report)
 
+    def test_skips_low_volume_zero_click_pages_as_cta_actions(self) -> None:
+        ga4 = {
+            "range_28d": {"start": "2026-05-25", "end": "2026-06-21"},
+            "totals_28d": {"pageviews": 10},
+            "affiliate_clicks_28d": 0,
+            "commercial_metrics_28d": {
+                "pageviews": 5,
+                "affiliate_clicks": 0,
+                "affiliate_ctr": 0,
+                "complete": True,
+                "pages": [
+                    {"path": "/fiction/", "views": 5, "affiliate_clicks": 0},
+                ],
+            },
+            "commercial_program_clicks_28d": {
+                "complete": True,
+                "reason": "",
+                "values": {},
+            },
+        }
+
+        report = build_report(ga4, [], "2026-06", 100_000, revenue_available=False)
+
+        self.assertNotIn("Improve the CTA and search-intent match on `/fiction/`", report)
+        self.assertIn("low-volume zero-click pages", report)
+        self.assertIn("at least 10 views", report)
+
     def test_allows_missing_revenue_file(self) -> None:
         rows = read_revenue(REPO_ROOT / "data" / "revenue" / "missing.csv", allow_missing=True)
         self.assertEqual(rows, [])
