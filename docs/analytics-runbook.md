@@ -95,6 +95,9 @@ then confirmed orders and revenue when supplied.
 It also compares the latest 28 days with the immediately preceding 28 days for
 commercial search impressions, search clicks, pageviews, affiliate clicks, and
 both CTR stages.
+Use the `Next Milestone` section as the weekly operating target. It identifies
+the first unreached Stage 2/3/4 threshold and shows the remaining commercial PV,
+affiliate clicks, and CTR-point gap before broad content production is justified.
 
 Commercial-intent traffic is defined by `data/commercial-pages.csv` plus active
 experiment rows whose `commercial_intent` value is `true`. Add an `exact`

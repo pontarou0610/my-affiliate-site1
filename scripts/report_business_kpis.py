@@ -198,6 +198,13 @@ def planning_milestones(
     return rows
 
 
+def next_unmet_milestone(rows: list[dict]) -> dict | None:
+    for row in rows:
+        if not row.get("reached"):
+            return row
+    return None
+
+
 def commercial_page_funnel(search: dict | None, commercial: dict) -> list[dict]:
     search_pages = {
         row.get("page") or "/": row
@@ -322,6 +329,7 @@ def build_report(
         commercial_clicks,
         target_yen=target_yen,
     )
+    next_milestone = next_unmet_milestone(milestones)
     experiments = experiment_gate(experiment_status)
 
     lines = [
@@ -467,6 +475,24 @@ def build_report(
             "40 yen EPC assumption with partner-report results before using it for forecasts.",
         ]
     )
+    lines.extend(["", "## Next Milestone", ""])
+    if next_milestone:
+        lines.extend(
+            [
+                f"Next target: {next_milestone['stage']} "
+                f"({next_milestone['target_pageviews']:,} commercial PV, "
+                f"{next_milestone['target_ctr']:.2%} CTR, "
+                f"{next_milestone['target_clicks']:,} clicks).",
+                "",
+                "| Gap | Remaining |",
+                "| --- | ---: |",
+                f"| Commercial PV | {next_milestone['pageview_gap']:,} |",
+                f"| Affiliate clicks | {next_milestone['click_gap']:,} |",
+                f"| CTR points | {next_milestone['ctr_gap']:.2%} pt |",
+            ]
+        )
+    else:
+        lines.append("All configured planning milestones are currently reached.")
     lines.extend(
         [
             "",
@@ -620,6 +646,13 @@ def build_report(
         actions.append(
             f"{len(actions) + 1}. Register `affiliate_program` as an event-scoped GA4 custom "
             "dimension so the observed clicks can be separated by revenue program."
+        )
+    if next_milestone and not (
+        revenue_status and revenue_status.blocks_epc_decisions
+    ):
+        actions.append(
+            f"{len(actions) + 1}. Push toward {next_milestone['stage']}: add search/internal-link lift before broad content production "
+            f"({next_milestone['pageview_gap']:,} PV and {next_milestone['click_gap']:,} clicks still needed)."
         )
     if revenue_status and revenue_status.status == "placeholder_zero":
         actions.append(

@@ -16,6 +16,7 @@ from report_business_kpis import (
     commercial_search_metrics,
     delta_rate,
     experiment_gate,
+    next_unmet_milestone,
     normalize_program,
     planning_milestones,
     read_revenue,
@@ -111,6 +112,9 @@ class BusinessKpiReportTests(unittest.TestCase):
         self.assertIn("| Commercial pageviews | 200 | 100 | +100.0% |", report)
         self.assertIn("## Growth Milestones", report)
         self.assertIn("| Stage 2 | 1,000 | 3.00% | 30 |", report)
+        self.assertIn("## Next Milestone", report)
+        self.assertIn("Next target: Stage 2", report)
+        self.assertIn("| Commercial PV | 800 |", report)
         self.assertIn("| 200 | 10 | 200 | 0 | active | `/recommend/` |", report)
 
     def test_reports_experiment_gate_and_next_review_date(self) -> None:
@@ -390,6 +394,12 @@ class BusinessKpiReportTests(unittest.TestCase):
         self.assertAlmostEqual(rows[0]["ctr_gap"], 0.03 - (1 / 61))
         self.assertEqual(rows[-1]["target_pageviews"], 31_250)
         self.assertEqual(rows[-1]["modeled_revenue"], 100_000)
+        self.assertEqual(next_unmet_milestone(rows)["stage"], "Stage 2")
+
+    def test_next_unmet_milestone_returns_none_when_all_reached(self) -> None:
+        rows = planning_milestones(40_000, 4_000, target_yen=100_000)
+
+        self.assertIsNone(next_unmet_milestone(rows))
 
     def test_realtime_click_count(self) -> None:
         class Request:
