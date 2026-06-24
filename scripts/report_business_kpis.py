@@ -273,6 +273,105 @@ def experiment_gate(experiment_status: dict | None) -> dict:
     }
 
 
+def priority_actions(
+    *,
+    total_clicks: int,
+    revenue_available: bool,
+    program_attribution_available: bool,
+    all_programs: list[str],
+    clicks: dict[str, int],
+    revenue_by_program: dict[str, dict[str, float]],
+    next_milestone: dict | None,
+    revenue_status: RevenueStatus | None,
+    selected_revenue_rows: list[RevenueRow],
+    page_funnel: list[dict],
+    commercial_pages: list[dict],
+    experiment_next_review_date: str = "",
+) -> list[str]:
+    actions: list[str] = []
+    if total_clicks == 0:
+        actions.append(
+            "Verify a real production affiliate click in GA4 DebugView and inspect the highest-view CTA page."
+        )
+    if revenue_available and program_attribution_available:
+        for program in all_programs:
+            program_clicks = clicks.get(program, 0)
+            program_revenue = revenue_by_program[program]["revenue"]
+            if program_clicks > 0 and program_revenue == 0:
+                actions.append(
+                    f"`{program}` has {program_clicks} clicks but no confirmed revenue; "
+                    "verify partner-report attribution and landing-page offer fit."
+                )
+        profitable = [
+            (revenue_by_program[program]["revenue"] / clicks[program], program)
+            for program in all_programs
+            if clicks.get(program, 0) > 0 and revenue_by_program[program]["revenue"] > 0
+        ]
+        if profitable:
+            best_epc, best_program = max(profitable)
+            actions.append(
+                f"Scale pages and CTA slots for `{best_program}`, "
+                f"the current highest-EPC program ({format_yen(best_epc)} yen/click)."
+            )
+    if total_clicks > 0 and not program_attribution_available:
+        actions.append(
+            "Register `affiliate_program` as an event-scoped GA4 custom "
+            "dimension so the observed clicks can be separated by revenue program."
+        )
+    if next_milestone and not (
+        revenue_status and revenue_status.blocks_epc_decisions
+    ):
+        actions.append(
+            f"Push toward {next_milestone['stage']}: add search/internal-link lift before broad content production "
+            f"({next_milestone['pageview_gap']:,} PV and {next_milestone['click_gap']:,} clicks still needed)."
+        )
+    if revenue_status and revenue_status.status == "placeholder_zero":
+        actions.append(
+            f"Replace the all-zero {revenue_status.month} revenue placeholder with confirmed partner/KDP results, or add a note that the dashboards were checked and revenue was truly zero."
+        )
+    elif revenue_status and revenue_status.status == "partial":
+        actions.append(
+            f"Complete missing {revenue_status.month} partner rows before treating EPC as final: "
+            f"{', '.join(revenue_status.missing_programs)}."
+        )
+    elif not revenue_available or not selected_revenue_rows:
+        month = revenue_status.month if revenue_status else "the selected month"
+        actions.append(f"Enter confirmed {month} partner/KDP results in the revenue CSV.")
+
+    active_experiment_paths = {
+        row["path"] for row in page_funnel if row.get("active_experiment")
+    }
+    zero_click_pages = [
+        page
+        for page in commercial_pages
+        if int(page.get("affiliate_clicks", 0)) == 0
+        and (page.get("path") or "/") not in active_experiment_paths
+        and int(page.get("views", 0)) >= MIN_ZERO_CLICK_ACTION_VIEWS
+    ]
+    if zero_click_pages:
+        page = max(zero_click_pages, key=lambda item: int(item.get("views", 0)))
+        actions.append(
+            f"Improve the CTA and search-intent match on "
+            f"`{page.get('path', '/')}` ({int(page.get('views', 0))} views, zero clicks)."
+        )
+    elif active_experiment_paths:
+        review_hint = f" until {experiment_next_review_date}" if experiment_next_review_date else ""
+        actions.append(
+            f"Keep zero-click active experiment pages unchanged{review_hint}; use `report_experiments.py` before selecting another page."
+        )
+    elif commercial_pages:
+        actions.append(
+            f"Do not spend this cycle on low-volume zero-click pages; wait for at least {MIN_ZERO_CLICK_ACTION_VIEWS} views or improve search/internal links first."
+        )
+    if not actions:
+        actions.append("Preserve the current winners and test one CTA or internal-link change this week.")
+    return actions
+
+
+def numbered_actions(actions: list[str]) -> list[str]:
+    return [f"{index + 1}. {action}" for index, action in enumerate(actions)]
+
+
 def build_report(
     ga4: dict,
     rows: list[RevenueRow],
@@ -617,90 +716,21 @@ def build_report(
             )
 
     lines.extend(["", "## Priority Actions", ""])
-    actions: list[str] = []
-    if total_clicks == 0:
-        actions.append(
-            "1. Verify a real production affiliate click in GA4 DebugView and inspect the highest-view CTA page."
-        )
-    if revenue_available and program_attribution_available:
-        for program in all_programs:
-            program_clicks = clicks.get(program, 0)
-            program_revenue = revenue_by_program[program]["revenue"]
-            if program_clicks > 0 and program_revenue == 0:
-                actions.append(
-                    f"{len(actions) + 1}. `{program}` has {program_clicks} clicks but no confirmed revenue; "
-                    "verify partner-report attribution and landing-page offer fit."
-                )
-        profitable = [
-            (revenue_by_program[program]["revenue"] / clicks[program], program)
-            for program in all_programs
-            if clicks.get(program, 0) > 0 and revenue_by_program[program]["revenue"] > 0
-        ]
-        if profitable:
-            best_epc, best_program = max(profitable)
-            actions.append(
-                f"{len(actions) + 1}. Scale pages and CTA slots for `{best_program}`, "
-                f"the current highest-EPC program ({format_yen(best_epc)} yen/click)."
-            )
-    if total_clicks > 0 and not program_attribution_available:
-        actions.append(
-            f"{len(actions) + 1}. Register `affiliate_program` as an event-scoped GA4 custom "
-            "dimension so the observed clicks can be separated by revenue program."
-        )
-    if next_milestone and not (
-        revenue_status and revenue_status.blocks_epc_decisions
-    ):
-        actions.append(
-            f"{len(actions) + 1}. Push toward {next_milestone['stage']}: add search/internal-link lift before broad content production "
-            f"({next_milestone['pageview_gap']:,} PV and {next_milestone['click_gap']:,} clicks still needed)."
-        )
-    if revenue_status and revenue_status.status == "placeholder_zero":
-        actions.append(
-            f"{len(actions) + 1}. Replace the all-zero {month} revenue placeholder with confirmed partner/KDP results, or add a note that the dashboards were checked and revenue was truly zero."
-        )
-    elif revenue_status and revenue_status.status == "partial":
-        actions.append(
-            f"{len(actions) + 1}. Complete missing {month} partner rows before treating EPC as final: "
-            f"{', '.join(revenue_status.missing_programs)}."
-        )
-    elif not revenue_available or not selected:
-        actions.append(
-            f"{len(actions) + 1}. Enter confirmed {month} partner/KDP results in the revenue CSV."
-        )
-
-    active_experiment_paths = {
-        row["path"] for row in page_funnel if row.get("active_experiment")
-    }
-    commercial_pages = commercial["pages"]
-    zero_click_pages = [
-        page
-        for page in commercial_pages
-        if int(page.get("affiliate_clicks", 0)) == 0
-        and (page.get("path") or "/") not in active_experiment_paths
-        and int(page.get("views", 0)) >= MIN_ZERO_CLICK_ACTION_VIEWS
-    ]
-    if zero_click_pages:
-        page = max(zero_click_pages, key=lambda item: int(item.get("views", 0)))
-        actions.append(
-            f"{len(actions) + 1}. Improve the CTA and search-intent match on "
-            f"`{page.get('path', '/')}` ({int(page.get('views', 0))} views, zero clicks)."
-        )
-    elif active_experiment_paths:
-        review_hint = (
-            f" until {experiments['next_review_date']}"
-            if experiments.get("next_review_date")
-            else ""
-        )
-        actions.append(
-            f"{len(actions) + 1}. Keep zero-click active experiment pages unchanged{review_hint}; use `report_experiments.py` before selecting another page."
-        )
-    elif commercial_pages:
-        actions.append(
-            f"{len(actions) + 1}. Do not spend this cycle on low-volume zero-click pages; wait for at least {MIN_ZERO_CLICK_ACTION_VIEWS} views or improve search/internal links first."
-        )
-    if not actions:
-        actions.append("1. Preserve the current winners and test one CTA or internal-link change this week.")
-    lines.extend(actions)
+    actions = priority_actions(
+        total_clicks=total_clicks,
+        revenue_available=revenue_available,
+        program_attribution_available=program_attribution_available,
+        all_programs=all_programs,
+        clicks=clicks,
+        revenue_by_program=revenue_by_program,
+        next_milestone=next_milestone,
+        revenue_status=revenue_status,
+        selected_revenue_rows=selected,
+        page_funnel=page_funnel,
+        commercial_pages=commercial["pages"],
+        experiment_next_review_date=str(experiments.get("next_review_date") or ""),
+    )
+    lines.extend(numbered_actions(actions))
     lines.extend(
         [
             "",
@@ -720,6 +750,111 @@ def build_report(
         ]
     )
     return "\n".join(lines) + "\n"
+
+
+def build_summary(
+    ga4: dict,
+    rows: list[RevenueRow],
+    month: str,
+    target_yen: int,
+    *,
+    revenue_available: bool = True,
+    revenue_status: RevenueStatus | None = None,
+    gsc: dict | None = None,
+    experiment_status: dict | None = None,
+) -> dict:
+    selected = [row for row in rows if row.month == month]
+    revenue_by_program: dict[str, dict[str, float]] = defaultdict(
+        lambda: {"orders": 0, "revenue": 0.0}
+    )
+    for row in selected:
+        revenue_by_program[row.program]["orders"] += row.orders
+        revenue_by_program[row.program]["revenue"] += row.revenue_yen
+
+    clicks, program_attribution_reason = commercial_program_clicks(ga4)
+    program_attribution_available = not program_attribution_reason
+    all_programs = sorted(set(revenue_by_program) | set(clicks))
+    total_revenue = sum(item["revenue"] for item in revenue_by_program.values())
+    total_orders = int(sum(item["orders"] for item in revenue_by_program.values()))
+    total_clicks = int(ga4.get("affiliate_clicks_28d", 0))
+    total_pageviews = int(ga4.get("totals_28d", {}).get("pageviews", 0))
+    commercial = validated_commercial_metrics(ga4)
+    pageviews = int(commercial["pageviews"])
+    commercial_clicks = int(commercial["affiliate_clicks"])
+    ctr = float(commercial["affiliate_ctr"])
+    click_attributable_revenue = sum(
+        item["revenue"]
+        for program, item in revenue_by_program.items()
+        if program != "kdp"
+    )
+    epc = click_attributable_revenue / commercial_clicks if commercial_clicks else 0
+    progress = total_revenue / target_yen if target_yen else 0
+    search, search_reason = commercial_search_metrics(gsc)
+    page_funnel = commercial_page_funnel(search, commercial)
+    milestones = planning_milestones(
+        pageviews,
+        commercial_clicks,
+        target_yen=target_yen,
+    )
+    next_milestone = next_unmet_milestone(milestones)
+    experiments = experiment_gate(experiment_status)
+    actions = priority_actions(
+        total_clicks=total_clicks,
+        revenue_available=revenue_available,
+        program_attribution_available=program_attribution_available,
+        all_programs=all_programs,
+        clicks=clicks,
+        revenue_by_program=revenue_by_program,
+        next_milestone=next_milestone,
+        revenue_status=revenue_status,
+        selected_revenue_rows=selected,
+        page_funnel=page_funnel,
+        commercial_pages=commercial["pages"],
+        experiment_next_review_date=str(experiments.get("next_review_date") or ""),
+    )
+    return {
+        "month": month,
+        "ga4_period": ga4.get("range_28d", {}),
+        "scorecard": {
+            "target_yen": target_yen,
+            "confirmed_revenue_yen": total_revenue if revenue_available else None,
+            "revenue_progress": progress if revenue_available else None,
+            "orders": total_orders if revenue_available else None,
+            "all_pageviews_28d": total_pageviews,
+            "commercial_pageviews_28d": pageviews,
+            "affiliate_clicks_28d": total_clicks,
+            "commercial_affiliate_clicks_28d": commercial_clicks,
+            "commercial_affiliate_ctr_28d": ctr,
+            "confirmed_commercial_epc_yen": epc if revenue_available else None,
+        },
+        "revenue_gate": {
+            "status": revenue_status.status if revenue_status else "not_checked",
+            "blocks_epc_decisions": (
+                revenue_status.blocks_epc_decisions if revenue_status else None
+            ),
+            "rows": revenue_status.rows if revenue_status else None,
+            "orders": revenue_status.orders if revenue_status else None,
+            "revenue_yen": revenue_status.revenue_yen if revenue_status else None,
+            "missing_programs": list(revenue_status.missing_programs)
+            if revenue_status
+            else [],
+            "message": revenue_status.message if revenue_status else "",
+        },
+        "program_attribution": {
+            "available": program_attribution_available,
+            "reason": program_attribution_reason,
+        },
+        "search_funnel": {
+            "available": bool(search),
+            "reason": "" if search else search_reason,
+            "impressions": search["impressions"] if search else None,
+            "clicks": search["clicks"] if search else None,
+            "ctr": search["ctr"] if search else None,
+        },
+        "next_milestone": next_milestone,
+        "experiment_gate": experiments,
+        "priority_actions": actions,
+    }
 
 
 def main() -> int:
@@ -751,6 +886,11 @@ def main() -> int:
         type=Path,
         default=Path("reports/analytics/business-kpi.md"),
     )
+    parser.add_argument(
+        "--json-output",
+        type=Path,
+        default=Path("reports/analytics/business-kpi-summary.json"),
+    )
     args = parser.parse_args()
 
     ga4 = read_ga4(resolve_path(args.ga4_json))
@@ -777,11 +917,28 @@ def main() -> int:
         gsc=gsc,
         experiment_status=experiment_status,
     )
+    summary = build_summary(
+        ga4,
+        rows,
+        month,
+        args.target_yen,
+        revenue_available=revenue_available,
+        revenue_status=revenue_status,
+        gsc=gsc,
+        experiment_status=experiment_status,
+    )
     output = resolve_path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(report, encoding="utf-8")
+    json_output = resolve_path(args.json_output)
+    json_output.parent.mkdir(parents=True, exist_ok=True)
+    json_output.write_text(
+        json.dumps(summary, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
     print(report, end="")
     print(f"\nReport written to: {output}")
+    print(f"JSON summary written to: {json_output}")
     return 0
 
 

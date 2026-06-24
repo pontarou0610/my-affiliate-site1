@@ -60,7 +60,8 @@ If `--auth-status` reports `oauth_token_file: missing`, run `--force-auth` and a
    ```
 
 5. Build the action report. This works even before revenue has been entered
-   and combines commercial Search Console stages with GA4:
+   and combines commercial Search Console stages with GA4. It writes both the
+   human-readable Markdown report and a machine-readable JSON summary:
 
    ```powershell
    python scripts/report_business_kpis.py --month 2026-06
@@ -98,6 +99,10 @@ both CTR stages.
 Use the `Next Milestone` section as the weekly operating target. It identifies
 the first unreached Stage 2/3/4 threshold and shows the remaining commercial PV,
 affiliate clicks, and CTR-point gap before broad content production is justified.
+Use `reports/analytics/business-kpi-summary.json` for automations, reminders,
+or dashboards. It contains the same revenue gate, program-attribution gate,
+experiment gate, next milestone, scorecard, and priority actions without
+requiring Markdown parsing.
 
 Commercial-intent traffic is defined by `data/commercial-pages.csv` plus active
 experiment rows whose `commercial_intent` value is `true`. Add an `exact`

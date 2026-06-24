@@ -11,6 +11,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from report_business_kpis import (
     RevenueRow,
     build_report,
+    build_summary,
     commercial_program_clicks,
     commercial_page_funnel,
     commercial_search_metrics,
@@ -179,6 +180,42 @@ class BusinessKpiReportTests(unittest.TestCase):
         self.assertIn("| Active experiments | 1 |", report)
         self.assertIn("| Next review date | 2026-07-20 |", report)
         self.assertIn("unchanged until 2026-07-20", report)
+
+    def test_builds_machine_readable_summary(self) -> None:
+        ga4 = {
+            "range_28d": {"start": "2026-05-25", "end": "2026-06-21"},
+            "totals_28d": {"pageviews": 180},
+            "affiliate_clicks_28d": 1,
+            "commercial_metrics_28d": {
+                "pageviews": 61,
+                "affiliate_clicks": 1,
+                "affiliate_ctr": 1 / 61,
+                "complete": True,
+                "pages": [
+                    {"path": "/recommend/", "views": 2, "affiliate_clicks": 0},
+                ],
+            },
+            "commercial_program_clicks_28d": {
+                "complete": False,
+                "reason": "Register affiliate_program.",
+                "values": {},
+            },
+        }
+
+        summary = build_summary(
+            ga4,
+            [],
+            "2026-06",
+            100_000,
+            revenue_available=False,
+            revenue_status=None,
+        )
+
+        self.assertEqual(summary["scorecard"]["commercial_pageviews_28d"], 61)
+        self.assertEqual(summary["next_milestone"]["stage"], "Stage 2")
+        self.assertFalse(summary["program_attribution"]["available"])
+        self.assertIn("priority_actions", summary)
+        self.assertTrue(any("affiliate_program" in action for action in summary["priority_actions"]))
 
     def test_requires_complete_commercial_metrics(self) -> None:
         ga4 = {
