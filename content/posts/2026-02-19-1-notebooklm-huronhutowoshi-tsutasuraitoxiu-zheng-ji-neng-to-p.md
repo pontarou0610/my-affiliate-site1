@@ -1,39 +1,52 @@
 ---
-title: "NotebookLM新機能でスライド差し戻し激減：プロンプト修正＋PowerPoint出力をKindleで最速理解"
+title: "NotebookLMでPowerPoint資料を作る方法｜スライド修正とPPTX出力の使い方"
 date: 2026-02-19
-lastmod: 2026-02-19
+lastmod: 2026-06-24
 draft: false
+tags: ["NotebookLM", "PowerPoint", "AI資料作成", "Kindle", "電子書籍"]
 
 
 
 images: ["https://images.pexels.com/photos/31987446/pexels-photo-31987446.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
-tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "NotebookLMのスライド修正やPowerPoint出力の可能性を、資料作成フロー、Kindleでの学習導線、注意点から整理します。"
+description: "NotebookLMのSlide Deckで資料を作り、PPTX出力後にPowerPointで仕上げる手順。修正プロンプト例と注意点を整理します。"
 slug: "notebooklm-huronhutowoshi-tsutasuraitoxiu-zheng-ji-neng-to-p"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
-## NotebookLMに「プロンプトでスライド修正」「PowerPoint出力」が加わると何が変わる？
+## NotebookLMで「スライド作成→PowerPoint仕上げ」ができると何が変わる？
 
 ![NotebookLM、プロンプトを使ったスライド修正機能と、PowerPoint形式の出力機能を提供へ | gihyo.jpのイメージ](https://images.pexels.com/photos/31987446/pexels-photo-31987446.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
 <small>Photo by [Gu Ko](https://www.pexels.com/@gu-ko-2150570603) on [Pexels](https://www.pexels.com/photo/delicious-matcha-and-red-bean-dorayaki-treat-31987446/)</small>
 
-gihyo.jpの報道のとおり、NotebookLMに**プロンプト（指示文）でスライドを修正する機能**と、**PowerPoint（.pptx）形式での出力機能**が加わる可能性が示されています。これまでのNotebookLMは「資料を読ませて要約・整理する」用途が中心でしたが、ここに**“提出できるスライド”まで一気通貫で作る導線**ができるのが大きな変化です。
+Googleの公式ヘルプでは、NotebookLMのSlide DeckをPDFまたはPowerPoint（.pptx）形式でダウンロードできる手順が案内されています。これまでのNotebookLMは「資料を読ませて要約・整理する」用途が中心でしたが、ここに**“提出できるスライド”までつなげる導線**ができるのが大きな変化です。
 
 独自の視点で言うと、これは単なる機能追加ではなく、仕事のボトルネックが「作る」から「直す・通す」に移る転換点です。多くの現場では、スライド作成そのものよりも、**レビューでの差し戻し（言い回し、根拠不足、枚数過多、結論が弱い、社内表記ルール違反）**が時間を奪います。プロンプト修正＋pptx出力が揃うと、AIは“初稿作成”よりも、**差し戻しを減らすための反復編集**で真価を発揮しやすくなります。
 
 さらに現実的な効果として、作業時間の内訳が変わります。たとえば「10枚の提案スライド」を作るとき、体感として**作成2時間＋レビュー修正2〜3時間**になりがちです。プロンプトで修正指示をテンプレ化できると、修正の往復を**3回→1回**に減らせる可能性があり、結果的に“提出までのリードタイム”が短くなります（※効果は資料品質と運用次第）。
 
+<section class="offerbox google-auto-ads-ignore" aria-label="NotebookLMとPowerPoint資料作成の学習導線">
+  <div class="offerbox-head">
+    <span class="offerbox-pr">PR</span>
+    <p class="cta3-title">NotebookLMだけで完結させず、PPTで仕上げる前提にする</p>
+  </div>
+  <p>AIで構成と下書きを作り、PowerPointで社内テンプレ、図形、フォント、発表者ノートを整える流れにすると実務で使いやすくなります。資料作成の型を学ぶ本とあわせて確認すると、修正指示も具体化しやすくなります。</p>
+  <div class="cta3-actions">
+    <a class="btn brand-amazon" href="https://www.amazon.co.jp/s?k=NotebookLM+Kindle%E6%9C%AC&i=digital-text&tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="amazon" data-affiliate-slot="notebooklm-ppt-notebooklm-books">NotebookLM本を探す</a>
+    <a class="btn brand-amazon" href="https://www.amazon.co.jp/s?k=PowerPoint+%E8%B3%87%E6%96%99%E4%BD%9C%E6%88%90+Kindle&i=digital-text&tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="amazon" data-affiliate-slot="notebooklm-ppt-powerpoint-books">PowerPoint本を探す</a>
+    <a class="btn brand-amazon" href="https://www.amazon.co.jp/s?k=AI+%E8%B3%87%E6%96%99%E4%BD%9C%E6%88%90+Kindle&i=digital-text&tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="amazon" data-affiliate-slot="notebooklm-ppt-ai-presentation-books">AI資料作成本を探す</a>
+  </div>
+  <p class="offerbox-note">NotebookLMやPowerPointの機能、Kindle本の価格・対象状況は変わります。購入前にリンク先で現在の条件を確認してください。</p>
+</section>
+
 ---
 
 ## NotebookLMの基本と新機能の位置づけ
 
-NotebookLMは、ユーザーがアップロード／指定した資料（ドキュメント、PDF、メモなど）を根拠に、要約、質問回答、構成案作成を支援するツールです。今回の話題は主に次の2点です。
+NotebookLMは、ユーザーがアップロード／指定した資料（ドキュメント、PDF、メモなど）を根拠に、要約、質問回答、構成案作成を支援するツールです。Slide Deck周りで押さえたいのは主に次の2点です。
 
-- **プロンプトでスライドを修正**：文章で「結論を先に」「図表を増やして」「3分ピッチの発表用に短く」など指示し、スライドの内容や構成を調整できる方向性  
-- **PowerPoint形式で出力**：作成したスライドを.pptxで書き出し、PowerPointや互換ソフトで編集・共有しやすくする
+- **スライドの内容をプロンプトで具体化**：文章で「結論を先に」「図表を増やして」「3分ピッチの発表用に短く」など指示し、Slide Deckの材料を整える
+- **PowerPoint形式で出力**：作成したSlide Deckを.pptxで書き出し、PowerPointや互換ソフトで編集・共有しやすくする
 
 ここで重要なのは、**“コピー＆ペースト前提”のAI活用から、“ファイルで受け渡す”運用に変わる**点です。.pptxで渡せると、上司レビュー、顧客提出、稟議回覧など、既存フローにそのまま載ります。つまり、AIが「便利な下書き」から「業務の部品」になります。
 
