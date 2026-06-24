@@ -1,20 +1,19 @@
 ---
 title: "KindleハイライトをGoogleドキュメントで整理し、週1レビューで知識を定着させる方法"
 date: 2026-03-13
-lastmod: 2026-03-13
+lastmod: 2026-06-24
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
 
 images: ["https://images.pexels.com/photos/30989485/pexels-photo-30989485.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
-tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
 description: "KindleハイライトとメモをGoogleドキュメントへ整理し、週1レビューで知識を定着させる手順を解説します。"
 slug: "kindlenohairaito-memowogoogletokiyumentonizheng-li-suruyun-y"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## Kindleのハイライトを「読んだだけ」で終わらせない方法
 
 ![Kindleのハイライト/メモをGoogleドキュメントに整理する運用（週1レビューで定着）のイメージ](https://images.pexels.com/photos/30989485/pexels-photo-30989485.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -231,6 +230,8 @@ Googleドキュメントに整理した読書メモは、生成AIに要約や壁
 - プレゼンの論点に再構成する
 
 元データが整理されているほど、AIも活用しやすくなります。
+
+Googleドキュメントで整理したメモを、さらにNotebookLMやGemini側で横断活用したい場合は、[GeminiにNotebookLM統合で電子書籍やPDFを自分専用DB化する考え方](/posts/2026/04/gemini-ahurini-notebooklm-worong-he-zi-fen-takenozhi-shi-db/)を読むと、保存したハイライトを次の行動へつなげる設計が見えやすくなります。
 
 ## 続かないときの見直しポイント
 

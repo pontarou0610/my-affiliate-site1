@@ -1,20 +1,19 @@
 ---
 title: "NotebookLMでKindle/Koboのハイライトを要約し、読書メモを行動計画まで育てる方法"
 date: 2026-03-10
-lastmod: 2026-03-10
+lastmod: 2026-06-24
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
 
 images: ["https://images.pexels.com/photos/35202792/pexels-photo-35202792.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
-tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
 description: "NotebookLMでKindle/Koboのハイライトを要約し、読書メモを行動計画まで育てる実践フローを解説します。"
 slug: "notebooklmtedian-zi-shu-ji-nodu-shu-memowoyu-teru-hairaito-y"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## NotebookLMで「読書メモが育つ」とは（独自視点：メモを“知識の苗床”にする）
 電子書籍のメモは、ハイライトが増えるほど「どこに何が書いてあったか」を探すコストが上がり、結果として見返されなくなりがちです。NotebookLMを使うと、ハイライト（根拠）を中心に**要約→問い→検証→更新**までを1つのノート内で回せます。
 
@@ -160,6 +159,8 @@ NotebookLMへの指示例：
 
 ## まとめ
 NotebookLMは、電子書籍のハイライトを“保存”で終わらせず、**要約→問い→最小実験→結果追記**までを一続きにして、読書メモを育てられます。入口（引用・位置情報・一言）を整え、要約を段階化し、48時間以内の小さな実験で検証する。この流れを1冊から始めるだけで、メモは「読みっぱなし」から「使える知識」へ変わります。
+
+Gemini側のノートブック体験まで広げたい場合は、[GeminiにNotebookLM統合で電子書籍やPDFを自分専用DB化する考え方](/posts/2026/04/gemini-ahurini-notebooklm-worong-he-zi-fen-takenozhi-shi-db/)もあわせて読むと、ハイライト整理をAI活用の導線にしやすくなります。
 
 ## 関連ガイド
 

@@ -1,20 +1,19 @@
 ---
 title: "GeminiにNotebookLM統合へ、電子書籍やPDFを自分専用DB化できる新機能とは"
 date: 2026-04-12
-lastmod: 2026-04-12
+lastmod: 2026-06-24
 draft: false
+tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 
 
 
 images: ["https://images.pexels.com/photos/18189628/pexels-photo-18189628.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
-tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "Googleの「Gemini」アプリに、NotebookLMの考え方を取り入れた“自分専用の知識DB”としてのノートブック機能が加わる流れは、単なる新機能追加ではありません。これまでの生成AIは「その場で質問して、その場で答えをもらう」使い。"
+description: "GeminiとNotebookLMの連携で、電子書籍ハイライトやPDF資料を自分専用の知識DBとして活用する方法を解説します。"
 slug: "gemini-ahurini-notebooklm-worong-he-zi-fen-takenozhi-shi-db"
 hasRelatedProducts: false
 showRakutenWidget: true
 ---
-
 ## GeminiアプリにNotebookLMの発想が入ると何が変わるのか
 
 ![「Gemini」アプリに「NotebookLM」を融合、自分だけの知識DB「ノートブック」が登場／無料ユーザーへの展開も予定のイメージ](https://images.pexels.com/photos/18189628/pexels-photo-18189628.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
@@ -22,6 +21,8 @@ showRakutenWidget: true
 
 Googleの「Gemini」アプリに、NotebookLMの考え方を取り入れた“自分専用の知識DB”としてのノートブック機能が加わる流れは、単なる新機能追加ではありません。これまでの生成AIは「その場で質問して、その場で答えをもらう」使い方が中心でしたが、ノートブック型の体験が広がると、AIは“自分が集めた資料を理解したうえで伴走する存在”へと変わります。  
 この変化は、検索の延長ではなく、情報整理の習慣そのものを変える可能性があります。従来は、PDFをダウンロードし、記事をブックマークし、会議メモを残しても、それぞれが別々に保存されるだけでした。ノートブック機能がGeminiアプリ内で自然に使えるようになれば、資料を「読む」で終わらせず、「比較する」「再構成する」「次の行動に変える」まで一気通貫で進めやすくなります。
+
+KindleやKoboのハイライトをAIで再利用したい場合は、先に[NotebookLMでKindle/Koboのハイライトを要約する手順](/posts/2026/03/notebooklmtedian-zi-shu-ji-nodu-shu-memowoyu-teru-hairaito-y/)も確認しておくと、ノートブックに入れる素材の作り方を決めやすくなります。
 
 特に注目したいのは、無料ユーザーにも展開予定とみられる点です。もし広く開放されれば、月額課金に踏み切る前のユーザーでも、読書メモ、PDF、Web記事、会議記録、学習資料をまとめて扱う習慣を作りやすくなります。AI活用のハードルが一段下がるため、学生、会社員、個人事業主、フリーランスまで利用層はかなり広がるはずです。  
 たとえば、毎月10本の記事を保存し、5冊の電子書籍からハイライトを取り、週2回の会議メモを残す人なら、1か月で20〜30件以上の“使える知識の種”がたまります。これを放置するか、ノートブックで活かすかで、情報の価値は大きく変わります。
