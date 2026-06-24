@@ -5,7 +5,7 @@ baseURL = "https://pontarou0610.github.io/my-affiliate-site1/"
 languageCode = "ja"
 defaultContentLanguage = "ja"
 hasCJKLanguage = true
-title = "電子書籍・未来研究所 - KindleとKoboの比較・出版・AI活用"
+title = "電子書籍リーダー比較ナビ - Kindle・Kobo・読み放題の選び方"
 theme = "PaperMod"
 pagesize = 10
 enableRobotsTXT = true
@@ -32,7 +32,7 @@ canonifyURLs = true
   mainSections = ["posts"]
   defaultTheme = "auto"                 # "dark" | "light" | "auto"
   
-  description = "Kindle・Koboなど電子書籍リーダーの比較から、自費出版・AIライティング・自動化までを解説するブログ"
+  description = "KindleとKoboの違い、電子書籍リーダーの選び方、読み放題やセールの確認手順を目的別に整理する購入ガイド。"
   images = ["images/ogp-default.jpg"]   # static/images/ogp-default.jpg を参照（project pagesでも崩れない相対パス）
   author = "ぽんたろう"
   authorName = "ぽんたろう"
@@ -59,11 +59,11 @@ canonifyURLs = true
   googleAnalytics = "G-55FMB35LN0"
 
   [params.label]
-    text = "電子書籍・未来研究所"
+    text = "電子書籍リーダー比較ナビ"
 
 [params.homeInfoParams]
-  Title = "電子書籍リーダーの比較・レビュー"
-  Content = "Kindle と Kobo を中心に、選び方・セール情報・使い方をわかりやすく解説"
+  Title = "Kindle・Kobo・読み放題を目的別に比較"
+  Content = "電子書籍リーダー、読み放題、セール情報を「どこで読むか」「何を読むか」「いくらで始めるか」から選べるように整理しています。"
 
   [[params.homeInfoParams.buttons]]
     name = "目的別：購入先ガイド"

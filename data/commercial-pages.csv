@@ -1,4 +1,5 @@
 path,match_type,reason
+/,exact,Homepage purchase decision hub with measured Kindle Kobo Audible CTAs
 /recommend/,exact,Primary purchase decision guide
 /lp/,prefix,Kindle and Kobo conversion landing pages
 /fiction/,exact,Owned Kindle book catalog
