@@ -16,6 +16,8 @@
 - Search indexing consistency: `python scripts/check_search_indexing.py public`
 - Combined traffic, click, conversion, and revenue report:
   `python scripts/report_business_kpis.py --month 2026-06`
+- Weekly KPI sequence:
+  `python scripts/run_weekly_kpi.py --month 2026-06`
 
 The business target and milestone definitions are in `docs/monthly-100k-roadmap.md`.
 
@@ -52,30 +54,16 @@ If `--auth-status` reports `oauth_token_file: missing`, run `--force-auth` and a
    `data/analytics-kpi-history.csv`. The file contains aggregate counts only
    and is committed so weekly decisions remain auditable.
 
-4. Build the experiment status report so the business KPI report can show
-   active experiment locks and the next review date:
+4. Build the experiment status, business KPI report, JSON summary, and concise
+   weekly decision in the required order:
 
    ```powershell
-   python scripts/report_experiments.py
+   python scripts/run_weekly_kpi.py --month 2026-06
    ```
 
-5. Build the action report. This works even before revenue has been entered
-   and combines commercial Search Console stages with GA4. It writes both the
-   human-readable Markdown report and a machine-readable JSON summary:
-
-   ```powershell
-   python scripts/report_business_kpis.py --month 2026-06
-   ```
-
-6. Build the concise weekly operating decision:
-
-   ```powershell
-   python scripts/report_weekly_decision.py
-   ```
-
-7. Export confirmed monthly results from Amazon Associates, Rakuten Affiliate,
+5. Export confirmed monthly results from Amazon Associates, Rakuten Affiliate,
    Yahoo/ValueCommerce, and KDP when available.
-8. Copy `data/revenue/partner-revenue.example.csv` to
+6. Copy `data/revenue/partner-revenue.example.csv` to
    `data/revenue/partner-revenue.csv` and enter the confirmed totals. Re-run the
    action report to unlock conversion, revenue, and EPC conclusions.
    Then run `python scripts/revenue_status.py --month 2026-06`; if it reports
