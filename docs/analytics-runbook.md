@@ -20,6 +20,8 @@
   `python scripts/report_business_kpis.py --month 2026-06`
 - Weekly KPI sequence:
   `python scripts/run_weekly_kpi.py --month 2026-06`
+- Weekly action backlog:
+  `python scripts/report_action_backlog.py`
 
 The business target and milestone definitions are in `docs/monthly-100k-roadmap.md`.
 
@@ -56,9 +58,10 @@ If `--auth-status` reports `oauth_token_file: missing`, run `--force-auth` and a
    `data/analytics-kpi-history.csv`. The file contains aggregate counts only
    and is committed so weekly decisions remain auditable.
 
-4. Build the experiment status, business KPI report, JSON summary, and concise
-   weekly decision in the required order. This starts by checking that the
-   saved GA4 and GSC JSON files are fresh enough for a weekly decision:
+4. Build the experiment status, business KPI report, JSON summary, concise
+   weekly decision, and action backlog in the required order. This starts by
+   checking that the saved GA4 and GSC JSON files are fresh enough for a weekly
+   decision:
 
    ```powershell
    python scripts/run_weekly_kpi.py --month 2026-06
@@ -103,6 +106,10 @@ requiring Markdown parsing.
 Use `reports/analytics/weekly-decision.md` when the weekly output should be
 short: PV, clicks, CTR, conversions, revenue, EPC, gate status, next milestone,
 and the single top action.
+Use `reports/analytics/action-backlog.md` to choose the actual weekly edit. It
+excludes active experiment pages and ranks proven search pages, search CTR gaps,
+and zero-click commercial CTA pages so the site does not add articles or change
+CTAs without measured upside.
 
 Commercial-intent traffic is defined by `data/commercial-pages.csv` plus active
 experiment rows whose `commercial_intent` value is `true`. Add an `exact`

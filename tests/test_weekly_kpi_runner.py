@@ -29,6 +29,7 @@ class WeeklyKpiRunnerTests(unittest.TestCase):
         self.assertEqual(commands[2][1], "scripts/report_business_kpis.py")
         self.assertIn("--month", commands[2])
         self.assertEqual(commands[3][1], "scripts/report_weekly_decision.py")
+        self.assertEqual(commands[4][1], "scripts/report_action_backlog.py")
 
     def test_can_skip_experiment_report_when_fresh(self) -> None:
         args = argparse.Namespace(
@@ -41,10 +42,11 @@ class WeeklyKpiRunnerTests(unittest.TestCase):
 
         commands = build_commands(args)
 
-        self.assertEqual(len(commands), 3)
+        self.assertEqual(len(commands), 4)
         self.assertEqual(commands[0][1], "scripts/check_analytics_freshness.py")
         self.assertEqual(commands[1][1], "scripts/report_business_kpis.py")
         self.assertEqual(commands[2][1], "scripts/report_weekly_decision.py")
+        self.assertEqual(commands[3][1], "scripts/report_action_backlog.py")
 
     def test_can_skip_freshness_check_explicitly(self) -> None:
         args = argparse.Namespace(

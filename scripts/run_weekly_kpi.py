@@ -65,6 +65,7 @@ def build_commands(args: argparse.Namespace) -> list[list[str]]:
         ]
     )
     commands.append([py, "scripts/report_weekly_decision.py"])
+    commands.append([py, "scripts/report_action_backlog.py"])
     return commands
 
 
