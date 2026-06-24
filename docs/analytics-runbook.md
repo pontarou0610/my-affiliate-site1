@@ -52,26 +52,28 @@ If `--auth-status` reports `oauth_token_file: missing`, run `--force-auth` and a
    `data/analytics-kpi-history.csv`. The file contains aggregate counts only
    and is committed so weekly decisions remain auditable.
 
-4. Build the action report. This works even before revenue has been entered
+4. Build the experiment status report so the business KPI report can show
+   active experiment locks and the next review date:
+
+   ```powershell
+   python scripts/report_experiments.py
+   ```
+
+5. Build the action report. This works even before revenue has been entered
    and combines commercial Search Console stages with GA4:
 
    ```powershell
    python scripts/report_business_kpis.py --month 2026-06
    ```
 
-5. Export confirmed monthly results from Amazon Associates, Rakuten Affiliate,
+6. Export confirmed monthly results from Amazon Associates, Rakuten Affiliate,
    Yahoo/ValueCommerce, and KDP when available.
-6. Copy `data/revenue/partner-revenue.example.csv` to
+7. Copy `data/revenue/partner-revenue.example.csv` to
    `data/revenue/partner-revenue.csv` and enter the confirmed totals. Re-run the
    action report to unlock conversion, revenue, and EPC conclusions.
    Then run `python scripts/revenue_status.py --month 2026-06`; if it reports
    `missing_file`, `missing_month`, or `placeholder_zero`, do not use EPC or
    conversion conclusions yet.
-7. Build the experiment status report:
-
-   ```powershell
-   python scripts/report_experiments.py
-   ```
 
 The generated files under `reports/analytics/` and the real revenue CSV are
 ignored by Git. The report identifies zero-click traffic pages, clicked

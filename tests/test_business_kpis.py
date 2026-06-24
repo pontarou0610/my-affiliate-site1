@@ -15,6 +15,7 @@ from report_business_kpis import (
     commercial_page_funnel,
     commercial_search_metrics,
     delta_rate,
+    experiment_gate,
     normalize_program,
     planning_milestones,
     read_revenue,
@@ -111,6 +112,69 @@ class BusinessKpiReportTests(unittest.TestCase):
         self.assertIn("## Growth Milestones", report)
         self.assertIn("| Stage 2 | 1,000 | 3.00% | 30 |", report)
         self.assertIn("| 200 | 10 | 200 | 0 | active | `/recommend/` |", report)
+
+    def test_reports_experiment_gate_and_next_review_date(self) -> None:
+        ga4 = {
+            "range_28d": {"start": "2026-05-25", "end": "2026-06-21"},
+            "totals_28d": {"pageviews": 100},
+            "affiliate_clicks_28d": 1,
+            "commercial_metrics_28d": {
+                "pageviews": 20,
+                "affiliate_clicks": 1,
+                "affiliate_ctr": 0.05,
+                "complete": True,
+                "pages": [
+                    {"path": "/recommend/", "views": 20, "affiliate_clicks": 0},
+                ],
+            },
+            "commercial_program_clicks_28d": {
+                "complete": False,
+                "reason": "Register affiliate_program.",
+                "values": {},
+            },
+        }
+        gsc = {
+            "meta": {"page_rows_truncated": False},
+            "pages": [
+                {
+                    "page": "/recommend/",
+                    "clicks": 1,
+                    "impressions": 20,
+                    "active_experiment": True,
+                }
+            ],
+            "previous_pages": [],
+        }
+        experiment_status = {
+            "summary": {
+                "active": 1,
+                "collecting": 1,
+                "review_due": 0,
+                "data_missing": 0,
+            },
+            "experiments": [
+                {
+                    "experiment_id": "recommend-scale",
+                    "status": "collecting",
+                    "review_date": "2026-07-20",
+                }
+            ],
+        }
+
+        report = build_report(
+            ga4,
+            [],
+            "2026-06",
+            100_000,
+            revenue_available=False,
+            gsc=gsc,
+            experiment_status=experiment_status,
+        )
+
+        self.assertIn("## Experiment Gate", report)
+        self.assertIn("| Active experiments | 1 |", report)
+        self.assertIn("| Next review date | 2026-07-20 |", report)
+        self.assertIn("unchanged until 2026-07-20", report)
 
     def test_requires_complete_commercial_metrics(self) -> None:
         ga4 = {
@@ -305,6 +369,12 @@ class BusinessKpiReportTests(unittest.TestCase):
         self.assertEqual(rows[0]["pageviews"], 5)
         self.assertEqual(rows[0]["affiliate_clicks"], 1)
         self.assertTrue(rows[0]["active_experiment"])
+
+    def test_experiment_gate_handles_missing_report(self) -> None:
+        status = experiment_gate(None)
+
+        self.assertFalse(status["available"])
+        self.assertIn("report_experiments.py", status["reason"])
 
     def test_delta_rate_handles_zero_baseline(self) -> None:
         self.assertEqual(delta_rate(1, 0), "new")

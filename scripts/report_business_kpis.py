@@ -232,6 +232,40 @@ def commercial_page_funnel(search: dict | None, commercial: dict) -> list[dict]:
     return rows
 
 
+def experiment_gate(experiment_status: dict | None) -> dict:
+    if not isinstance(experiment_status, dict):
+        return {
+            "available": False,
+            "active": 0,
+            "collecting": 0,
+            "review_due": 0,
+            "data_missing": 0,
+            "next_review_date": "",
+            "reason": "Run report_experiments.py before the business KPI report.",
+        }
+    summary = experiment_status.get("summary") or {}
+    experiments = experiment_status.get("experiments") or []
+    collecting_dates = sorted(
+        str(row.get("review_date") or "")
+        for row in experiments
+        if row.get("status") == "collecting" and row.get("review_date")
+    )
+    due_dates = sorted(
+        str(row.get("review_date") or "")
+        for row in experiments
+        if row.get("status") == "review_due" and row.get("review_date")
+    )
+    return {
+        "available": True,
+        "active": int(summary.get("active") or 0),
+        "collecting": int(summary.get("collecting") or 0),
+        "review_due": int(summary.get("review_due") or 0),
+        "data_missing": int(summary.get("data_missing") or 0),
+        "next_review_date": (due_dates or collecting_dates or [""])[0],
+        "reason": "",
+    }
+
+
 def build_report(
     ga4: dict,
     rows: list[RevenueRow],
@@ -241,6 +275,7 @@ def build_report(
     revenue_available: bool = True,
     revenue_status: RevenueStatus | None = None,
     gsc: dict | None = None,
+    experiment_status: dict | None = None,
 ) -> str:
     selected = [row for row in rows if row.month == month]
     revenue_by_program: dict[str, dict[str, float]] = defaultdict(
@@ -287,6 +322,7 @@ def build_report(
         commercial_clicks,
         target_yen=target_yen,
     )
+    experiments = experiment_gate(experiment_status)
 
     lines = [
         f"# Business KPI Report: {month}",
@@ -431,6 +467,27 @@ def build_report(
             "40 yen EPC assumption with partner-report results before using it for forecasts.",
         ]
     )
+    lines.extend(
+        [
+            "",
+            "## Experiment Gate",
+            "",
+            "| Item | Status |",
+            "| --- | --- |",
+        ]
+    )
+    if experiments["available"]:
+        lines.extend(
+            [
+                f"| Active experiments | {experiments['active']} |",
+                f"| Collecting | {experiments['collecting']} |",
+                f"| Review due | {experiments['review_due']} |",
+                f"| Data missing | {experiments['data_missing']} |",
+                f"| Next review date | {experiments['next_review_date'] or '-'} |",
+            ]
+        )
+    else:
+        lines.append(f"| Experiment status | unavailable: {experiments['reason']} |")
     lines.extend(
         [
         "",
@@ -596,8 +653,13 @@ def build_report(
             f"`{page.get('path', '/')}` ({int(page.get('views', 0))} views, zero clicks)."
         )
     elif active_experiment_paths:
+        review_hint = (
+            f" until {experiments['next_review_date']}"
+            if experiments.get("next_review_date")
+            else ""
+        )
         actions.append(
-            f"{len(actions) + 1}. Keep zero-click active experiment pages unchanged until their review date; use `report_experiments.py` before selecting another page."
+            f"{len(actions) + 1}. Keep zero-click active experiment pages unchanged{review_hint}; use `report_experiments.py` before selecting another page."
         )
     elif commercial_pages:
         actions.append(
@@ -644,6 +706,11 @@ def main() -> int:
         type=Path,
         default=Path("reports/analytics/gsc-latest.json"),
     )
+    parser.add_argument(
+        "--experiments-json",
+        type=Path,
+        default=Path("reports/analytics/experiment-status.json"),
+    )
     parser.add_argument("--month", help="Revenue month in YYYY-MM; defaults to latest CSV month")
     parser.add_argument("--target-yen", type=int, default=100_000)
     parser.add_argument(
@@ -655,6 +722,7 @@ def main() -> int:
 
     ga4 = read_ga4(resolve_path(args.ga4_json))
     gsc = read_optional_json(resolve_path(args.gsc_json))
+    experiment_status = read_optional_json(resolve_path(args.experiments_json))
     revenue_path = resolve_path(args.revenue_csv)
     rows = read_revenue(revenue_path, allow_missing=True)
     generated_month = str(ga4.get("generated_on") or "")[:7]
@@ -674,6 +742,7 @@ def main() -> int:
         revenue_available=revenue_available,
         revenue_status=revenue_status,
         gsc=gsc,
+        experiment_status=experiment_status,
     )
     output = resolve_path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
