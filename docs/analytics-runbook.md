@@ -67,9 +67,15 @@ If `--auth-status` reports `oauth_token_file: missing`, run `--force-auth` and a
    python scripts/report_business_kpis.py --month 2026-06
    ```
 
-6. Export confirmed monthly results from Amazon Associates, Rakuten Affiliate,
+6. Build the concise weekly operating decision:
+
+   ```powershell
+   python scripts/report_weekly_decision.py
+   ```
+
+7. Export confirmed monthly results from Amazon Associates, Rakuten Affiliate,
    Yahoo/ValueCommerce, and KDP when available.
-7. Copy `data/revenue/partner-revenue.example.csv` to
+8. Copy `data/revenue/partner-revenue.example.csv` to
    `data/revenue/partner-revenue.csv` and enter the confirmed totals. Re-run the
    action report to unlock conversion, revenue, and EPC conclusions.
    Then run `python scripts/revenue_status.py --month 2026-06`; if it reports
@@ -103,6 +109,9 @@ Use `reports/analytics/business-kpi-summary.json` for automations, reminders,
 or dashboards. It contains the same revenue gate, program-attribution gate,
 experiment gate, next milestone, scorecard, and priority actions without
 requiring Markdown parsing.
+Use `reports/analytics/weekly-decision.md` when the weekly output should be
+short: PV, clicks, CTR, conversions, revenue, EPC, gate status, next milestone,
+and the single top action.
 
 Commercial-intent traffic is defined by `data/commercial-pages.csv` plus active
 experiment rows whose `commercial_intent` value is `true`. Add an `exact`
