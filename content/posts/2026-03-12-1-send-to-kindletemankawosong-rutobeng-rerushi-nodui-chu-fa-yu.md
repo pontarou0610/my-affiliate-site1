@@ -146,6 +146,7 @@ Send to Kindleでマンガが崩れる原因は、送信機能そのものより
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
+- [Kindleで読める著者の小説](/fiction/)
 
 
 ## 関連記事
