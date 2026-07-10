@@ -13,7 +13,7 @@ The next Hugo monetization work is measurement input, not content rewriting.
 - Active experiments are still collecting data.
 - Next experiment review date is 2026-07-20.
 - Revenue CSV is missing, so EPC and confirmed revenue decisions are blocked.
-- GA4 `affiliate_program` is not registered as an event-scoped custom dimension, so program-level attribution remains limited.
+- GA4 `affiliate_program` is registered as an event-scoped custom dimension as of 2026-07-10, but reporting data needs time to populate.
 
 ## 2026-07-10 Rerun Result
 
@@ -45,11 +45,29 @@ Decision:
 - Do not infer unknown partner revenue as zero.
 - Use the confirmed KDP zero only when creating `data/revenue/partner-revenue.csv`.
 
+## 2026-07-10 GA4 Custom Dimension Update
+
+CEO confirmed via GA4 screen that these Hugo custom dimensions exist:
+
+- `affiliate_program`
+- `affiliate_slot`
+- `affiliate_store`
+
+`affiliate_program` was added on 2026-07-10 for the Hugo GA4 property using measurement ID `G-55FMB35LN0`.
+
+Operational note:
+
+- Treat the setup as complete.
+- Re-run GA4/KPI reporting after data has had time to populate.
+- Until fresh data is available, do not assume program-level attribution is usable for historical EPC decisions.
+
 ## Required CEO / Admin Actions
 
 ### 1. Register GA4 Custom Dimension
 
-Create a GA4 event-scoped custom dimension:
+Status: completed on 2026-07-10.
+
+Registered GA4 event-scoped custom dimension:
 
 | Field | Value |
 | --- | --- |
@@ -89,19 +107,19 @@ Verdict: hold content edits.
 
 ### 2. Analytics
 
-The main blocker is attribution and revenue input. `affiliate_program` and partner revenue must be available before EPC-based decisions.
+The remaining blocker is revenue input. `affiliate_program` is registered, but fresh post-registration data and partner revenue must be available before EPC-based decisions.
 
 Verdict: S priority.
 
 ### 3. Affiliate
 
-One click exists, but program attribution is incomplete. Registering `affiliate_program` is more valuable than rewriting copy today.
+One click exists, but program attribution needs post-registration data before it can drive decisions. Revenue input is now more valuable than rewriting copy today.
 
 Verdict: A priority.
 
 ### 4. Operations
 
-This is a CEO/admin task, not an automated content task. Codex should not infer revenue or access admin screens without confirmed data.
+The GA4 custom dimension task is complete. Codex should not infer revenue or access admin screens without confirmed data.
 
 Verdict: CEO input required.
 
@@ -113,7 +131,7 @@ Verdict: safe hold.
 
 ## Next Codex Action After CEO Input
 
-After GA4 custom dimension registration and revenue CSV input:
+After revenue CSV input and post-registration GA4 data collection:
 
 1. Run the weekly KPI scripts again.
 2. Rebuild `business-kpi.md`.
@@ -122,4 +140,4 @@ After GA4 custom dimension registration and revenue CSV input:
 
 ## Status
 
-Blocked on CEO/admin input.
+Waiting for revenue CSV input and fresh GA4 data after `affiliate_program` registration.
