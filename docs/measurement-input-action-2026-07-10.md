@@ -15,6 +15,36 @@ The next Hugo monetization work is measurement input, not content rewriting.
 - Revenue CSV is missing, so EPC and confirmed revenue decisions are blocked.
 - GA4 `affiliate_program` is not registered as an event-scoped custom dimension, so program-level attribution remains limited.
 
+## 2026-07-10 Rerun Result
+
+The Hugo KPI scripts were rerun on 2026-07-10.
+
+Confirmed current outputs:
+
+- Commercial-intent pageviews: 66
+- Affiliate clicks: 1
+- Commercial-intent affiliate CTR: 1.52%
+- Confirmed revenue: not entered
+- Revenue CSV state: `missing_file`
+- Action backlog: no unlocked action candidate
+- Active experiments: 20 collecting
+- Next experiment review date: 2026-07-20
+
+CEO-provided KDP state:
+
+- Period: 2026-06-01 to 2026-07-09
+- Sales books: 0
+- KENP read: 0
+- Royalty: 0
+
+This confirms KDP revenue as zero for the supplied period only. It does not confirm Amazon Associates, Rakuten, Yahoo/ValueCommerce, Kobo, Audible, or other partner revenue.
+
+Decision:
+
+- Do not edit active Hugo experiment pages today.
+- Do not infer unknown partner revenue as zero.
+- Use the confirmed KDP zero only when creating `data/revenue/partner-revenue.csv`.
+
 ## Required CEO / Admin Actions
 
 ### 1. Register GA4 Custom Dimension
