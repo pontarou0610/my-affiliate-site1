@@ -2,7 +2,7 @@
 title: "著者の小説"
 description: "ぽんたろうが執筆したKindle小説を紹介します。政治制度サスペンス、企業ITサスペンス、現代ミステリーなど、電子書籍で読めるオリジナル作品をまとめました。"
 date: 2026-05-13
-lastmod: 2026-06-24
+lastmod: 2026-07-12
 draft: false
 tags: ["Kindle小説", "ぽんたろう", "政治サスペンス", "社会派ミステリー"]
 categories: ["小説"]
@@ -63,6 +63,17 @@ keywords: ["ぽんたろう 小説", "Kindle小説", "政治サスペンス", "�
       <p class="fiction-subtitle">地方から国を問い直す政治制度サスペンス</p>
       <p>給食停止騒動から始まった地方の反撃が、国民投票の設問をめぐる制度操作へつながっていく。</p>
       <a class="btn brand-amazon" href="https://www.amazon.co.jp/dp/B0H1FZXFZW?tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="kdp" data-affiliate-slot="fiction-featured">Amazonで見る</a>
+    </div>
+  </article>
+
+  <article class="fiction-card fiction-card--featured">
+    <img src="../images/novels/shiroi-tenkyo-todoke.jpg" alt="白い転居届 表紙" loading="lazy">
+    <div>
+      <p class="fiction-label">Kindle</p>
+      <h3>白い転居届</h3>
+      <p class="fiction-subtitle">父が住めなかった部屋には、誰も住んでいなかった</p>
+      <p>父の遺品に残された一本の鍵と空室の記録から、住まいをめぐる制度のほころびを追う社会派サスペンス。</p>
+      <a class="btn brand-amazon" href="https://www.amazon.co.jp/dp/B0H6NSVW8H?tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="kdp" data-affiliate-slot="fiction-featured-housing">Amazonで見る</a>
     </div>
   </article>
 </div>
