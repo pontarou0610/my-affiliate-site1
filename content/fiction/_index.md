@@ -2,7 +2,7 @@
 title: "著者の小説"
 description: "ぽんたろうが執筆したKindle小説を紹介します。政治制度サスペンス、企業ITサスペンス、現代ミステリーなど、電子書籍で読めるオリジナル作品をまとめました。"
 date: 2026-05-13
-lastmod: 2026-07-12
+lastmod: 2026-07-15
 draft: false
 tags: ["Kindle小説", "ぽんたろう", "政治サスペンス", "社会派ミステリー"]
 categories: ["小説"]
@@ -29,7 +29,7 @@ keywords: ["ぽんたろう 小説", "Kindle小説", "政治サスペンス", "�
   </div>
   <p>小説一覧を眺めるより、先に読みたい緊張感を決めると選びやすくなります。気になる作品はAmazon側で価格、配信状況、読み放題対象を確認してください。</p>
   <ul>
-    <li><strong>政治や制度の怖さを読みたい</strong>: 『再生の設問』『旗のない演説』『白紙の議事録』</li>
+    <li><strong>政治や制度の怖さを読みたい</strong>: 『消えた扶養欄』『再生の設問』『旗のない演説』『白紙の議事録』</li>
     <li><strong>仕事やシステム障害の緊張感を読みたい</strong>: 『ログは嘘をつかない』『復旧の代償』『請求書の外側』</li>
     <li><strong>恋愛や喪失を軸に読みたい</strong>: 『わすれ屋の恋』『夜を越える声』</li>
   </ul>
@@ -44,6 +44,17 @@ keywords: ["ぽんたろう 小説", "Kindle小説", "政治サスペンス", "�
 ## 新作・重点作品
 
 <div class="fiction-grid">
+  <article class="fiction-card fiction-card--featured">
+    <img src="../images/novels/kieta-fuyouran.jpg" alt="消えた扶養欄 表紙" loading="lazy">
+    <div>
+      <p class="fiction-label">Kindle</p>
+      <h3>消えた扶養欄</h3>
+      <p class="fiction-subtitle">父を殺したのは、誰の空欄だったのか</p>
+      <p>父の遺品から見つかった、回答欄だけが空白の扶養照会票。適正に見える行政記録のあいだで消えた父の生活を、娘が追う政治制度サスペンス。</p>
+      <a class="btn brand-amazon" href="https://www.amazon.co.jp/dp/B0H8R7FDTZ?tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="kdp" data-affiliate-slot="fiction-featured-fuyouran">Amazonで見る</a>
+    </div>
+  </article>
+
   <article class="fiction-card fiction-card--featured">
     <img src="../images/novels/kimei-no-kyoshitsu.jpg" alt="棄名の教室 表紙" loading="lazy">
     <div>
