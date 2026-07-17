@@ -1,24 +1,97 @@
-﻿# PowerShell: deploy.ps1
-# Hugo プロジェクトのルートで実行してください
+# PowerShell: deploy.ps1
+# GitHub Actions builds and deploys the site on Linux to keep fingerprinted assets byte-stable.
 
-# 記事タイトル／スラッグの重複チェック
-python .\scripts\check_unique_posts.py
-if ($LASTEXITCODE -ne 0) {
-    Write-Error "重複が解消されるまでデプロイを中断します。"
-    exit $LASTEXITCODE
+[CmdletBinding()]
+param(
+    [int]$VerificationAttempts = 12,
+    [int]$VerificationIntervalSeconds = 5
+)
+
+$ErrorActionPreference = "Stop"
+$repository = "pontarou0610/my-affiliate-site1"
+$siteUrl = "https://pontarou0610.github.io/my-affiliate-site1/"
+
+Set-Location -LiteralPath $PSScriptRoot
+
+foreach ($command in @("git", "gh")) {
+    if (-not (Get-Command $command -ErrorAction SilentlyContinue)) {
+        throw "$command is required but was not found in PATH."
+    }
 }
 
-# Hugo で生成（古い出力の残存を防ぐ）
-hugo --minify --cleanDestinationDir
+$workingTree = git status --porcelain
+if ($LASTEXITCODE -ne 0) {
+    throw "Failed to inspect the Git working tree."
+}
+if ($workingTree) {
+    throw "The working tree is not clean. Commit or stash changes before deployment."
+}
 
-# public フォルダへ移動
-Set-Location -Path ".\public"
+$branch = (git branch --show-current).Trim()
+if (-not $branch) {
+    throw "Deployment requires a checked-out branch."
+}
 
-# Git 操作（コミット＆プッシュ）
-git add .
-$datetime = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-git commit -m "Auto deploy at $datetime"
-git push origin main
+git fetch origin $branch
+if ($LASTEXITCODE -ne 0) {
+    throw "Failed to fetch origin/$branch."
+}
 
-# 元のディレクトリに戻る
-Set-Location -Path ".."
+$localCommit = (git rev-parse HEAD).Trim()
+$remoteCommit = (git rev-parse "origin/$branch").Trim()
+if ($localCommit -ne $remoteCommit) {
+    throw "Local HEAD and origin/$branch differ. Push the intended commit before deployment."
+}
+
+gh auth status | Out-Host
+if ($LASTEXITCODE -ne 0) {
+    throw "GitHub CLI authentication is required."
+}
+
+$workflowOutput = gh workflow run deploy.yml --repo $repository --ref $branch
+if ($LASTEXITCODE -ne 0) {
+    throw "Failed to start the Hugo deployment workflow."
+}
+
+$runUrl = ($workflowOutput | Select-Object -Last 1).Trim()
+if ($runUrl -notmatch '/actions/runs/(?<runId>\d+)$') {
+    throw "The deployment workflow started, but its run ID could not be determined."
+}
+
+$runId = $Matches.runId
+Write-Host "Deployment workflow: $runUrl"
+gh run watch $runId --repo $repository --exit-status
+if ($LASTEXITCODE -ne 0) {
+    throw "The Hugo deployment workflow failed."
+}
+
+for ($attempt = 1; $attempt -le $VerificationAttempts; $attempt++) {
+    $cacheBuster = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
+    $indexResponse = Invoke-WebRequest -Uri "$siteUrl`?verify=$cacheBuster" -Headers @{ "Cache-Control" = "no-cache" }
+    $assetMatch = [regex]::Match(
+        $indexResponse.Content,
+        'href=(?:"|)(?<url>https://[^ >"]+/assets/css/stylesheet\.[a-f0-9]+\.css)(?:"|)[^>]*integrity="(?<sri>sha256-[^"]+)"'
+    )
+
+    if ($assetMatch.Success) {
+        $cssUrl = $assetMatch.Groups["url"].Value
+        $expectedIntegrity = $assetMatch.Groups["sri"].Value
+        $verificationCssPath = Join-Path ([IO.Path]::GetTempPath()) "my-affiliate-site1-live-$cacheBuster.css"
+        Invoke-WebRequest -Uri "$cssUrl`?verify=$cacheBuster" -Headers @{ "Cache-Control" = "no-cache" } -OutFile $verificationCssPath
+        $actualIntegrity = "sha256-" + [Convert]::ToBase64String(
+            [Security.Cryptography.SHA256]::HashData([IO.File]::ReadAllBytes($verificationCssPath))
+        )
+        Remove-Item -LiteralPath $verificationCssPath -Force
+
+        if ($actualIntegrity -eq $expectedIntegrity) {
+            Write-Host "Deployment verified: the live CSS integrity hash matches."
+            exit 0
+        }
+    }
+
+    if ($attempt -lt $VerificationAttempts) {
+        Start-Sleep -Seconds $VerificationIntervalSeconds
+    }
+}
+
+throw "Deployment completed, but the live CSS integrity hash did not match before verification timed out."
