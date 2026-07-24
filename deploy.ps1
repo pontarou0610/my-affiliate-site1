@@ -13,7 +13,7 @@ $siteUrl = "https://pontarou0610.github.io/my-affiliate-site1/"
 
 Set-Location -LiteralPath $PSScriptRoot
 
-foreach ($command in @("git", "gh")) {
+foreach ($command in @("git", "gh", "curl.exe")) {
     if (-not (Get-Command $command -ErrorAction SilentlyContinue)) {
         throw "$command is required but was not found in PATH."
     }
@@ -67,9 +67,16 @@ if ($LASTEXITCODE -ne 0) {
 
 for ($attempt = 1; $attempt -le $VerificationAttempts; $attempt++) {
     $cacheBuster = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
-    $indexResponse = Invoke-WebRequest -Uri "$siteUrl`?verify=$cacheBuster" -Headers @{ "Cache-Control" = "no-cache" }
+    $indexPath = Join-Path ([IO.Path]::GetTempPath()) "my-affiliate-site1-live-$cacheBuster.html"
+    & curl.exe -fsSL --retry 3 --connect-timeout 15 -H "Cache-Control: no-cache" `
+        "$siteUrl`?verify=$cacheBuster" -o $indexPath
+    if ($LASTEXITCODE -ne 0) {
+        throw "Failed to fetch the live site for deployment verification."
+    }
+    $indexContent = [IO.File]::ReadAllText($indexPath)
+    Remove-Item -LiteralPath $indexPath -Force
     $assetMatch = [regex]::Match(
-        $indexResponse.Content,
+        $indexContent,
         'href=(?:"|)(?<url>https://[^ >"]+/assets/css/stylesheet\.[a-f0-9]+\.css)(?:"|)[^>]*integrity="(?<sri>sha256-[^"]+)"'
     )
 
@@ -77,7 +84,11 @@ for ($attempt = 1; $attempt -le $VerificationAttempts; $attempt++) {
         $cssUrl = $assetMatch.Groups["url"].Value
         $expectedIntegrity = $assetMatch.Groups["sri"].Value
         $verificationCssPath = Join-Path ([IO.Path]::GetTempPath()) "my-affiliate-site1-live-$cacheBuster.css"
-        Invoke-WebRequest -Uri "$cssUrl`?verify=$cacheBuster" -Headers @{ "Cache-Control" = "no-cache" } -OutFile $verificationCssPath
+        & curl.exe -fsSL --retry 3 --connect-timeout 15 -H "Cache-Control: no-cache" `
+            "$cssUrl`?verify=$cacheBuster" -o $verificationCssPath
+        if ($LASTEXITCODE -ne 0) {
+            throw "Failed to fetch the live CSS for deployment verification."
+        }
         $actualIntegrity = "sha256-" + [Convert]::ToBase64String(
             [Security.Cryptography.SHA256]::HashData([IO.File]::ReadAllBytes($verificationCssPath))
         )
