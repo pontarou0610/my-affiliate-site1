@@ -47,6 +47,13 @@ def read_json(path: Path, label: str) -> dict:
 
 
 def active_experiment_pages(path: Path, gsc: dict) -> set[str]:
+    """Return pages protected from another automatic edit recommendation.
+
+    Active experiments need their measurement window preserved. Won experiments
+    are also excluded because their completed change is already the adopted
+    baseline; repeatedly recommending the same page creates churn without a
+    new measurement signal. Review-due experiments remain eligible elsewhere.
+    """
     pages = {
         normalize_page(row.get("page") or "")
         for row in gsc.get("pages", [])
@@ -55,7 +62,7 @@ def active_experiment_pages(path: Path, gsc: dict) -> set[str]:
     if path.exists():
         with path.open(encoding="utf-8-sig", newline="") as handle:
             for row in csv.DictReader(handle):
-                if (row.get("status") or "").strip().lower() == "active":
+                if (row.get("status") or "").strip().lower() in {"active", "won"}:
                     pages.add(normalize_page(row.get("page") or ""))
     return {page for page in pages if page}
 
@@ -221,7 +228,7 @@ def format_backlog(payload: dict, limit: int) -> str:
         [
             "",
             "Use this backlog for the weekly edit only after the analytics freshness gate passes. "
-            "Active experiment pages are excluded so their review windows stay clean.",
+            "Active and won experiment pages are excluded so review windows and adopted baselines stay clean.",
         ]
     )
     return "\n".join(lines) + "\n"

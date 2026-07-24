@@ -1,7 +1,7 @@
 ---
-title: "旅行・出張の移動中も疲れにくい！Kindle/Kobo電子書籍の余白・行間最適化ガイド"
+title: "Kindle・Koboの文字設定｜余白・行間を読みやすくする調整手順"
 date: 2026-02-14
-lastmod: 2026-02-14
+lastmod: 2026-07-24
 draft: false
 
 
@@ -9,7 +9,7 @@ draft: false
 images: ["https://images.pexels.com/photos/35202792/pexels-photo-35202792.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"]
 tags: ['電子書籍', 'Kindle', 'Kobo', '電子書籍リーダー', '比較レビュー']
 categories: ["電子書籍"]
-description: "移動中の読書は、自宅より条件が厳しくなりがちです。揺れ、照明のムラ、立ち読み姿勢、短いスキマ時間が重なると、文字サイズだけでなく「余白」と「行間」の設計が読みやすさを左右します。 余白は視線の迷子を防ぎ、行間は行の取り違え（読み飛ばし・戻り。"
+description: "Kindle・Koboで余白・行間・文字サイズを調整し、旅行や出張の移動中でも読みやすくする設定手順。新幹線、飛行機、ホテル、立ち読み、PDF確認の場面別に、迷ったときの30秒調整も紹介します。"
 slug: "dian-zi-shu-ji-ri-ta-nodu-miyasusashe-ding-yu-bai-xing-jian"
 hasRelatedProducts: false
 showRakutenWidget: true
