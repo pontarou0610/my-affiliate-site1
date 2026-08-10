@@ -1,5 +1,12 @@
-{{- $href := .Destination -}}
+{{- $originalHref := .Destination -}}
+{{- $href := $originalHref -}}
 {{- $isExternal := or (hasPrefix $href "http://") (hasPrefix $href "https://") (hasPrefix $href "//") -}}
+{{- $pageFileName := "" -}}
+{{- with .Page.File }}{{- $pageFileName = .LogicalName -}}{{- end -}}
+{{- $trackKindleLp := and
+  (eq $originalHref "/lp/kindle/")
+  (eq $pageFileName "2026-05-14-1-shi-enakunarukindleha-wa-huronigai-zao-shiteminai.md")
+-}}
 
 {{- /* Fix root-relative internal links for GitHub Pages (baseURL subpath) */ -}}
 {{- if not $isExternal -}}
@@ -65,4 +72,4 @@
   {{- $slot = printf "inline-%s" $program -}}
 {{- end -}}
 <a href="{{ $href }}" {{ with .Title }}title="{{ . }}" {{ end }} {{ if $isExternal }}target="_blank" {{ end }} {{ if gt
-  (len $rel) 0 }}rel="{{ delimit $rel " " }}" {{ end }}{{ if $isAff }}data-affiliate="{{ $store }}" data-affiliate-program="{{ $program }}" data-affiliate-slot="{{ $slot }}" {{ end }}>{{ .Text }}</a>
+  (len $rel) 0 }}rel="{{ delimit $rel " " }}" {{ end }}{{ if $trackKindleLp }}data-internal-tracking="kindle-lp" {{ end }}{{ if $isAff }}data-affiliate="{{ $store }}" data-affiliate-program="{{ $program }}" data-affiliate-slot="{{ $slot }}" {{ end }}>{{ .Text }}</a>

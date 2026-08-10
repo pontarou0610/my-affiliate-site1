@@ -56,6 +56,13 @@
         var href = a.getAttribute("href");
         if (!href) return;
 
+        if (a.dataset && a.dataset.internalTracking === "kindle-lp") {
+          if (typeof window.gtag === "function") {
+            window.gtag("event", "internal_kindle_lp_click");
+          }
+          return;
+        }
+
         var rel = (a.getAttribute("rel") || "").toLowerCase();
         var isAffiliate = rel.indexOf("sponsored") !== -1 || (a.dataset && a.dataset.affiliate);
         if (!isAffiliate) return;
