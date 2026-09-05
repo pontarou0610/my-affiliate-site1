@@ -7,7 +7,7 @@ draft: false
 tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
 keywords: ["Kindle Kobo 違い", "Kindle Kobo 比較", "電子書籍リーダー おすすめ", "Kindle vs Kobo 2026"]
-description: "Kindle PaperwhiteとKobo Clara BWを、ストア、EPUB対応、画面、ポイントの違いで比較。Amazon派と楽天派のどちらに向くか判断できます。"
+description: "KindleとKoboの違いを、電子書籍ストア、EPUB対応、画面サイズ、ポイント活用で比較。Amazon中心か楽天中心か、どちらが自分に合うか30秒で判断できます。"
 slug: "kindle-vs-kobo"
 url: "/posts/kindle-vs-kobo/"
 aliases:
