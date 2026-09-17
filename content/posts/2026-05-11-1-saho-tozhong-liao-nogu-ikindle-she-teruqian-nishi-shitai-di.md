@@ -30,13 +30,13 @@ showProductRecommendations: true
 <section class="comparison-choice-cta google-auto-ads-ignore" aria-label="古いKindleの使い続け判断">
   <div class="offerbox-head">
     <span class="offerbox-pr">PR</span>
-    <p class="cta3-title">先に結論を決めたい人向け</p>
+    <p class="cta3-title">まずはそのまま活用。困っている人だけ買い替えを確認</p>
   </div>
-  <p>バッテリーやストア連携に不安がある場合は、無理に延命するより、現行端末・読み放題・Koboを並べて確認すると判断が早くなります。価格や対象作品はリンク先で確認してください。</p>
+  <p>文字表示と充電に問題がなければ、すぐに買い替える必要はありません。まずはこの記事の活用法を試してください。充電がもたない、Wi-Fiにつながらない、ストア同期が難しい場合だけ、現行端末との違いを確認すると判断しやすくなります。価格や対象作品はリンク先で確認してください。</p>
   <div class="comparison-choice-cta__grid">
-    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="amazon" data-affiliate-slot="old-kindle-early-paperwhite">Paperwhiteを確認</a>
-    <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="kindle_unlimited" data-affiliate-slot="old-kindle-early-unlimited">Unlimited対象を見る</a>
-    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-program="rakuten" data-affiliate-slot="old-kindle-early-kobo">Kobo端末も比較</a>
+    <a class="btn brand-amazon" href="https://amzn.to/48wNGzs" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="amazon" data-affiliate-slot="old-kindle-early-paperwhite">充電・接続に困るならPaperwhiteを確認</a>
+    <a class="btn brand-amazon" href="https://amzn.to/4oyRBSx" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="kindle_unlimited" data-affiliate-slot="old-kindle-early-unlimited">読む本を増やしたいならUnlimitedを確認</a>
+    <a class="btn brand-rakuten" href="https://hb.afl.rakuten.co.jp/hgc/0d62db60.7df6bee9.0d62db61.74fe29be/?pc=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F&m=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fereaders%2F" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="rakuten" data-affiliate-program="rakuten" data-affiliate-slot="old-kindle-early-kobo">Kindle以外も検討するならKoboを比較</a>
   </div>
 </section>
 
