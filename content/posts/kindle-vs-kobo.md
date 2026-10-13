@@ -2,7 +2,7 @@
 
 title: "KindleとKoboはどっちがいい？PaperwhiteとClara BWを比較【2026年】"
 date: 2025-08-22T10:00:00+09:00
-lastmod: 2026-06-22T00:00:00+09:00
+lastmod: 2026-10-13T00:00:00+09:00
 draft: false
 tags: ["電子書籍", "Kindle", "Kobo", "電子ペーパー", "電子書籍リーダー"]
 categories: ["電子書籍"]
@@ -34,22 +34,24 @@ schema:
       url: "https://books.rakuten.co.jp/rb/17822116/"
   faq:
     - question: "EPUBをそのまま扱いやすいのはどっち？"
-      answer: "Koboです。KindleでもEPUBは扱えますが、基本はSend to Kindle経由の変換前提です。"
+      answer: "DRMなしEPUBをUSBで取り込むならKoboが候補です。KindleではSend to Kindle経由の変換を使います。購入済みの本は形式だけでなくDRMと利用条件を確認してください。"
     - question: "読書専用機として一番無難なのは？"
       answer: "Amazon中心ならKindle Paperwhite、楽天中心ならKobo Clara BWが基準になります。"
     - question: "カラーE Inkは選ぶべきですか？"
-      answer: "小説中心なら白黒で十分です。図解、漫画、ハイライト色分けまで使うならKoboのColour系が候補になります。"
+      answer: "文字中心なら白黒モデルから検討できます。カラー作品を読むならKindle ColorsoftやKoboのColour系が候補です。白黒作品がカラー化されるわけではありません。"
 ---
-KindleはAmazon連携とSend to Kindle、KoboはEPUBの扱いやすさとカラー/物理ボタンの選択肢が強みです。  
-2026年6月22日時点で公式ストアを確認すると、標準的な白黒読書端末として比較しやすいのは、7インチのKindle Paperwhiteと6インチのKobo Clara BWです。価格や在庫は変動するため、購入前は販売ページを再確認してください。
+Amazonで本を買うならKindle、楽天Koboの本やDRMなしEPUBを中心に読むならKoboから検討すると選びやすくなります。白黒の文字中心なら、7インチのKindle Paperwhiteと6インチのKobo Clara BWが比較の基準です。
+
+2026年10月13日に公式情報を確認して更新しました。Amazonは10月1日にKindleシリーズの刷新を発表していますが、**新Paperwhiteと新Colorsoftは11月11日出荷予定の予約対象**です。販売中の旧モデルと区別し、発売年と納期を確認してください。<a href="https://www.aboutamazon.jp/news/devices/kindle-series-2026" target="_blank" rel="noopener noreferrer">Amazonの発表</a>
 
 ## 先に結論
 
-- **Amazon中心で迷いたくない人**: Kindle。Kindleストア、アプリ、Send to Kindleが一体で、資料送信もわかりやすいです。
-- **EPUBやカラーE Ink、物理ボタンを重視する人**: Kobo。6インチから10.3インチまで選択肢が広く、Clara ColourやLibra Colourが強いです。
+- **Amazonの本棚を使い続けたい人**: Kindle。KindleストアとSend to Kindleを中心に選びます。
+- **DRMなしEPUBをUSBで取り込みたい人**: Kobo。手元ファイルと楽天Koboの本を併用する用途が候補です。
+- **カラー作品を読みたい人**: Kindle ColorsoftとKobo Clara Colour／Libra Colourを、作品の配信ストアと画面サイズで比較します。
 - **小説中心の標準機が欲しい人**: Kindle PaperwhiteかKobo Clara BW。
-- **漫画、図解、見開き、ボタン操作を重視する人**: Kobo Libra Colourが有力。
-- **PDFや手書きメモ中心の人**: Kindle ScribeかKobo Elipsa 2E/Sage。
+- **本体のページめくりボタンを重視する人**: Kobo Libra Colourが候補。Kindleは別売りアクセサリの対応条件を確認します。
+- **PDFや手書きメモ中心の人**: Kindle ScribeシリーズかKobo Elipsa 2Eなどの大画面機を検討します。
 
 <section class="comparison-choice-cta google-auto-ads-ignore" aria-label="Kindle PaperwhiteとKobo Clara BWの選択導線">
   <div class="offerbox-head">
@@ -63,6 +65,8 @@ KindleはAmazon連携とSend to Kindle、KoboはEPUBの扱いやすさとカラ�
   </div>
 </section>
 
+上の広告リンク先では、発売年・容量・納期を確認してください。本記事で触れる2026年発表モデルと同じ構成とは限りません。既存端末で読みたい本を読めている人は、買い替えを急ぐ必要はありません。
+
 ## 30秒で決める比較表
 
 | 比較軸 | Kindle Paperwhite | Kobo Clara BW |
@@ -71,41 +75,46 @@ KindleはAmazon連携とSend to Kindle、KoboはEPUBの扱いやすさとカラ�
 | 画面 | 7インチ白黒 | 6インチ白黒 |
 | 容量 | 16GBの標準モデルが基準 | 16GB |
 | 防水 | 対応 | 対応 |
-| 手持ちEPUB | Send to Kindleで変換して送信 | EPUBを扱いやすい |
+| 手持ちEPUB | Send to Kindleで変換して送信 | DRMなしEPUBをUSBで取り込める |
 | 選ぶ決め手 | Amazon連携と画面の広さ | EPUB対応と楽天経済圏 |
 
-PaperwhiteはAmazon公式で7インチ、Clara BWは楽天公式で16GB、防水、EPUB対応が案内されています。価格差だけでなく、すでに持っている電子書籍と今後使うストアで決めてください。
+**PR／広告**: 以下の公式商品・仕様ページへのリンクには広告・アフィリエイトリンクが含まれます。Paperwhiteの7インチ・16GB・IPX8は[Amazonの商品ページ](https://www.amazon.co.jp/dp/B0GV5VHTL6)、Clara BWの6インチ・16GB・IPX8は[楽天Kobo公式仕様ページ](https://books.rakuten.co.jp/event/e-book/ereaders/koboclarabw/)で確認できます。防水は水中での読書を勧めるものではなく、使用条件に従ってください。
 
-## 2026年6月時点のラインナップ差
+## 2026年10月に確認したラインナップと予約の違い
 
-### Kindleは「迷いにくい3本柱」
+### Kindleは白黒・カラー・手書き用途を分ける
 
-Amazon日本のカテゴリでは、現在 `Kindle`、`Kindle Paperwhite`、`Kindle Scribe` が主力です。
+10月1日の刷新はKindle 16GB／32GB、Paperwhite系、Colorsoft系が対象です。以下は用途別の整理で、実機での性能比較ではありません。
 
-- **Kindle**: 6インチ、300ppi、16GB、約158gの軽量エントリー機。まず安く始めたい人向けです。
-- **Kindle Paperwhite系**: 7インチ、300ppi、防水、色調調節ライトが中心。読書専用機としていちばん無難です。
-- **Kindle Scribe**: 10.2インチの大画面と手書き対応。PDFやノート用途まで広げたい人向けです。
+- **Kindle 16GB／32GB**: 新モデルは10月1日から販売・出荷開始と案内されています。容量と持ち運びやすさを確認したい人向けです。
+- **Kindle Paperwhite系**: 7インチ白黒、防水、色調調節ライトを重視する人向け。2026年モデルは予約と出荷予定を確認します。
+- **Kindle Colorsoft系**: カラー作品の表紙や挿絵を読みたい人向け。白黒作品をカラーに変換する機能はありません。
+- **Kindle Scribeシリーズ**: 大画面と手書き用途の別候補。2026年5月の日本向け発表にはScribe Colorsoftも含まれます。
 
-Amazon側は選択肢が少ない代わりに、どのモデルを選ぶべきか判断しやすい構成です。
+発売日と出荷予定は変更の可能性があります。詳しくは<a href="https://www.aboutamazon.jp/news/devices/kindle-series-2026" target="_blank" rel="noopener noreferrer">10月のシリーズ刷新発表</a>と<a href="https://www.aboutamazon.jp/news/devices/new-kindle-scribe-series" target="_blank" rel="noopener noreferrer">5月のScribe発表</a>を確認してください。
 
 ### Koboは「用途別に細かく選べる」
 
-楽天Kobo公式の現行ラインナップは次の通りです。
+確認日の楽天Kobo日本向け公式一覧に掲載されているのは、次の4機種です。
 
 - **Clara BW**: 6インチの白黒モデル。小説と実用書を安定して読みたい人向け。
 - **Clara Colour**: 6インチのカラーE Ink。表紙、図解、軽い漫画用途まで広げたい人向け。
-- **Libra Colour**: 7インチ、カラー、物理ボタン、ノート対応。使い勝手のバランスがよい人気帯です。
-- **Sage**: 8インチ。文字サイズを上げても情報量を保ちたい人向け。
+- **Libra Colour**: 7インチ、カラー、ページめくりボタン、別売りKoboスタイラス2対応。ボタン操作と書き込みを検討する人向け。
 - **Elipsa 2E**: 10.3インチ。PDF閲覧と手書きメモを重視する人向け。
 
-Koboは「白黒で読むか、カラーまで欲しいか」「ボタンが必要か」「ノートまで使うか」で選びやすい反面、比較項目が増えます。
+画面サイズと操作方法は[楽天Kobo公式一覧（PR／広告）](https://books.rakuten.co.jp/event/e-book/ereaders/)で比較できます。Sageなど過去の機種は、この現行一覧と分けて扱います。
+
+### 物理ボタンは本体と別売りを分けて比較する
+
+Libra Colourは本体にページめくりボタンがあります。Amazonも10月に別売りのKindle Clickとボタン付きカバーを発表しましたが、対応端末は異なります。本体だけで使いたいか、アクセサリを追加してもよいかを先に決めましょう。[Kindle Clickの対応条件とカバーとの違い](/posts/2026/10/kindle-click-compatibility/)に整理しました。
+
+Koboにも別売りのBluetoothリモコン「Kobo Remote」があります。日本公式一覧ではClara BW／Clara Colour／Libra Colour／Elipsa 2Eの対応が案内されています。本体内蔵ボタンと外付けリモコンを分け、接続条件と追加費用を比較してください。[楽天Kobo公式の対応一覧（PR／広告）](https://books.rakuten.co.jp/event/e-book/ereaders/)
 
 ## 対応形式と使い勝手の違い
 
 ### Kindleは「送って読む」が得意
 
-KindleはAZW系を中心にしつつ、Send to Kindleで `PDF / DOCX / EPUB / TXT` などを送って変換しながら読む運用が強いです。  
-自分で作った資料、配布PDF、Web記事をAmazonアカウント経由でまとめたい人に向きます。
+Send to KindleはPDF・DOCX・EPUB・TXTなどを送信するサービスです。EPUBはKindle向けの変換を経て読むため、USBでEPUBを直接開く方式とは区別してください。対応形式は[Amazon公式ヘルプ](https://digprjsurvey.amazon.com/csad/help/node/TCUBEdEkbIhK07ysFu)で確認できます。
 
 向いている人:
 
@@ -115,8 +124,9 @@ KindleはAZW系を中心にしつつ、Send to Kindleで `PDF / DOCX / EPUB / TX
 
 ### KoboはEPUBとサイドロードがわかりやすい
 
-Koboは公式ヘルプでも `EPUB / EPUB3 / PDF / CBZ / CBR / TXT / HTML / RTF` など幅広い対応形式を案内しています。  
-DRMなしEPUBや自炊寄りのファイルを整理しながら使うなら、Koboの方が素直です。
+KoboはEPUB・PDF・CBZ・CBRなどの対応形式を案内しています。DRMなしEPUBとPDFはパソコンからUSBで取り込めます。ただし、取り込んだ本が他のKobo端末やアプリへ自動同期されるわけではありません。[Kobo公式の取り込み手順](https://help.kobo.com/hc/en-us/articles/360024775093-Add-non-protected-PDF-and-ePub-files-to-your-Kobo-eReader-using-your-computer)
+
+「EPUB対応」だけで、他ストアで買った本をそのまま読めるとは判断できません。形式とDRM、出版社の利用条件を確認してください。
 
 向いている人:
 
@@ -126,9 +136,7 @@ DRMなしEPUBや自炊寄りのファイルを整理しながら使うなら、K
 
 ## ストア、ポイント、セールの考え方
 
-- **Kindle**: 大型セール時の端末値引きとKindle本セールが狙い目。Amazonを日常的に使う人は支払いも一本化しやすいです。
-- **Kobo**: 楽天ポイント、SPU、買い回りの影響が大きく、実質価格で見ると強い日があります。
-- **結論**: 表示価格だけでなく、普段使っている経済圏やポイント条件まで含めて比較すると判断しやすくなります。
+端末代だけでなく、読みたい作品の配信有無、すでに買った本、ケースなどの追加費用を並べてください。価格・在庫・ポイント・キャンペーン条件は変わります。会員条件、エントリーの必要性、還元上限も申込画面で確認し、ポイントを現金値引きと同じ前提で計算しないようにしましょう。
 
 ## どちらを選ぶべきか
 
@@ -143,13 +151,13 @@ DRMなしEPUBや自炊寄りのファイルを整理しながら使うなら、K
 
 - 楽天ポイントを日常的に使う
 - EPUBを直接扱いたい
-- カラーE Inkや物理ボタンを重視する
+- Libra Colourの本体ボタンを使いたい
 - 6インチ白黒から10.3インチノート機まで比較して選びたい
 
 ## 迷ったときの選び方
 
 1. 小説中心なら `Kindle Paperwhite` か `Kobo Clara BW`
-2. 漫画や図解が多いなら `Kobo Libra Colour` を優先検討
+2. カラー作品なら `Kindle Colorsoft` と `Kobo Clara Colour／Libra Colour` を配信ストアとサイズで比較
 3. PDFとメモ重視なら `Kindle Scribe` か `Kobo Elipsa 2E`
 4. Amazonの資料送信重視なら Kindle
 5. EPUB資産を育てたいなら Kobo
@@ -158,7 +166,7 @@ DRMなしEPUBや自炊寄りのファイルを整理しながら使うなら、K
 
 ### EPUBをそのまま扱いやすいのはどっち？
 
-Koboです。KindleでもEPUBは扱えますが、基本はSend to Kindle経由の変換前提です。
+DRMなしEPUBをUSBで取り込むならKoboが候補です。KindleではSend to Kindle経由の変換を使います。購入済みの本は形式だけでなくDRMと利用条件を確認してください。
 
 ### 読書専用機として一番無難なのは？
 
@@ -166,7 +174,7 @@ Amazon中心ならKindle Paperwhite、楽天中心ならKobo Clara BWが基準�
 
 ### カラーE Inkを選ぶべき？
 
-小説中心なら白黒で十分です。図解、漫画、ハイライト色分けまで使うならKoboのColour系が候補になります。
+文字中心なら白黒モデルから検討できます。カラー作品を読むならKindle ColorsoftやKoboのColour系が候補です。白黒作品がカラー化されるわけではありません。
 
 ## 関連記事
 
