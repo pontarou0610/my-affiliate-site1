@@ -145,6 +145,7 @@ KoboのEPUB崩れは、Calibreで **EPUB→EPUB** 再変換し、(1)余白・行
 
 ## 関連リンク
 
+- [楽天Kobo端末・ストア活用ガイド](/lp/kobo/)
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
@@ -152,6 +153,7 @@ KoboのEPUB崩れは、Calibreで **EPUB→EPUB** 再変換し、(1)余白・行
 
 ## 関連記事
 
+- [楽天Kobo端末・ストア活用ガイド](/lp/kobo/)
 - [Cursor完全入門ほか技術書が半額！Kindle電子書籍セールでAI・ゲーム開発本をお得に学ぶ](/posts/2026/02/cursorwan-quan-ru-men-natohurokuraminkuguan-lian-shu-ka50-of/)
 - [PCなしでKindle電子書籍をスッキリ整理！スマホだけで蔵書管理する具体手順](/posts/2026/01/pcnashitekindleben-woguan-li-zheng-li-surushou-shun/)
 - [若年層に広がるFacebook Dating活用術：Kindle・電子書籍好きが安心して出会える理由](/posts/2025/12/mi-kanada-hitsuto-facebook-dating-yi-wai-nimoruo-nian-ceng-n/)

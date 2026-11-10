@@ -170,6 +170,7 @@ showProductRecommendations: true
 
 ## 関連リンク
 
+- [Kindle全機種の選び方・読み放題ガイド](/lp/kindle/)
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
@@ -177,6 +178,7 @@ showProductRecommendations: true
 
 ## 関連記事
 
+- [Kindle全機種の選び方・読み放題ガイド](/lp/kindle/)
 - [Send to Kindleでマンガが崩れる原因と対処法｜余白・向き・サイズを整えてKindleで快適閲覧](/posts/2026/03/send-to-kindletemankawosong-rutobeng-rerushi-nodui-chu-fa-yu/)
 - [2025年電子書籍リーダー3選アップデート（11/25 最終週）](/posts/2025/11/1-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-3/)
 - [MacBook Neo登場？$599でChromebook級の手軽さ＋Kindle電子書籍も快適なmacOS入門機](/posts/2026/03/meet-the-macbook-neo-apples-colorful-answer-to-the-chromeboo/)

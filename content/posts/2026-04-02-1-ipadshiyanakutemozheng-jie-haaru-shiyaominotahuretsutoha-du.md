@@ -197,6 +197,8 @@ REDMI Pad 2 Proは、Xiaomi公式で12.1インチ・2.5Kディスプレイと案
 
 ## 関連リンク
 
+- [楽天Kobo端末・ストア活用ガイド](/lp/kobo/)
+- [Kindle全機種の選び方・読み放題ガイド](/lp/kindle/)
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
@@ -204,6 +206,8 @@ REDMI Pad 2 Proは、Xiaomi公式で12.1インチ・2.5Kディスプレイと案
 
 ## 関連記事
 
+- [楽天Kobo端末・ストア活用ガイド](/lp/kobo/)
+- [Kindle全機種の選び方・読み放題ガイド](/lp/kindle/)
 - [Kindle UnlimitedとKobo Plusの違い：2026年3月時点の選び方](/posts/2025/11/kindle-unlimitedtokobo-plusnowei-itoxuan-hifang/)
 - [EPUBとPDFの使い分け：学習・技術書・漫画でどちらを選ぶ？](/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u/)
 - [月刊DBマガジン復刻版がKindle電子書籍で第一弾発売、現場の判断プロセスを検索して即参照できる理由](/posts/2026/03/yue-kan-dbmakashin-kafu-ke-kindletedi-yi-dan-kafan-mai-kai-s/)

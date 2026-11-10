@@ -178,6 +178,8 @@ Amazon中心ならKindle Paperwhite、楽天中心ならKobo Clara BWが基準�
 
 ## 関連記事
 
+- [楽天Kobo端末・ストア活用ガイド](/lp/kobo/)
+- [Kindle全機種の選び方・読み放題ガイド](/lp/kindle/)
 - [おすすめ購入先ガイド](/recommend/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)

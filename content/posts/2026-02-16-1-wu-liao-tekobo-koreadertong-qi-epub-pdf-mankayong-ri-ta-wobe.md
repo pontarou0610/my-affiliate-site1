@@ -111,6 +111,7 @@ Bookloreは、EPUB・PDF・マンガをまとめて扱いながら、マルチ�
 
 ## 関連リンク
 
+- [楽天Kobo端末・ストア活用ガイド](/lp/kobo/)
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
@@ -118,6 +119,7 @@ Bookloreは、EPUB・PDF・マンガをまとめて扱いながら、マルチ�
 
 ## 関連記事
 
+- [楽天Kobo端末・ストア活用ガイド](/lp/kobo/)
 - [Kindle本がEPUB・PDF対応へ｜Koboなど他端末でも読める電子書籍の新しい活用術](/posts/2025/12/kindleben-lai-nian-karayi-bu-epub-pdftenotaunro-tokake-neng/)
 - [2025年電子書籍リーダー3選アップデート（12/2 延長戦）](/posts/2025/12/2-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-7/)
 - [オンラインで安全に過ごすための12ステップ](/posts/2025/11/12-steps-you-can-take-right-now-to-be-safer-online/)
