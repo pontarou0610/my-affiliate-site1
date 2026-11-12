@@ -6,7 +6,6 @@
 {{- $koboGuide := "/lp/kobo/" | relURL -}}
 {{- $comparisonGuide := "/posts/kindle-vs-kobo/" | relURL -}}
 {{- $disclosure := "/legal/disclosure/" | relURL -}}
-{{- $yahooDeviceUrl := "https://yahoo.jp/33rgX2" -}}
 {{- $isPaperwhite := or (in $topic "paperwhite") (in $topic "kindle paperwhite") (in $topic "kindle-paperwhite") -}}
 {{- $isUnlimited := in $topic "kindle unlimited" -}}
 {{- $isKoboPlus := in $topic "kobo plus" -}}
@@ -71,7 +70,6 @@
   {{- $cards = slice
     (dict "label" "端末" "title" "Kindle Paperwhite" "body" "長く読む前提なら、価格だけでなく容量と広告有無も確認。" "checks" (slice "価格" "容量" "広告有無") "store" "amazon" "url" "https://amzn.to/48wNGzs" "button" "Paperwhiteを見る" "slot" "related-kindle-paperwhite" "primary" true "guideUrl" $kindleGuide "guideText" "Kindle活用ガイド")
     (dict "label" "読み放題" "title" "Kindle Unlimited" "body" "本体購入前に、読みたい本が対象かどうかを確認。" "checks" (slice "対象作品" "体験条件" "解約手順") "store" "amazon" "url" "https://amzn.to/4oyRBSx" "button" "Unlimitedを確認" "slot" "related-unlimited")
-    (dict "label" "価格比較" "title" "Yahoo!ショッピング" "body" "モール価格やポイント還元も見たい場合の比較用。" "checks" (slice "価格" "ポイント" "在庫") "store" "yahoo" "url" $yahooDeviceUrl "button" "Yahoo!でも探す" "slot" "related-yahoo-device" "guideUrl" $comparisonGuide "guideText" "KindleとKoboの違い")
   -}}
 {{- else -}}
   {{- $cards = slice

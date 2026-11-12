@@ -23,7 +23,6 @@
 {{- $isReading := or $isKindle $isKobo $isBookSale (in $haystack "電子書籍") (in $haystack "読書") (in $haystack "epub") (in $haystack "pdf") -}}
 {{- $amazonTag := or $page.Site.Params.amazonTag (getenv "AMAZON_TAG") -}}
 {{- $rakutenId := or $page.Site.Params.rakutenAffiliateId (getenv "RAKUTEN_AFFILIATE_ID") -}}
-{{- $yahooDeviceUrl := "https://yahoo.jp/33rgX2" -}}
 {{- $disclosure := "/legal/disclosure/" | relURL -}}
 {{- $kindleGuide := "/lp/kindle/" | relURL -}}
 {{- $koboGuide := "/lp/kobo/" | relURL -}}
@@ -198,9 +197,6 @@
     {{- end -}}
   {{- end -}}
 
-  {{- if and (eq $position "bottom") (not $isSubscription) (not $isBookSale) (not $paramPrimaryUrl) -}}
-    {{- $buttons = $buttons | append (dict "store" "yahoo" "url" $yahooDeviceUrl "text" "Yahoo!ショッピングで探す") -}}
-  {{- end -}}
 
   {{- $note = printf "広告を含みます。価格、対象作品、キャンペーン条件は変わるため、最終条件はリンク先で確認してください。<a href=\"%s\">開示事項</a>" $disclosure -}}
 
