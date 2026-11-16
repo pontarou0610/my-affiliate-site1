@@ -21,11 +21,9 @@ showProductRecommendations: true
 ![サポート終了の古いKindle、捨てる前に試したい「第2の活用法」 | ライフハッカー・ジャパンのイメージ](https://images.pexels.com/photos/59143/pexels-photo-59143.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
 <small>Photo by [Caio](https://www.pexels.com/@caio) on [Pexels](https://www.pexels.com/photo/grayscale-photo-of-e-reader-59143/)</small>
 
-サポートが終了した古いKindleを見ると、「もう使い道はないのでは」と感じるかもしれません。たしかに、現行のKindle PaperwhiteやKobo Libra Colourのような高速表示、防水、ストア連携の快適さは期待しにくくなります。
+古いKindleを手放す前に、まずは充電のもち、文字の表示、読みたい本や資料を開けるかを確認してみましょう。この記事では、手元の端末の状態を点検したうえで、読書、学習、家の中での確認用など、用途を絞った活用法を紹介します。
 
-一方で、古いKindleにはE Inkならではの強みがあります。目が疲れにくく、待機時の消費電力が少なく、通知に邪魔されません。最新機種の代わりとして考えるより、用途を絞った専用端末として使うほうが価値を引き出しやすくなります。
-
-この記事では、サポート終了の古いKindleを手放す前に試したい活用法と、使い続けるか買い替えるかを判断する基準を具体的に紹介します。
+最初は「使い始める前に確認したいこと」から読み、バッテリー、Wi-Fi、対応ファイル形式を順に点検してください。そのうえで使い道を選び、困りごとが残る場合は後半の買い替え判断へ進めます。機種別のサポート状況は個別に確認し、この記事だけで更新や接続の可否を決めないようにしてください。
 
 <section class="comparison-choice-cta google-auto-ads-ignore" aria-label="古いKindleの使い続け判断">
   <div class="offerbox-head">
@@ -170,7 +168,7 @@ showProductRecommendations: true
 
 ## 関連リンク
 
-- [Kindle全機種の選び方・読み放題ガイド](/lp/kindle/)
+- [Kindle全機種の選び方・現行モデル詳細比較](/lp/kindle/)
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
@@ -178,7 +176,6 @@ showProductRecommendations: true
 
 ## 関連記事
 
-- [Kindle全機種の選び方・読み放題ガイド](/lp/kindle/)
 - [Send to Kindleでマンガが崩れる原因と対処法｜余白・向き・サイズを整えてKindleで快適閲覧](/posts/2026/03/send-to-kindletemankawosong-rutobeng-rerushi-nodui-chu-fa-yu/)
 - [2025年電子書籍リーダー3選アップデート（11/25 最終週）](/posts/2025/11/1-2025nian-zui-xin-nodian-zi-shu-ji-ri-ta-3xuan-3/)
 - [MacBook Neo登場？$599でChromebook級の手軽さ＋Kindle電子書籍も快適なmacOS入門機](/posts/2026/03/meet-the-macbook-neo-apples-colorful-answer-to-the-chromeboo/)
