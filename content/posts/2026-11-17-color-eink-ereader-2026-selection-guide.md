@@ -47,6 +47,16 @@ showProductRecommendations: false
 
 両ストアの詳しい比較は[KindleとKoboの違い比較ページ](/posts/kindle-vs-kobo/)でも整理しています。まずは「自分が一番多く読むジャンルにカラーが必要か」を基準に絞り込むと、納得感のある1台を選びやすくなります。
 
+### Amazonで最新モデル・サービスを確認する
+
+Kindle端末や対象サービスを検討する場合は、以下のAmazon公式ストアページから最新の取り扱い・価格・在庫状況を確認できます。
+
+{{< affbtn store="amazon" slot="color-eink-colorsoft" url="https://www.amazon.co.jp/s?k=Kindle+Colorsoft&i=amazon-devices&tag=naoto0610-22" text="AmazonでKindle Colorsoft関連モデルを見る" >}}
+
+{{< affbtn store="amazon" slot="color-eink-paperwhite" url="https://amzn.to/48wNGzs" text="AmazonでKindle Paperwhite（モノクロ定番機）を見る" >}}
+
+{{< affbtn store="amazon" slot="color-eink-ku" url="https://amzn.to/4oyRBSx" text="AmazonでKindle Unlimited（読み放題対象作品）を見る" >}}
+
 ## 関連記事
 
 - [KindleとKoboの違い比較ページ](/posts/kindle-vs-kobo/)
