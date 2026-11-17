@@ -2469,7 +2469,7 @@ def main():
     )
     parser.add_argument("--gsc-days", type=int, default=28, help="GSC取得期間（日数）")
     parser.add_argument("--gsc-min-impressions", type=int, default=50, help="GSCの最小表示回数")
-    parser.add_argument("--gsc-min-position", type=int, default=10, help="GSCの最小掲載順位")
+    parser.add_argument("--gsc-min-position", type=(lambda v: int(float(v))), default=10, help="GSCの最小掲載順位")
     args = parser.parse_args()
 
     # Safety guard: disable accidental generation unless explicitly enabled.

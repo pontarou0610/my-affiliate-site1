@@ -209,6 +209,7 @@ Kindle、Kobo、Redmiは優劣で選ぶものではなく、読書に何を求�
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
+- [マンガ・雑誌・PDFを読むためのXiaomi・REDMIタブレットの選び方](/posts/2026/04/ipadshiyanakutemozheng-jie-haaru-shiyaominotahuretsutoha-du/)
 
 
 ## 関連記事

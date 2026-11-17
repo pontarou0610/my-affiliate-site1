@@ -35,7 +35,7 @@ Androidタブレットは動画視聴やゲーム向けという印象を持た�
 | マンガ・雑誌を大きく読む | REDMI Pad 2 / REDMI Pad 2 Pro | カラー表示、見開き、画面の大きさを優先 |
 | PDF、技術書、メモも1台で扱う | Xiaomi Pad 7などのタブレット | 縦方向の表示領域、アプリの自由度、作業との両立を優先 |
 
-小説中心なら、先に<a href="/my-affiliate-site1/posts/kindle-paperwhite-review/">Kindle Paperwhiteのレビュー</a>も比較してください。マンガ・雑誌・PDF中心なら、次の価格と在庫を確認して候補を絞るのが早道です。
+PDF・技術書に加えてメモや仕事も1台で扱いたい人は後半のXiaomi Pad 7の比較表を確認し、マンガ・雑誌やPDFの閲覧を中心に予算を抑えて選ぶ人は、次のREDMI Pad 2系の価格・在庫から確認して候補を絞るのが早道です。
 
 <section class="comparison-choice-cta google-auto-ads-ignore" aria-label="REDMI Pad 2の購入導線">
   <div class="offerbox-head">
@@ -197,8 +197,8 @@ REDMI Pad 2 Proは、Xiaomi公式で12.1インチ・2.5Kディスプレイと案
 
 ## 関連リンク
 
-- [楽天Kobo端末・ストア活用ガイド](/lp/kobo/)
-- [Kindle全機種の選び方・読み放題ガイド](/lp/kindle/)
+- [Kindle全機種の選び方・現行モデル詳細比較](/lp/kindle/)
+- [楽天Kobo全モデル比較表・選び方ガイド](/lp/kobo/)
 - [KindleとKoboの違い](/posts/kindle-vs-kobo/)
 - [Kindle Paperwhiteレビュー](/posts/kindle-paperwhite-review/)
 - [Kobo Claraレビュー](/posts/kobo-clara-review/)
@@ -206,8 +206,6 @@ REDMI Pad 2 Proは、Xiaomi公式で12.1インチ・2.5Kディスプレイと案
 
 ## 関連記事
 
-- [楽天Kobo端末・ストア活用ガイド](/lp/kobo/)
-- [Kindle全機種の選び方・読み放題ガイド](/lp/kindle/)
 - [Kindle UnlimitedとKobo Plusの違い：2026年3月時点の選び方](/posts/2025/11/kindle-unlimitedtokobo-plusnowei-itoxuan-hifang/)
 - [EPUBとPDFの使い分け：学習・技術書・漫画でどちらを選ぶ？](/posts/2025/11/epubtopdfnoshi-ifen-ke-xue-xi-ji-shu-shu-man-hua-tetouwei-u/)
 - [月刊DBマガジン復刻版がKindle電子書籍で第一弾発売、現場の判断プロセスを検索して即参照できる理由](/posts/2026/03/yue-kan-dbmakashin-kafu-ke-kindletedi-yi-dan-kafan-mai-kai-s/)
