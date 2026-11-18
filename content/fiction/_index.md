@@ -2,7 +2,7 @@
 title: "著者の小説"
 description: "ぽんたろうが執筆したKindle小説を紹介します。政治制度サスペンス、企業ITサスペンス、現代ミステリーなど、電子書籍で読めるオリジナル作品をまとめました。"
 date: 2026-05-13
-lastmod: 2026-07-15
+lastmod: 2026-11-18
 draft: false
 tags: ["Kindle小説", "ぽんたろう", "政治サスペンス", "社会派ミステリー"]
 categories: ["小説"]
@@ -56,13 +56,57 @@ keywords: ["ぽんたろう 小説", "Kindle小説", "政治サスペンス", "�
   </article>
 
   <article class="fiction-card fiction-card--featured">
+    <img src="../images/novels/ashita-kiru-fuku.jpg" alt="明日着る服 表紙" loading="lazy">
+    <div>
+      <p class="fiction-label">Kindle</p>
+      <h3>明日着る服</h3>
+      <p class="fiction-subtitle">誰かのために直すことは、その人の代わりに決めることじゃない</p>
+      <p>閉店を控えた洋服直し店「つぎ目」に持ち込まれた一着の古いコート。母は「短く」、娘は「切らないで」と訴える相反する願いの狭間で揺れる仕立て手が、仕事と責任を選び直す現代生活小説。</p>
+      <a class="btn brand-amazon" href="https://www.amazon.co.jp/dp/B0HRYSB6MB?tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="kdp" data-affiliate-slot="fiction-featured-ashita">Amazonで見る</a>
+    </div>
+  </article>
+
+  <article class="fiction-card fiction-card--featured">
+    <img src="../images/novels/hahaoya-score.jpg" alt="母親スコア 表紙" loading="lazy">
+    <div>
+      <p class="fiction-label">Kindle</p>
+      <h3>母親スコア</h3>
+      <p class="fiction-subtitle">専業主婦VS兼業主婦を作った町</p>
+      <p>保護者アプリに一斉配信された「家庭協力度ランキング」。点数の影で抜け落ちた欠席理由と、立場を越えて制度の軋みに向き合う二人の母親を描く家庭ミステリー・社会派サスペンス。</p>
+      <a class="btn brand-amazon" href="https://www.amazon.co.jp/dp/B0HM3C157W?tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="kdp" data-affiliate-slot="fiction-featured-hahaoya">Amazonで見る</a>
+    </div>
+  </article>
+
+  <article class="fiction-card fiction-card--featured">
+    <img src="../images/novels/bunkasai-no-haishin.jpg" alt="文化祭の配信で、親友は消えた 表紙" loading="lazy">
+    <div>
+      <p class="fiction-label">Kindle</p>
+      <h3>文化祭の配信で、親友は消えた</h3>
+      <p class="fiction-subtitle">コメント欄に残った最後の一文から始まる学園拡散サスペンス</p>
+      <p>文化祭の生配信中に姿を消した親友と、予約投稿された「倉庫の鍵は職員室じゃない」の一文。削除された編集前データと学校の闇を追う映像部の少女を描く学園拡散サスペンス。</p>
+      <a class="btn brand-amazon" href="https://www.amazon.co.jp/dp/B0GX2Y865K?tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="kdp" data-affiliate-slot="fiction-featured-bunkasai">Amazonで見る</a>
+    </div>
+  </article>
+
+  <article class="fiction-card fiction-card--featured">
+    <img src="../images/novels/shushi-no-chinmoku.jpg" alt="種子の沈黙 表紙" loading="lazy">
+    <div>
+      <p class="fiction-label">Kindle</p>
+      <h3>種子の沈黙</h3>
+      <p class="fiction-subtitle">買収された農協と消えた在来品種</p>
+      <p>一斉に発芽障害を起こした苗と水門での不審死。農協の指導員が暗号化USBと半世紀前の原種を手掛かりに、企業契約と農地担保の仕組みを辿る社会派ミステリー。</p>
+      <a class="btn brand-amazon" href="https://www.amazon.co.jp/dp/B0HGXFPFY9?tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="kdp" data-affiliate-slot="fiction-featured-shushi">Amazonで見る</a>
+    </div>
+  </article>
+
+  <article class="fiction-card fiction-card--featured">
     <img src="../images/novels/kimei-no-kyoshitsu.jpg" alt="棄名の教室 表紙" loading="lazy">
     <div>
-      <p class="fiction-label">公開準備中</p>
+      <p class="fiction-label">Kindle</p>
       <h3>棄名の教室</h3>
       <p class="fiction-subtitle">国を育てる男が、国を支配しかけた夜</p>
       <p>政治教育コミュニティが善意から支配装置へ変質していく恐怖と、名前を取り戻す解放を描く政治制度サスペンス。</p>
-      <span class="fiction-pill">政治制度サスペンス</span>
+      <a class="btn brand-amazon" href="https://www.amazon.co.jp/dp/B0H1M9DQNH?tag=naoto0610-22" target="_blank" rel="nofollow sponsored noopener noreferrer" data-affiliate="amazon" data-affiliate-program="kdp" data-affiliate-slot="fiction-featured-kimei">Amazonで見る</a>
     </div>
   </article>
 
