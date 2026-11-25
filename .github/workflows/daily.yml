@@ -128,7 +128,39 @@ jobs:
           fi
           mapfile -t changed_candidates < <({ git diff --name-only --diff-filter=ACMRTUXB HEAD -- content data 2>/dev/null || true; git ls-files --others --exclude-standard -- content data 2>/dev/null || true; } | sort -u)
           if [ "${#changed_candidates[@]}" -eq 0 ]; then
-            echo "::error::AI review candidate generation was requested (${expected}) but produced no content/data changes."
+                        # Zero candidates is not always a failure. The generation step
+            # writes data/supply_gap_report.json even when it produces no
+            # candidates (the file is gitignored, so it never appears as a
+            # change above). Use its meta.fallback_reason to tell a quiet
+            # week (nothing met the thresholds) apart from a real failure
+            # of the external supply check.
+            report_check="$(python3 - <<'PYEOF'
+          import json
+          try:
+              with open("data/supply_gap_report.json", encoding="utf-8") as fh:
+                  report = json.load(fh)
+              meta = report.get("meta") or {}
+              reason = str(meta.get("fallback_reason") or "")
+              has_rows = 1 if report.get("audit_rows") else 0
+          except Exception:
+              reason, has_rows = "__unreadable__", 0
+          print(reason)
+          print(has_rows)
+          PYEOF
+          )"
+            fallback_reason="$(printf '%s\n' "$report_check" | sed -n '1p')"
+            has_audit_rows="$(printf '%s\n' "$report_check" | sed -n '2p')"
+            case "$fallback_reason" in
+              gsc_data_unavailable|missing_serp_credentials|external_check_exception)
+                echo "::error::AI review candidate generation produced no content/data changes because the external supply check failed (fallback_reason: ${fallback_reason})."
+                exit 1
+                ;;
+            esac
+            if [ "$fallback_reason" = "no_gsc_queries_after_filter" ] || { [ -z "$fallback_reason" ] && [ "$has_audit_rows" = "1" ]; }; then
+              echo "::warning::No review candidates met the quality thresholds this week (quiet week). Treating zero candidates as a quiet week, not a failure."
+              exit 0
+            fi
+            echo "::error::AI review candidate generation was requested (${expected}) but produced no content/data changes, and a quiet week could not be confirmed from data/supply_gap_report.json (fallback_reason: ${fallback_reason})."
             exit 1
           fi
           printf 'Generated review candidate changes:\n'
