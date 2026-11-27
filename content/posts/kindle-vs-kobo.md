@@ -42,7 +42,7 @@ schema:
 ---
 Amazonで本を買うならKindle、楽天Koboの本やDRMなしEPUBを中心に読むならKoboから検討すると選びやすくなります。白黒の文字中心なら、7インチのKindle Paperwhiteと6インチのKobo Clara BWが比較の基準です。
 
-2026年10月13日に公式情報を確認して更新しました。Amazonは10月1日にKindleシリーズの刷新を発表していますが、**新Paperwhiteと新Colorsoftは11月11日出荷予定の予約対象**です。販売中の旧モデルと区別し、発売年と納期を確認してください。<a href="https://www.aboutamazon.jp/news/devices/kindle-series-2026" target="_blank" rel="noopener noreferrer">Amazonの発表</a>
+2026年11月27日に公式情報を確認して更新しました。Amazonは2026年10月に新Paperwhiteと新Colorsoftを含むKindleシリーズの刷新を発表し、11月より順次出荷を開始しています。購入時は旧モデルと区別し、各商品ページで最新の在庫状況と納期を確認してください。<a href="https://www.aboutamazon.jp/news/devices/kindle-series-2026" target="_blank" rel="noopener noreferrer">Amazonの発表</a>
 
 ## 先に結論
 
